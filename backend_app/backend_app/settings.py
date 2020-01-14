@@ -1,5 +1,5 @@
+from datetime import timedelta
 import os
-
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -28,8 +28,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'simple_history',
+    'django_celery_beat',
 
     'monitored_assets',
+    'vulns',
     'vpratings',
 ]
 
@@ -66,9 +68,17 @@ WSGI_APPLICATION = 'backend_app.wsgi.application'
 
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # }
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'patrowlhears_db',
+        'USER': 'patrowlhears',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
@@ -88,11 +98,56 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Paris'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
 
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
+
+RABBIT_HOSTNAME = os.environ.get('RABBIT_PORT_5672_TCP', 'localhost:5672')
+
+if RABBIT_HOSTNAME.startswith('tcp://'):
+    RABBIT_HOSTNAME = RABBIT_HOSTNAME.split('//')[1]
+
+BROKER_URL = os.environ.get('BROKER_URL', '')
+if BROKER_URL == "":
+    BROKER_URL = 'amqp://{user}:{password}@{hostname}/{vhost}/'.format(
+        user=os.environ.get('RABBIT_ENV_USER', 'guest'),
+        password=os.environ.get('RABBIT_ENV_RABBITMQ_PASS', 'guest'),
+        hostname=RABBIT_HOSTNAME,
+        vhost=os.environ.get('RABBIT_ENV_VHOST', ''))
+
+# BROKER_HEARTBEAT = '?heartbeat=30'
+# if not BROKER_URL.endswith(BROKER_HEARTBEAT):
+#     BROKER_URL += BROKER_HEARTBEAT
+
+# BROKER_POOL_LIMIT = None
+BROKER_HEARTBEAT = None
+BROKER_POOL_LIMIT = 1
+BROKER_CONNECTION_TIMEOUT = 30
+
+# CELERY
+CELERY_RESULT_BACKEND = 'rpc://'
+CELERY_RESULT_PERSISTENT = True
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = os.environ.get('PATROWL_TZ', 'Europe/Paris')
+CELERY_TASK_IGNORE_RESULT = True
+# CELERY_TASK_RESULT_EXPIRES = 300
+CELERY_ACKS_LATE = True
+
+CELERY_BEAT_SCHEDULE = {
+    'refresh_monitored_cves': {
+        'task': 'vulns.tasks.refresh_monitored_cve_task',
+        'schedule': timedelta(minutes=1)
+    }
+}
+
+# Others
 CVESEARCH_URL = 'http://localhost:5000'

@@ -1,0 +1,113 @@
+[2020-01-14 09:01:15,555: INFO/MainProcess] Received task: vulns.tasks.refresh_monitored_cve_task[7c4ba614-b022-4aba-bd11-f954c03b6db2]  
+[2020-01-14 09:01:15,587: INFO/MainProcess] Received task: vulns.tasks.refresh_metadata_cve_task[6f54b598-a5cb-47ed-9b85-33fd98480491]  
+[2020-01-14 09:01:15,598: INFO/MainProcess] Received task: vulns.tasks.refresh_metadata_cve_task[f841ab77-c634-4b59-ad32-701ec696a1a7]  
+[2020-01-14 09:01:15,611: WARNING/ForkPoolWorker-1] /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1364: RuntimeWarning: DateTimeField VulnMetadata.published received a naive datetime (2020-01-06 20:15:00) while time zone support is active.
+  RuntimeWarning)
+[2020-01-14 09:01:15,611: WARNING/ForkPoolWorker-1] /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1364: RuntimeWarning: DateTimeField VulnMetadata.modified received a naive datetime (2020-01-06 20:30:00) while time zone support is active.
+  RuntimeWarning)
+[2020-01-14 09:01:15,615: INFO/ForkPoolWorker-1] Task vulns.tasks.refresh_metadata_cve_task[6f54b598-a5cb-47ed-9b85-33fd98480491] succeeded in 0.027706770999998298s: True
+[2020-01-14 09:01:15,621: WARNING/ForkPoolWorker-2] /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1364: RuntimeWarning: DateTimeField VulnMetadata.published received a naive datetime (2019-12-26 18:15:00) while time zone support is active.
+  RuntimeWarning)
+[2020-01-14 09:01:15,622: WARNING/ForkPoolWorker-2] /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1364: RuntimeWarning: DateTimeField VulnMetadata.modified received a naive datetime (2020-01-08 17:16:00) while time zone support is active.
+  RuntimeWarning)
+[2020-01-14 09:01:15,623: WARNING/ForkPoolWorker-2] /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1364: RuntimeWarning: DateTimeField VulnMetadata.cvss_time received a naive datetime (2020-01-08 17:16:00) while time zone support is active.
+  RuntimeWarning)
+[2020-01-14 09:01:15,627: INFO/ForkPoolWorker-2] Task vulns.tasks.refresh_metadata_cve_task[f841ab77-c634-4b59-ad32-701ec696a1a7] succeeded in 0.028590601000004767s: True
+[2020-01-14 09:02:15,540: INFO/MainProcess] Received task: vulns.tasks.refresh_monitored_cve_task[6c16f161-0f8e-4969-aec2-e0407de8f143]  
+[2020-01-14 09:02:15,565: INFO/MainProcess] Received task: vulns.tasks.refresh_metadata_cve_task[2e8b5c4c-cf7a-4b9c-ac94-5f41f2f8e8d7]  
+[2020-01-14 09:02:15,575: INFO/MainProcess] Received task: vulns.tasks.refresh_metadata_cve_task[1be1d60f-8ef3-4108-9240-4f6d5040bd4f]  
+[2020-01-14 09:02:15,576: WARNING/ForkPoolWorker-2] /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1364: RuntimeWarning: DateTimeField VulnMetadata.published received a naive datetime (2020-01-06 20:15:00) while time zone support is active.
+  RuntimeWarning)
+[2020-01-14 09:02:15,577: WARNING/ForkPoolWorker-2] /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1364: RuntimeWarning: DateTimeField VulnMetadata.modified received a naive datetime (2020-01-06 20:30:00) while time zone support is active.
+  RuntimeWarning)
+[2020-01-14 09:02:15,579: INFO/ForkPoolWorker-2] Task vulns.tasks.refresh_metadata_cve_task[2e8b5c4c-cf7a-4b9c-ac94-5f41f2f8e8d7] succeeded in 0.013786898999995856s: True
+[2020-01-14 09:02:15,599: WARNING/ForkPoolWorker-3] /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1364: RuntimeWarning: DateTimeField VulnMetadata.published received a naive datetime (2019-12-26 18:15:00) while time zone support is active.
+  RuntimeWarning)
+[2020-01-14 09:02:15,600: WARNING/ForkPoolWorker-3] /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1364: RuntimeWarning: DateTimeField VulnMetadata.modified received a naive datetime (2020-01-08 17:16:00) while time zone support is active.
+  RuntimeWarning)
+[2020-01-14 09:02:15,601: WARNING/ForkPoolWorker-3] /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1364: RuntimeWarning: DateTimeField VulnMetadata.cvss_time received a naive datetime (2020-01-08 17:16:00) while time zone support is active.
+  RuntimeWarning)
+[2020-01-14 09:02:15,605: INFO/ForkPoolWorker-3] Task vulns.tasks.refresh_metadata_cve_task[1be1d60f-8ef3-4108-9240-4f6d5040bd4f] succeeded in 0.029200897999999142s: True
+[2020-01-14 09:03:15,544: INFO/MainProcess] Received task: vulns.tasks.refresh_monitored_cve_task[7d04d835-06ed-45ca-8e77-430bf13e69e7]  
+[2020-01-14 09:03:15,567: INFO/MainProcess] Received task: vulns.tasks.refresh_metadata_cve_task[b96c5699-53ef-45b1-8497-e002abfaf268]  
+[2020-01-14 09:03:15,577: INFO/MainProcess] Received task: vulns.tasks.refresh_metadata_cve_task[378e62ba-cc72-4da8-92b9-06d9d13fe731]  
+[2020-01-14 09:03:15,579: WARNING/ForkPoolWorker-3] /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1364: RuntimeWarning: DateTimeField VulnMetadata.published received a naive datetime (2020-01-06 20:15:00) while time zone support is active.
+  RuntimeWarning)
+[2020-01-14 09:03:15,579: WARNING/ForkPoolWorker-3] /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1364: RuntimeWarning: DateTimeField VulnMetadata.modified received a naive datetime (2020-01-06 20:30:00) while time zone support is active.
+  RuntimeWarning)
+[2020-01-14 09:03:15,583: INFO/ForkPoolWorker-3] Task vulns.tasks.refresh_metadata_cve_task[b96c5699-53ef-45b1-8497-e002abfaf268] succeeded in 0.015130982000016502s: True
+[2020-01-14 09:03:15,602: WARNING/ForkPoolWorker-4] /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1364: RuntimeWarning: DateTimeField VulnMetadata.published received a naive datetime (2019-12-26 18:15:00) while time zone support is active.
+  RuntimeWarning)
+[2020-01-14 09:03:15,603: WARNING/ForkPoolWorker-4] /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1364: RuntimeWarning: DateTimeField VulnMetadata.modified received a naive datetime (2020-01-08 17:16:00) while time zone support is active.
+  RuntimeWarning)
+[2020-01-14 09:03:15,603: WARNING/ForkPoolWorker-4] /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1364: RuntimeWarning: DateTimeField VulnMetadata.cvss_time received a naive datetime (2020-01-08 17:16:00) while time zone support is active.
+  RuntimeWarning)
+[2020-01-14 09:03:15,608: INFO/ForkPoolWorker-4] Task vulns.tasks.refresh_metadata_cve_task[378e62ba-cc72-4da8-92b9-06d9d13fe731] succeeded in 0.029455043000012893s: True
+[2020-01-14 09:04:15,549: INFO/MainProcess] Received task: vulns.tasks.refresh_monitored_cve_task[6d79c417-9e3a-4880-af83-399768a3b69b]  
+[2020-01-14 09:04:15,574: INFO/MainProcess] Received task: vulns.tasks.refresh_metadata_cve_task[3280ef45-6e38-479a-9fe7-bde3c93af483]  
+[2020-01-14 09:04:15,584: INFO/MainProcess] Received task: vulns.tasks.refresh_metadata_cve_task[778d667c-ab16-40d4-a65b-b10adb4ec095]  
+[2020-01-14 09:04:15,585: WARNING/ForkPoolWorker-4] /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1364: RuntimeWarning: DateTimeField VulnMetadata.published received a naive datetime (2020-01-06 20:15:00) while time zone support is active.
+  RuntimeWarning)
+[2020-01-14 09:04:15,586: WARNING/ForkPoolWorker-4] /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1364: RuntimeWarning: DateTimeField VulnMetadata.modified received a naive datetime (2020-01-06 20:30:00) while time zone support is active.
+  RuntimeWarning)
+[2020-01-14 09:04:15,589: INFO/ForkPoolWorker-4] Task vulns.tasks.refresh_metadata_cve_task[3280ef45-6e38-479a-9fe7-bde3c93af483] succeeded in 0.014667892999995047s: True
+[2020-01-14 09:04:15,608: WARNING/ForkPoolWorker-5] /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1364: RuntimeWarning: DateTimeField VulnMetadata.published received a naive datetime (2019-12-26 18:15:00) while time zone support is active.
+  RuntimeWarning)
+[2020-01-14 09:04:15,608: WARNING/ForkPoolWorker-5] /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1364: RuntimeWarning: DateTimeField VulnMetadata.modified received a naive datetime (2020-01-08 17:16:00) while time zone support is active.
+  RuntimeWarning)
+[2020-01-14 09:04:15,609: WARNING/ForkPoolWorker-5] /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1364: RuntimeWarning: DateTimeField VulnMetadata.cvss_time received a naive datetime (2020-01-08 17:16:00) while time zone support is active.
+  RuntimeWarning)
+[2020-01-14 09:04:15,614: INFO/ForkPoolWorker-5] Task vulns.tasks.refresh_metadata_cve_task[778d667c-ab16-40d4-a65b-b10adb4ec095] succeeded in 0.02879349900001671s: True
+[2020-01-14 09:05:15,555: INFO/MainProcess] Received task: vulns.tasks.refresh_monitored_cve_task[2bb6e54e-1120-4731-b7e0-aa3eb4bb2198]  
+[2020-01-14 09:05:15,577: INFO/MainProcess] Received task: vulns.tasks.refresh_metadata_cve_task[92c380d9-fdb9-4bde-8ada-57a57d855938]  
+[2020-01-14 09:05:15,587: INFO/MainProcess] Received task: vulns.tasks.refresh_metadata_cve_task[879cb964-1f28-4b72-8636-132cac48c346]  
+[2020-01-14 09:05:15,588: WARNING/ForkPoolWorker-5] /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1364: RuntimeWarning: DateTimeField VulnMetadata.published received a naive datetime (2020-01-06 20:15:00) while time zone support is active.
+  RuntimeWarning)
+[2020-01-14 09:05:15,588: WARNING/ForkPoolWorker-5] /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1364: RuntimeWarning: DateTimeField VulnMetadata.modified received a naive datetime (2020-01-06 20:30:00) while time zone support is active.
+  RuntimeWarning)
+[2020-01-14 09:05:15,592: INFO/ForkPoolWorker-5] Task vulns.tasks.refresh_metadata_cve_task[92c380d9-fdb9-4bde-8ada-57a57d855938] succeeded in 0.014241110999989814s: True
+[2020-01-14 09:05:15,610: WARNING/ForkPoolWorker-6] /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1364: RuntimeWarning: DateTimeField VulnMetadata.published received a naive datetime (2019-12-26 18:15:00) while time zone support is active.
+  RuntimeWarning)
+[2020-01-14 09:05:15,611: WARNING/ForkPoolWorker-6] /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1364: RuntimeWarning: DateTimeField VulnMetadata.modified received a naive datetime (2020-01-08 17:16:00) while time zone support is active.
+  RuntimeWarning)
+[2020-01-14 09:05:15,612: WARNING/ForkPoolWorker-6] /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1364: RuntimeWarning: DateTimeField VulnMetadata.cvss_time received a naive datetime (2020-01-08 17:16:00) while time zone support is active.
+  RuntimeWarning)
+[2020-01-14 09:05:15,617: INFO/ForkPoolWorker-6] Task vulns.tasks.refresh_metadata_cve_task[879cb964-1f28-4b72-8636-132cac48c346] succeeded in 0.028934962999983327s: True
+[2020-01-14 09:06:15,557: INFO/MainProcess] Received task: vulns.tasks.refresh_monitored_cve_task[efe23d8a-ed8a-4469-b313-0f91f362f299]  
+[2020-01-14 09:06:15,581: INFO/MainProcess] Received task: vulns.tasks.refresh_metadata_cve_task[5938524b-cd76-428f-9a15-a05aafd57169]  
+[2020-01-14 09:06:15,591: INFO/MainProcess] Received task: vulns.tasks.refresh_metadata_cve_task[73cd30ed-836e-4744-9f2b-3e74b80cf3af]  
+[2020-01-14 09:06:15,593: WARNING/ForkPoolWorker-6] /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1364: RuntimeWarning: DateTimeField VulnMetadata.published received a naive datetime (2020-01-06 20:15:00) while time zone support is active.
+  RuntimeWarning)
+[2020-01-14 09:06:15,593: WARNING/ForkPoolWorker-6] /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1364: RuntimeWarning: DateTimeField VulnMetadata.modified received a naive datetime (2020-01-06 20:30:00) while time zone support is active.
+  RuntimeWarning)
+[2020-01-14 09:06:15,596: INFO/ForkPoolWorker-6] Task vulns.tasks.refresh_metadata_cve_task[5938524b-cd76-428f-9a15-a05aafd57169] succeeded in 0.014175337999972726s: True
+[2020-01-14 09:06:15,615: WARNING/ForkPoolWorker-7] /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1364: RuntimeWarning: DateTimeField VulnMetadata.published received a naive datetime (2019-12-26 18:15:00) while time zone support is active.
+  RuntimeWarning)
+[2020-01-14 09:06:15,616: WARNING/ForkPoolWorker-7] /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1364: RuntimeWarning: DateTimeField VulnMetadata.modified received a naive datetime (2020-01-08 17:16:00) while time zone support is active.
+  RuntimeWarning)
+[2020-01-14 09:06:15,617: WARNING/ForkPoolWorker-7] /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1364: RuntimeWarning: DateTimeField VulnMetadata.cvss_time received a naive datetime (2020-01-08 17:16:00) while time zone support is active.
+  RuntimeWarning)
+[2020-01-14 09:06:15,622: INFO/ForkPoolWorker-7] Task vulns.tasks.refresh_metadata_cve_task[73cd30ed-836e-4744-9f2b-3e74b80cf3af] succeeded in 0.029312683999989986s: True
+[2020-01-14 09:07:15,563: INFO/MainProcess] Received task: vulns.tasks.refresh_monitored_cve_task[dd3147e8-2a8f-4d33-81bf-c8b39b9ce5c2]  
+[2020-01-14 09:07:15,588: INFO/MainProcess] Received task: vulns.tasks.refresh_metadata_cve_task[06241ca4-d136-48c6-8ca3-7fded9278049]  
+[2020-01-14 09:07:15,599: INFO/MainProcess] Received task: vulns.tasks.refresh_metadata_cve_task[0fc8cd9e-e049-49b7-b0d9-b7ffe97c4b16]  
+[2020-01-14 09:07:15,600: WARNING/ForkPoolWorker-7] /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1364: RuntimeWarning: DateTimeField VulnMetadata.published received a naive datetime (2020-01-06 20:15:00) while time zone support is active.
+  RuntimeWarning)
+[2020-01-14 09:07:15,600: WARNING/ForkPoolWorker-7] /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/fields/__init__.py:1364: RuntimeWarning: DateTimeField VulnMetadata.modified received a naive datetime (2020-01-06 20:30:00) while time zone support is active.
+  RuntimeWarning)
+[2020-01-14 09:07:15,603: INFO/ForkPoolWorker-7] Task vulns.tasks.refresh_metadata_cve_task[06241ca4-d136-48c6-8ca3-7fded9278049] succeeded in 0.015267492000020866s: True
+[2020-01-14 09:07:15,621: INFO/ForkPoolWorker-7] Task vulns.tasks.refresh_metadata_cve_task[0fc8cd9e-e049-49b7-b0d9-b7ffe97c4b16] succeeded in 0.016731026999991627s: True
+[2020-01-14 09:08:15,567: INFO/MainProcess] Received task: vulns.tasks.refresh_monitored_cve_task[7e5dd730-2237-4db5-902f-ae4cc8bd993d]  
+[2020-01-14 09:08:15,591: INFO/MainProcess] Received task: vulns.tasks.refresh_metadata_cve_task[505c010b-e2a1-4fe1-8a9a-f577ea9f7a1e]  
+[2020-01-14 09:08:15,604: INFO/MainProcess] Received task: vulns.tasks.refresh_metadata_cve_task[8da668eb-7330-42f2-b412-f82a3a0f3c4f]  
+[2020-01-14 09:09:15,572: INFO/MainProcess] Received task: vulns.tasks.refresh_monitored_cve_task[fc08a345-edac-478c-af9f-ee025eeaec8d]  
+[2020-01-14 09:10:15,578: INFO/MainProcess] Received task: vulns.tasks.refresh_monitored_cve_task[aaf41b7d-41cc-4dcd-84b4-57098e249418]  
+[2020-01-14 09:11:15,581: INFO/MainProcess] Received task: vulns.tasks.refresh_monitored_cve_task[e9de8683-48fc-473e-b583-71dc42e4585d]  
+[2020-01-14 09:12:15,583: INFO/MainProcess] Received task: vulns.tasks.refresh_monitored_cve_task[aee8e637-acaa-46f4-93d9-1667f7bbe7b4]  
+[2020-01-14 09:13:15,585: INFO/MainProcess] Received task: vulns.tasks.refresh_monitored_cve_task[035c92c6-ba34-4976-90ca-e3c2040a41f9]  
+[2020-01-14 09:14:15,586: INFO/MainProcess] Received task: vulns.tasks.refresh_monitored_cve_task[e3148ea6-43dc-49c1-9a76-f17a3dda6e33]  
+[2020-01-14 09:15:15,588: INFO/MainProcess] Received task: vulns.tasks.refresh_monitored_cve_task[c7156ec4-f8fb-4eeb-8433-4242532c893e]  
+[2020-01-14 09:16:15,592: INFO/MainProcess] Received task: vulns.tasks.refresh_monitored_cve_task[340f84f6-e331-40c7-a298-da6ad2492b88]  
+[2020-01-14 09:17:15,596: INFO/MainProcess] Received task: vulns.tasks.refresh_monitored_cve_task[46a69986-2a78-45f9-9b7f-d1d7510e048c]  
+[2020-01-14 09:18:15,602: INFO/MainProcess] Received task: vulns.tasks.refresh_monitored_cve_task[16df5e09-3abf-4f81-a321-665a87d81468]  
+[2020-01-14 09:19:15,603: INFO/MainProcess] Received task: vulns.tasks.refresh_monitored_cve_task[a7b7e24e-a6d2-4683-b8f2-29fb863e3db1]  

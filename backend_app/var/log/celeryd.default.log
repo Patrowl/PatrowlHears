@@ -1,0 +1,400 @@
+purge: Erased 735 messages from the queue.
+
+ 
+ -------------- default-node@GLAD02 v4.4.0 (cliffs)
+--- ***** ----- 
+-- ******* ---- Darwin-19.2.0-x86_64-i386-64bit 2020-01-13 14:20:00
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         app:0x1104ced50
+- ** ---------- .> transport:   amqp://guest:**@localhost:5672//
+- ** ---------- .> results:     disabled://
+- *** --- * --- .> concurrency: 8 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> default          exchange=default(direct) key=default
+                
+
+[tasks]
+
+
+ 
+ -------------- default-node@GLAD02 v4.4.0 (cliffs)
+--- ***** ----- 
+-- ******* ---- Darwin-19.2.0-x86_64-i386-64bit 2020-01-13 22:16:21
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         app:0x103694790
+- ** ---------- .> transport:   amqp://guest:**@localhost:5672//
+- ** ---------- .> results:     disabled://
+- *** --- * --- .> concurrency: 8 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> default          exchange=default(direct) key=default
+                
+
+[tasks]
+  . vulns.tasks.refresh_metadata_cve_task
+
+ 
+ -------------- default-node@GLAD02 v4.4.0 (cliffs)
+--- ***** ----- 
+-- ******* ---- Darwin-19.2.0-x86_64-i386-64bit 2020-01-13 22:49:32
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         app:0x10c558210
+- ** ---------- .> transport:   amqp://guest:**@localhost:5672//
+- ** ---------- .> results:     disabled://
+- *** --- * --- .> concurrency: 8 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> default          exchange=default(direct) key=default
+                
+
+[tasks]
+  . vulns.tasks.refresh_metadata_cve_task
+  . vulns.tasks.refresh_monitored_cve_task
+
+ 
+ -------------- default-node@GLAD02 v4.4.0 (cliffs)
+--- ***** ----- 
+-- ******* ---- Darwin-19.2.0-x86_64-i386-64bit 2020-01-13 22:52:25
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         app:0x10b54c710
+- ** ---------- .> transport:   amqp://guest:**@localhost:5672//
+- ** ---------- .> results:     disabled://
+- *** --- * --- .> concurrency: 8 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> default          exchange=default(direct) key=default
+                
+
+[tasks]
+  . vulns.tasks.refresh_metadata_cve_task
+  . vulns.tasks.refresh_monitored_cve_task
+
+ 
+ -------------- default-node@GLAD02 v4.4.0 (cliffs)
+--- ***** ----- 
+-- ******* ---- Darwin-19.2.0-x86_64-i386-64bit 2020-01-13 23:01:52
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         app:0x10b993c10
+- ** ---------- .> transport:   amqp://guest:**@localhost:5672//
+- ** ---------- .> results:     disabled://
+- *** --- * --- .> concurrency: 8 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> default          exchange=default(direct) key=default
+                
+
+[tasks]
+  . vulns.tasks.refresh_metadata_cve_task
+  . vulns.tasks.refresh_monitored_cve_task
+
+ 
+ -------------- default-node@GLAD02 v4.4.0 (cliffs)
+--- ***** ----- 
+-- ******* ---- Darwin-19.2.0-x86_64-i386-64bit 2020-01-13 23:03:44
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         backend_app:0x110a20290
+- ** ---------- .> transport:   amqp://guest:**@localhost:5672//
+- ** ---------- .> results:     disabled://
+- *** --- * --- .> concurrency: 8 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> default          exchange=default(direct) key=default
+                
+
+[tasks]
+  . vulns.tasks.refresh_metadata_cve_task
+  . vulns.tasks.refresh_monitored_cve_task
+
+ 
+ -------------- default-node@GLAD02 v4.4.0 (cliffs)
+--- ***** ----- 
+-- ******* ---- Darwin-19.2.0-x86_64-i386-64bit 2020-01-13 23:09:30
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         backend_app:0x109e68c90
+- ** ---------- .> transport:   amqp://guest:**@localhost:5672//
+- ** ---------- .> results:     disabled://
+- *** --- * --- .> concurrency: 8 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> default          exchange=default(direct) key=default
+                
+
+[tasks]
+  . vulns.tasks.refresh_metadata_cve_task
+  . vulns.tasks.refresh_monitored_cve_task
+
+ 
+ -------------- default-node@GLAD02 v4.4.0 (cliffs)
+--- ***** ----- 
+-- ******* ---- Darwin-19.2.0-x86_64-i386-64bit 2020-01-13 23:13:50
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         backend_app:0x10bffae50
+- ** ---------- .> transport:   amqp://guest:**@localhost:5672//
+- ** ---------- .> results:     disabled://
+- *** --- * --- .> concurrency: 8 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> default          exchange=default(direct) key=default
+                
+
+[tasks]
+  . vulns.tasks.refresh_metadata_cve_task
+  . vulns.tasks.refresh_monitored_cve_task
+
+ 
+ -------------- default-node@GLAD02 v4.4.0 (cliffs)
+--- ***** ----- 
+-- ******* ---- Darwin-19.2.0-x86_64-i386-64bit 2020-01-13 23:20:51
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         backend_app:0x10d194d10
+- ** ---------- .> transport:   amqp://guest:**@localhost:5672//
+- ** ---------- .> results:     disabled://
+- *** --- * --- .> concurrency: 8 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> default          exchange=default(direct) key=default
+                
+
+[tasks]
+  . vulns.tasks.refresh_metadata_cve_task
+  . vulns.tasks.refresh_monitored_cve_task
+
+ 
+ -------------- default-node@GLAD02 v4.4.0 (cliffs)
+--- ***** ----- 
+-- ******* ---- Darwin-19.2.0-x86_64-i386-64bit 2020-01-14 08:20:55
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         backend_app:0x10ce20b50
+- ** ---------- .> transport:   amqp://guest:**@localhost:5672//
+- ** ---------- .> results:     disabled://
+- *** --- * --- .> concurrency: 8 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> default          exchange=default(direct) key=default
+                
+
+[tasks]
+  . vulns.tasks.refresh_metadata_cve_task
+  . vulns.tasks.refresh_monitored_cve_task
+
+ 
+ -------------- default-node@GLAD02 v4.4.0 (cliffs)
+--- ***** ----- 
+-- ******* ---- Darwin-19.2.0-x86_64-i386-64bit 2020-01-14 08:23:45
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         backend_app:0x108fdb490
+- ** ---------- .> transport:   amqp://guest:**@localhost:5672//
+- ** ---------- .> results:     disabled://
+- *** --- * --- .> concurrency: 8 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> default          exchange=default(direct) key=default
+                
+
+[tasks]
+  . vulns.tasks.refresh_metadata_cve_task
+  . vulns.tasks.refresh_monitored_cve_task
+
+ 
+ -------------- default-node@GLAD02 v4.4.0 (cliffs)
+--- ***** ----- 
+-- ******* ---- Darwin-19.2.0-x86_64-i386-64bit 2020-01-14 08:31:26
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         backend_app:0x103e1c4d0
+- ** ---------- .> transport:   amqp://guest:**@localhost:5672//
+- ** ---------- .> results:     amqp://
+- *** --- * --- .> concurrency: 8 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> default          exchange=default(direct) key=default
+                
+
+[tasks]
+  . vulns.tasks.refresh_metadata_cve_task
+  . vulns.tasks.refresh_monitored_cve_task
+
+ 
+ -------------- default-node@GLAD02 v4.4.0 (cliffs)
+--- ***** ----- 
+-- ******* ---- Darwin-19.2.0-x86_64-i386-64bit 2020-01-14 08:33:52
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         backend_app:0x10e5d0050
+- ** ---------- .> transport:   amqp://guest:**@localhost:5672//
+- ** ---------- .> results:     rpc://
+- *** --- * --- .> concurrency: 8 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> default          exchange=default(direct) key=default
+                
+
+[tasks]
+  . vulns.tasks.refresh_metadata_cve_task
+  . vulns.tasks.refresh_monitored_cve_task
+
+ 
+ -------------- default-node@GLAD02 v4.4.0 (cliffs)
+--- ***** ----- 
+-- ******* ---- Darwin-19.2.0-x86_64-i386-64bit 2020-01-14 08:35:21
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         backend_app:0x10ee0cc10
+- ** ---------- .> transport:   amqp://guest:**@localhost:5672//
+- ** ---------- .> results:     rpc://
+- *** --- * --- .> concurrency: 8 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> default          exchange=default(direct) key=default
+                
+
+[tasks]
+  . vulns.tasks.refresh_metadata_cve_task
+  . vulns.tasks.refresh_monitored_cve_task
+
+ 
+ -------------- default-node@GLAD02 v4.4.0 (cliffs)
+--- ***** ----- 
+-- ******* ---- Darwin-19.2.0-x86_64-i386-64bit 2020-01-14 08:37:36
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         backend_app:0x1063bd6d0
+- ** ---------- .> transport:   amqp://guest:**@localhost:5672//
+- ** ---------- .> results:     rpc://
+- *** --- * --- .> concurrency: 8 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> default          exchange=default(direct) key=default
+                
+
+[tasks]
+  . vulns.tasks.refresh_metadata_cve_task
+  . vulns.tasks.refresh_monitored_cve_task
+
+ 
+ -------------- default-node@GLAD02 v4.4.0 (cliffs)
+--- ***** ----- 
+-- ******* ---- Darwin-19.2.0-x86_64-i386-64bit 2020-01-14 08:42:50
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         backend_app:0x10b9bb7d0
+- ** ---------- .> transport:   amqp://guest:**@localhost:5672//
+- ** ---------- .> results:     rpc://
+- *** --- * --- .> concurrency: 8 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> default          exchange=default(direct) key=default
+                
+
+[tasks]
+  . vulns.tasks.refresh_metadata_cve_task
+  . vulns.tasks.refresh_monitored_cve_task
+
+ 
+ -------------- default-node@GLAD02 v4.4.0 (cliffs)
+--- ***** ----- 
+-- ******* ---- Darwin-19.2.0-x86_64-i386-64bit 2020-01-14 08:46:35
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         backend_app:0x102780e50
+- ** ---------- .> transport:   amqp://guest:**@localhost:5672//
+- ** ---------- .> results:     rpc://
+- *** --- * --- .> concurrency: 8 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> default          exchange=default(direct) key=default
+                
+
+[tasks]
+  . vulns.tasks.refresh_metadata_cve_task
+  . vulns.tasks.refresh_monitored_cve_task
+
+ 
+ -------------- default-node@GLAD02 v4.4.0 (cliffs)
+--- ***** ----- 
+-- ******* ---- Darwin-19.2.0-x86_64-i386-64bit 2020-01-14 08:50:43
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         backend_app:0x10fe99110
+- ** ---------- .> transport:   amqp://guest:**@localhost:5672//
+- ** ---------- .> results:     rpc://
+- *** --- * --- .> concurrency: 8 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> default          exchange=default(direct) key=default
+                
+
+[tasks]
+  . vulns.tasks.refresh_metadata_cve_task
+  . vulns.tasks.refresh_monitored_cve_task
+
+ 
+ -------------- default-node@GLAD02 v4.4.0 (cliffs)
+--- ***** ----- 
+-- ******* ---- Darwin-19.2.0-x86_64-i386-64bit 2020-01-14 08:52:13
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         backend_app:0x103a7eb10
+- ** ---------- .> transport:   amqp://guest:**@localhost:5672//
+- ** ---------- .> results:     rpc://
+- *** --- * --- .> concurrency: 8 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> default          exchange=default(direct) key=default
+                
+
+[tasks]
+  . vulns.tasks.refresh_metadata_cve_task
+  . vulns.tasks.refresh_monitored_cve_task
+
+ 
+ -------------- default-node@GLAD02 v4.4.0 (cliffs)
+--- ***** ----- 
+-- ******* ---- Darwin-19.2.0-x86_64-i386-64bit 2020-01-14 08:58:15
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         backend_app:0x10b406710
+- ** ---------- .> transport:   amqp://guest:**@localhost:5672//
+- ** ---------- .> results:     rpc://
+- *** --- * --- .> concurrency: 8 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> default          exchange=default(direct) key=default
+                
+
+[tasks]
+  . vulns.tasks.refresh_metadata_cve_task
+  . vulns.tasks.refresh_monitored_cve_task
+

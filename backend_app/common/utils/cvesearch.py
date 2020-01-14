@@ -1,38 +1,27 @@
+from django.conf import settings
+import requests
 import logging
-import sys
-from pycvesearch import CVESearch
-
-logging.basicConfig(level=logging.INFO)
-
-CVESEARCH_URL = "http://localhost:5000/"
+logger = logging.getLogger(__name__)
 
 
-## Todo:
-# Search exploits on CVE, CPE and keywords (vendor/products)
-# Add feeds:
-# - cxsecurity.com
-# - google/vulncode-db.com https://github.com/google/vulncode-db/blob/master/README.md
-# - Vulners/0day.today (public and private exploits)
-# - vFeed
-# https://sploitus.com/
-# Investigate CVE-2019-5434
-# - https://vulners.com/saint/SAINT:FF1CBE38FA4871681735ABCB01546D40
-# - cve not found: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-5434
-# ---> http://localhost:5000/cve/CVE-2019-20049
-# Investigate https://www.exploit-db.com/exploits/47761
-
-
-
-def exploitable(cve_id):
+def get_cve_references(cve_id):
     is_exploitable = False
     exploit_ref = []
-    exploit_ref_others = []     # Todo
-    exploit_desc = []
+    # exploit_desc = []
     exploit_info = {}
+    is_confirmed = False
+    confirm_ref = []
 
-    cve = cvesearh.id(cve_id)
+    try:
+        r = requests.get(settings.CVESEARCH_URL+"/api/cve/"+cve_id)
+        cve = r.json()
+    except Exception:
+        logger.exception("Bad request to CVE-SEARCH")
+        return None
+
     if not cve:
-        return is_exploitable   # CVE ID not found
+        logger.error("CVE '{}' not found".format(cve_id))
+        return None
 
     ## Exploit-DB
     if 'exploit-db' in cve.keys():
@@ -113,42 +102,38 @@ def exploitable(cve_id):
                 if '"in_the_news", value:"true"' in n['sourceData']:
                     exploit_info.update({'in_the_news': True})
 
+            # Todo: Check CVSS score/vector and update value if not set
+
     if 'references' in cve.keys():
         exploit_feeds = [
             "exploit-db.com",
-            "github.com", "raw.githubusercontent.com",
+            "github.com",
+            "raw.githubusercontent.com",
             "youtube.com"
         ]
-        if 'misc' in cve['references'].keys():
-            for link in cve['references']['misc']:
+        if 'misc' in cve['refmap'].keys():
+            for link in cve['refmap']['misc']:
                 if link.endswith(".pdf"):
+                    exploit_ref.append(link)
+                elif link.endswith(".py"):
                     exploit_ref.append(link)
                 for feed in exploit_feeds:
                     if feed in link:
                         is_exploitable = True
                         exploit_ref.append(link)
 
-    exploit_ref = sorted(set(exploit_ref))
-    logging.info(is_exploitable)
-    logging.info(exploit_ref)
-    logging.info(exploit_desc)
-    logging.info(exploit_info)
-    return is_exploitable
+    if 'refmap' in cve.keys():
+        if 'confirm' in cve['refmap'].keys():
+            is_confirmed = True
+            for link in cve['refmap']['confirm']:
+                confirm_ref.append(link)
 
-
-cvesearh = CVESearch(base_url=CVESEARCH_URL)
-try:
-    cvesearh.dbinfo()
-except Exception:
-    logging.error("Unable to access CVE-Search endpoint: %s", CVESEARCH_URL)
-    sys.exit(-1)
-
-# with open("monitored-cve.txt") as fp:
-#     for line_cve in fp:
-#         print("{}".format(line_cve))
-#         print(exploitable(line_cve))
-
-# print(exploitable('CVE-2013-4695'))
-# print(exploitable('CVE-2014-8674'))
-# print(exploitable('CVE-2014-2206'))
-print(exploitable('CVE-2016-0792'))
+    return {
+        'is_exploitable': is_exploitable,
+        'exploit_ref': sorted(set(exploit_ref)),
+        'exploit_info': exploit_info,
+        'is_confirmed': is_confirmed,
+        'confirm_ref': confirm_ref,
+        'raw': cve,
+        'source': 'cvesearch'
+    }
