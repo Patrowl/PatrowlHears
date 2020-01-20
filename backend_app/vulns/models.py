@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.postgres.fields import JSONField, ArrayField
+from django.contrib.postgres.fields import JSONField
 from simple_history.models import HistoricalRecords
 from cves.models import CVE, CWE
 
@@ -55,16 +55,6 @@ def impact_default_dict():
     }
 
 
-def exploit_info_default_dict():
-    return {
-        'exploitability_ease': 'No known exploits are available',
-        'exploit_available': False,
-        'exploit_framework_core': False,
-        'exploit_framework_metasploit': False,
-        'in_the_news': False
-    }
-
-
 class Vuln(models.Model):
     cve_id = models.ForeignKey(CVE, on_delete=models.CASCADE, null=True)
     summary = models.TextField(default="")
@@ -82,6 +72,8 @@ class Vuln(models.Model):
     is_confirmed = models.BooleanField(default=False)
     is_in_the_news = models.BooleanField(default=False)
     is_in_the_wild = models.BooleanField(default=False)
+    reflinks = JSONField(default=dict)
+    reflinkids = JSONField(default=dict)
 
     created_at = models.DateTimeField(default=timezone.now, null=True)
     updated_at = models.DateTimeField(default=timezone.now, null=True)
@@ -96,65 +88,17 @@ class Vuln(models.Model):
     def __str__(self):
         return "PH-{}".format(self.id)
 
-    def save(self, *args, **kwargs):
-        # Todo
-        if not self.created_at:
-            self.created_at = timezone.now()
-        self.updated_at = timezone.now()
-        return super(Vuln, self).save(*args, **kwargs)
-
-
-# class VulnMetadata(models.Model):
-#     cve_id = models.CharField(max_length=20, null=True)
-#     summary = models.TextField(default="")
-#     published = models.DateTimeField(null=True)
-#     modified = models.DateTimeField(null=True)
-#     assigner = models.CharField(max_length=50, null=True)
-#     cvss = models.CharField(max_length=5, null=True)
-#     cvss_time = models.DateTimeField(null=True)
-#     cvss_vector = models.CharField(max_length=250, null=True)
-#     cwe = models.CharField(max_length=10, null=True)
-#     access = JSONField(default=access_default_dict)
-#     impact = JSONField(default=impact_default_dict)
-#     vulnerable_products = ArrayField(
-#         models.CharField(max_length=10, blank=True), null=True)
-#
-#     is_exploitable = models.BooleanField(default=False)
-#     exploit_ref = JSONField(default=dict, null=True)
-#     exploit_info = JSONField(default=exploit_info_default_dict, null=True)
-#
-#     is_confirmed = models.BooleanField(default=False)
-#     confirm_ref = ArrayField(
-#         models.CharField(max_length=500, blank=True), null=True)
-#     # exploit_availability = models.CharField(
-#     #     max_length=20, choices=EXPLOIT_AVAILABILITY, default='unknown')
-#     raw = JSONField(default=dict)
-#
-#     created_at = models.DateTimeField(default=timezone.now, null=True)
-#     updated_at = models.DateTimeField(default=timezone.now, null=True)
-#     history = HistoricalRecords()
-#
-#     class Meta:
-#         db_table = "vuln_metadata"
-#
-#     def __unicode__(self):
-#         return self.cve_id
-#
-#     def __str__(self):
-#         return self.cve_id
-#
-#     def save(self, *args, **kwargs):
-#         # Todo
-#         if not self.created_at:
-#             self.created_at = timezone.now()
-#         self.updated_at = timezone.now()
-#         return super(VulnMetadata, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     if not self.created_at:
+    #         self.created_at = timezone.now()
+    #     self.updated_at = timezone.now()
+    #     return super(Vuln, self).save(*args, **kwargs)
 
 
 class ExploitMetadata(models.Model):
     vuln = models.ForeignKey(Vuln, on_delete=models.CASCADE)
-    links = ArrayField(
-        models.CharField(max_length=1500, blank=True), null=True)
+    publicid = models.CharField(max_length=250, default='n/a')
+    link = models.CharField(max_length=1500, blank=True, default="")
     notes = models.TextField(default="")
     trust_level = models.CharField(
         max_length=20, choices=TRUST_LEVELS, default='unknown')
@@ -167,6 +111,10 @@ class ExploitMetadata(models.Model):
         max_length=20, choices=EXPLOIT_TYPES, default='unknown')
     maturity = models.CharField(
         max_length=20, choices=EXPLOIT_MATURITY_LEVELS, default='unknown')
+    raw = JSONField(default=dict)
+    published = models.DateTimeField(blank=True, null=True)
+    modified = models.DateTimeField(blank=True, null=True)
+    hash = models.BigIntegerField(default=0)
 
     created_at = models.DateTimeField(default=timezone.now, null=True)
     updated_at = models.DateTimeField(default=timezone.now, null=True)
@@ -191,8 +139,7 @@ class ExploitMetadata(models.Model):
 
 class ThreatMetadata(models.Model):
     vuln = models.ForeignKey(Vuln, on_delete=models.CASCADE)
-    links = ArrayField(
-        models.CharField(max_length=1500, blank=True), null=True)
+    link = models.CharField(default="", max_length=1500, blank=True)
     notes = models.TextField(default="")
     trust_level = models.CharField(
         max_length=20, choices=TRUST_LEVELS, default='unknown')
@@ -201,6 +148,9 @@ class ThreatMetadata(models.Model):
     source = models.CharField(max_length=250, null=True)
     is_in_the_wild = models.BooleanField(default=False)
     is_in_the_news = models.BooleanField(default=False)
+    raw = JSONField(default=dict)
+    published = models.DateTimeField(blank=True, null=True)
+    modified = models.DateTimeField(blank=True, null=True)
 
     created_at = models.DateTimeField(default=timezone.now, null=True)
     updated_at = models.DateTimeField(default=timezone.now, null=True)

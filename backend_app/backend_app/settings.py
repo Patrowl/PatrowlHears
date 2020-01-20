@@ -50,25 +50,24 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
-        'verbose': {
-            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
-            'style': '{',
+        'console': {
+            'format': '%(name)-12s %(levelname)-8s %(message)s'
         },
-        'simple': {
-            'format': '{levelname} {message}',
-            'style': '{',
-        },
+        'file': {
+            'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s'
+        }
     },
     'handlers': {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'filename': 'var/log/django-debug.log',
+            'formatter': 'file'
         },
         'console': {
-            'level': 'INFO',
+            # 'level': 'DEBUG',
             'class': 'logging.StreamHandler',
-            'formatter': 'simple'
+            'formatter': 'console'
         }
     },
     'loggers': {
@@ -136,7 +135,7 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'Europe/Paris'
 USE_I18N = True
 USE_L10N = True
-USE_TZ = True
+USE_TZ = False
 
 STATIC_URL = '/static/'
 

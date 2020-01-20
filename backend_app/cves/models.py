@@ -53,6 +53,34 @@ class CWE(models.Model):
         return self.cwe_id
 
 
+class Bulletin(models.Model):
+    publicid = models.CharField(max_length=250, default="", null=True)
+    vendor = models.CharField(max_length=250, default="", null=True)
+    title = models.CharField(max_length=250, default="", null=True)
+    severity = models.CharField(max_length=250, default="", null=True)
+    impact = models.CharField(max_length=250, default="", null=True)
+    published = models.DateTimeField(blank=True, null=True)
+    created_at = models.DateTimeField(default=timezone.now, null=True)
+    updated_at = models.DateTimeField(default=timezone.now, null=True)
+    history = HistoricalRecords()
+
+    class Meta:
+        db_table = "kb_bulletin"
+
+    def __unicode__(self):
+        return self.publicid
+
+    def __str__(self):
+        return self.publicid
+
+    def save(self, *args, **kwargs):
+        # Todo
+        if not self.created_at:
+            self.created_at = timezone.now()
+        self.updated_at = timezone.now()
+        return super(Bulletin, self).save(*args, **kwargs)
+
+
 class CVE(models.Model):
     cve_id = models.CharField(max_length=20, null=True, unique=True)
     summary = models.TextField(default="")
@@ -67,6 +95,7 @@ class CVE(models.Model):
     impact = JSONField(default=impact_default_dict)
     vulnerable_products = ArrayField(
         models.CharField(max_length=10, blank=True), null=True)
+    bulletins = models.ManyToManyField(Bulletin, blank=True)
     references = JSONField(default=dict)
     created_at = models.DateTimeField(default=timezone.now, null=True)
     updated_at = models.DateTimeField(default=timezone.now, null=True)

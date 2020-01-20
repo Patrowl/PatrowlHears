@@ -1,6 +1,6 @@
 # from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import CVE, CPE, CWE
+from .models import CVE, CPE, CWE, Bulletin
 
 
 class CVESerializer(serializers.HyperlinkedModelSerializer):
@@ -10,8 +10,8 @@ class CVESerializer(serializers.HyperlinkedModelSerializer):
             'cve_id', 'summary', 'assigner',
             'published', 'modified',
             'cvss', 'cvss_time', 'cvss_vector',
-            'cwe', 'access', 'impact', 'vulnerable_products',
-            'references',
+            'cwe_id', 'access', 'impact', 'vulnerable_products',
+            'references', 'bulletins',
             'created_at', 'updated_at'
         ]
 
@@ -28,4 +28,14 @@ class CPESerializer(serializers.HyperlinkedModelSerializer):
 class CWESerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = CWE
-        fields = ['cwe_id', 'name', 'description']
+        fields = [
+            'cwe_id', 'name', 'description'
+        ]
+
+
+class BulletinSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Bulletin
+        fields = [
+            'publicid', 'vendor', 'title', 'severity', 'impact', 'published'
+        ]

@@ -4,8 +4,8 @@ from django_filters import rest_framework as filters
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from common.utils import cvesearch
-from .models import CVE, CPE, CWE
-from .serializers import CVESerializer, CPESerializer, CWESerializer
+from .models import CVE, CPE, CWE, Bulletin
+from .serializers import CVESerializer, CPESerializer, CWESerializer, BulletinSerializer
 from .tasks import (
     sync_cwes_task, sync_cpes_task, sync_cves_task, sync_vias_task
 )
@@ -32,6 +32,14 @@ class CWESet(viewsets.ModelViewSet):
 
     queryset = CWE.objects.all().order_by('cwe_id')
     serializer_class = CWESerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+
+
+class BulletinSet(viewsets.ModelViewSet):
+    """API endpoint that allows Bulletin to be viewed or edited."""
+
+    queryset = Bulletin.objects.all().order_by('id')
+    serializer_class = BulletinSerializer
     filter_backends = (filters.DjangoFilterBackend,)
 
 

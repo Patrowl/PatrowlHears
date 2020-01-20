@@ -3,14 +3,47 @@ from cves.models import CWE, CPE, CVE
 from vulns.models import Vuln, ExploitMetadata, ThreatMetadata
 from pymongo import MongoClient
 from cpe import CPE as _CPE
+import datetime
+import json
 import requests
 import logging
 logger = logging.getLogger(__name__)
+
+COMMON_EXPLOIT_FEEDS = [
+    "exploit-db",
+    "packetstormsecurity.com",
+    "github.com",
+    "raw.githubusercontent.com",
+    "youtube.com",
+    "snyk.io/research/"
+]
 
 
 def without_keys(d, keys):
     return {x: d[x] for x in d if x not in keys}
 
+
+def _json_serial(o):
+    if isinstance(o, datetime.datetime):
+        return o.__str__()
+
+
+def _extract_exploit_dates(published, modified):
+    e_pubdate = published
+    e_update = modified
+    if e_pubdate is not None:
+        try:
+            e_pubdate = datetime.datetime.strptime(e_pubdate, "%Y-%m-%d").date()
+        except Exception:
+            e_pubdate = None
+    if e_update is not None:
+        try:
+            e_update = datetime.datetime.strptime(e_update, "%Y-%m-%d").date()
+        except Exception:
+            e_update = None
+    else:
+        e_update = e_pubdate
+    return e_pubdate, e_update
 
 def sync_cwe_fromdb(from_date=None):
     cli = MongoClient(
@@ -73,53 +106,52 @@ def sync_cve_fromdb(from_date=None):
     vias = db.via4
 
     for cve in cves.find():
+        _new_cve = {
+            'cve_id': cve['id'],
+            'summary': cve.get('summary', None),
+            'published': cve.get('Published', None),
+            'modified': cve.get('Modified', None),
+            'assigner': cve.get('assigner', None),
+            'cvss': cve.get('cvss', None),
+            'cvss_time': cve.get('cvss-time', None),
+            'cvss_vector': cve.get('cvss-vector', None),
+            'access': cve.get('access', None),
+            'impact': cve.get('impact', None),
+            'vulnerable_products': []
+        }
+        # Set CWE
+        cwe_id = cve.get('cwe', None)
+        _cwe = CWE.objects.filter(cwe_id=cwe_id).first()
+        if _cwe is not None:
+            _new_cve.update({'cwe': _cwe})
+
+        # Set vulnerable products (CPE vectors)
+        for vp in cve['vulnerable_configuration']:
+            _new_cve['vulnerable_products'].append(vp)
+            # if CPE.objects.filter(vector=vp):
+            #     print("found!")
+
         cur_cve = CVE.objects.filter(cve_id=cve['id']).first()
         if cur_cve is None:
-            _new_cve = {
-                'cve_id': cve['id'],
-                'summary': cve.get('summary', None),
-                'published': cve.get('Published', None),
-                'modified': cve.get('Modified', None),
-                'assigner': cve.get('assigner', None),
-                'cvss': cve.get('cvss', None),
-                'cvss_time': cve.get('cvss-time', None),
-                'cvss_vector': cve.get('cvss-vector', None),
-                'access': cve.get('access', None),
-                'impact': cve.get('impact', None),
-                'vulnerable_products': []
-            }
-            # Set CWE
-            cwe_id = cve.get('cwe', None)
-            _cwe = CWE.objects.filter(cwe_id=cwe_id).first()
-            if _cwe is not None:
-                _new_cve.update({'cwe': _cwe})
-
-            # Set vulnerable products (CPE vectors)
-            for vp in cve['vulnerable_configuration']:
-                _new_cve['vulnerable_products'].append(vp)
-                # if CPE.objects.filter(vector=vp):
-                #     print("found!")
-
             try:
                 cur_cve = CVE(**_new_cve)
                 cur_cve.save()
             except Exception as e:
                 logger.error(e)
+        else:
+            CVE.objects.filter(id=cur_cve.id).update(**_new_cve)
 
         # Update VIA references
-        via = vias.find({'id': cur_cve.cve_id})[0]
+        via = vias.find_one({'id': cur_cve.cve_id})
         if via:
-            cur_cve.references = {
-                'refmap': via.get('refmap', []),
-                'sources': without_keys(via, ['id', 'refmap', '_id'])
-            }
+            cur_cve.references = without_keys(via, ['id', '_id'])
+
             cur_cve.save(update_fields=["references"])
 
         # TODO: Create or update Vuln (metrics)
         sync_vuln_fromcve(cve=cur_cve)
-        # sync_exploits_fromvia(cve=cur_cve)
-        # sync_threats_fromvia(cve_id=cur_cve['cve_id'])
-        break
+
+        via = None
 
     return True
 
@@ -157,12 +189,405 @@ def sync_exploits_fromvia(vuln_id=None, cve=None, from_date=None):
         vuln = Vuln.objects.filter(cve_id=cve).first()
     if vuln is None:
         return False
-    print("[sync_exploits_fromvia]: TODO")
+    logger.debug("Syncing vuln '{}' --> '{}'".format(vuln, vuln.cve_id))
+
+    reflinks = []
+    reflinkids = {}
+
+    refs = vuln.cve_id.references
+    ## Exploit-DB
+    if 'exploit-db' in refs.keys():
+        vuln.is_exploitable = True
+        vuln.is_confirmed = True
+        for e in refs['exploit-db']:
+            exploitdb_id = e.get('id')
+            e_pubdate, e_update = _extract_exploit_dates(
+                e.get('published', None), e.get('modified', None)
+            )
+            _new_exploit = {
+                'vuln': vuln,
+                'publicid': e.get('id', 'n/a'),
+                'link': e.get('source', 'https://www.exploit-db.com/exploits/{}'.format(exploitdb_id)),
+                'notes': "{}-{}\n{}".format(e['id'], e.get('title', '-'), e.get('description', '-')),
+                'trust_level': 'trusted',
+                'tlp_level': 'white',
+                'source': 'exploit-db',
+                'availability': 'public',
+                'type': 'exploitation',
+                'maturity': 'functional',
+                'published': e_pubdate,
+                'modified': e_update,
+                'raw': e
+            }
+            ex_hash = hash(json.dumps(_new_exploit, sort_keys=True, default=_json_serial))
+            _new_exploit.update({'hash': ex_hash})
+            ex = ExploitMetadata.objects.filter(vuln=vuln, publicid=_new_exploit['publicid']).first()
+            if ex is None:
+                new_exploit = ExploitMetadata(**_new_exploit)
+                new_exploit.save()
+                reflinks.append('https://www.exploit-db.com/exploits/{}'.format(exploitdb_id))
+                reflinkids.update({'edb': exploitdb_id})
+
+    ## Metasploit
+    if 'metasploit' in refs.keys():
+        vuln.is_exploitable = True
+        vuln.is_confirmed = True
+        for e in refs['metasploit']:
+            e_pubdate, e_update = _extract_exploit_dates(
+                e.get('published', None), e.get('modified', None)
+            )
+            _new_exploit = {
+                'vuln': vuln,
+                'publicid': e.get('id', 'n/a'),
+                'link': e.get('source', 'https://github.com/rapid7/metasploit-framework/blob/master//modules/'),
+                'notes': "{}-{}\n{}\n\nLinks:\n{}".format(
+                    e['id'],
+                    e.get('title', '-'),
+                    e.get('description', '-'),
+                    e.get('references', '-')
+                ),
+                'trust_level': 'trusted',
+                'tlp_level': 'white',
+                'source': 'metasploit',
+                'availability': 'public',
+                'type': 'exploitation',
+                'maturity': 'functional',
+                'published': e_pubdate,
+                'modified': e_update,
+                'raw': e
+            }
+            ex_hash = hash(json.dumps(_new_exploit, sort_keys=True, default=_json_serial))
+            _new_exploit.update({'hash': ex_hash})
+            ex = ExploitMetadata.objects.filter(vuln=vuln, publicid=_new_exploit['publicid']).first()
+            if ex is None:
+                new_exploit = ExploitMetadata(**_new_exploit)
+                new_exploit.save()
+                reflinks.extend(e.get('references', []))
+
+    ## PacketStorm
+    if 'packetstorm' in refs.keys():
+        vuln.is_exploitable = True
+        vuln.is_confirmed = True
+        for e in refs['packetstorm']:
+            e_pubdate, e_update = _extract_exploit_dates(
+                e.get('published', None), e.get('modified', None)
+            )
+            _new_exploit = {
+                'vuln': vuln,
+                'publicid': e.get('id', 'n/a'),
+                'link': e.get('source', 'https://github.com/rapid7/metasploit-framework/blob/master//modules/'),
+                'notes': "{}-{}\n{}".format(
+                    e['id'],
+                    e.get('title', '-'),
+                    e.get('data source', '-'),
+                ),
+                'trust_level': 'trusted',
+                'tlp_level': 'white',
+                'source': 'packetstorm',
+                'availability': 'public',
+                'type': 'exploitation',
+                'maturity': 'functional',
+                'published': e_pubdate,
+                'modified': e_update,
+                'raw': e
+            }
+            ex_hash = hash(json.dumps(_new_exploit, sort_keys=True, default=_json_serial))
+            _new_exploit.update({'hash': ex_hash})
+            ex = ExploitMetadata.objects.filter(vuln=vuln, publicid=_new_exploit['publicid']).first()
+            if ex is None:
+                new_exploit = ExploitMetadata(**_new_exploit)
+                new_exploit.save()
+                reflinks.append(e.get('source', None))
+                reflinks.append(e.get('data source', None))
+
+    ## Vulnerability-lab
+    if 'vulner lab' in refs.keys():
+        vuln.is_exploitable = True
+        vuln.is_confirmed = True
+        for e in refs['vulner lab']:
+            e_pubdate, e_update = _extract_exploit_dates(
+                e.get('published', None), e.get('modified', None)
+            )
+            _new_exploit = {
+                'vuln': vuln,
+                'publicid': e.get('id', 'n/a'),
+                'link': e.get('source', 'n/a'),
+                'notes': "{}-{}".format(
+                    e['id'],
+                    e.get('title', '-')
+                ),
+                'trust_level': 'trusted',
+                'tlp_level': 'white',
+                'source': 'vulnerabilty-lab',
+                'availability': 'public',
+                'type': 'exploitation',
+                'maturity': 'functional',
+                'published': e_pubdate,
+                'modified': e_update,
+                'raw': e
+            }
+            ex_hash = hash(json.dumps(_new_exploit, sort_keys=True, default=_json_serial))
+            _new_exploit.update({'hash': ex_hash})
+            ex = ExploitMetadata.objects.filter(vuln=vuln, publicid=_new_exploit['publicid']).first()
+            if ex is None:
+                new_exploit = ExploitMetadata(**_new_exploit)
+                new_exploit.save()
+                reflinks.append(e.get('source', None))
+
+    ## Seebug
+    if 'Seebug' in refs.keys():
+        for e in refs['Seebug']:
+            if e['bulletinFamily'] == 'exploit':
+                vuln.is_exploitable = True
+                vuln.is_confirmed = True
+                e_pubdate, e_update = _extract_exploit_dates(
+                    e.get('published', None), e.get('modified', None)
+                )
+                link = ''
+                if 'source' in e.keys():
+                    link = e['source']
+                elif 'id' in e.keys():
+                    ssvid = "https://www.seebug.org/vuldb/ssvid-{}".format(
+                        e['id'].split(':')[1]
+                    )
+                    link = ssvid
+                _new_exploit = {
+                    'vuln': vuln,
+                    'publicid': e.get('id', 'n/a'),
+                    'link': link,
+                    'notes': "{}-{}\n{}".format(
+                        e['id'],
+                        e.get('title', '-'),
+                        e.get('description', '-')
+                    ),
+                    'trust_level': 'trusted',
+                    'tlp_level': 'white',
+                    'source': 'seebug',
+                    'availability': 'public',
+                    'type': 'exploitation',
+                    'maturity': 'functional',
+                    'published': e_pubdate,
+                    'modified': e_update,
+                    'raw': e
+                }
+                ex_hash = hash(json.dumps(_new_exploit, sort_keys=True, default=_json_serial))
+                _new_exploit.update({'hash': ex_hash})
+                ex = ExploitMetadata.objects.filter(vuln=vuln, publicid=_new_exploit['publicid']).first()
+                if ex is None:
+                    new_exploit = ExploitMetadata(**_new_exploit)
+                    new_exploit.save()
+                    reflinks.append(link)
+
+    ## Talos
+    if 'talos' in refs.keys():
+        vuln.is_exploitable = True
+        vuln.is_confirmed = True
+        for e in refs['talos']:
+            e_pubdate, e_update = _extract_exploit_dates(
+                e.get('published', None), e.get('modified', None)
+            )
+            _new_exploit = {
+                'vuln': vuln,
+                'publicid': e.get('id', 'n/a'),
+                'link': e.get('source', 'n/a'),
+                'notes': "{}-{}".format(
+                    e['id'],
+                    e.get('title', '-')
+                ),
+                'trust_level': 'trusted',
+                'tlp_level': 'white',
+                'source': 'talos',
+                'availability': 'public',
+                'type': 'exploitation',
+                'maturity': 'functional',
+                'published': e_pubdate,
+                'modified': e_update,
+                'raw': e
+            }
+            ex_hash = hash(json.dumps(_new_exploit, sort_keys=True, default=_json_serial))
+            _new_exploit.update({'hash': ex_hash})
+            ex = ExploitMetadata.objects.filter(vuln=vuln, publicid=_new_exploit['publicid']).first()
+            if ex is None:
+                new_exploit = ExploitMetadata(**_new_exploit)
+                new_exploit.save()
+                reflinks.append(e.get('source', None))
+
+    ## Nessus DB
+    if 'nessus' in refs.keys():
+        vuln.is_confirmed = True
+        for e in refs['nessus']:
+            e_pubdate, e_update = _extract_exploit_dates(
+                e.get('published', None), e.get('modified', None)
+            )
+            e_info = {
+                'exploit_available': False,
+                'exploit_available_from': []
+            }
+            if 'sourceData' in e.keys():
+                if '"exploitability_ease", value:"Exploits are available"' in e['sourceData']:
+                    vuln.is_exploitable = True
+                    e_info.update({'exploit_available': True})
+                if '"exploitability_ease", value:"No exploit is required"' in e['sourceData']:
+                    vuln.is_exploitable = True
+                    e_info.update({'exploit_available': True})
+                if '"exploit_available", value:"true"' in e['sourceData']:
+                    vuln.is_exploitable = True
+                    e_info.update({'exploit_available': True})
+                if '"exploit_framework_core", value:"true"' in e['sourceData']:
+                    vuln.is_exploitable = True
+                    e_info['exploit_available_from'].append("Core Impact")
+                if '"exploit_framework_metasploit", value:"true"' in e['sourceData']:
+                    vuln.is_exploitable = True
+                    e_info['exploit_available_from'].append("Metasploit")
+                if '"exploit_framework_canvas", value:"true"' in e['sourceData']:
+                    vuln.is_exploitable = True
+                    e_info['exploit_available_from'].append("Canvas")
+                if '"exploit_framework_exploithub", value:"true"' in e['sourceData']:
+                    vuln.is_exploitable = True
+                    e_info['exploit_available_from'].append("ExploitHub")
+                if '"exploit_framework_d2_elliot", value:"true"' in e['sourceData']:
+                    vuln.is_exploitable = True
+                    e_info['exploit_available_from'].append("Elliot")
+                if '"in_the_news", value:"true"' in e['sourceData']:
+                    vuln.is_in_the_news = True
+                if '"exploited_by_malware", value:"true"' in e['sourceData']:
+                    vuln.is_in_the_wild = True
+
+            if e_info['exploit_available'] is True:
+                _new_exploit = {
+                    'vuln': vuln,
+                    'publicid': e.get('plugin id', 'n/a'),
+                    'link': e.get('source', 'n/a'),
+                    'notes': "{}-{}\nFramework(s):{}\n{}".format(
+                        e['plugin id'],
+                        e.get('title', '-'),
+                        ", ".join(e_info['exploit_available_from']),
+                        e.get('description', '-')
+                    ),
+                    'trust_level': 'trusted',
+                    'tlp_level': 'white',
+                    'source': 'nessus',
+                    'availability': 'public',
+                    'type': 'exploitation',
+                    'maturity': 'functional',
+                    'published': e_pubdate,
+                    'modified': e_update,
+                    'raw': e
+                }
+                ex_hash = hash(json.dumps(_new_exploit, sort_keys=True, default=_json_serial))
+                _new_exploit.update({'hash': ex_hash})
+                ex = ExploitMetadata.objects.filter(vuln=vuln, publicid=_new_exploit['publicid']).first()
+                if ex is None:
+                    new_exploit = ExploitMetadata(**_new_exploit)
+                    new_exploit.save()
+                    reflinks.append(e.get('source', None))
+
+    ## THN
+    if 'the hacker news' in refs.keys():
+        vuln.is_in_the_news = True
+        for t in refs['the hacker news']:
+            t_pubdate, t_update = _extract_exploit_dates(
+                t.get('published', None), t.get('modified', None)
+            )
+            _new_threat = {
+                'vuln': vuln,
+                'link': t.get('source', 'n/a'),
+                'notes': "{}".format(t.get('title', '-')),
+                'trust_level': 'trusted',
+                'tlp_level': 'white',
+                'source': 'the-hacker-news',
+                'is_in_the_news': True,
+                'published': t_pubdate,
+                'modified': t_update,
+                'raw': t
+            }
+            th = ThreatMetadata.objects.filter(vuln=vuln, link=_new_threat['link']).first()
+            if th is None:
+                new_threat = ThreatMetadata(**_new_threat)
+                new_threat.save()
+                reflinks.append(t.get('source', None))
+
+    ## REFMAP
+    if 'refmap' in refs.keys():
+        reflinkids.update(refs['refmap'])
+
+        # Confirm
+        if 'confirm' in refs['refmap'].keys():
+            vuln.is_confirmed = True
+            for c in refs['refmap']['confirm']:
+                reflinks.append(c)
+
+        # SecurityFocus
+        if 'bid' in refs['refmap'].keys():
+            for b in refs['refmap']['bid']:
+                reflinks.append('https://www.securityfocus.com/bid/{}'.format(b))
+
+        # IBM X-Force
+        # if 'xf' in refs['refmap'].keys():
+        #     for xf in refs['refmap']['xf']:
+        #         reflinks.append('https://exchange.xforce.ibmcloud.com/vulnerabilities/{}'.format(xf))
+
+        # misc
+        if 'misc' in refs['refmap'].keys():
+            for b in refs['refmap']['misc']:
+                reflinks.append(b)
+                if b.endswith(".pdf") or b.endswith(".py"):
+                    vuln.is_exploitable = True
+                    _new_exploit = {
+                        'vuln': vuln,
+                        'publicid': 'n/a',
+                        'link': b,
+                        'notes': "PoC or exploit found:\n{}".format(b),
+                        'trust_level': 'unknown',
+                        'tlp_level': 'white',
+                        'source': 'misc',
+                        'availability': 'public',
+                        'type': 'unknown',
+                        'maturity': 'poc',
+                        'published': datetime.date.today(),
+                        'modified': datetime.date.today(),
+                        'raw': e
+                    }
+                    ex_hash = hash(json.dumps(_new_exploit, sort_keys=True, default=_json_serial))
+                    _new_exploit.update({'hash': ex_hash})
+                    ex = ExploitMetadata.objects.filter(vuln=vuln, link=_new_exploit['link']).first()
+                    if ex is None:
+                        new_exploit = ExploitMetadata(**_new_exploit)
+                        new_exploit.save()
+                for feed in COMMON_EXPLOIT_FEEDS:
+                    if feed in b:
+                        vuln.is_exploitable = True
+                        _new_exploit = {
+                            'vuln': vuln,
+                            'publicid': 'n/a',
+                            'link': b,
+                            'notes': "PoC or exploit found:\n{}".format(b),
+                            'trust_level': 'unknown',
+                            'tlp_level': 'white',
+                            'source': 'misc',
+                            'availability': 'public',
+                            'type': 'unknown',
+                            'maturity': 'poc',
+                            'published': datetime.date.today(),
+                            'modified': datetime.date.today(),
+                            'raw': e
+                        }
+                        ex_hash = hash(json.dumps(_new_exploit, sort_keys=True, default=_json_serial))
+                        _new_exploit.update({'hash': ex_hash})
+                        ex = ExploitMetadata.objects.filter(vuln=vuln, link=_new_exploit['link']).first()
+                        if ex is None:
+                            new_exploit = ExploitMetadata(**_new_exploit)
+                            new_exploit.save()
+
+    # Update reflinks and reflinkids
+    reflinks.extend(vuln.reflinks)
+    vuln.reflinks = sorted(set(reflinks))
+    vuln.reflinkids.update(reflinkids)
+    vuln.save()
     return True
 
 
 def sync_vuln_fromcve(cve):
-    print("[sync_vuln_fromcve]: TODO")
     _vuln_data = {
         'cve_id': cve,
         'summary': cve.summary,
@@ -184,7 +609,9 @@ def sync_vuln_fromcve(cve):
         # _vuln_data.update({'changeReason': 'sync'})
         Vuln.objects.filter(id=vuln.id).update(**_vuln_data)
 
-    return True
+    sync_exploits_fromvia(vuln.id)
+    # sync_threats_fromvia(vuln.id)
+    return vuln
 
 
 def get_cve_references(cve_id):

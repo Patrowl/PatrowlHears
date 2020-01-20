@@ -17,6 +17,7 @@ router.register(r'api/ratings', vpr_apis.VPRatingSet)
 router.register(r'api/kb/cve', cves_apis.CVESet)
 router.register(r'api/kb/cpe', cves_apis.CPESet)
 router.register(r'api/kb/cwe', cves_apis.CWESet)
+router.register(r'api/kb/bulletin', cves_apis.BulletinSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

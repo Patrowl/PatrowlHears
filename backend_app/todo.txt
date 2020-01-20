@@ -1,0 +1,8 @@
+[ ] Extract exploit or PoC from refmap
+[ ] Sync and monitor Vendor bulletins (MS, RH, Suse, debian, gentoo, Amazon, ...)
+[ ] Patch info: availability (unknown, partial, official), date
+[ ] Extract CVSSv2 Temporal vector from Nessus plugins
+[ ] Extract CVSSv3 Base and Temporal vectors from Nessus plugins
+[ ] Collect categories: Deny of service, Remote code exec, ...
+[ ] Use memcache
+[ ] DB performance tuning
