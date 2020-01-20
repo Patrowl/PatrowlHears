@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.postgres.fields import JSONField
 from simple_history.models import HistoricalRecords
-from vulns.models import VulnMetadata
+from vulns.models import Vuln
 
 #
 # class VPRatingPolicy(models.Model):
@@ -33,7 +33,7 @@ class VPRating(models.Model):
     vector = models.CharField(max_length=255, default="")
     score = models.FloatField(default=0.0)
     data = JSONField(default=dict)
-    vuln = models.ForeignKey(VulnMetadata, on_delete=models.CASCADE)
+    vuln = models.ForeignKey(Vuln, on_delete=models.CASCADE)
     # policy = models.ForeignKey(VPRatingPolicy, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now, null=True)
     updated_at = models.DateTimeField(default=timezone.now, null=True)

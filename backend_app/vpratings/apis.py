@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from django.forms.models import model_to_dict
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
-from vulns.models import VulnMetadata
+from vulns.models import Vuln
 from .models import VPRating
 from .serializers import VPRatingSerializer
 from .utils import _refresh_vprating
@@ -16,13 +16,13 @@ class VPRatingSet(viewsets.ModelViewSet):
 
 
 def get_vprating_by_cveid(self, cve_id):
-    vuln = get_object_or_404(VulnMetadata, cve_id=cve_id)
+    vuln = get_object_or_404(Vuln, cve_id=cve_id)
     vpr = get_object_or_404(VPRating, vuln=vuln)
     return JsonResponse(model_to_dict(vpr))
 
 
 def refresh_vprating_by_id(self, vuln_id):
-    vuln = get_object_or_404(VulnMetadata, id=vuln_id)
+    vuln = get_object_or_404(Vuln, id=vuln_id)
     vpr = _refresh_vprating(vuln)
     if vpr is not None:
         return JsonResponse(model_to_dict(vpr))
@@ -31,7 +31,7 @@ def refresh_vprating_by_id(self, vuln_id):
 
 
 def refresh_vprating_by_cveid(self, cve_id):
-    vuln = get_object_or_404(VulnMetadata, cve_id=cve_id)
+    vuln = get_object_or_404(Vuln, cve_id=cve_id)
     vpr = _refresh_vprating(vuln)
     if vpr is not None:
         return JsonResponse(model_to_dict(vpr))

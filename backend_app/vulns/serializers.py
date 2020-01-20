@@ -1,16 +1,18 @@
 from rest_framework import serializers
-from .models import VulnMetadata, ExploitMetadata
+from .models import Vuln, ExploitMetadata, ThreatMetadata
 
 
-class VulnMetadataSerializer(serializers.HyperlinkedModelSerializer):
+class VulnSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = VulnMetadata
+        model = Vuln
         fields = [
             'cve_id', 'summary', 'published', 'modified', 'assigner',
             'cvss', 'cvss_time', 'cvss_vector',
-            'cwe', 'access', 'impact', 'vulnerable_products',
-            'is_exploitable', 'exploit_ref', 'exploit_info',
-            'raw',
+            'cwe', 'access', 'impact',
+            'is_exploitable',
+            'is_confirmed',
+            'is_in_the_news',
+            'is_in_the_wild',
             'created_at', 'updated_at']
 
 
@@ -21,4 +23,14 @@ class ExploitMetadataSerializer(serializers.HyperlinkedModelSerializer):
             'vuln', 'links', 'notes',
             'trust_level', 'tlp_level', 'source',
             'availability', 'type', 'maturity',
+            'created_at', 'updated_at']
+
+
+class ThreatMetadataSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = ThreatMetadata
+        fields = [
+            'vuln', 'links', 'notes',
+            'trust_level', 'tlp_level', 'source',
+            'is_in_the_wild', 'is_in_the_news',
             'created_at', 'updated_at']

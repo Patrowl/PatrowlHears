@@ -17,3 +17,514 @@ Watching for file changes with StatReloader
 Watching for file changes with StatReloader
 /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/apis.py changed, reloading.
 Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/models.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/models.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vpratings/models.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/admin.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/utils.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/serializers.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/backend_app/urls.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/urls.py changed, reloading.
+Watching for file changes with StatReloader
+Internal Server Error: /api/vulns/
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/backends/utils.py", line 86, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "vulns" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "vulns"
+                                          ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/viewsets.py", line 114, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/pagination.py", line 373, in paginate_queryset
+    self.count = self.get_count(queryset)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/pagination.py", line 510, in get_count
+    return queryset.count()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/query.py", line 397, in count
+    return self.query.get_count(using=self.db)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/sql/query.py", line 517, in get_count
+    number = obj.get_aggregation(using, ['__count'])['__count']
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/sql/query.py", line 502, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1144, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/backends/utils.py", line 100, in execute
+    return super().execute(sql, params)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/backends/utils.py", line 68, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/backends/utils.py", line 77, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/backends/utils.py", line 86, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/backends/utils.py", line 86, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "vulns" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "vulns"
+                                          ^
+
+"GET /api/vulns/ HTTP/1.1" 500 160725
+Watching for file changes with StatReloader
+Internal Server Error: /api/vulns/
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 145, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 143, in _get_response
+    response = response.render()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/response.py", line 105, in render
+    self.content = self.rendered_content
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/response.py", line 70, in rendered_content
+    ret = renderer.render(self.data, accepted_media_type, context)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/renderers.py", line 724, in render
+    context = self.get_context(data, accepted_media_type, renderer_context)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/renderers.py", line 655, in get_context
+    raw_data_post_form = self.get_raw_data_form(data, view, 'POST', request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/renderers.py", line 563, in get_raw_data_form
+    data = serializer.data.copy()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 562, in data
+    ret = super().data
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 264, in data
+    self._data = self.get_initial()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 412, in get_initial
+    for field in self.fields.values()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/utils/functional.py", line 48, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 363, in fields
+    for key, value in self.get_fields().items():
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 1063, in get_fields
+    source, info, model, depth
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 1208, in build_field
+    return self.build_unknown_field(field_name, model_class)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 1325, in build_unknown_field
+    (field_name, model_class.__name__)
+django.core.exceptions.ImproperlyConfigured: Field name `vulnerable_products` is not valid for model `Vuln`.
+"GET /api/vulns/ HTTP/1.1" 500 137574
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/serializers.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/serializers.py changed, reloading.
+Watching for file changes with StatReloader
+Internal Server Error: /api/vulns/
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 145, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 143, in _get_response
+    response = response.render()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/response.py", line 105, in render
+    self.content = self.rendered_content
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/response.py", line 70, in rendered_content
+    ret = renderer.render(self.data, accepted_media_type, context)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/renderers.py", line 724, in render
+    context = self.get_context(data, accepted_media_type, renderer_context)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/renderers.py", line 655, in get_context
+    raw_data_post_form = self.get_raw_data_form(data, view, 'POST', request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/renderers.py", line 563, in get_raw_data_form
+    data = serializer.data.copy()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 562, in data
+    ret = super().data
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 264, in data
+    self._data = self.get_initial()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 412, in get_initial
+    for field in self.fields.values()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/utils/functional.py", line 48, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 363, in fields
+    for key, value in self.get_fields().items():
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 1063, in get_fields
+    source, info, model, depth
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 1208, in build_field
+    return self.build_unknown_field(field_name, model_class)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 1325, in build_unknown_field
+    (field_name, model_class.__name__)
+django.core.exceptions.ImproperlyConfigured: Field name `is_in_the_news` is not valid for model `Vuln`.
+"GET /api/vulns/ HTTP/1.1" 500 137512
+Watching for file changes with StatReloader
+"GET /api/vulns/ HTTP/1.1" 200 253521
+Not Found: /api/metadata/exploits
+"GET /api/metadata/exploits HTTP/1.1" 404 9511
+"GET /api/exploits HTTP/1.1" 301 0
+"GET /api/exploits/ HTTP/1.1" 200 13232
+"GET /api/threats/ HTTP/1.1" 200 12044
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/apis.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /api/threats/ HTTP/1.1" 200 12044
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/serializers.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /api/threats/ HTTP/1.1" 200 12044
+Internal Server Error: /api/vulns/
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/backends/utils.py", line 86, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "kb_cve" does not exist
+LINE 1: ..."kb_cve"."created_at", "kb_cve"."updated_at" FROM "kb_cve" L...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 145, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 143, in _get_response
+    response = response.render()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/response.py", line 105, in render
+    self.content = self.rendered_content
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/response.py", line 70, in rendered_content
+    ret = renderer.render(self.data, accepted_media_type, context)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/renderers.py", line 724, in render
+    context = self.get_context(data, accepted_media_type, renderer_context)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/renderers.py", line 696, in get_context
+    'post_form': self.get_rendered_html_form(data, view, 'POST', request),
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/renderers.py", line 511, in get_rendered_html_form
+    return self.render_form_for_serializer(serializer)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/renderers.py", line 521, in render_form_for_serializer
+    {'style': {'template_pack': 'rest_framework/horizontal'}}
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/renderers.py", line 372, in render
+    return template.render(context)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/base.py", line 936, in render
+    bit = node.render_annotated(context)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/base.py", line 903, in render_annotated
+    return self.render(context)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/defaulttags.py", line 209, in render
+    nodelist.append(node.render_annotated(context))
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/base.py", line 903, in render_annotated
+    return self.render(context)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/defaulttags.py", line 309, in render
+    return nodelist.render(context)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/base.py", line 936, in render
+    bit = node.render_annotated(context)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/base.py", line 903, in render_annotated
+    return self.render(context)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/library.py", line 192, in render
+    output = self.func(*resolved_args, **resolved_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/templatetags/rest_framework.py", line 87, in render_field
+    return renderer.render_field(field, style)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/renderers.py", line 351, in render_field
+    return template.render(context)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/base.py", line 936, in render
+    bit = node.render_annotated(context)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/base.py", line 903, in render_annotated
+    return self.render(context)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/defaulttags.py", line 161, in render
+    values = self.sequence.resolve(context, ignore_failures=True)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/base.py", line 670, in resolve
+    obj = self.var.resolve(context)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/base.py", line 795, in resolve
+    value = self._resolve_lookup(context)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/base.py", line 857, in _resolve_lookup
+    current = current()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/relations.py", line 215, in iter_options
+    self.get_choices(cutoff=self.html_cutoff),
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/relations.py", line 202, in get_choices
+    for item in queryset
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/query.py", line 276, in __iter__
+    self._fetch_all()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/query.py", line 1261, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/query.py", line 57, in __iter__
+    results = compiler.execute_sql(chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1144, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/backends/utils.py", line 100, in execute
+    return super().execute(sql, params)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/backends/utils.py", line 68, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/backends/utils.py", line 77, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/backends/utils.py", line 86, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/backends/utils.py", line 86, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "kb_cve" does not exist
+LINE 1: ..."kb_cve"."created_at", "kb_cve"."updated_at" FROM "kb_cve" L...
+                                                             ^
+
+"GET /api/vulns/ HTTP/1.1" 500 294938
+Watching for file changes with StatReloader
+"GET /api/vulns/ HTTP/1.1" 200 253521
+"GET /api/kb/cves/ HTTP/1.1" 200 172972
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/admin.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/serializers.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/apis.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/backend_app/urls.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /api/kb/vias/ HTTP/1.1" 200 133993
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/tasks.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/urls.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /api/kb/vias/ HTTP/1.1" 200 133993
+Not Found: /api/kb/
+"GET /api/kb/ HTTP/1.1" 404 10287
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/backend_app/urls.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/urls.py changed, reloading.
+Watching for file changes with StatReloader
+Not Found: /api/kb/
+"GET /api/kb/ HTTP/1.1" 404 11823
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/backend_app/urls.py changed, reloading.
+Watching for file changes with StatReloader
+Not Found: /api/kb/vias/sync
+"GET /api/kb/vias/sync HTTP/1.1" 404 11834
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/urls.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET /api/vulns/ HTTP/1.1" 200 251521
+"GET /api/kb/vias/sync HTTP/1.1" 200 7
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /api/kb/vias/sync HTTP/1.1" 200 7
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+Watching for file changes with StatReloader
+Internal Server Error: /api/kb/vias/sync
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/apis.py", line 82, in sync_vias
+    cvesearch.sync_via_fromdb()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py", line 122, in sync_via_fromdb
+    new_via.save()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/models.py", line 113, in save
+    return super(VIA, self).save(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/base.py", line 746, in save
+    force_update=force_update, update_fields=update_fields)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/base.py", line 784, in save_base
+    force_update, using, update_fields,
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/base.py", line 887, in _save_table
+    results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/base.py", line 926, in _do_insert
+    using=using, raw=raw,
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/query.py", line 1204, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/sql/compiler.py", line 1384, in execute_sql
+    cursor.execute(sql, params)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/backends/utils.py", line 100, in execute
+    return super().execute(sql, params)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/backends/utils.py", line 68, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/backends/utils.py", line 77, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/backends/utils.py", line 86, in _execute
+    return self.cursor.execute(sql, params)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/psycopg2/_json.py", line 78, in getquoted
+    s = self.dumps(self.adapted)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/contrib/postgres/fields/jsonb.py", line 27, in dumps
+    return json.dumps(obj, **options)
+  File "/usr/local/Cellar/python/3.7.5/Frameworks/Python.framework/Versions/3.7/lib/python3.7/json/__init__.py", line 231, in dumps
+    return _default_encoder.encode(obj)
+  File "/usr/local/Cellar/python/3.7.5/Frameworks/Python.framework/Versions/3.7/lib/python3.7/json/encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/usr/local/Cellar/python/3.7.5/Frameworks/Python.framework/Versions/3.7/lib/python3.7/json/encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "/usr/local/Cellar/python/3.7.5/Frameworks/Python.framework/Versions/3.7/lib/python3.7/json/encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type ObjectId is not JSON serializable
+"GET /api/kb/vias/sync HTTP/1.1" 500 227549
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /api/kb/vias/sync HTTP/1.1" 200 7
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+Watching for file changes with StatReloader
+Internal Server Error: /api/kb/vias/sync
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/apis.py", line 82, in sync_vias
+    cvesearch.sync_via_fromdb()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py", line 117, in sync_via_fromdb
+    'refmap': cve['refmap'],
+KeyError: 'refmap'
+"GET /api/kb/vias/sync HTTP/1.1" 500 115428
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/apis.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/urls.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /api/kb/via_exploits/sync HTTP/1.1" 200 7
+"GET /api/kb/via_exploits/sync HTTP/1.1" 200 7
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/tasks.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/apis.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/apis.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /api/kb/via_exploits/sync HTTP/1.1" 200 7
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/tasks.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/apis.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/apis.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/apis.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/urls.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/models.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/admin.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/admin.py changed, reloading.
+Watching for file changes with StatReloader

@@ -1,6 +1,6 @@
 from django.forms.models import model_to_dict
 from common.utils import cvesearch
-from .models import VulnMetadata
+from .models import Vuln
 import logging
 logger = logging.getLogger(__name__)
 
@@ -30,14 +30,14 @@ def _refresh_metadata_cve(cve_id):
         'confirm_ref': res['confirm_ref'],
         'raw': res['raw']
     }
-    m = VulnMetadata.objects.filter(cve_id=cve_id)
+    m = Vuln.objects.filter(cve_id=cve_id)
     if m.count() > 0:
         m.changeReason = 'cvesearch_update'
         m.update(**data)
         logger.debug("CVE '{}' updated.".format(cve_id))
         return(model_to_dict(m.first()))
     else:
-        new_metadata_records = VulnMetadata(**data)
+        new_metadata_records = Vuln(**data)
         new_metadata_records.save()
         logger.debug("CVE '{}' created.".format(cve_id))
         return(model_to_dict(new_metadata_records))

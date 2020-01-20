@@ -1,6 +1,6 @@
 # from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import CVE, CPE, CWE
+from .models import CVE, CPE, CWE, VIA
 
 
 class CVESerializer(serializers.HyperlinkedModelSerializer):
@@ -11,6 +11,16 @@ class CVESerializer(serializers.HyperlinkedModelSerializer):
             'published', 'modified',
             'cvss', 'cvss_time', 'cvss_vector',
             'cwe', 'access', 'impact', 'vulnerable_products',
+            'via_set',
+            'created_at', 'updated_at'
+        ]
+
+
+class VIASerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = VIA
+        fields = [
+            'cve', 'refmap', 'sources',
             'created_at', 'updated_at'
         ]
 

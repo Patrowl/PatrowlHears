@@ -1,8 +1,8 @@
 from django.forms.models import model_to_dict
-from vulns.serializers import VulnMetadataSerializer
+from vulns.serializers import VulnSerializer
 from .models import VPRating
 import logging
-from cvsslib import cvss2, cvss3, calculate_vector
+from cvsslib import cvss2, calculate_vector
 logger = logging.getLogger(__name__)
 
 
@@ -11,7 +11,7 @@ def _refresh_vprating(vuln_id, asset_metadata={}):
     if vpr is None:
         vpr = VPRating()
     # vuln = vpr.vuln.__dict__
-    vuln = VulnMetadataSerializer(vpr.vuln).data
+    vuln = VulnSerializer(vpr.vuln).data
     vpr.data = {
         'cve': {
             'published': vuln.get('published', None),

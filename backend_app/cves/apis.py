@@ -1,12 +1,14 @@
 from django.http import JsonResponse
-from django.forms.models import model_to_dict
+# from django.forms.models import model_to_dict
 from django_filters import rest_framework as filters
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from common.utils import cvesearch
 from .models import CVE, CPE, CWE
 from .serializers import CVESerializer, CPESerializer, CWESerializer
-from .tasks import sync_cwes_task, sync_cpes_task, sync_cves_task
+from .tasks import (
+    sync_cwes_task, sync_cpes_task, sync_cves_task, sync_vias_task
+)
 
 
 class CVESet(viewsets.ModelViewSet):
@@ -30,6 +32,14 @@ class CWESet(viewsets.ModelViewSet):
 
     queryset = CWE.objects.all().order_by('cwe_id')
     serializer_class = CWESerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+
+
+class VIASet(viewsets.ModelViewSet):
+    """API endpoint that allows VIA4CVE to be viewed or edited."""
+
+    queryset = VIA.objects.all().order_by('id')
+    serializer_class = VIASerializer
     filter_backends = (filters.DjangoFilterBackend,)
 
 
@@ -67,3 +77,21 @@ def sync_cves(self):
 def sync_cves_async(self):
     sync_cves_task.apply_async(args=[], queue='default', retry=False)
     return JsonResponse("enqueued.", safe=False)
+
+
+@api_view(['GET'])
+def sync_vias(self):
+    cvesearch.sync_via_fromdb()
+    return JsonResponse("done.", safe=False)
+
+
+@api_view(['GET'])
+def sync_vias_async(self):
+    sync_vias_task.apply_async(args=[], queue='default', retry=False)
+    return JsonResponse("enqueued.", safe=False)
+
+#
+# @api_view(['GET'])
+# def sync_exploits(self):
+#     cvesearch.sync_exploits_fromvia()
+#     return JsonResponse("done.", safe=False)

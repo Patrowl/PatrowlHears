@@ -29,13 +29,13 @@ class CPE(models.Model):
         models.CharField(max_length=250, blank=True), null=True)
 
     class Meta:
-        db_table = "cpe"
+        db_table = "kb_cpe"
 
     def __unicode__(self):
-        return self.title
+        return self.vector
 
     def __str__(self):
-        return self.title
+        return self.vector
 
 
 class CWE(models.Model):
@@ -44,7 +44,7 @@ class CWE(models.Model):
     description = models.TextField(default="")
 
     class Meta:
-        db_table = "cwe"
+        db_table = "kb_cwe"
 
     def __unicode__(self):
         return self.cwe_id
@@ -67,12 +67,13 @@ class CVE(models.Model):
     impact = JSONField(default=impact_default_dict)
     vulnerable_products = ArrayField(
         models.CharField(max_length=10, blank=True), null=True)
+    references = JSONField(default=dict)
     created_at = models.DateTimeField(default=timezone.now, null=True)
     updated_at = models.DateTimeField(default=timezone.now, null=True)
     history = HistoricalRecords()
 
     class Meta:
-        db_table = "cve"
+        db_table = "kb_cve"
 
     def __unicode__(self):
         return self.cve_id
@@ -86,3 +87,28 @@ class CVE(models.Model):
             self.created_at = timezone.now()
         self.updated_at = timezone.now()
         return super(CVE, self).save(*args, **kwargs)
+
+
+# class VIA(models.Model):
+#     cve = models.ForeignKey(CVE, on_delete=models.CASCADE, null=True)
+#     refmap = JSONField(default=dict)
+#     sources = JSONField(default=dict)
+#     created_at = models.DateTimeField(default=timezone.now, null=True)
+#     updated_at = models.DateTimeField(default=timezone.now, null=True)
+#     history = HistoricalRecords()
+#
+#     class Meta:
+#         db_table = "kb_via"
+#
+#     def __unicode__(self):
+#         return "VIA/{}".format(self.cve.cve_id)
+#
+#     def __str__(self):
+#         return "VIA/{}".format(self.cve.cve_id)
+#
+#     def save(self, *args, **kwargs):
+#         # Todo
+#         if not self.created_at:
+#             self.created_at = timezone.now()
+#         self.updated_at = timezone.now()
+#         return super(VIA, self).save(*args, **kwargs)

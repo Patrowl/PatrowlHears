@@ -1,10 +1,15 @@
 from django.conf import settings
-from cves.models import CWE, CPE, CVE
+from cves.models import CWE, CPE, CVE, VIA
+from vulns.models import Vuln, ExploitMetadata, ThreatMetadata
 from pymongo import MongoClient
 from cpe import CPE as _CPE
 import requests
 import logging
 logger = logging.getLogger(__name__)
+
+
+def without_keys(d, keys):
+    return {x: d[x] for x in d if x not in keys}
 
 
 def sync_cwe_fromdb(from_date=None):
@@ -14,7 +19,7 @@ def sync_cwe_fromdb(from_date=None):
     db = cli['cvedb']
     cwes = db.cwe
 
-    my_cwes = CWE.objects.values('cwe_id')
+    my_cwes = CWE.objects.values_list('cwe_id', flat=True)
 
     for cwe in cwes.find():
         if cwe['id'] not in my_cwes:
@@ -33,7 +38,7 @@ def sync_cpe_fromdb(from_date=None):
         settings.DATABASES['mongodb']['PORT'])
     db = cli['cvedb']
     cpes = db.cpe
-    my_cpes = CPE.objects.values('vector')
+    my_cpes = CPE.objects.values_list('vector', flat=True)
 
     for cpe in cpes.find():
         if cpe['cpe_2_2'] not in my_cpes:
@@ -94,6 +99,44 @@ def sync_cve_fromdb(from_date=None):
                 new_cve.save()
             except Exception as e:
                 logger.error(e)
+
+            # TODO: Create New Vuln + metrics
+    return True
+
+
+def sync_via_fromdb(from_date=None):
+    cli = MongoClient(
+        settings.DATABASES['mongodb']['HOST'],
+        settings.DATABASES['mongodb']['PORT'])
+    db = cli['cvedb']
+    vias = db.via4
+
+    my_cves = CVE.objects.values_list('cve_id', flat=True)
+
+    for via in vias.find():
+        if via['id'] in my_cves:
+            cve = CVE.objects.get(cve_id=via['id'])
+            _new_via = {
+                'refmap': cve.get('refmap', []),
+                'sources': without_keys(cve, ['id', 'refmap', '_id'])
+            }
+            cve.update(**_new_via)
+            sync_exploits_fromvia(cve_id=via['id'])
+            break
+    return True
+
+
+def sync_exploits_fromvia(vuln_id=None, cve_id=None, from_date=None):
+    if vuln_id is None and cve_id is None:
+        return False
+    vuln = None
+    if vuln_id:
+        vuln = Vuln.objects.filter(id=vuln_id).first()
+    elif cve_id:
+        vuln = Vuln.objects.filter(cve_id=cve_id).first()
+    if vuln is None:
+        return False
+    print("coucou")
     return True
 
 

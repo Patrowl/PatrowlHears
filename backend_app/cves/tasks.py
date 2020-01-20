@@ -25,3 +25,17 @@ def sync_cves_task(self):
     logger.debug("Entering 'sync_cves_task'")
     cvesearch.sync_cve_fromdb()
     return True
+
+
+@shared_task(bind=True, acks_late=True)
+def sync_vias_task(self):
+    logger.debug("Entering 'sync_vias_task'")
+    cvesearch.sync_via_fromdb()
+    return True
+
+#
+# @shared_task(bind=True, acks_late=True)
+# def sync_via_exploits_task(self):
+#     logger.debug("Entering 'sync_via_exploits_task'")
+#     cvesearch.sync_exploits_fromvia()
+#     return True
