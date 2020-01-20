@@ -35,14 +35,6 @@ class CWESet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend,)
 
 
-class VIASet(viewsets.ModelViewSet):
-    """API endpoint that allows VIA4CVE to be viewed or edited."""
-
-    queryset = VIA.objects.all().order_by('id')
-    serializer_class = VIASerializer
-    filter_backends = (filters.DjangoFilterBackend,)
-
-
 @api_view(['GET'])
 def sync_cwes(self):
     cvesearch.sync_cwe_fromdb()

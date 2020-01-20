@@ -71,7 +71,7 @@ class Vuln(models.Model):
     published = models.DateTimeField(null=True)
     modified = models.DateTimeField(null=True)
     assigner = models.CharField(max_length=50, null=True)
-    cvss = models.CharField(max_length=5, null=True)
+    cvss = models.FloatField(default=0.0, null=True)
     cvss_time = models.DateTimeField(null=True)
     cvss_vector = models.CharField(max_length=250, null=True)
     cwe = models.ForeignKey(CWE, on_delete=models.CASCADE, null=True)
@@ -91,10 +91,10 @@ class Vuln(models.Model):
         db_table = "vulns"
 
     def __unicode__(self):
-        return self.cve_id
+        return "PH-{}".format(self.id)
 
     def __str__(self):
-        return self.cve_id
+        return "PH-{}".format(self.id)
 
     def save(self, *args, **kwargs):
         # Todo

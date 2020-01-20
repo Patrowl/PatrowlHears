@@ -8,3 +8,6 @@ db.sqlite3
 .scannerwork
 .vscode
 staticfiles
+
+backend_app/var/log/*
+backend_app/var/tmp/*

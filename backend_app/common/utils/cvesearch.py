@@ -1,5 +1,5 @@
 from django.conf import settings
-from cves.models import CWE, CPE, CVE, VIA
+from cves.models import CWE, CPE, CVE
 from vulns.models import Vuln, ExploitMetadata, ThreatMetadata
 from pymongo import MongoClient
 from cpe import CPE as _CPE
@@ -42,21 +42,25 @@ def sync_cpe_fromdb(from_date=None):
 
     for cpe in cpes.find():
         if cpe['cpe_2_2'] not in my_cpes:
-            c = _CPE(cpe['cpe_2_2'])
-            new_cpe = CPE(
-                vector=cpe['cpe_2_2'],
-                title=cpe['title'],
-                vendor=c.get_vendor()[0],
-                product=c.get_product()[0],
-                vulnerable_products=[]
-            )
-            new_cpe.save()
-            for p in cpe['cpe_name']:
-                if 'cpe23Uri' in p.keys():
-                    new_cpe.vulnerable_products.append(p['cpe23Uri'])
-                else:
-                    print(p)
-            new_cpe.save()
+            try:
+                c = _CPE(cpe['cpe_2_2'])
+                new_cpe = CPE(
+                    vector=cpe['cpe_2_2'],
+                    title=cpe['title'],
+                    vendor=c.get_vendor()[0],
+                    product=c.get_product()[0],
+                    vulnerable_products=[]
+                )
+                new_cpe.save()
+                for p in cpe['cpe_name']:
+                    if 'cpe23Uri' in p.keys():
+                        new_cpe.vulnerable_products.append(p['cpe23Uri'])
+                    else:
+                        print(p)
+
+                new_cpe.save()
+            except Exception as e:
+                logger.error(e)
     return True
 
 
@@ -66,9 +70,11 @@ def sync_cve_fromdb(from_date=None):
         settings.DATABASES['mongodb']['PORT'])
     db = cli['cvedb']
     cves = db.cves
+    vias = db.via4
 
     for cve in cves.find():
-        if CVE.objects.filter(cve_id=cve['id']).first() is None:
+        cur_cve = CVE.objects.filter(cve_id=cve['id']).first()
+        if cur_cve is None:
             _new_cve = {
                 'cve_id': cve['id'],
                 'summary': cve.get('summary', None),
@@ -95,12 +101,26 @@ def sync_cve_fromdb(from_date=None):
                 #     print("found!")
 
             try:
-                new_cve = CVE(**_new_cve)
-                new_cve.save()
+                cur_cve = CVE(**_new_cve)
+                cur_cve.save()
             except Exception as e:
                 logger.error(e)
 
-            # TODO: Create New Vuln + metrics
+        # Update VIA references
+        via = vias.find({'id': cur_cve.cve_id})[0]
+        if via:
+            cur_cve.references = {
+                'refmap': via.get('refmap', []),
+                'sources': without_keys(via, ['id', 'refmap', '_id'])
+            }
+            cur_cve.save(update_fields=["references"])
+
+        # TODO: Create or update Vuln (metrics)
+        sync_vuln_fromcve(cve=cur_cve)
+        # sync_exploits_fromvia(cve=cur_cve)
+        # sync_threats_fromvia(cve_id=cur_cve['cve_id'])
+        break
+
     return True
 
 
@@ -116,27 +136,54 @@ def sync_via_fromdb(from_date=None):
     for via in vias.find():
         if via['id'] in my_cves:
             cve = CVE.objects.get(cve_id=via['id'])
-            _new_via = {
-                'refmap': cve.get('refmap', []),
-                'sources': without_keys(cve, ['id', 'refmap', '_id'])
+            cve.references = {
+                'refmap': via.get('refmap', []),
+                'sources': without_keys(via, ['id', 'refmap', '_id'])
             }
-            cve.update(**_new_via)
-            sync_exploits_fromvia(cve_id=via['id'])
-            break
+            cve.save(update_fields=["references"])
+            # Create / Update Vuln
+            # sync_exploits_fromvia(cve=cve)
+            # break
     return True
 
 
-def sync_exploits_fromvia(vuln_id=None, cve_id=None, from_date=None):
-    if vuln_id is None and cve_id is None:
+def sync_exploits_fromvia(vuln_id=None, cve=None, from_date=None):
+    if vuln_id is None and cve is None:
         return False
     vuln = None
-    if vuln_id:
+    if vuln_id is not None:
         vuln = Vuln.objects.filter(id=vuln_id).first()
-    elif cve_id:
-        vuln = Vuln.objects.filter(cve_id=cve_id).first()
+    elif cve is not None:
+        vuln = Vuln.objects.filter(cve_id=cve).first()
     if vuln is None:
         return False
-    print("coucou")
+    print("[sync_exploits_fromvia]: TODO")
+    return True
+
+
+def sync_vuln_fromcve(cve):
+    print("[sync_vuln_fromcve]: TODO")
+    _vuln_data = {
+        'cve_id': cve,
+        'summary': cve.summary,
+        'published': cve.published,
+        'modified': cve.modified,
+        'assigner': cve.assigner,
+        'cvss': cve.cvss,
+        'cvss_time': cve.cvss_time,
+        'cvss_vector': cve.cvss_vector,
+        'cwe': cve.cwe,
+        'access': cve.access,
+        'impact': cve.impact
+    }
+    vuln = Vuln.objects.filter(cve_id=cve).first()
+    if vuln is None:
+        vuln = Vuln(**_vuln_data)
+        vuln.save()
+    else:
+        # _vuln_data.update({'changeReason': 'sync'})
+        Vuln.objects.filter(id=vuln.id).update(**_vuln_data)
+
     return True
 
 

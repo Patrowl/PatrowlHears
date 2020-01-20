@@ -87,28 +87,3 @@ class CVE(models.Model):
             self.created_at = timezone.now()
         self.updated_at = timezone.now()
         return super(CVE, self).save(*args, **kwargs)
-
-
-# class VIA(models.Model):
-#     cve = models.ForeignKey(CVE, on_delete=models.CASCADE, null=True)
-#     refmap = JSONField(default=dict)
-#     sources = JSONField(default=dict)
-#     created_at = models.DateTimeField(default=timezone.now, null=True)
-#     updated_at = models.DateTimeField(default=timezone.now, null=True)
-#     history = HistoricalRecords()
-#
-#     class Meta:
-#         db_table = "kb_via"
-#
-#     def __unicode__(self):
-#         return "VIA/{}".format(self.cve.cve_id)
-#
-#     def __str__(self):
-#         return "VIA/{}".format(self.cve.cve_id)
-#
-#     def save(self, *args, **kwargs):
-#         # Todo
-#         if not self.created_at:
-#             self.created_at = timezone.now()
-#         self.updated_at = timezone.now()
-#         return super(VIA, self).save(*args, **kwargs)
