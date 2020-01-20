@@ -11,7 +11,7 @@ class CVESerializer(serializers.HyperlinkedModelSerializer):
             'published', 'modified',
             'cvss', 'cvss_time', 'cvss_vector',
             'cwe', 'access', 'impact', 'vulnerable_products',
-            'raw', 'created_at', 'updated_at'
+            'created_at', 'updated_at'
         ]
 
 

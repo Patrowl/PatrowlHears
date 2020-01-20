@@ -13,14 +13,16 @@ router.register(r'api/assets', ma_apis.MonitoredAssetSet)
 router.register(r'api/vulns', vulns_apis.VulnMetadataSet)
 router.register(r'api/exploits', vulns_apis.ExploitMetadataSet)
 router.register(r'api/ratings', vpr_apis.VPRatingSet)
-router.register(r'api/cves/', cves_apis.CVESet)
+router.register(r'api/kb/cves', cves_apis.CVESet)
+router.register(r'api/kb/cpes', cves_apis.CPESet)
+router.register(r'api/kb/cwes', cves_apis.CWESet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/assets/', include('monitored_assets.urls')),
     path('api/vulns/', include('vulns.urls')),
     path('api/ratings/', include('vpratings.urls')),
-    path('api/cve/', include('cves.urls')),
+    path('api/kb/cves/', include('cves.urls')),
     path('', include(router.urls)),
     # path('', include('pages.urls')),
     # path('favicon.ico', RedirectView.as_view(url='/static/images/favicon.ico')),

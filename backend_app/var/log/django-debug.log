@@ -1,52 +1,19 @@
 Watching for file changes with StatReloader
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/backend_app/urls.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /api/kb/cves/ HTTP/1.1" 200 128463
+"GET /api/kb/cwes/?offset=300 HTTP/1.1" 200 61817
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/backend_app/settings.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET /api/kb/cwes/?offset=300 HTTP/1.1" 200 20303
+"GET /api/kb/cwes/?offset=300 HTTP/1.1" 200 20303
+"GET /api/kb/cves/async/cve HTTP/1.1" 200 11
 /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
 Watching for file changes with StatReloader
-/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/models.py changed, reloading.
 Watching for file changes with StatReloader
-Internal Server Error: /api/cve/sync/cve
-Traceback (most recent call last):
-  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
-    response = get_response(request)
-  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
-    response = self.process_exception_by_middleware(e, request)
-  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
-    response = wrapped_callback(request, *callback_args, **callback_kwargs)
-  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
-    return view_func(*args, **kwargs)
-  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
-    return self.dispatch(request, *args, **kwargs)
-  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
-    response = self.handle_exception(exc)
-  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
-    self.raise_uncaught_exception(exc)
-  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
-    raise exc
-  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
-    response = handler(request, *args, **kwargs)
-  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/decorators.py", line 50, in handler
-    return func(*args, **kwargs)
-  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/apis.py", line 59, in sync_cves
-    cvesearch.sync_cve_fromdb()
-  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py", line 66, in sync_cve_fromdb
-    for cve in cves.find():
-  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/pymongo/cursor.py", line 1156, in next
-    if len(self.__data) or self._refresh():
-  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/pymongo/cursor.py", line 1093, in _refresh
-    self.__send_message(g)
-  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/pymongo/cursor.py", line 955, in __send_message
-    address=self.__address)
-  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/pymongo/mongo_client.py", line 1346, in _run_operation_with_response
-    exhaust=exhaust)
-  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/pymongo/mongo_client.py", line 1464, in _retryable_read
-    return func(session, server, sock_info, slave_ok)
-  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/pymongo/mongo_client.py", line 1340, in _cmd
-    unpack_res)
-  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/pymongo/server.py", line 136, in run_operation_with_response
-    _check_command_response(first)
-  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/pymongo/helpers.py", line 156, in _check_command_response
-    raise CursorNotFound(errmsg, code, response)
-pymongo.errors.CursorNotFound: cursor id 7585890165435499451 not found
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/apis.py changed, reloading.
 Watching for file changes with StatReloader
-"GET /api/cve/sync/cve HTTP/1.1" 200 7
-/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/apis.py changed, reloading.
 Watching for file changes with StatReloader

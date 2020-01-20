@@ -1,5 +1,4 @@
 from django.db import models
-from django.conf import settings
 from django.utils import timezone
 from django.contrib.postgres.fields import JSONField, ArrayField
 from simple_history.models import HistoricalRecords
@@ -19,15 +18,6 @@ def impact_default_dict():
         'confidentiality': None,
         'integrity': None
     }
-
-#
-# class Product(models.Model):
-#     name = models.CharField(max_length=250, null=True)
-#
-#
-# class Vendor(models.Model):
-#     name = models.CharField(max_length=250, null=True)
-#     product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
 
 class CPE(models.Model):
@@ -49,7 +39,7 @@ class CPE(models.Model):
 
 
 class CWE(models.Model):
-    cwe_id = models.CharField(max_length=20, null=True)
+    cwe_id = models.CharField(max_length=20, null=True, unique=True)
     name = models.CharField(max_length=250, null=True)
     description = models.TextField(default="")
 
@@ -64,7 +54,7 @@ class CWE(models.Model):
 
 
 class CVE(models.Model):
-    cve_id = models.CharField(max_length=20, null=True)
+    cve_id = models.CharField(max_length=20, null=True, unique=True)
     summary = models.TextField(default="")
     published = models.DateTimeField(null=True)
     modified = models.DateTimeField(null=True)

@@ -61,10 +61,9 @@ def sync_cve_fromdb(from_date=None):
         settings.DATABASES['mongodb']['PORT'])
     db = cli['cvedb']
     cves = db.cves
-    my_cves = CVE.objects.values('cve_id')
 
     for cve in cves.find():
-        if cve['id'] not in my_cves:
+        if CVE.objects.filter(cve_id=cve['id']).first() is None:
             _new_cve = {
                 'cve_id': cve['id'],
                 'summary': cve.get('summary', None),

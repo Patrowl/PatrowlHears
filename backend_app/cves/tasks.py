@@ -1,5 +1,4 @@
 from celery import shared_task, group
-from celery.result import allow_join_result
 from common.utils import cvesearch
 
 import logging

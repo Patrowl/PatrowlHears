@@ -18,7 +18,7 @@
 /metadata/<metadata_id>/history
 /metadata/<metadata_id>/history/<meta_history_id>
 
-# Customer assets
+# Customer assets (monitored_assets)
 /assets/list
 /assets/add
 /assets/<asset_id>[/info]

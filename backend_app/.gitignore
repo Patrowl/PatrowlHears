@@ -1,0 +1,13 @@
+.idea
+*.pyc
+__pycache__
+env
+db.sqlite3
+.DS_Store
+**/migrations/[0-9]*.py
+.scannerwork
+.vscode
+staticfiles
+
+var/log/*
+var/tmp/*
