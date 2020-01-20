@@ -1,8 +1,42 @@
 from django.db import models
+from django.conf import settings
 from django.utils import timezone
 from django.contrib.postgres.fields import JSONField, ArrayField
 from simple_history.models import HistoricalRecords
-# from monitored_assets.models import MonitoredAsset
+
+
+EXPLOIT_AVAILABILITY = (
+    ('unknown', 'No known exploit available'),
+    ('private', 'A private exploit is available'),
+    ('public', 'A public exploit is available')
+)
+
+TRUST_LEVELS = (
+    ('unknown', 'Unknown'),
+    ('low', 'Low'),         # Not tested
+    ('medium', 'Medium'),   # Not tested
+    ('trusted', 'High'),    # Official source, validated by trusted partners
+)
+
+TLP_LEVELS = (
+    ('white', 'White'),  # Public
+    ('green', 'Green'),  # Internal, could be shared
+    ('amber', 'Amber'),  # Internal, shareable with members of their own organization who need to know
+    ('red', 'Red'),      # Internal, restrictly shareable
+)
+
+EXPLOIT_TYPES = (
+    ('unknown', 'Unknown'),
+    ('discovery', 'Discovery'),
+    ('exploitation', 'Exploitation'),
+)
+
+EXPLOIT_MATURITY_LEVELS = (
+    ('unknown', 'Unknown'),
+    ('unproven', 'Unproven'),
+    ('poc', 'PoC'),
+    ('functional', 'Functional Exploit'),
+)
 
 
 def access_default_dict():
@@ -30,13 +64,8 @@ def exploit_info_default_dict():
         'in_the_news': False
     }
 
-class VulnMetadata(models.Model):
-    EXPLOIT_AVAILABILITY = (
-        ('unknown', 'No known exploit available'),
-        ('private', 'A private exploit is available'),
-        ('public', 'A public exploit is available')
-    )
 
+class VulnMetadata(models.Model):
     cve_id = models.CharField(max_length=20, null=True)
     summary = models.TextField(default="")
     published = models.DateTimeField(null=True)
@@ -52,15 +81,15 @@ class VulnMetadata(models.Model):
         models.CharField(max_length=10, blank=True), null=True)
 
     is_exploitable = models.BooleanField(default=False)
-    exploit_ref = JSONField()
-    exploit_info = JSONField(default=exploit_info_default_dict)
+    exploit_ref = JSONField(default=dict, null=True)
+    exploit_info = JSONField(default=exploit_info_default_dict, null=True)
 
     is_confirmed = models.BooleanField(default=False)
     confirm_ref = ArrayField(
         models.CharField(max_length=500, blank=True), null=True)
     # exploit_availability = models.CharField(
     #     max_length=20, choices=EXPLOIT_AVAILABILITY, default='unknown')
-    raw = JSONField()
+    raw = JSONField(default=dict)
 
     created_at = models.DateTimeField(default=timezone.now, null=True)
     updated_at = models.DateTimeField(default=timezone.now, null=True)
@@ -75,8 +104,44 @@ class VulnMetadata(models.Model):
     def __str__(self):
         return self.cve_id
 
-    # def clean(self):
-    #     pass
+    def save(self, *args, **kwargs):
+        # Todo
+        if not self.created_at:
+            self.created_at = timezone.now()
+        self.updated_at = timezone.now()
+        return super(VulnMetadata, self).save(*args, **kwargs)
+
+
+class ExploitMetadata(models.Model):
+    vuln = models.ForeignKey(VulnMetadata, on_delete=models.CASCADE)
+    links = ArrayField(
+        models.CharField(max_length=1500, blank=True), null=True)
+    notes = models.TextField(default="")
+    trust_level = models.CharField(
+        max_length=20, choices=TRUST_LEVELS, default='unknown')
+    tlp_level = models.CharField(
+        max_length=20, choices=TLP_LEVELS, default='red')
+    source = models.CharField(max_length=250, null=True)
+    availability = models.CharField(
+        max_length=20, choices=EXPLOIT_AVAILABILITY, default='unknown')
+    type = models.CharField(
+        max_length=20, choices=EXPLOIT_TYPES, default='unknown')
+    maturity = models.CharField(
+        max_length=20, choices=EXPLOIT_MATURITY_LEVELS, default='unknown')
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+    created_at = models.DateTimeField(default=timezone.now, null=True)
+    updated_at = models.DateTimeField(default=timezone.now, null=True)
+    history = HistoricalRecords()
+
+    class Meta:
+        db_table = "exploits_metadata"
+
+    def __unicode__(self):
+        return self.cve_id
+
+    def __str__(self):
+        return self.cve_id
 
     def save(self, *args, **kwargs):
         # Todo

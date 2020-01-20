@@ -1,9 +1,8 @@
-# from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import MonitoredAsset
+from .models import VPRating
 
 
-class MonitoredAssetSerializer(serializers.HyperlinkedModelSerializer):
+class VPRatingSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = MonitoredAsset
-        fields = ['name', 'type', 'status', 'created_at', 'updated_at']
+        model = VPRating
+        fields = ['vector', 'vuln', 'score', 'data', 'created_at', 'updated_at']

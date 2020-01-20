@@ -2,19 +2,24 @@ from django.http import JsonResponse
 from django.forms.models import model_to_dict
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
-from monitored_assets.models import MonitoredAsset
-from .models import VulnMetadata
-from .serializers import VulnMetadataSerializer
+from .models import VulnMetadata, ExploitMetadata
+from .serializers import VulnMetadataSerializer, ExploitMetadataSerializer
 from .utils import _refresh_metadata_cve
-from .tasks import refresh_metadata_cve_task, refresh_monitored_cves_task
+from .tasks import refresh_monitored_cves_task
 
 
 class VulnMetadataSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows metadata to be viewed or edited.
-    """
+    """API endpoint that allows vuln metadata to be viewed or edited."""
+
     queryset = VulnMetadata.objects.all().order_by('-updated_at')
     serializer_class = VulnMetadataSerializer
+
+
+class ExploitMetadataSet(viewsets.ModelViewSet):
+    """API endpoint that allows exploit metadata to be viewed or edited."""
+
+    queryset = ExploitMetadata.objects.all().order_by('-updated_at')
+    serializer_class = ExploitMetadataSerializer
 
 
 @api_view(['GET'])

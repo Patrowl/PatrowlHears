@@ -14,11 +14,9 @@ SECRET_KEY = '&-e9z@w=gerd+_k1)rj2#ri2_cwyp_cg5zj-g!-fo(3vx9l33x'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -30,6 +28,8 @@ INSTALLED_APPS = [
     'simple_history',
     'django_celery_beat',
 
+    'users',
+    'cves',
     'monitored_assets',
     'vulns',
     'vpratings',
@@ -45,6 +45,42 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware',
 ]
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'var/log/django-debug.log',
+        },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file', 'console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+            'propagate': True,
+        },
+    },
+}
+
+AUTH_USER_MODEL = 'users.User'
 
 ROOT_URLCONF = 'backend_app.urls'
 
@@ -66,12 +102,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backend_app.wsgi.application'
 
-
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # }
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'patrowlhears_db',
@@ -79,6 +110,10 @@ DATABASES = {
         'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '',
+    },
+    'mongodb': {
+        'HOST': 'localhost',
+        'PORT': 27017
     }
 }
 

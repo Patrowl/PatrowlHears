@@ -1,0 +1,58 @@
+# Vulnerabilities
+/vulns/list
+/vulns/add
+/vulns/<vuln_id>[/info]
+/vulns/<vuln_id>/edit
+/vulns/<vuln_id>/delete
+/vulns/<vuln_id>/sync
+/vulns/<vuln_id>/refresh_metadata
+/vulns/<vuln_id>/history
+/vulns/<vuln_id>/history/<vuln_history_id>
+
+# Metadata
+/metadata/list
+/metadata/add
+/metadata/<metadata_id>[/info]
+/metadata/<metadata_id>/edit
+/metadata/<metadata_id>/delete
+/metadata/<metadata_id>/history
+/metadata/<metadata_id>/history/<meta_history_id>
+
+# Customer assets
+/assets/list
+/assets/add
+/assets/<asset_id>[/info]
+/assets/<asset_id>/edit
+/assets/<asset_id>/delete
+/assets/<asset_id>/vulns
+/assets/<asset_id>/vulns/<vuln_id>
+
+# Customer Vulnerability Prioritization Ratings: Asset+Vuln(+Metadata)
+/vpr/list
+/vpr/add
+/vpr/<vpr_id>[/info]
+/vpr/<vpr_id>/edit
+/vpr/<vpr_id>/delete
+/vpr/<vpr_id>/history
+/vpr/<vpr_id>/history/<history_id>
+
+# Monitored CVE, Vendor/Product (CPE)
+/monitor/list
+/monitor/add
+/monitor/<kw_id>[/info]
+/monitor/<kw_id>/edit
+/monitor/<kw_id>/delete
+
+# CVE (Synchronized from CVE-SEARCH)
+/cve/list
+/cve/sync
+/cve/<cve_id>[/info]
+/cve/<cve_id>/sync
+
+# CPE (Synchronized from CVE-SEARCH)
+/vendors/list
+/vendors/sync
+/vendors/<vendor_name>[/info]
+/vendors/<vendor_name>/sync
+/vendors/<vendor_name>/<product_name>[/info]
+/vendors/<vendor_name>/<product_name>/sync

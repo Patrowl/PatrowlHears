@@ -398,3 +398,45 @@ purge: Erased 735 messages from the queue.
   . vulns.tasks.refresh_metadata_cve_task
   . vulns.tasks.refresh_monitored_cve_task
 
+ 
+ -------------- default-node@GLAD02 v4.4.0 (cliffs)
+--- ***** ----- 
+-- ******* ---- Darwin-19.2.0-x86_64-i386-64bit 2020-01-14 09:00:18
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         backend_app:0x10cec11d0
+- ** ---------- .> transport:   amqp://guest:**@localhost:5672//
+- ** ---------- .> results:     rpc://
+- *** --- * --- .> concurrency: 8 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> default          exchange=default(direct) key=default
+                
+
+[tasks]
+  . vulns.tasks.refresh_metadata_cve_task
+  . vulns.tasks.refresh_monitored_cve_task
+
+purge: Erased 21 messages from the queue.
+
+ 
+ -------------- default-node@GLAD02 v4.4.0 (cliffs)
+--- ***** ----- 
+-- ******* ---- Darwin-19.2.0-x86_64-i386-64bit 2020-01-14 10:27:53
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         backend_app:0x1058dee10
+- ** ---------- .> transport:   amqp://guest:**@localhost:5672//
+- ** ---------- .> results:     rpc://
+- *** --- * --- .> concurrency: 8 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> default          exchange=default(direct) key=default
+                
+
+[tasks]
+  . vulns.tasks.refresh_metadata_cve_task
+  . vulns.tasks.refresh_monitored_cves_task
+

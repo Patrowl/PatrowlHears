@@ -1,7 +1,101 @@
 from django.conf import settings
+from cves.models import CWE, CPE, CVE
+from pymongo import MongoClient
+from cpe import CPE as _CPE
 import requests
 import logging
 logger = logging.getLogger(__name__)
+
+
+def sync_cwe_fromdb(from_date=None):
+    cli = MongoClient(
+        settings.DATABASES['mongodb']['HOST'],
+        settings.DATABASES['mongodb']['PORT'])
+    db = cli['cvedb']
+    cwes = db.cwe
+
+    my_cwes = CWE.objects.values('cwe_id')
+
+    for cwe in cwes.find():
+        if cwe['id'] not in my_cwes:
+            new_cwe = CWE(
+                cwe_id="CWE-"+cwe['id'],
+                name=cwe['name'],
+                description=cwe['Description']
+            )
+            new_cwe.save()
+    return True
+
+
+def sync_cpe_fromdb(from_date=None):
+    cli = MongoClient(
+        settings.DATABASES['mongodb']['HOST'],
+        settings.DATABASES['mongodb']['PORT'])
+    db = cli['cvedb']
+    cpes = db.cpe
+    my_cpes = CPE.objects.values('vector')
+
+    for cpe in cpes.find():
+        if cpe['cpe_2_2'] not in my_cpes:
+            c = _CPE(cpe['cpe_2_2'])
+            new_cpe = CPE(
+                vector=cpe['cpe_2_2'],
+                title=cpe['title'],
+                vendor=c.get_vendor()[0],
+                product=c.get_product()[0],
+                vulnerable_products=[]
+            )
+            new_cpe.save()
+            for p in cpe['cpe_name']:
+                if 'cpe23Uri' in p.keys():
+                    new_cpe.vulnerable_products.append(p['cpe23Uri'])
+                else:
+                    print(p)
+            new_cpe.save()
+    return True
+
+
+def sync_cve_fromdb(from_date=None):
+    cli = MongoClient(
+        settings.DATABASES['mongodb']['HOST'],
+        settings.DATABASES['mongodb']['PORT'])
+    db = cli['cvedb']
+    cves = db.cves
+    my_cves = CVE.objects.values('cve_id')
+
+    for cve in cves.find():
+        if cve['id'] not in my_cves:
+            _new_cve = {
+                'cve_id': cve['id'],
+                'summary': cve.get('summary', None),
+                'published': cve.get('Published', None),
+                'modified': cve.get('Modified', None),
+                'assigner': cve.get('assigner', None),
+                'cvss': cve.get('cvss', None),
+                'cvss_time': cve.get('cvss-time', None),
+                'cvss_vector': cve.get('cvss-vector', None),
+                'access': cve.get('access', None),
+                'impact': cve.get('impact', None),
+                'vulnerable_products': []
+            }
+            # Set CWE
+            cwe_id = cve.get('cwe', None)
+            _cwe = CWE.objects.filter(cwe_id=cwe_id).first()
+            if _cwe is not None:
+                _new_cve.update({'cwe': _cwe})
+
+            # Set vulnerable products (CPE vectors)
+            for vp in cve['vulnerable_configuration']:
+                _new_cve['vulnerable_products'].append(vp)
+                # if CPE.objects.filter(vector=vp):
+                #     print("found!")
+
+            try:
+                new_cve = CVE(**_new_cve)
+                new_cve.save()
+            except Exception as e:
+                logger.error(e)
+    return True
 
 
 def get_cve_references(cve_id):
@@ -33,7 +127,7 @@ def get_cve_references(cve_id):
             if 'exploit-db' in r:
                 is_exploitable = True
                 exploit_ref.append(r)
-    if 'refmap' in cve.keys():
+    if 'refmap' in cve.keys() and 'misc' in cve['refmap'].keys():
         for r in cve['refmap']['misc']:
             if 'exploit-db' in r:
                 is_exploitable = True
@@ -111,16 +205,16 @@ def get_cve_references(cve_id):
             "raw.githubusercontent.com",
             "youtube.com"
         ]
-        if 'misc' in cve['refmap'].keys():
-            for link in cve['refmap']['misc']:
-                if link.endswith(".pdf"):
+        # if 'misc' in cve['refmap'].keys():
+        for link in cve['references']:
+            if link.endswith(".pdf"):
+                exploit_ref.append(link)
+            elif link.endswith(".py"):
+                exploit_ref.append(link)
+            for feed in exploit_feeds:
+                if feed in link:
+                    is_exploitable = True
                     exploit_ref.append(link)
-                elif link.endswith(".py"):
-                    exploit_ref.append(link)
-                for feed in exploit_feeds:
-                    if feed in link:
-                        is_exploitable = True
-                        exploit_ref.append(link)
 
     if 'refmap' in cve.keys():
         if 'confirm' in cve['refmap'].keys():

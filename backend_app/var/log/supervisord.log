@@ -184,3 +184,15 @@
 2020-01-14 10:00:17,704 INFO spawned: 'celery-beat' with pid 2183
 2020-01-14 10:00:22,816 INFO success: celery-default entered RUNNING state, process has stayed up for > than 5 seconds (startsecs)
 2020-01-14 10:00:22,817 INFO success: celery-beat entered RUNNING state, process has stayed up for > than 5 seconds (startsecs)
+2020-01-14 10:27:50,943 INFO waiting for celery-default to stop
+2020-01-14 10:27:50,943 INFO waiting for celery-beat to stop
+2020-01-14 10:27:51,055 INFO stopped: celery-beat (exit status 0)
+2020-01-14 10:27:51,731 INFO stopped: celery-default (exit status 0)
+2020-01-14 10:27:52,743 INFO spawned: 'celery-default' with pid 8851
+2020-01-14 10:27:52,746 INFO spawned: 'celery-beat' with pid 8852
+2020-01-14 10:27:57,917 INFO success: celery-default entered RUNNING state, process has stayed up for > than 5 seconds (startsecs)
+2020-01-14 10:27:57,918 INFO success: celery-beat entered RUNNING state, process has stayed up for > than 5 seconds (startsecs)
+2020-01-15 18:21:01,176 INFO waiting for celery-default to stop
+2020-01-15 18:21:01,178 INFO waiting for celery-beat to stop
+2020-01-15 18:21:01,380 INFO stopped: celery-beat (exit status 0)
+2020-01-15 18:21:02,946 INFO stopped: celery-default (exit status 0)
