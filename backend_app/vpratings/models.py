@@ -3,8 +3,111 @@ from django.utils import timezone
 from django.contrib.postgres.fields import JSONField
 from simple_history.models import HistoricalRecords
 from vulns.models import Vuln
+from datetime import datetime
 
-#
+################
+# Vulnerability: a bug, flaw, weakness, or exposure of an application, system,
+#   device, or service that could lead to a failure of confidentiality,
+#   integrity, or availability.
+# Threat: the likelihood or frequency of a harmful event occurring.
+# Risk: the relative impact that an exploited vulnerability would have to a
+#   user's environment.
+################
+
+VPR_METRICS = {
+    'vulnerability': {
+        'max_score': 5,
+        'cvss2_base_score': {   # 70% --> max_cvss=3,5
+            'default': 2.5,
+        },
+        'confirmation': {
+            'default': 0,
+            'is_confirmed': 0.25
+        },
+        # 'detection': {},
+        'remediation': {
+            'default': 0,
+            'unknown': 0,
+            'unavailable': -0.75,
+            'workaround': 0.5,
+            'temporary': 0.66,
+            'official': 0.75,
+        },
+        'age': {    # Less than N days
+            'default': 0.33,
+            'caps': {
+                '15': 0.25,
+                '45': 0.33,
+                '10000000': 0.5
+            }
+        },
+    },
+    'threat': {
+        'max_score': 5,
+        'exploit_availability': {
+            'default': 1,
+            'unknown': 1,
+            'private': 2,
+            'public': 3
+        },
+        'exploit_maturity': {
+            'default': 0,
+            'unknown': 0,
+            'unproven': 0.25,
+            'poc': 0.75,
+            'functional': 1
+        },
+        'exploit_trust': {
+            'default': 0,
+            'unknown': 0,
+            'low': 0.1,
+            'medium': 0.25,
+            'trusted': 0.5
+        },
+        'exploit_age': {    # Less than N days
+            'default': 0.33,
+            'caps': {
+                '15': 0.25,
+                '45': 0.33,
+                '10000000': 0.5
+            }
+        },
+        'threat_intensity': {
+            'default': 0,
+            'is_in_the_news': 0.75,
+            'is_in_the_wild': 0.75
+        },
+    },
+    'asset': {
+        'max_score': 4,
+        'criticality': {
+            'default': 0.3,
+            'low': 0.1,
+            'medium': 0.3,
+            'high': 1
+        },
+        'exposure': {
+            'default': 1,
+            'restricted': 0.5,
+            'internal': 1,
+            'internet': 2
+        },
+        'distribution': {
+            'default': 0.5,
+            'low': 0.2,
+            'medium': 0.5,
+            'high': 1
+        }
+    }
+}
+
+# VPR_DECISION_CAPS = {
+#     '80': 'very-high',
+#     '60': 'high',
+#     '40': 'moderate',
+#     '0': 'low'
+# }
+
 # class VPRatingPolicy(models.Model):
 #     name = models.CharField(max_length=255, default="")
 #     comments = models.TextField(default="")
@@ -31,7 +134,8 @@ from vulns.models import Vuln
 
 class VPRating(models.Model):
     vector = models.CharField(max_length=255, default="")
-    score = models.FloatField(default=0.0)
+    score = models.IntegerField(default=0)
+    cvssv2adj = models.FloatField(default=0.0)
     data = JSONField(default=dict)
     vuln = models.ForeignKey(Vuln, on_delete=models.CASCADE)
     # policy = models.ForeignKey(VPRatingPolicy, on_delete=models.CASCADE)
@@ -43,10 +147,10 @@ class VPRating(models.Model):
         db_table = "vpratings"
 
     def __unicode__(self):
-        return "{}:{}".format(self.vuln.cve_id, self.score)
+        return "PH-{}:{}".format(self.vuln.id, self.score)
 
     def __str__(self):
-        return "{}:{}".format(self.vuln.cve_id, self.score)
+        return "PH-{}:{}".format(self.vuln.id, self.score)
 
     def save(self, *args, **kwargs):
         if not self.created_at:
@@ -54,7 +158,132 @@ class VPRating(models.Model):
         self.updated_at = timezone.now()
         return super(VPRating, self).save(*args, **kwargs)
 
-    def calc(self):
-        # Uodate vector
-        print('calc', self.score, self.vector)
-        return True
+    def calc_cvssv2adj(self):
+        # Todo
+        print('calc_cvssv2adj', self.score, self.vector, self.vuln.cvss2)
+        return 3.3
+
+    def calc_score(self):
+        if not self.data:   # Empty data
+            self.score = 0
+        else:
+            self.score = int(self._calc_vpr_vuln() * self._calc_vpr_threat() * self._calc_vpr_asset())
+        print('calc_score:', self.score, self.vector)
+        return self.score
+
+    def _calc_vpr_vuln(self):
+        # print("_calc_vpr_vuln()", self.data['vulnerability'])
+        vpr_vuln_score = 0
+
+        # CVSSv2 Base Score (Impact + Exploitability)
+        if 'cvss' in self.data['vulnerability'].keys():
+            vpr_vuln_score += (self.data['vulnerability']['cvss'] * 70/100/2)
+        else:
+            vpr_vuln_score += VPR_METRICS['vulnerability']['cvss']['default']
+
+        # Confirmation
+        if 'is_confirmed' in self.data['vulnerability'].keys() and self.data['vulnerability']['is_confirmed'] is True:
+            vpr_vuln_score += VPR_METRICS['vulnerability']['confirmation']['is_confirmed']
+        else:
+            vpr_vuln_score += VPR_METRICS['vulnerability']['confirmation']['default']
+
+        # Remediation
+        if 'remediation' in self.data['vulnerability'].keys() and self.data['vulnerability']['remediation'] in VPR_METRICS['vulnerability']['remediation'].keys():
+            vpr_vuln_score += VPR_METRICS['vulnerability']['remediation'][self.data['vulnerability']['remediation']]
+        else:
+            vpr_vuln_score += VPR_METRICS['vulnerability']['remediation']['default']
+
+        # Age
+        if 'published' in self.data['vulnerability'].keys():
+            # vpr_vuln_score += VPR_METRICS['vulnerability']['age']
+            for c in VPR_METRICS['vulnerability']['age']['caps'].keys():
+                pubdate = self.data['vulnerability']['published']
+                delta = datetime.now() - pubdate
+                if delta.days <= int(c):
+                    vpr_vuln_score += VPR_METRICS['vulnerability']['age']['caps'][c]
+                    break
+        else:
+            vpr_vuln_score += VPR_METRICS['vulnerability']['age']['default']
+
+        # Cap maximum value
+        if vpr_vuln_score > VPR_METRICS['vulnerability']['max_score']:
+            vpr_vuln_score = VPR_METRICS['vulnerability']['max_score']
+
+        print("vpr_vuln_score:", vpr_vuln_score)
+        return vpr_vuln_score
+
+    def _calc_vpr_threat(self):
+        # print("_calc_vpr_threat()", self.data['threat'])
+        vpr_threat_score = 0
+
+        # List exploits
+        max_exploit_score = 0
+
+        # Loop into exploits and get the top valuable metadata
+        for exploit in self.vuln.exploitmetadata_set.all():
+            exploit_score = 0
+
+            # Availability
+            exploit_score += VPR_METRICS['threat']['exploit_availability'][exploit.availability]
+
+            # Maturity
+            exploit_score += VPR_METRICS['threat']['exploit_maturity'][exploit.maturity]
+
+            # Trust level
+            exploit_score += VPR_METRICS['threat']['exploit_trust'][exploit.trust_level]
+
+            # Age
+            for c in VPR_METRICS['threat']['exploit_age']['caps'].keys():
+                delta = datetime.now() - exploit.published
+                if delta.days <= int(c):
+                    exploit_score += VPR_METRICS['threat']['exploit_age']['caps'][c]
+                    break
+            else:
+                exploit_score += VPR_METRICS['threat']['exploit_age']['default']
+
+            if exploit_score > max_exploit_score:
+                max_exploit_score = exploit_score
+
+        vpr_threat_score += max_exploit_score
+
+        # Threat Intensity
+        if self.vuln.is_in_the_news:
+            vpr_threat_score += VPR_METRICS['threat']['threat_intensity']['is_in_the_news']
+        if self.vuln.is_in_the_wild:
+            vpr_threat_score += VPR_METRICS['threat']['threat_intensity']['is_in_the_wild']
+
+        # Cap maximum value
+        if vpr_threat_score > VPR_METRICS['threat']['max_score']:
+            vpr_threat_score = VPR_METRICS['threat']['max_score']
+
+        print("vpr_threat_score:", vpr_threat_score)
+        return vpr_threat_score
+
+    def _calc_vpr_asset(self):
+        # print("_calc_vpr_exploit()", self.data['asset'])
+        vpr_asset_score = 0
+
+        # Exposure
+        if 'exposure' in self.data['asset'].keys() and self.data['asset']['exposure'] in VPR_METRICS['asset']['exposure'].keys():
+            vpr_asset_score += VPR_METRICS['asset']['exposure'][self.data['asset']['exposure']]
+        else:
+            vpr_asset_score += VPR_METRICS['asset']['exposure']['default']
+
+        # Criticality
+        if 'criticality' in self.data['asset'].keys() and self.data['asset']['criticality'] in VPR_METRICS['asset']['criticality'].keys():
+            vpr_asset_score += VPR_METRICS['asset']['criticality'][self.data['asset']['criticality']]
+        else:
+            vpr_asset_score += VPR_METRICS['asset']['criticality']['default']
+
+        # Distribution
+        if 'distribution' in self.data['asset'].keys() and self.data['asset']['distribution'] in VPR_METRICS['asset']['distribution'].keys():
+            vpr_asset_score += VPR_METRICS['asset']['distribution'][self.data['asset']['distribution']]
+        else:
+            vpr_asset_score += VPR_METRICS['asset']['distribution']['default']
+
+        # Cap maximum value
+        if vpr_asset_score > VPR_METRICS['asset']['max_score']:
+            vpr_asset_score = VPR_METRICS['asset']['max_score']
+
+        print("vpr_asset_score:", vpr_asset_score)
+        return vpr_asset_score

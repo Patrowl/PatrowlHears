@@ -1,5 +1,8 @@
 # from django.contrib.auth.models import User
+from django_filters import rest_framework as filters
+from django_filters import FilterSet, OrderingFilter
 from rest_framework import serializers
+from django.utils.translation import gettext_lazy as _
 from .models import CVE, CPE, CWE, Bulletin
 
 
@@ -14,6 +17,25 @@ class CVESerializer(serializers.HyperlinkedModelSerializer):
             'references', 'bulletins',
             'created_at', 'updated_at'
         ]
+
+
+class CVEFilter(FilterSet):
+    sorted_by = OrderingFilter(
+        # tuple-mapping retains order
+        choices=(
+            ('cve_id', _('CVE-ID')),
+            ('-cve_id', _('CVE-ID (desc)')),
+            ('cvss', _('CVSSv2')),
+            ('-cvss', _('CVSSv2 (desc)')),
+        )
+    )
+    # 
+    # class Meta:
+    #     model = CVE
+    #     fields = {
+    #         'cve_id': ['icontains'],
+    #         'cvss': ['icontains'],
+    #     }
 
 
 class CPESerializer(serializers.HyperlinkedModelSerializer):

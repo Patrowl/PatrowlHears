@@ -6,3 +6,13 @@
 [ ] Collect categories: Deny of service, Remote code exec, ...
 [ ] Use memcache
 [ ] DB performance tuning
+
+
+
+YaraRules
+CVE-2017–11882: https://medium.com/@Sebdraven/a-quick-analysis-malicious-rtf-to-write-yara-rule-part-1-234fa34db551
+CVE-2017-11882 https://blog.reversinglabs.com/blog/reversinglabs-yara-rule-detects-cobalt-payload-exploiting-cve-2017-11882
+CVE-2019-19781: https://github.com/Neo23x0/signature-base/blob/master/yara/exploit_shitrix.yar
+
+Sigma Detection
+https://github.com/Neo23x0/sigma/blob/master/rules/web/web_citrix_cve_2019_19781_exploit.yml

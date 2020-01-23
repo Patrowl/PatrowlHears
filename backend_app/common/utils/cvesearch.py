@@ -45,7 +45,8 @@ def _extract_exploit_dates(published, modified):
         e_update = e_pubdate
     return e_pubdate, e_update
 
-def sync_cwe_fromdb(from_date=None):
+
+def sync_cwes_fromdb(from_date=None):
     cli = MongoClient(
         settings.DATABASES['mongodb']['HOST'],
         settings.DATABASES['mongodb']['PORT'])
@@ -55,7 +56,7 @@ def sync_cwe_fromdb(from_date=None):
     my_cwes = CWE.objects.values_list('cwe_id', flat=True)
 
     for cwe in cwes.find():
-        if cwe['id'] not in my_cwes:
+        if 'CWE-'+cwe['id'] not in my_cwes:
             new_cwe = CWE(
                 cwe_id="CWE-"+cwe['id'],
                 name=cwe['name'],
@@ -65,7 +66,7 @@ def sync_cwe_fromdb(from_date=None):
     return True
 
 
-def sync_cpe_fromdb(from_date=None):
+def sync_cpes_fromdb(from_date=None):
     cli = MongoClient(
         settings.DATABASES['mongodb']['HOST'],
         settings.DATABASES['mongodb']['PORT'])
@@ -97,7 +98,62 @@ def sync_cpe_fromdb(from_date=None):
     return True
 
 
-def sync_cve_fromdb(from_date=None):
+# def sync_cves_fromdb(from_date=None):
+#     cli = MongoClient(
+#         settings.DATABASES['mongodb']['HOST'],
+#         settings.DATABASES['mongodb']['PORT'])
+#     db = cli['cvedb']
+#     cves = db.cves
+#     vias = db.via4
+#
+#     for cve in cves.find():
+#         _new_cve = {
+#             'cve_id': cve['id'],
+#             'summary': cve.get('summary', None),
+#             'published': cve.get('Published', None),
+#             'modified': cve.get('Modified', None),
+#             'assigner': cve.get('assigner', None),
+#             'cvss': cve.get('cvss', None),
+#             'cvss_time': cve.get('cvss-time', None),
+#             'cvss_vector': cve.get('cvss-vector', None),
+#             'access': cve.get('access', None),
+#             'impact': cve.get('impact', None),
+#             'vulnerable_products': []
+#         }
+#         # Set CWE
+#         cwe_id = cve.get('cwe', None)
+#         _cwe = CWE.objects.filter(cwe_id=cwe_id).first()
+#         if _cwe is not None:
+#             _new_cve.update({'cwe': _cwe})
+#
+#         # Set vulnerable products (CPE vectors)
+#         for vp in cve['vulnerable_configuration']:
+#             _new_cve['vulnerable_products'].append(vp)
+#             # if CPE.objects.filter(vector=vp):
+#             #     print("found!")
+#
+#         cur_cve = CVE.objects.filter(cve_id=cve['id']).first()
+#         if cur_cve is None:
+#             try:
+#                 cur_cve = CVE(**_new_cve)
+#                 cur_cve.save()
+#             except Exception as e:
+#                 logger.error(e)
+#         else:
+#             CVE.objects.filter(id=cur_cve.id).update(**_new_cve)
+#
+#         # Update VIA references
+#         via = vias.find_one({'id': cur_cve.cve_id})
+#         if via:
+#             cur_cve.references = without_keys(via, ['id', '_id'])
+#             cur_cve.save(update_fields=["references"])
+#
+#         # Create or update Vuln (metrics)
+#         sync_vuln_fromcve(cve=cur_cve)
+#         via = None
+#
+#     return True
+def sync_cves_fromdb(from_date=None):
     cli = MongoClient(
         settings.DATABASES['mongodb']['HOST'],
         settings.DATABASES['mongodb']['PORT'])
@@ -106,54 +162,68 @@ def sync_cve_fromdb(from_date=None):
     vias = db.via4
 
     for cve in cves.find():
-        _new_cve = {
-            'cve_id': cve['id'],
-            'summary': cve.get('summary', None),
-            'published': cve.get('Published', None),
-            'modified': cve.get('Modified', None),
-            'assigner': cve.get('assigner', None),
-            'cvss': cve.get('cvss', None),
-            'cvss_time': cve.get('cvss-time', None),
-            'cvss_vector': cve.get('cvss-vector', None),
-            'access': cve.get('access', None),
-            'impact': cve.get('impact', None),
-            'vulnerable_products': []
-        }
-        # Set CWE
-        cwe_id = cve.get('cwe', None)
-        _cwe = CWE.objects.filter(cwe_id=cwe_id).first()
-        if _cwe is not None:
-            _new_cve.update({'cwe': _cwe})
-
-        # Set vulnerable products (CPE vectors)
-        for vp in cve['vulnerable_configuration']:
-            _new_cve['vulnerable_products'].append(vp)
-            # if CPE.objects.filter(vector=vp):
-            #     print("found!")
-
-        cur_cve = CVE.objects.filter(cve_id=cve['id']).first()
-        if cur_cve is None:
-            try:
-                cur_cve = CVE(**_new_cve)
-                cur_cve.save()
-            except Exception as e:
-                logger.error(e)
-        else:
-            CVE.objects.filter(id=cur_cve.id).update(**_new_cve)
-
-        # Update VIA references
-        via = vias.find_one({'id': cur_cve.cve_id})
-        if via:
-            cur_cve.references = without_keys(via, ['id', '_id'])
-
-            cur_cve.save(update_fields=["references"])
-
-        # TODO: Create or update Vuln (metrics)
-        sync_vuln_fromcve(cve=cur_cve)
-
+        via = vias.find_one({'id': cve['id']})
+        _sync_cve_fromdb(cve, via)
         via = None
-
     return True
+
+
+def sync_cve_fromdb(cve_id, from_date=None):
+    cli = MongoClient(
+        settings.DATABASES['mongodb']['HOST'],
+        settings.DATABASES['mongodb']['PORT'])
+    db = cli['cvedb']
+    cve = db.cves.find_one({'id': cve_id})
+    if cve is not None:
+        via = db.via4.find_one({'id': cve['id']})
+        _sync_cve_fromdb(cve, via)
+        return True
+    return False
+
+
+def _sync_cve_fromdb(cve, via):
+    _new_cve = {
+        'cve_id': cve['id'],
+        'summary': cve.get('summary', None),
+        'published': cve.get('Published', None),
+        'modified': cve.get('Modified', None),
+        'assigner': cve.get('assigner', None),
+        'cvss': cve.get('cvss', None),
+        'cvss_time': cve.get('cvss-time', None),
+        'cvss_vector': cve.get('cvss-vector', None),
+        'access': cve.get('access', None),
+        'impact': cve.get('impact', None),
+        'vulnerable_products': []
+    }
+    # Set CWE
+    cwe_id = cve.get('cwe', None)
+    _cwe = CWE.objects.filter(cwe_id=cwe_id).first()
+    if _cwe is not None:
+        _new_cve.update({'cwe': _cwe})
+
+    # Set vulnerable products (CPE vectors)
+    for vp in cve['vulnerable_configuration']:
+        _new_cve['vulnerable_products'].append(vp)
+        # if CPE.objects.filter(vector=vp):
+        #     print("found!")
+
+    cur_cve = CVE.objects.filter(cve_id=cve['id']).first()
+    if cur_cve is None:
+        try:
+            cur_cve = CVE(**_new_cve)
+            cur_cve.save()
+        except Exception as e:
+            logger.error(e)
+    else:
+        CVE.objects.filter(id=cur_cve.id).update(**_new_cve)
+
+    # Update VIA references
+    if via:
+        cur_cve.references = without_keys(via, ['id', '_id'])
+        cur_cve.save(update_fields=["references"])
+
+    # Create or update Vuln (metrics)
+    sync_vuln_fromcve(cve=cur_cve)
 
 
 def sync_via_fromdb(from_date=None):
@@ -180,6 +250,7 @@ def sync_via_fromdb(from_date=None):
 
 
 def sync_exploits_fromvia(vuln_id=None, cve=None, from_date=None):
+    print('sync_exploits_fromvia(Vuln={},CVE={})'.format(vuln_id, cve))
     if vuln_id is None and cve is None:
         return False
     vuln = None
@@ -546,7 +617,7 @@ def sync_exploits_fromvia(vuln_id=None, cve=None, from_date=None):
                         'maturity': 'poc',
                         'published': datetime.date.today(),
                         'modified': datetime.date.today(),
-                        'raw': e
+                        'raw': b
                     }
                     ex_hash = hash(json.dumps(_new_exploit, sort_keys=True, default=_json_serial))
                     _new_exploit.update({'hash': ex_hash})
@@ -570,7 +641,7 @@ def sync_exploits_fromvia(vuln_id=None, cve=None, from_date=None):
                             'maturity': 'poc',
                             'published': datetime.date.today(),
                             'modified': datetime.date.today(),
-                            'raw': e
+                            'raw': b
                         }
                         ex_hash = hash(json.dumps(_new_exploit, sort_keys=True, default=_json_serial))
                         _new_exploit.update({'hash': ex_hash})
@@ -610,7 +681,6 @@ def sync_vuln_fromcve(cve):
         Vuln.objects.filter(id=vuln.id).update(**_vuln_data)
 
     sync_exploits_fromvia(vuln.id)
-    # sync_threats_fromvia(vuln.id)
     return vuln
 
 

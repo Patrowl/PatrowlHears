@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_filters',
     'simple_history',
     'django_celery_beat',
 
@@ -189,12 +190,12 @@ CELERY_TASK_IGNORE_RESULT = True
 # CELERY_TASK_RESULT_EXPIRES = 300
 CELERY_ACKS_LATE = True
 
-CELERY_BEAT_SCHEDULE = {
-    'refresh_monitored_cves': {
-        'task': 'vulns.tasks.refresh_monitored_cve_task',
-        'schedule': timedelta(minutes=1)
-    }
-}
+# CELERY_BEAT_SCHEDULE = {
+#     'refresh_monitored_cves': {
+#         'task': 'vulns.tasks.refresh_monitored_cve_task',
+#         'schedule': timedelta(minutes=30)
+#     }
+# }
 
 # Others
 CVESEARCH_URL = 'http://localhost:5000'

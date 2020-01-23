@@ -5,7 +5,10 @@ from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from common.utils import cvesearch
 from .models import CVE, CPE, CWE, Bulletin
-from .serializers import CVESerializer, CPESerializer, CWESerializer, BulletinSerializer
+from .serializers import (
+    CVESerializer, CPESerializer, CWESerializer, BulletinSerializer,
+    CVEFilter
+)
 from .tasks import (
     sync_cwes_task, sync_cpes_task, sync_cves_task, sync_vias_task
 )
@@ -16,7 +19,9 @@ class CVESet(viewsets.ModelViewSet):
 
     queryset = CVE.objects.all().order_by('cve_id')
     serializer_class = CVESerializer
+    filterset_class = CVEFilter
     filter_backends = (filters.DjangoFilterBackend,)
+    filterset_fields = ('cve_id', 'cvss')
 
 
 class CPESet(viewsets.ModelViewSet):
@@ -45,7 +50,7 @@ class BulletinSet(viewsets.ModelViewSet):
 
 @api_view(['GET'])
 def sync_cwes(self):
-    cvesearch.sync_cwe_fromdb()
+    cvesearch.sync_cwes_fromdb()
     return JsonResponse("done.", safe=False)
 
 
@@ -57,7 +62,7 @@ def sync_cwes_async(self):
 
 @api_view(['GET'])
 def sync_cpes(self):
-    cvesearch.sync_cpe_fromdb()
+    cvesearch.sync_cpes_fromdb()
     return JsonResponse("done.", safe=False)
 
 
@@ -69,7 +74,13 @@ def sync_cpes_async(self):
 
 @api_view(['GET'])
 def sync_cves(self):
-    cvesearch.sync_cve_fromdb()
+    cvesearch.sync_cves_fromdb()
+    return JsonResponse("done.", safe=False)
+
+
+@api_view(['GET'])
+def sync_cve(self, cve_id):
+    cvesearch.sync_cve_fromdb(cve_id)
     return JsonResponse("done.", safe=False)
 
 

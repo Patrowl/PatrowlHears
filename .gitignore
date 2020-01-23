@@ -9,5 +9,5 @@ db.sqlite3
 .vscode
 staticfiles
 
-backend_app/var/log/*
-backend_app/var/tmp/*
+backend_app/var/log/*.log
+backend_app/var/tmp/*.pid
