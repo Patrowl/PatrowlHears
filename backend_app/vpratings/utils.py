@@ -2,8 +2,8 @@ from django.forms.models import model_to_dict
 from vulns.serializers import (
     VulnSerializer, ExploitMetadataSerializer, ThreatMetadataSerializer)
 from .models import VPRating
-import logging
 from cvsslib import cvss2, calculate_vector
+import logging
 logger = logging.getLogger(__name__)
 
 

@@ -1,9 +1,10 @@
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
 from rest_framework import viewsets
-from rest_framework.decorators import api_view
+# from rest_framework.decorators import api_view
 from .models import Vuln, ExploitMetadata, ThreatMetadata
-from .serializers import VulnSerializer, ExploitMetadataSerializer, ThreatMetadataSerializer
+from .serializers import (
+    VulnSerializer, ExploitMetadataSerializer, ThreatMetadataSerializer)
 # from .utils import _refresh_metadata_cve
 # from .tasks import refresh_monitored_cves_task
 

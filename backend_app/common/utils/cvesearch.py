@@ -161,6 +161,7 @@ def sync_cves_fromdb(from_date=None):
     cves = db.cves
     vias = db.via4
 
+    via = None
     for cve in cves.find():
         via = vias.find_one({'id': cve['id']})
         _sync_cve_fromdb(cve, via)
@@ -211,17 +212,22 @@ def _sync_cve_fromdb(cve, via):
     if cur_cve is None:
         try:
             cur_cve = CVE(**_new_cve)
-            cur_cve.save()
+            # cur_cve.save()
         except Exception as e:
             logger.error(e)
     else:
-        CVE.objects.filter(id=cur_cve.id).update(**_new_cve)
+        # CVE.objects.filter(id=cur_cve.id).update(**_new_cve)
+        for v in _new_cve.keys():
+            if _new_cve[v] != getattr(cur_cve, v):
+                setattr(cur_cve, v, _new_cve[v])
+    cur_cve.save()
 
     # Update VIA references
     if via:
         cur_cve.references = without_keys(via, ['id', '_id'])
         cur_cve.save(update_fields=["references"])
 
+    # cur_cve.save()
     # Create or update Vuln (metrics)
     sync_vuln_fromcve(cve=cur_cve)
 
@@ -250,7 +256,7 @@ def sync_via_fromdb(from_date=None):
 
 
 def sync_exploits_fromvia(vuln_id=None, cve=None, from_date=None):
-    print('sync_exploits_fromvia(Vuln={},CVE={})'.format(vuln_id, cve))
+    # print('sync_exploits_fromvia(Vuln={},CVE={})'.format(vuln_id, cve))
     if vuln_id is None and cve is None:
         return False
     vuln = None
@@ -675,10 +681,13 @@ def sync_vuln_fromcve(cve):
     vuln = Vuln.objects.filter(cve_id=cve).first()
     if vuln is None:
         vuln = Vuln(**_vuln_data)
-        vuln.save()
     else:
         # _vuln_data.update({'changeReason': 'sync'})
-        Vuln.objects.filter(id=vuln.id).update(**_vuln_data)
+        # Vuln.objects.filter(id=vuln.id).update(**_vuln_data)
+        for v in _vuln_data.keys():
+            if _vuln_data[v] != getattr(vuln, v):
+                setattr(vuln, v, _vuln_data[v])
+    vuln.save()
 
     sync_exploits_fromvia(vuln.id)
     return vuln

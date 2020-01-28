@@ -3,9 +3,14 @@
 [ ] Patch info: availability (unknown, partial, official), date
 [ ] Extract CVSSv2 Temporal vector from Nessus plugins
 [ ] Extract CVSSv3 Base and Temporal vectors from Nessus plugins
-[ ] Collect categories: Deny of service, Remote code exec, ...
+[ ] Collect vuln categories: Deny of service, Remote code exec, ...
+[ ] Collect data from MISP
+[ ] Collect data on Yara and Sigma detection rules
+[ ] Share data with OpenCTI
+[ ] Scrap data from Github, Twitter, Reddit and Google --> NLP analysis for suggestions
 [ ] Use memcache
 [ ] DB performance tuning
+[ ] Alerting module
 
 
 
@@ -16,3 +21,91 @@ CVE-2019-19781: https://github.com/Neo23x0/signature-base/blob/master/yara/explo
 
 Sigma Detection
 https://github.com/Neo23x0/sigma/blob/master/rules/web/web_citrix_cve_2019_19781_exploit.yml
+
+OpenCTI integration
+
+
+
+----------------
+Alerting use cases:
+- Vulnerabilities match CVSS > 9.0 AND is_monitored_cpe AND is_exploitable == True
+  -> New vulns
+  -> Updated vuln
+
+
+
+Alerting [
+{
+  'title': '[All] New vulnerability detected with CVSS > 9.0 and an exploit exists',
+  'trigger': 'add_vuln',
+  'action': 'debug',
+  'target': 'vulns',
+  'on_monitored': False,
+  'in_bulk': False,
+  'template_id': None,
+  'conditions': {
+    'vuln': {
+      'cvss__gte': 9.0,
+      'is_exploitable': True
+    }
+  },
+  'severity': 'low',
+  'enabled': True
+},
+{
+  'title': '[Monitored] CVSS score has changed to > 9.0',
+  'trigger': 'update_vuln',
+  'action': 'debug',
+  'target': 'vulns',
+  'on_monitored': True,
+  'conditions': [
+    'vuln': {
+      'cvss__gte': 9.0,
+    }
+  ],
+  'check_fields': ['cvss2']
+  'severity': 'low'
+},
+{
+  'title': '[Monitored] CVSS score has changed to > 9.0',
+  'trigger': 'update_vuln',
+  'action': 'debug',
+  'target': 'vulns',
+  'on_monitored': True,
+  'conditions': [
+    'vuln': {
+      'cvss2__gte': 9.0,
+    }
+  ],
+  'check_fields': ['cvss2']
+  'severity': 'low'
+},
+{
+  'title': '[Monitored] Change(s) detected on Vuln PHID-{{vuln.id}}',
+  'trigger': 'update_vuln',
+  'action': 'debug',
+  'target': 'vulns',
+  'on_monitored': True,
+  'conditions': [],
+  'check_fields': [
+    'cvss2', 'impact', 'access', 'is_exploitable', 'is_confirmed',
+    'is_in_the_news', 'is_in_the_wild']
+  'severity': 'low'
+},
+{
+  'title': '[All] New public exploit has been found on CVE-2020-0608',
+  'trigger': 'add_exploit',
+  'action': 'debug',
+  'target': 'exploits',
+  'on_monitored': False,
+  'conditions': [
+    'vuln': {
+      'cve_id': 'CVE-2020-0608',
+    }
+    'exploit': {
+      'availability': 'public'
+    }
+  ],
+  'severity': 'low'
+},
+]

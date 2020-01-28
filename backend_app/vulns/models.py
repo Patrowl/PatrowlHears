@@ -2,41 +2,13 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.postgres.fields import JSONField
 from simple_history.models import HistoricalRecords
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from alerts.models import AlertingRule
 from cves.models import CVE, CWE
-
-
-EXPLOIT_AVAILABILITY = (
-    ('unknown', 'No known exploit available'),
-    ('private', 'A private exploit is available'),
-    ('public', 'A public exploit is available')
-)
-
-TRUST_LEVELS = (
-    ('unknown', 'Unknown'),
-    ('low', 'Low'),         # Not tested
-    ('medium', 'Medium'),   # Not tested
-    ('trusted', 'High'),    # Official source, validated by trusted partners
-)
-
-TLP_LEVELS = (
-    ('white', 'White'),  # Public
-    ('green', 'Green'),  # Internal, could be shared
-    ('amber', 'Amber'),  # Internal, shareable with members of their own organization who need to know
-    ('red', 'Red'),      # Internal, restrictly shareable
-)
-
-EXPLOIT_TYPES = (
-    ('unknown', 'Unknown'),
-    ('discovery', 'Discovery'),
-    ('exploitation', 'Exploitation'),
-)
-
-EXPLOIT_MATURITY_LEVELS = (
-    ('unknown', 'Unknown'),
-    ('unproven', 'Unproven'),
-    ('poc', 'PoC'),
-    ('functional', 'Functional Exploit'),
-)
+from common.utils.constants import EXPLOIT_AVAILABILITY, TRUST_LEVELS, TLP_LEVELS, EXPLOIT_TYPES, EXPLOIT_MATURITY_LEVELS
+from common.utils import _json_serial
+import json
 
 
 def access_default_dict():
@@ -82,17 +54,69 @@ class Vuln(models.Model):
     class Meta:
         db_table = "vulns"
 
+    def __init__(self, *args, **kwargs):
+        super(Vuln, self).__init__(*args, **kwargs)
+        self.__important_fields = [
+            'cve_id', 'summary', 'published', 'modified', 'assigner',
+            'cvss', 'cvss_time', 'cvss_vector', 'access', 'impact',
+            'is_exploitable', 'is_confirmed', 'is_in_the_news', 'is_in_the_wild']
+        for field in self.__important_fields:
+            setattr(self, '__original_%s' % field, getattr(self, field))
+
     def __unicode__(self):
         return "PH-{}".format(self.id)
 
     def __str__(self):
         return "PH-{}".format(self.id)
 
-    # def save(self, *args, **kwargs):
-    #     if not self.created_at:
-    #         self.created_at = timezone.now()
-    #     self.updated_at = timezone.now()
-    #     return super(Vuln, self).save(*args, **kwargs)
+    def to_dict(self):
+        j = {
+            'id': self.id,
+            'cve_id': self.cve_id.cve_id,
+            'summary': self.summary,
+            'published': self.published,
+            'modified': self.modified,
+            'assigner': self.assigner,
+            'cvss': self.cvss,
+            'cvss_time': self.cvss_time,
+            'cvss_vector': self.cvss_vector,
+            'access': self.access,
+            'impact': self.impact,
+            'is_exploitable': self.is_exploitable,
+            'is_confirmed': self.is_confirmed,
+            'is_in_the_news': self.is_in_the_news,
+            'is_in_the_wild': self.is_in_the_wild,
+            'reflinks': self.reflinks,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at,
+            # 'exploits': self.exploitmetadata_set,
+            # 'threats': self.threatmetadata_set,
+        }
+        return j
+
+    def to_json(self):
+        return json.dumps(self.to_dict(), sort_keys=True, default=_json_serial)
+
+    def has_changed(self):
+        for field in self.__important_fields:
+            orig = '__original_%s' % field
+            if getattr(self, orig) != getattr(self, field):
+                return True
+        return False
+
+    def get_changes(self):
+        changes = []
+        for field in self.__important_fields:
+            orig = '__original_%s' % field
+            if getattr(self, orig) != getattr(self, field):
+                changes.append(field)
+        return changes
+
+    def save(self, *args, **kwargs):
+        if not self.created_at:
+            self.created_at = timezone.now()
+        self.updated_at = timezone.now()
+        return super(Vuln, self).save(*args, **kwargs)
 
 
 class ExploitMetadata(models.Model):
@@ -130,7 +154,6 @@ class ExploitMetadata(models.Model):
         return "VULN:{}/EXPLOIT:{}".format(self.vuln.id, self.id)
 
     def save(self, *args, **kwargs):
-        # Todo
         if not self.created_at:
             self.created_at = timezone.now()
         self.updated_at = timezone.now()
@@ -171,3 +194,48 @@ class ThreatMetadata(models.Model):
             self.created_at = timezone.now()
         self.updated_at = timezone.now()
         return super(ThreatMetadata, self).save(*args, **kwargs)
+
+
+@receiver(post_save, sender=Vuln)
+def alerts_vulnerability_save(sender, **kwargs):
+    if kwargs['instance']._state.adding:
+        # Check alerting rules
+        for alert in AlertingRule.objects.filter(target='add_vuln', enabled=True):
+            vuln_conditions = alert.conditions.get('vuln', None)
+            vuln_conditions.update({'id': kwargs['instance'].id})
+            if Vuln.objects.filter(**vuln_conditions).first():
+                alert.notify(short=alert.title, long=kwargs['instance'].to_dict())
+    else:
+        changes = kwargs['instance'].get_changes()
+        if len(changes) > 0:
+            # Check alerting rules
+            for alert in AlertingRule.objects.filter(target='update_vuln', enabled=True):
+                # Check if at least one changed field has to be checked
+                if any(i in changes for i in alert.check_fields):
+                    vuln_conditions = alert.conditions.get('vuln', None)
+                    vuln_conditions.update({'id': kwargs['instance'].id})
+                    if Vuln.objects.filter(**vuln_conditions).first():
+                        alert.notify(short=alert.title, long=kwargs['instance'].to_dict())
+
+#
+# @receiver(post_save, sender=ExploitMetadata)
+# def alerts_exploit_save(sender, **kwargs):
+#     if kwargs['instance']._state.adding:
+#         # Check alerting rules
+#         for alert in AlertingRule.objects.filter(target='add_exploit', enabled=True):
+#             vuln_conditions = alert.conditions.get('vuln', None)
+#             exploit_conditions = alert.conditions.get('exploit', None)
+#             exploit_conditions.update({'id': kwargs['instance'].id})
+#             if Vuln.objects.filter(**vuln_conditions).first() and ExploitMetadata.objects.filter(**exploit_conditions).first():
+#                 alert.notify(short=alert.title, long=kwargs['instance'])
+#     else:
+#         changes = kwargs['instance'].get_changes()
+#         if len(changes) > 0:
+#             # Check alerting rules
+#             for alert in AlertingRule.objects.filter(target='update_exploit', enabled=True):
+#                 # Check if at least one changed field has to be checked
+#                 if any(i in changes for i in alert.check_fields):
+#                     vuln_conditions = alert.conditions.get('vuln', None)
+#                     vuln_conditions.update({'id': kwargs['instance'].id})
+#                     if Vuln.objects.filter(**vuln_conditions).first():
+#                         alert.notify(short=alert.title, long=kwargs['instance'])

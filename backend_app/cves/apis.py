@@ -1,5 +1,6 @@
 from django.http import JsonResponse
-# from django.forms.models import model_to_dict
+from django.shortcuts import get_object_or_404
+from django.forms.models import model_to_dict
 from django_filters import rest_framework as filters
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
@@ -82,6 +83,12 @@ def sync_cves(self):
 def sync_cve(self, cve_id):
     cvesearch.sync_cve_fromdb(cve_id)
     return JsonResponse("done.", safe=False)
+
+
+@api_view(['GET'])
+def get_cve_info(self, cve_id):
+    cve = get_object_or_404(CVE, cve_id=cve_id)
+    return JsonResponse(model_to_dict(cve), safe=False)
 
 
 @api_view(['GET'])

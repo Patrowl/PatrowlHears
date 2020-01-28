@@ -1,0 +1,6 @@
+Vulnerability PH-{{ data.id }}
+- CVE-ID: {{ data.cve_id }}
+- CVSSv2: {{ data.cvss }}
+- Summary: {{ data.summary }}
+- Is confirmed: {{ data.is_confirmed }}
+- Is exploitable: {{ data.is_exploitable }}

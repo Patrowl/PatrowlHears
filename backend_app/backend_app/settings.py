@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'monitored_assets',
     'vulns',
     'vpratings',
+    'alerts',
 ]
 
 MIDDLEWARE = [
@@ -196,6 +197,14 @@ CELERY_ACKS_LATE = True
 #         'schedule': timedelta(minutes=30)
 #     }
 # }
+
+# Email settings
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', True)
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'auth.smtp.1and1.fr')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'alerts@greenlockadvisory.fr')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '7g9F5CVuatTX_YX')
+EMAIL_PORT = os.environ.get('EMAIL_PORT', 587)
+EMAIL_RCPT_USER = os.environ.get('EMAIL_RCPT_USER', 'nicolas.mattiocco+feeds@gmail.com')
 
 # Others
 CVESEARCH_URL = 'http://localhost:5000'

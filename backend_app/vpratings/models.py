@@ -4,6 +4,9 @@ from django.contrib.postgres.fields import JSONField
 from simple_history.models import HistoricalRecords
 from vulns.models import Vuln
 from datetime import datetime
+import logging
+logger = logging.getLogger('django')
+
 
 ################
 # Vulnerability: a bug, flaw, weakness, or exposure of an application, system,
@@ -161,13 +164,17 @@ class VPRating(models.Model):
     def calc_cvssv2adj(self):
         # Todo
         print('calc_cvssv2adj', self.score, self.vector, self.vuln.cvss2)
-        return 3.3
+        return self.cvssv2adj
 
     def calc_score(self):
         if not self.data:   # Empty data
             self.score = 0
         else:
-            self.score = int(self._calc_vpr_vuln() * self._calc_vpr_threat() * self._calc_vpr_asset())
+            # self.score = int(self._calc_vpr_vuln() * self._calc_vpr_threat() * self._calc_vpr_asset())
+            self.score = int(
+                self._calc_vpr_vuln() * 12 +
+                self._calc_vpr_threat() * 4 +
+                self._calc_vpr_asset() * 5)
         print('calc_score:', self.score, self.vector)
         return self.score
 
