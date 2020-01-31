@@ -1,6 +1,7 @@
 from django.conf import settings
-from cves.models import CWE, CPE, CVE
+from cves.models import CWE, CPE, CVE, Bulletin
 from vulns.models import Vuln, ExploitMetadata, ThreatMetadata
+from .cvesearch_bulletins import sync_bulletin_redhat
 from pymongo import MongoClient
 from cpe import CPE as _CPE
 import datetime
@@ -16,6 +17,11 @@ COMMON_EXPLOIT_FEEDS = [
     "raw.githubusercontent.com",
     "youtube.com",
     "snyk.io/research/"
+]
+
+VIA_BULLETINS = [
+    'redhat', 'msbulletin', 'ubuntu', 'suse', 'debian',
+    'fedora', 'freebsd', 'gentoo', 'mandrake', 'mandriva', 'slackware'
 ]
 
 
@@ -153,6 +159,50 @@ def sync_cpes_fromdb(from_date=None):
 #         via = None
 #
 #     return True
+def sync_bulletins_fromdb(from_date=None):
+    cli = MongoClient(
+        settings.DATABASES['mongodb']['HOST'],
+        settings.DATABASES['mongodb']['PORT'])
+    db = cli['cvedb']
+    # cves = db.cves
+    vias = db.via4
+
+    for via in vias.find():
+        # Check if the VIA record has supported bulletin information
+        for k in via.keys():
+            if k in VIA_BULLETINS:
+                _sync_bulletin_fromdb(via, k)  # via['id']: CVE-yyyy-xxxxx
+    return True
+
+
+def _sync_bulletin_fromdb(cve, vendor):
+    cve_id = cve['id']
+    _new_bulletins = []
+    if vendor == 'redhat':
+        _new_bulletins = sync_bulletin_redhat(cve['redhat'])
+
+    print("_new_bulletins:", _new_bulletins)
+    for new_bulletin in _new_bulletins:
+        # Create or new Bulletin object
+        bulletin = Bulletin.objects.filter(publicid=new_bulletin['publicid']).first()
+        if bulletin is None:
+            # Create new bulletin
+            bulletin = Bulletin(**new_bulletin)
+        else:
+            # Update existing one if any change
+            for v in new_bulletin.keys():
+                if new_bulletin[v] != getattr(bulletin, v):
+                    setattr(bulletin, v, new_bulletin[v])
+        bulletin.save()
+
+        # Add / Update CVE.bulletins references
+        cve = CVE.objects.filter(cve_id=cve_id).first()
+        if cve is not None and bulletin not in cve.bulletins.all():
+            cve.bulletins.add(bulletin)
+
+    return True
+
+
 def sync_cves_fromdb(from_date=None):
     cli = MongoClient(
         settings.DATABASES['mongodb']['HOST'],
@@ -210,13 +260,14 @@ def _sync_cve_fromdb(cve, via):
 
     cur_cve = CVE.objects.filter(cve_id=cve['id']).first()
     if cur_cve is None:
+        # Create it
         try:
             cur_cve = CVE(**_new_cve)
             # cur_cve.save()
         except Exception as e:
             logger.error(e)
     else:
-        # CVE.objects.filter(id=cur_cve.id).update(**_new_cve)
+        # Update it
         for v in _new_cve.keys():
             if _new_cve[v] != getattr(cur_cve, v):
                 setattr(cur_cve, v, _new_cve[v])

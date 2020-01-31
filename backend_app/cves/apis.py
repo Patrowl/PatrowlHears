@@ -11,7 +11,8 @@ from .serializers import (
     CVEFilter
 )
 from .tasks import (
-    sync_cwes_task, sync_cpes_task, sync_cves_task, sync_vias_task
+    sync_cwes_task, sync_cpes_task, sync_cves_task, sync_vias_task,
+    sync_bulletins_task
 )
 
 
@@ -106,6 +107,18 @@ def sync_vias(self):
 @api_view(['GET'])
 def sync_vias_async(self):
     sync_vias_task.apply_async(args=[], queue='default', retry=False)
+    return JsonResponse("enqueued.", safe=False)
+
+
+@api_view(['GET'])
+def sync_bulletins(self):
+    cvesearch.sync_bulletins_fromdb()
+    return JsonResponse("done.", safe=False)
+
+
+@api_view(['GET'])
+def sync_bulletins_async(self):
+    sync_bulletins_task.apply_async(args=[], queue='default', retry=False)
     return JsonResponse("enqueued.", safe=False)
 
 #

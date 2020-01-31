@@ -10,7 +10,6 @@
 [ ] Scrap data from Github, Twitter, Reddit and Google --> NLP analysis for suggestions
 [ ] Use memcache
 [ ] DB performance tuning
-[ ] Alerting module
 
 
 
@@ -24,15 +23,21 @@ https://github.com/Neo23x0/sigma/blob/master/rules/web/web_citrix_cve_2019_19781
 
 OpenCTI integration
 
+Bulletins
+redhat: CVE-2018-12326
+msbulletin: CVE-2017-8713
 
+----------------
+Monitored assets:
+- Create/Update/Delete asset to monitor: CVE, Bulletin, Vendor, Product
+- Send alerts on changes
+- Send regular reports
 
 ----------------
 Alerting use cases:
 - Vulnerabilities match CVSS > 9.0 AND is_monitored_cpe AND is_exploitable == True
   -> New vulns
   -> Updated vuln
-
-
 
 Alerting [
 {

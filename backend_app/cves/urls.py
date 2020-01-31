@@ -14,6 +14,8 @@ urlpatterns = [
     path('cve/<slug:cve_id>/info', apis.get_cve_info, name='get_cve_info'),
     path('vias/sync', apis.sync_vias, name='sync_vias'),
     path('vias/async', apis.sync_vias_async, name='sync_vias_async'),
+    path('bulletins/sync', apis.sync_bulletins, name='sync_bulletins'),
+    path('bulletins/async', apis.sync_bulletins_async, name='sync_bulletins_async'),
     # path('via_exploits/sync', apis.sync_exploits, name='sync_exploits'),
     # path('via_exploits/async', apis.sync_exploits_async, name='sync_exploits_async'),
 ]

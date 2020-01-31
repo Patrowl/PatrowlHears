@@ -5,12 +5,13 @@ from simple_history.models import HistoricalRecords
 
 class MonitoredAsset(models.Model):
     ASSET_TYPES = (
-        ('CVE', 'CVE'),
-        ('CPE', 'CPE'),
-        ('Vendor', 'Vendor'),
-        ('Product', 'Product'),
-        ('People', 'People'),
-        ('Keyword', 'Keyword')
+        ('bulletin', 'Bulletin'),
+        ('cve', 'CVE'),
+        ('cpe', 'CPE'),
+        ('vendor', 'Vendor'),
+        ('product', 'Product'),
+        # ('People', 'People'),
+        # ('Keyword', 'Keyword')
     )
 
     MONITORING_STATUSES = (

@@ -11,3 +11,6 @@ staticfiles
 
 backend_app/var/log/*.log
 backend_app/var/tmp/*.pid
+
+# Frontend_app
+package-lock.json
