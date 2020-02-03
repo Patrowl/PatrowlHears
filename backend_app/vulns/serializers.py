@@ -3,11 +3,16 @@ from .models import Vuln, ExploitMetadata, ThreatMetadata
 
 
 class VulnSerializer(serializers.HyperlinkedModelSerializer):
+    cve = serializers.SerializerMethodField()
+
+    def get_cve(self, instance):
+        return instance.cve_id.cve_id
+
     class Meta:
         model = Vuln
         fields = [
             'id',
-            'cve_id', 'summary', 'published', 'modified', 'assigner',
+            'cve_id_id', 'cve', 'summary', 'published', 'modified', 'assigner',
             'cvss', 'cvss_time', 'cvss_vector',
             'cwe_id', 'access', 'impact',
             'is_exploitable',

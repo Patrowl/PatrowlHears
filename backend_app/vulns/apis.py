@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
+from common.utils.pagination import StandardResultsSetPagination
 from rest_framework import viewsets
 # from rest_framework.decorators import api_view
 from .models import Vuln, ExploitMetadata, ThreatMetadata
@@ -14,6 +15,7 @@ class VulnSet(viewsets.ModelViewSet):
 
     queryset = Vuln.objects.all().order_by('-updated_at')
     serializer_class = VulnSerializer
+    pagination_class = StandardResultsSetPagination
 
 
 class ExploitMetadataSet(viewsets.ModelViewSet):

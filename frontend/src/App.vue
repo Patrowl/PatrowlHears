@@ -1,13 +1,41 @@
 <template>
-  <div id="app">
+  <!-- <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
     <router-view/>
-  </div>
+  </div> -->
+  <v-app>
+    <router-view></router-view>
+  </v-app>
 </template>
 
+<script>
+export default {
+  name: 'App',
+  data () {
+    return {
+      section: 'AppLayout'
+    }
+  },
+  created () {
+    document.title = "PatrowlHears";
+  },
+  // computed: {
+  //   isAuthenticated() {
+  //     return this.$store.getters.isAuthenticated;
+  //   }
+  // },
+  methods: {
+    logout() {
+      this.$store.commit("removeToken");
+      this.$router.push('/auth');
+    }
+  }
+}
+</script>
+<!--
 <style lang="scss">
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -29,4 +57,4 @@
     }
   }
 }
-</style>
+</style> -->

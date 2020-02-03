@@ -1,22 +1,39 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+// import Home from '../views/Home.vue'
+
+import AuthLayout from '@/components/layouts/AuthLayout.vue'
+import UserAuth from '@/components/pages/UserAuth'
+
+import AppLayout from '@/components/layouts/AppLayout.vue'
+import Homepage from '@/components/pages/Homepage'
+import Vulns from '@/components/pages/Vulns'
+import KBVendors from '@/components/pages/KB/Vendors'
+
+import NotFound from '@/components/general/NotFound.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: Home
+    path: '/auth',
+    name: 'AuthLayout',
+    component: AuthLayout
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/',
+    component: AppLayout,
+    children: [
+      { path: 'homepage', name: 'Homepage', component: Homepage },
+      { path: '/kb/vendors', name: 'KBVendors', component: KBVendors },
+      { path: '/vulns', name: 'Vulns', component: Vulns },
+      // { path: '/scans', name: 'Scans', component: Scans },
+      // { path: '/reports', name: 'Reports', component: Reports },
+    ]
+  },
+  {
+    path: '*',
+    component: NotFound
   }
 ]
 
@@ -24,6 +41,14 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (localStorage.getItem('authToken') !== null || to.path === '/auth') {
+    next()
+  } else {
+    next('/auth')
+  }
 })
 
 export default router
