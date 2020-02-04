@@ -1,4 +1,6 @@
 from rest_framework import serializers
+from django_filters import FilterSet, OrderingFilter
+from django.utils.translation import gettext_lazy as _
 from .models import Vuln, ExploitMetadata, ThreatMetadata
 
 
@@ -24,16 +26,60 @@ class VulnSerializer(serializers.HyperlinkedModelSerializer):
             'created_at', 'updated_at']
 
 
+class VulnFilter(FilterSet):
+    sorted_by = OrderingFilter(
+        # tuple-mapping retains order
+        choices=(
+            ('cve', _('CVE')), ('-cve', _('CVE (Desc)')),
+            ('cvss', _('CVSS')), ('-cvss', _('CVSS (Desc)')),
+            ('published', _('Published')), ('-published', _('Published (Desc)')),
+            ('updated_at', _('Updated at')), ('-updated_at', _('Updated_at (Desc)')),
+            ('is_exploitable', _('Exploitable')), ('-is_exploitable', _('Not exploitable')),
+            ('is_confirmed', _('Confirmed')), ('-is_confirmed', _('Not confirmed')),
+        )
+    )
+
+    class Meta:
+        model = Vuln
+        fields = {
+            'summary': ['icontains'],
+        }
+
+
 class ExploitMetadataSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ExploitMetadata
         fields = [
-            'id', 'publicid',
-            'vuln', 'link', 'notes',
+            'id',
+            'publicid',
+            'vuln_id',
+            'link',
+            # 'notes',
             'trust_level', 'tlp_level', 'source',
             'availability', 'type', 'maturity',
-            'raw', 'published', 'modified',
+            # 'raw',
+            'published', 'modified',
             'created_at', 'updated_at']
+
+
+class ExploitMetadataFilter(FilterSet):
+    sorted_by = OrderingFilter(
+        # tuple-mapping retains order
+        choices=(
+            ('trust_level', _('Trust Level')), ('-trust_level', _('Trust Level (Desc)')),
+            ('tlp_level', _('TLP Level')), ('-tlp_level', _('TLP Level (Desc)')),
+            ('availability', _('Availability')), ('-availability', _('Availability (Desc)')),
+            ('updated_at', _('Updated at')), ('-updated_at', _('Updated_at (Desc)')),
+        )
+    )
+
+    class Meta:
+        model = ExploitMetadata
+        fields = {
+            'link': ['icontains'],
+            'notes': ['icontains'],
+            'vuln_id': ['exact'],
+        }
 
 
 class ThreatMetadataSerializer(serializers.HyperlinkedModelSerializer):

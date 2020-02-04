@@ -28,7 +28,7 @@
         class="elevation-4"
         item-key="id"
         show-select
-        fixed-header
+        multi-sort
       >
       <template v-slot:item.summary="{ item }">
         <!-- {{ item.summary | truncate(150, '...') }} -->
@@ -41,8 +41,8 @@
             class="toggle btn btn-sm"
             @click="toggle"
           >
-          {{ ' more' }}
-      </button>
+            {{ ' more' }}
+          </button>
         </v-clamp>
       </template>
 
@@ -71,6 +71,27 @@
       <!-- Updated at -->
       <template v-slot:item.updated_at="{ item }">
         <span>{{moment(item.updated_at).format('YYYY-MM-DD, hh:mm:ss')}}</span>
+      </template>
+
+      <template v-slot:item.action="{ item }">
+        <v-icon
+          small
+          class="mdi mdi-eye"
+          @click="viewItem(item)"
+        >
+        </v-icon>
+        <v-icon
+          small
+          class="mdi mdi-pencil"
+          @click="editItem(item)"
+        >
+        </v-icon>
+        <v-icon
+          small
+          class="mdi mdi-delete"
+          @click="deleteItem(item)"
+        >
+        </v-icon>
       </template>
       </v-data-table>
     </v-card>
@@ -103,6 +124,7 @@ export default {
       { text: 'Exploit ?', value: 'is_exploitable', align: 'center' },
       { text: 'Confirm ?', value: 'is_confirmed', align: 'center' },
       { text: 'Last update', value: 'updated_at', align: 'center' },
+      { text: 'Actions', value: 'action', sortable: false },
     ],
     rowsPerPageItems: [5, 10, 20, 50, 100],
   }),

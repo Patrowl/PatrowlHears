@@ -28,49 +28,7 @@
         class="elevation-4"
         item-key="id"
         show-select
-        fixed-header
       >
-      <template v-slot:item.summary="{ item }">
-        <v-clamp autoresize :max-lines="1">
-          {{ item.summary }}
-          <button
-            v-if="expanded || clamped"
-            slot="after"
-            slot-scope="{ toggle, expanded, clamped }"
-            class="toggle btn btn-sm"
-            @click="toggle"
-          >
-          {{ ' more' }}
-      </button>
-        </v-clamp>
-      </template>
-
-      <!-- Is exploitable -->
-      <template v-slot:item.is_exploitable="{ item }">
-        <v-chip
-          :color="getBool(item.is_exploitable)"
-          class="text-center"
-          small
-          label
-        >
-        </v-chip>
-      </template>
-
-      <!-- Is confirmed -->
-      <template v-slot:item.is_confirmed="{ item }">
-        <v-chip
-          :color="getBool(item.is_confirmed)"
-          class="text-center"
-          small
-          label
-        >
-        </v-chip>
-      </template>
-
-      <!-- Updated at -->
-      <template v-slot:item.updated_at="{ item }">
-        <span>{{moment(item.updated_at).format('YYYY-MM-DD, hh:mm:ss')}}</span>
-      </template>
       </v-data-table>
     </v-card>
   </div>
@@ -90,13 +48,7 @@ export default {
     options: {},
     selected: [],
     headers: [
-      { text: 'PHID', value: 'id' },
-      { text: 'CVE', value: 'cve', width: '150px' },
-      { text: 'Summary', value: 'summary' },
-      { text: 'CVSSv2', value: 'cvss', align: 'center' },
-      { text: 'Exploit ?', value: 'is_exploitable', align: 'center' },
-      { text: 'Confirm ?', value: 'is_confirmed', align: 'center' },
-      { text: 'Last update', value: 'updated_at', align: 'center' },
+      { text: 'Vendor', value: 'vendor' }
     ],
     rowsPerPageItems: [5, 10, 20, 50, 100],
   }),
@@ -160,7 +112,7 @@ export default {
         }
       }
 
-      this.$api.get('/api/vendors/?limit='+itemsPerPage+'&page='+page+'&summary__icontains='+this.search+'&'+sorted_by).then(res => {
+      this.$api.get('/api/kb/vendors?limit='+itemsPerPage+'&page='+page+'&vendor__icontains='+this.search+'&'+sorted_by).then(res => {
         this.vendors = res.data;
         return this.vendors;
       }).catch(e => {

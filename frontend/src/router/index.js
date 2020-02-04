@@ -9,6 +9,8 @@ import AppLayout from '@/components/layouts/AppLayout.vue'
 import Homepage from '@/components/pages/Homepage'
 import Vulns from '@/components/pages/Vulns'
 import KBVendors from '@/components/pages/KB/Vendors'
+import KBCVE from '@/components/pages/KB/CVE'
+import KBBulletins from '@/components/pages/KB/Bulletins'
 
 import NotFound from '@/components/general/NotFound.vue'
 
@@ -26,6 +28,8 @@ const routes = [
     children: [
       { path: 'homepage', name: 'Homepage', component: Homepage },
       { path: '/kb/vendors', name: 'KBVendors', component: KBVendors },
+      { path: '/kb/cves', name: 'KBCVE', component: KBCVE },
+      { path: '/kb/bulletins', name: 'KBBulletins', component: KBBulletins },
       { path: '/vulns', name: 'Vulns', component: Vulns },
       // { path: '/scans', name: 'Scans', component: Scans },
       // { path: '/reports', name: 'Reports', component: Reports },

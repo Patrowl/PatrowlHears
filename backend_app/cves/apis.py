@@ -5,10 +5,12 @@ from django_filters import rest_framework as filters
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from common.utils import cvesearch
+from common.utils.pagination import StandardResultsSetPagination
 from .models import CVE, CPE, CWE, Bulletin
 from .serializers import (
     CVESerializer, CPESerializer, CWESerializer, BulletinSerializer,
-    CVEFilter
+    VendorSerializer, ProductSerializer,
+    CVEFilter, VendorFilter, ProductFilter
 )
 from .tasks import (
     sync_cwes_task, sync_cpes_task, sync_cves_task, sync_vias_task,
@@ -24,6 +26,7 @@ class CVESet(viewsets.ModelViewSet):
     filterset_class = CVEFilter
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_fields = ('cve_id', 'cvss')
+    pagination_class = StandardResultsSetPagination
 
 
 class CPESet(viewsets.ModelViewSet):
@@ -32,6 +35,33 @@ class CPESet(viewsets.ModelViewSet):
     queryset = CPE.objects.all().order_by('id')
     serializer_class = CPESerializer
     filter_backends = (filters.DjangoFilterBackend,)
+    pagination_class = StandardResultsSetPagination
+
+
+class VendorSet(viewsets.ModelViewSet):
+    """API endpoint that allows Vendors to be viewed or edited."""
+
+    queryset = CPE.objects.all().values('vendor').order_by('vendor').distinct()
+    serializer_class = VendorSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_fields = ('vendor',)
+    filterset_class = VendorFilter
+    pagination_class = StandardResultsSetPagination
+
+
+class ProductSet(viewsets.ModelViewSet):
+    """API endpoint that allows Products to be viewed or edited."""
+
+    serializer_class = ProductSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_fields = ('product',)
+    filterset_class = ProductFilter
+    pagination_class = StandardResultsSetPagination
+
+    def get_queryset(self):
+        # print(self.kwargs['vendor_name'])
+        vendor_name = self.kwargs['vendor_name']
+        return CPE.objects.filter(vendor=vendor_name).distinct()
 
 
 class CWESet(viewsets.ModelViewSet):
@@ -40,6 +70,7 @@ class CWESet(viewsets.ModelViewSet):
     queryset = CWE.objects.all().order_by('cwe_id')
     serializer_class = CWESerializer
     filter_backends = (filters.DjangoFilterBackend,)
+    pagination_class = StandardResultsSetPagination
 
 
 class BulletinSet(viewsets.ModelViewSet):
@@ -48,6 +79,7 @@ class BulletinSet(viewsets.ModelViewSet):
     queryset = Bulletin.objects.all().order_by('id')
     serializer_class = BulletinSerializer
     filter_backends = (filters.DjangoFilterBackend,)
+    pagination_class = StandardResultsSetPagination
 
 
 @api_view(['GET'])
@@ -126,3 +158,27 @@ def sync_bulletins_async(self):
 # def sync_exploits(self):
 #     cvesearch.sync_exploits_fromvia()
 #     return JsonResponse("done.", safe=False)
+
+
+@api_view(['GET'])
+def get_vendors(self):
+    filter = self.GET.get('name', None)
+    res = []
+    if filter is not None:
+        # res = CPE.objects.filter(vendor__icontains=filter).values_list('vendor', flat=True).order_by('vendor').distinct()
+        res = CPE.objects.filter(vendor__icontains=filter).values('vendor').order_by('vendor').distinct()
+    else:
+        # res = CPE.objects.all().values_list('vendor', flat=True).order_by('vendor').distinct()
+        res = CPE.objects.all().values('vendor').order_by('vendor').distinct()
+    return JsonResponse(list(res), safe=False)
+
+
+@api_view(['GET'])
+def get_products(self, vendor):
+    filter = self.GET.get('name', None)
+    res = []
+    if filter is not None:
+        res = CPE.objects.filter(vendor=vendor, product__icontains=filter).values_list('product', flat=True).order_by('product').distinct()
+    else:
+        res = CPE.objects.filter(vendor=vendor).values_list('product', flat=True).order_by('product').distinct()
+    return JsonResponse(list(res), safe=False)

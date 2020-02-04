@@ -22,6 +22,8 @@ router.register(r'api/ratings', vpr_apis.VPRatingSet)
 router.register(r'api/kb/cve', cves_apis.CVESet)
 router.register(r'api/kb/cpe', cves_apis.CPESet)
 router.register(r'api/kb/cwe', cves_apis.CWESet)
+router.register(r'api/kb/vendors', cves_apis.VendorSet, 'vendors')
+# router.register(r'api/kb/vendors/<vendor_name>/products', cves_apis.ProductSet, 'products')
 router.register(r'api/kb/bulletin', cves_apis.BulletinSet)
 
 urlpatterns = [
