@@ -3,6 +3,7 @@ from . import apis
 
 
 urlpatterns = [
+    path('<vuln_id>/history', apis.get_vuln_history, name='get_vuln_history'),
     path('<vuln_id>/exploits', apis.get_exploits, name='get_exploits'),
     path('<vuln_id>/exploits/add', apis.add_exploit, name='add_exploit'),
     path('<vuln_id>/exploits/<exploit_id>/del', apis.del_exploit, name='del_exploit'),

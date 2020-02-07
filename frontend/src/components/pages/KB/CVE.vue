@@ -18,6 +18,7 @@
       <v-data-table
         :headers="headers"
         :items="cves.results"
+        :items-per-page="20"
         :options.sync="options"
         :server-items-length="cves.count"
         :search="search"

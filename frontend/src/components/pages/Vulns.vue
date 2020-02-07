@@ -21,6 +21,7 @@
         :options.sync="options"
         :server-items-length="vulns.count"
         :search="search"
+        :items-per-page="20"
         :footer-props="{
           'items-per-page-options': rowsPerPageItems
         }"
@@ -29,7 +30,7 @@
         item-key="id"
         show-select
         multi-sort
-      
+
       >
       <template v-slot:item.summary="{ item }">
         <!-- {{ item.summary | truncate(150, '...') }} -->

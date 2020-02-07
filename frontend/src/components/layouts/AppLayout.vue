@@ -96,7 +96,7 @@ export default {
     drawer: null,
     menu_items: [
       { heading: 'KB' },
-      { icon: 'mdi-bookmark', text: 'Vendors', to: '/kb/vendors' },
+      { icon: 'mdi-bookmark', text: 'Vendors & Products', to: '/kb/vendors' },
       { icon: 'mdi-bookmark', text: 'CVE', to: '/kb/cves' },
       { icon: 'mdi-bookmark', text: 'Bulletins', to: '/kb/bulletins' },
       { divider: true },

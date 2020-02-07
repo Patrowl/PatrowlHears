@@ -43,6 +43,55 @@ class ThreatMetadataSet(viewsets.ModelViewSet):
     pagination_class = StandardResultsSetPagination
 
 
+def get_history_diffs(item):
+    diffs = []
+
+    # record = item.history.earliest()
+    # while True:
+    #     print(record)
+    #     record = record.next_record
+    #     if record is None:
+    #         break
+    #
+    record = item.history.earliest()
+    print(record)
+    while True:
+        hdiffs = []
+        # print(record)
+        next = record.next_record
+        if next is None:
+            break
+        delta = next.diff_against(record)
+        for change in delta.changes:
+            print("{} changed from {} to {}".format(change.field, change.old, change.new))
+            hdiffs.append("'{}' changed from '{}' to '{}'".format(change.field, change.old, change.new))
+        record = next
+        if len(hdiffs) > 0:
+            diffs.append(hdiffs)
+
+    return diffs
+
+
+@api_view(['GET'])
+def get_vuln_history(self, vuln_id):
+    vuln = get_object_or_404(Vuln, id=vuln_id)
+    res = []
+
+    res.extend(get_history_diffs(vuln))
+
+    # for history in vuln.history.all():
+    #     res.append(model_to_dict(history))
+    for exploit in vuln.exploitmetadata_set.all():
+        res.extend(get_history_diffs(exploit))
+        # for he in exploit.history.all():
+        #     res.append(model_to_dict(he))
+    for threat in vuln.threatmetadata_set.all():
+        res.extend(get_history_diffs(threat))
+        # for ht in threat.history.all():
+        #     res.append(model_to_dict(ht))
+    return JsonResponse(res, safe=False)
+
+
 @api_view(['GET'])
 def get_exploits(self, vuln_id):
     vuln = get_object_or_404(Vuln, id=vuln_id)

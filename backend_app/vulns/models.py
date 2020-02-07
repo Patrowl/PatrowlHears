@@ -49,7 +49,7 @@ class Vuln(models.Model):
 
     created_at = models.DateTimeField(default=timezone.now, null=True)
     updated_at = models.DateTimeField(default=timezone.now, null=True)
-    history = HistoricalRecords()
+    history = HistoricalRecords(excluded_fields=['updated_at'], cascade_delete_history=True)
 
     class Meta:
         db_table = "vulns"
@@ -142,7 +142,7 @@ class ExploitMetadata(models.Model):
 
     created_at = models.DateTimeField(default=timezone.now, null=True)
     updated_at = models.DateTimeField(default=timezone.now, null=True)
-    history = HistoricalRecords()
+    history = HistoricalRecords(excluded_fields=['updated_at'], cascade_delete_history=True)
 
     class Meta:
         db_table = "exploits_metadata"
@@ -177,7 +177,7 @@ class ThreatMetadata(models.Model):
 
     created_at = models.DateTimeField(default=timezone.now, null=True)
     updated_at = models.DateTimeField(default=timezone.now, null=True)
-    history = HistoricalRecords()
+    history = HistoricalRecords(excluded_fields=['updated_at'], cascade_delete_history=True)
 
     class Meta:
         db_table = "threats_metadata"
