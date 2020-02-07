@@ -136,13 +136,14 @@ export default {
       let sorted_by = '';
       if (sortBy.length > 0) {
         if (sortDesc[0] === true) {
-          sorted_by = 'sorted_by=-' + sortBy;
+          sorted_by = '&sorted_by=-' + sortBy;
         } else {
-          sorted_by = 'sorted_by=' + sortBy;
+          sorted_by = '&sorted_by=' + sortBy;
         }
       }
 
-      this.$api.get('/api/kb/cve?limit='+itemsPerPage+'&page='+page+'&'+sorted_by).then(res => {
+      // this.$api.get('/api/kb/cve?limit='+itemsPerPage+'&page='+page+sorted_by+'&summary__icontains='+this.search).then(res => {
+      this.$api.get('/api/kb/cve?limit='+itemsPerPage+'&page='+page+sorted_by+'&search='+this.search).then(res => {
         this.cves = res.data;
         return this.cves;
       }).catch(e => {

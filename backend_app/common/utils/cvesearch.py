@@ -253,7 +253,7 @@ def _sync_cve_fromdb(cve, via):
         _new_cve.update({'cwe': _cwe})
 
     # Set vulnerable products (CPE vectors)
-    for vp in cve['vulnerable_configuration']:
+    for vp in cve['vulnerable_product']:
         _new_cve['vulnerable_products'].append(vp)
         # if CPE.objects.filter(vector=vp):
         #     print("found!")

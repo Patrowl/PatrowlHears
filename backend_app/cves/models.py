@@ -94,7 +94,7 @@ class CVE(models.Model):
     access = JSONField(default=access_default_dict)
     impact = JSONField(default=impact_default_dict)
     vulnerable_products = ArrayField(
-        models.CharField(max_length=10, blank=True), null=True)
+        models.CharField(max_length=250, blank=True), null=True)
     bulletins = models.ManyToManyField(Bulletin, blank=True)
     references = JSONField(default=dict)
     created_at = models.DateTimeField(default=timezone.now, null=True)

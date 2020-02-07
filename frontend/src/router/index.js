@@ -8,7 +8,9 @@ import UserAuth from '@/components/pages/UserAuth'
 import AppLayout from '@/components/layouts/AppLayout.vue'
 import Homepage from '@/components/pages/Homepage'
 import Vulns from '@/components/pages/Vulns'
+import VulnDetails from '@/components/pages/VulnDetails'
 import KBVendors from '@/components/pages/KB/Vendors'
+import KBProducts from '@/components/pages/KB/Products'
 import KBCVE from '@/components/pages/KB/CVE'
 import KBBulletins from '@/components/pages/KB/Bulletins'
 
@@ -28,11 +30,11 @@ const routes = [
     children: [
       { path: 'homepage', name: 'Homepage', component: Homepage },
       { path: '/kb/vendors', name: 'KBVendors', component: KBVendors },
+      { path: '/kb/vendors/:vendor_name', name: 'KBProducts', component: KBProducts },
       { path: '/kb/cves', name: 'KBCVE', component: KBCVE },
       { path: '/kb/bulletins', name: 'KBBulletins', component: KBBulletins },
       { path: '/vulns', name: 'Vulns', component: Vulns },
-      // { path: '/scans', name: 'Scans', component: Scans },
-      // { path: '/reports', name: 'Reports', component: Reports },
+      { path: '/vulns/:vuln_id', name: 'VulnDetails', component: VulnDetails },
     ]
   },
   {

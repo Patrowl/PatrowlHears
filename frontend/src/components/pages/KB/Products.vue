@@ -1,10 +1,10 @@
 <template>
   <div>
-    <!-- Bulletins Page -->
+    <!-- Products Page -->
     <div class="loading" v-if="loading===true">Loading&#8230;</div>
     <v-card>
       <v-card-title>
-        CVE
+        Products for {{this.vendor_name}}
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
@@ -17,9 +17,9 @@
 
       <v-data-table
         :headers="headers"
-        :items="bulletins.results"
+        :items="products.results"
         :options.sync="options"
-        :server-items-length="bulletins.count"
+        :server-items-length="products.count"
         :search="search"
         :footer-props="{
           'items-per-page-options': rowsPerPageItems
@@ -28,29 +28,7 @@
         class="elevation-4"
         item-key="id"
         show-select
-        multi-sort
       >
-      <!-- Summary -->
-      <template v-slot:item.title="{ item }">
-        <v-clamp autoresize :max-lines="1">
-          {{ item.title }}
-          <button
-            v-if="expanded || clamped"
-            slot="after"
-            slot-scope="{ toggle, expanded, clamped }"
-            class="toggle btn btn-sm"
-            @click="toggle"
-          >
-            {{ ' more' }}
-          </button>
-        </v-clamp>
-      </template>
-
-      <!-- Modified -->
-      <template v-slot:item.published="{ item }">
-        <span>{{moment(item.published).format('YYYY-MM-DD')}}</span>
-      </template>
-
       </v-data-table>
     </v-card>
   </div>
@@ -58,32 +36,27 @@
 
 <script>
 import swal from 'sweetalert2';
-import VClamp from 'vue-clamp';
 
 export default {
-  name: "bulletins",
-  components: {
-    VClamp
-  },
+  name: "products",
   data: () => ({
-    bulletins: [],
-    totalbulletins: 0,
+    vendor_name: "",
+    products: [],
     loading: true,
     limit: 20,
+    totalproducts: 0,
     search: '',
     options: {},
     selected: [],
     headers: [
-      { text: 'ID', value: 'publicid', width: '150px' },
-      { text: 'Vendor', value: 'vendor' },
-      { text: 'Title', value: 'title' },
-      { text: 'Severity', value: 'severity' },
-      { text: 'Published', value: 'published' },
+      { text: 'Product', value: 'product' },
+      { text: 'Title (version)', value: 'title' },
     ],
     rowsPerPageItems: [5, 10, 20, 50, 100],
   }),
   mounted() {
-    // nothing yet
+    this.vendor_name = this.$router.currentRoute.params.vendor_name;
+    this.getDataFromApi();
   },
   watch: {
     search: {
@@ -91,8 +64,7 @@ export default {
         this.search = filter;
         this.options.page = 1;  // reset page count
         this.getDataFromApi().then(data => {
-          // this.bulletins = data.results;
-          // this.totalbulletins = data.count;
+          //nothin
         });
       },
       deep: true
@@ -100,8 +72,8 @@ export default {
     options: {
       handler() {
         this.getDataFromApi().then(data => {
-          // this.bulletins = data.results;
-          // this.totalbulletins = data.count;
+          // this.vendors = data.results;
+          // this.totalvendors = data.count;
         });
       },
       deep: true
@@ -119,9 +91,9 @@ export default {
           itemsPerPage
         } = this.options;
         let search = this.search.trim().toLowerCase();
-
         this.limit = itemsPerPage;
-        let items = this.getbulletins(page, this.limit, sortBy, sortDesc);
+
+        let items = this.getProducts(page, this.limit, sortBy, sortDesc);
 
         setTimeout(() => {
           this.loading = false;
@@ -131,7 +103,7 @@ export default {
         }, 300);
       });
     },
-    getbulletins(page, itemsPerPage, sortBy, sortDesc) {
+    getProducts(page, itemsPerPage, sortBy, sortDesc) {
       this.loading = true;
       let sorted_by = '';
       if (sortBy.length > 0) {
@@ -142,15 +114,16 @@ export default {
         }
       }
 
-      this.$api.get('/api/kb/bulletin?limit='+itemsPerPage+'&page='+page+'&'+sorted_by+'&search='+this.search).then(res => {
-        this.bulletins = res.data;
-        return this.bulletins;
+      // this.$api.get('/api/kb/vendors/'+this.vendor_name+'/products?product__icontains='+this.search+'&'+sorted_by).then(res => {
+      this.$api.get('/api/kb/vendors/'+this.vendor_name+'/products?limit='+itemsPerPage+'&page='+page+'&product__icontains='+this.search+'&'+sorted_by).then(res => {
+        this.products = res.data;
+        return this.products;
       }).catch(e => {
-        this.bulletins = [];
+        this.products = [];
         this.loading = false;
         swal.fire({
           title: 'Error',
-          text: 'unable to get bulletins',
+          text: 'unable to get products',
           showConfirmButton: false,
           showCloseButton: false,
           timer: 3000

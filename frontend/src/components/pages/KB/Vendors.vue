@@ -29,6 +29,16 @@
         item-key="id"
         show-select
       >
+      <template v-slot:item.actions="{ item }">
+        <v-icon
+          small
+          class="mdi mdi-eye"
+          color="blue"
+          @click="viewProducts(item.vendor)"
+        >
+        </v-icon>
+        </v-icon>
+      </template>
       </v-data-table>
     </v-card>
   </div>
@@ -48,7 +58,8 @@ export default {
     options: {},
     selected: [],
     headers: [
-      { text: 'Vendor', value: 'vendor' }
+      { text: 'Vendor', value: 'vendor' },
+      { text: 'Actions', value: 'actions' }
     ],
     rowsPerPageItems: [5, 10, 20, 50, 100],
   }),
@@ -127,6 +138,9 @@ export default {
         })
       });
       this.loading = false;
+    },
+    viewProducts(vendor_name) {
+      this.$router.push({ 'name': 'KBProducts', 'params': { 'vendor_name': vendor_name } });
     },
   }
 };

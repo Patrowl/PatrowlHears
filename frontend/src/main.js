@@ -1,11 +1,14 @@
 import Vue from 'vue'
 import App from './App.vue'
 import VueSession from 'vue-session'
+import VueDragDrop from 'vue-drag-drop';
 import vuetify from './plugins/vuetify';
 import router from './router'
 import store from './store'
-
+import moment from 'moment'
 import axios from 'axios'
+
+// Axios
 axios.interceptors.response.use(
   response => response,
   error => {
@@ -25,6 +28,7 @@ axios.interceptors.request.use(
   }
 );
 Vue.prototype.$api = axios
+Vue.prototype.moment = moment
 Vue.config.productionTip = false
 
 new Vue({
@@ -45,5 +49,4 @@ var filter = function(text, length, clamp){
 
 Vue.filter('truncate', filter);
 
-import moment from 'moment'
-Vue.prototype.moment = moment
+Vue.use(VueDragDrop);

@@ -29,6 +29,7 @@
         item-key="id"
         show-select
         multi-sort
+      
       >
       <template v-slot:item.summary="{ item }">
         <!-- {{ item.summary | truncate(150, '...') }} -->
@@ -77,19 +78,22 @@
         <v-icon
           small
           class="mdi mdi-eye"
-          @click="viewItem(item)"
+          color="blue"
+          @click="viewVuln(item.id)"
         >
         </v-icon>
         <v-icon
           small
           class="mdi mdi-pencil"
-          @click="editItem(item)"
+          color="orange"
+          @click="editVuln(item)"
         >
         </v-icon>
         <v-icon
           small
           class="mdi mdi-delete"
-          @click="deleteItem(item)"
+          color="red"
+          @click="deleteVuln(item)"
         >
         </v-icon>
       </template>
@@ -193,7 +197,7 @@ export default {
         }
       }
 
-      this.$api.get('/api/vulns/?limit='+itemsPerPage+'&page='+page+'&summary__icontains='+this.search+'&'+sorted_by).then(res => {
+      this.$api.get('/api/vulns/?limit='+itemsPerPage+'&page='+page+'&search='+this.search+'&'+sorted_by).then(res => {
         this.vulns = res.data;
         return this.vulns;
       }).catch(e => {
@@ -208,6 +212,18 @@ export default {
         })
       });
       this.loading = false;
+    },
+    viewVuln(vuln_id) {
+      this.$router.push({ 'name': 'VulnDetails', 'params': { 'vuln_id': vuln_id } });
+    },
+    editVuln(vuln_id) {
+      // Todo
+    },
+    deleteVuln(vuln_id) {
+      // Todo
+    },
+    clickRow(vulnRow) {
+      this.$router.push({ 'name': 'VulnDetails', 'params': { 'vuln_id': vulnRow.id } });
     },
     getColor(criticity) {
       if (criticity == 'info') return 'blue';

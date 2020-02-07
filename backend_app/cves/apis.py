@@ -10,7 +10,7 @@ from .models import CVE, CPE, CWE, Bulletin
 from .serializers import (
     CVESerializer, CPESerializer, CWESerializer, BulletinSerializer,
     VendorSerializer, ProductSerializer,
-    CVEFilter, VendorFilter, ProductFilter
+    CVEFilter, VendorFilter, ProductFilter, BulletinFilter
 )
 from .tasks import (
     sync_cwes_task, sync_cpes_task, sync_cves_task, sync_vias_task,
@@ -25,7 +25,7 @@ class CVESet(viewsets.ModelViewSet):
     serializer_class = CVESerializer
     filterset_class = CVEFilter
     filter_backends = (filters.DjangoFilterBackend,)
-    filterset_fields = ('cve_id', 'cvss')
+    filterset_fields = ('cve_id', 'cvss', 'summary')
     pagination_class = StandardResultsSetPagination
 
 
@@ -54,14 +54,14 @@ class ProductSet(viewsets.ModelViewSet):
 
     serializer_class = ProductSerializer
     filter_backends = (filters.DjangoFilterBackend,)
-    filterset_fields = ('product',)
+    filterset_fields = ('product', 'title',)
     filterset_class = ProductFilter
     pagination_class = StandardResultsSetPagination
 
     def get_queryset(self):
         # print(self.kwargs['vendor_name'])
         vendor_name = self.kwargs['vendor_name']
-        return CPE.objects.filter(vendor=vendor_name).distinct()
+        return CPE.objects.filter(vendor=vendor_name).order_by('title').values('title', 'product').distinct()
 
 
 class CWESet(viewsets.ModelViewSet):
@@ -79,6 +79,7 @@ class BulletinSet(viewsets.ModelViewSet):
     queryset = Bulletin.objects.all().order_by('id')
     serializer_class = BulletinSerializer
     filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = BulletinFilter
     pagination_class = StandardResultsSetPagination
 
 
@@ -166,10 +167,10 @@ def get_vendors(self):
     res = []
     if filter is not None:
         # res = CPE.objects.filter(vendor__icontains=filter).values_list('vendor', flat=True).order_by('vendor').distinct()
-        res = CPE.objects.filter(vendor__icontains=filter).values('vendor').order_by('vendor').distinct()
+        res = CPE.objects.filter(vendor__icontains=filter).values('title').order_by('title').distinct()
     else:
         # res = CPE.objects.all().values_list('vendor', flat=True).order_by('vendor').distinct()
-        res = CPE.objects.all().values('vendor').order_by('vendor').distinct()
+        res = CPE.objects.all().values('title').order_by('title').distinct()
     return JsonResponse(list(res), safe=False)
 
 
