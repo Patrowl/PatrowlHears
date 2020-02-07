@@ -180,6 +180,8 @@
           class="elevation-4"
           item-key="id"
           multi-sort
+          show-expand
+          :expanded.sync="expanded"
         >
           <!-- Link -->
           <template v-slot:item.link="{ item }">
@@ -209,6 +211,10 @@
             <v-icon small class="mdi mdi-delete" color="red" @click="deleteExploit(item)"></v-icon>
           </template>
 
+          <!-- Expand -->
+          <template v-slot:expanded-item="{ headers, item }">
+            <td :colspan="headers.length">{{ item.notes }}</td>
+          </template>
         </v-data-table>
 
         <v-dialog v-model="dialog_exploit" max-width="500px">
@@ -229,6 +235,8 @@
                   <v-text-field v-model="editedItem.source" label="Source"></v-text-field>
                   <v-select v-model="editedItem.availability" label="Availability" :items="editedItem.availability_items"></v-select>
                   <v-select v-model="editedItem.maturity" label="Maturity" :items="editedItem.maturity_items"></v-select>
+                  <v-select v-model="editedItem.no" label="Maturity" :items="editedItem.maturity_items"></v-select>
+                  <v-text-field v-model="editedItem.notes" label="Notes"></v-text-field>
                   <v-btn color="success" @click="saveNewExploit">
                     Save
                   </v-btn>
@@ -260,6 +268,8 @@
           class="elevation-4"
           item-key="id"
           multi-sort
+          show-expand
+          :expanded.sync="expanded"
         >
           <!-- Link -->
           <template v-slot:item.link="{ item }">
@@ -289,6 +299,11 @@
             <v-icon small class="mdi mdi-delete" color="red" @click="deleteThreat(item)"></v-icon>
           </template>
 
+          <!-- Expand -->
+          <template v-slot:expanded-item="{ headers, item }">
+            <td :colspan="headers.length">{{ item.notes }}</td>
+          </template>
+
         </v-data-table>
 
         <v-dialog v-model="dialog_threat" max-width="500px">
@@ -309,6 +324,7 @@
                   <v-text-field v-model="editedItem.source" label="Source"></v-text-field>
                   <v-select v-model="editedItem.availability" label="Availability" :items="editedItem.availability_items"></v-select>
                   <v-select v-model="editedItem.maturity" label="Maturity" :items="editedItem.maturity_items"></v-select>
+                  <v-text-field v-model="editedItem.notes" label="Notes"></v-text-field>
                   <v-btn color="success" @click="saveNewThreat">
                     Save
                   </v-btn>
@@ -345,6 +361,7 @@ import router from '../../router';
 export default {
   name: 'VulnDetails',
   data: () => ({
+    expanded: [],
     vuln_id: "",
     vuln: {
       cwe_id: '',
@@ -362,6 +379,7 @@ export default {
       { text: 'In the News ?', value: 'is_in_the_news', align: 'center' },
       { text: 'Last update', value: 'modified', align: 'center' },
       { text: 'Actions', value: 'action', sortable: false },
+      { text: '', value: 'data-table-expand' },
     ],
     exploits: [],
     exploit_headers: [
@@ -374,10 +392,12 @@ export default {
       { text: 'Maturity', value: 'maturity', align: 'center' },
       { text: 'Last update', value: 'modified', align: 'center' },
       { text: 'Actions', value: 'action', sortable: false },
+      { text: '', value: 'data-table-expand' },
     ],
     editedIndex: -1,
     editedItem: {
       link: 'https://',
+      notes: '',
       trust_level: 'trusted',
       trust_level_items: ['unknown', 'low', 'medium', 'trusted'],
       tlp_level: 'white',
