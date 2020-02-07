@@ -53,6 +53,31 @@ def get_exploits(self, vuln_id):
     return JsonResponse(res, safe=False)
 
 
+@api_view(['POST'])
+def add_exploit(self, vuln_id):
+    vuln = get_object_or_404(Vuln, id=vuln_id)
+    data = {
+        'vuln': vuln,
+        'link': self.data['link'],
+        'trust_level': self.data['trust_level'],
+        'tlp_level': self.data['tlp_level'],
+        'source': self.data['source'],
+        'availability': self.data['availability'],
+        'maturity': self.data['maturity'],
+    }
+    new_exploit = ExploitMetadata(**data)
+    new_exploit.save()
+    return JsonResponse(model_to_dict(new_exploit), safe=False)
+
+
+@api_view(['GET'])
+def del_exploit(self, vuln_id, exploit_id):
+    # vuln = get_object_or_404(Vuln, id=vuln_id)
+    exploit = get_object_or_404(ExploitMetadata, id=exploit_id)
+    exploit.delete()
+    return JsonResponse("deleted", safe=False)
+
+
 @api_view(['GET'])
 def get_threats(self, vuln_id):
     vuln = get_object_or_404(Vuln, id=vuln_id)

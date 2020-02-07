@@ -74,9 +74,10 @@ class ExploitMetadataSerializer(serializers.HyperlinkedModelSerializer):
             'notes',
             'trust_level', 'tlp_level', 'source',
             'availability', 'type', 'maturity',
-            'raw',
+            # 'raw',
             'published', 'modified',
-            'created_at', 'updated_at']
+            'created_at', 'updated_at'
+        ]
 
 
 class ExploitMetadataFilter(FilterSet):

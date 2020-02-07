@@ -16,6 +16,7 @@ TLP_LEVELS = (
     ('green', 'Green'),  # Internal, could be shared
     ('amber', 'Amber'),  # Internal, shareable with members of their own organization who need to know
     ('red', 'Red'),      # Internal, restrictly shareable
+    ('black', 'Black'),      # Internal, restrictly shareable
 )
 
 EXPLOIT_TYPES = (
