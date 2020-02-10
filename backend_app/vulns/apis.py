@@ -46,15 +46,8 @@ class ThreatMetadataSet(viewsets.ModelViewSet):
 def get_history_diffs(item):
     diffs = []
 
-    # record = item.history.earliest()
-    # while True:
-    #     print(record)
-    #     record = record.next_record
-    #     if record is None:
-    #         break
-    #
     record = item.history.earliest()
-    print(record)
+    # print(record)
     while True:
         hdiffs = []
         # print(record)
@@ -63,7 +56,7 @@ def get_history_diffs(item):
             break
         delta = next.diff_against(record)
         for change in delta.changes:
-            print("{} changed from {} to {}".format(change.field, change.old, change.new))
+            # print("{} changed from {} to {}".format(change.field, change.old, change.new))
             hdiffs.append("'{}' changed from '{}' to '{}'".format(change.field, change.old, change.new))
         record = next
         if len(hdiffs) > 0:
@@ -121,7 +114,7 @@ def add_exploit(self, vuln_id):
 
 @api_view(['GET'])
 def del_exploit(self, vuln_id, exploit_id):
-    # vuln = get_object_or_404(Vuln, id=vuln_id)
+    vuln = get_object_or_404(Vuln, id=vuln_id)
     exploit = get_object_or_404(ExploitMetadata, id=exploit_id)
     exploit.delete()
     return JsonResponse("deleted", safe=False)

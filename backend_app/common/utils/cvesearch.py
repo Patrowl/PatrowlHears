@@ -1,7 +1,7 @@
 from django.conf import settings
 from cves.models import CWE, CPE, CVE, Bulletin
 from vulns.models import Vuln, ExploitMetadata, ThreatMetadata
-from .cvesearch_bulletins import sync_bulletin_redhat
+from .cvesearch_bulletins import sync_bulletin_redhat, sync_bulletin_msbulletin
 from pymongo import MongoClient
 from cpe import CPE as _CPE
 import datetime
@@ -95,8 +95,8 @@ def sync_cpes_fromdb(from_date=None):
                 for p in cpe['cpe_name']:
                     if 'cpe23Uri' in p.keys():
                         new_cpe.vulnerable_products.append(p['cpe23Uri'])
-                    else:
-                        print(p)
+                    # else:
+                    #     print(p)
 
                 new_cpe.save()
             except Exception as e:
@@ -180,19 +180,33 @@ def _sync_bulletin_fromdb(cve, vendor):
     _new_bulletins = []
     if vendor == 'redhat':
         _new_bulletins = sync_bulletin_redhat(cve['redhat'])
+    elif vendor == 'msbulletin':
+        _new_bulletins = sync_bulletin_msbulletin(cve['msbulletin'])
+    # Todo: other vendors
 
-    print("_new_bulletins:", _new_bulletins)
     for new_bulletin in _new_bulletins:
         # Create or new Bulletin object
         bulletin = Bulletin.objects.filter(publicid=new_bulletin['publicid']).first()
         if bulletin is None:
             # Create new bulletin
             bulletin = Bulletin(**new_bulletin)
+            # print('new bulletin:', bulletin)
         else:
             # Update existing one if any change
             for v in new_bulletin.keys():
-                if new_bulletin[v] != getattr(bulletin, v):
-                    setattr(bulletin, v, new_bulletin[v])
+                new_value = new_bulletin[v]
+                old_value = getattr(bulletin, v)
+
+                if isinstance(old_value, datetime.date):
+                    old_value = getattr(bulletin, v).date()
+                if isinstance(new_value, datetime.datetime):
+                    new_value = new_bulletin[v].date()
+
+                if new_value is not None and new_value != old_value:
+                    # print("'{}' vs. '{}'".format(new_bulletin[v], getattr(bulletin, v)))
+                    # print('update bulletin: "{}" --> "{}"="{}"'.format(bulletin, v, new_value))
+                    setattr(bulletin, v, new_value)
+
         bulletin.save()
 
         # Add / Update CVE.bulletins references

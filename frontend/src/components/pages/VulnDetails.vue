@@ -6,10 +6,12 @@
   >
     <v-tab>Summary</v-tab>
     <v-tab>
-      <v-badge color="deep-orange" :content="this.exploits.length">Exploits</v-badge>
+      <v-badge color="deep-orange" v-if="this.exploits.length > 0" :content="this.exploits.length">Exploits</v-badge>
+      <v-badge color="grey" v-if="this.exploits.length == 0" :content="'0'">Exploits</v-badge>
     </v-tab>
     <v-tab>
-      <v-badge color="deep-orange" :content="this.threats.length">Activities</v-badge>
+      <v-badge color="deep-orange"  v-if="this.threats.length > 0" :content="this.threats.length">Activities</v-badge>
+      <v-badge color="grey"  v-if="this.threats.length == 0" :content="'0'">Activities</v-badge>
     </v-tab>
     <!-- <v-tab>Metadata</v-tab> -->
     <!-- <v-tab>Assets</v-tab> -->
@@ -235,7 +237,6 @@
                   <v-text-field v-model="editedItem.source" label="Source"></v-text-field>
                   <v-select v-model="editedItem.availability" label="Availability" :items="editedItem.availability_items"></v-select>
                   <v-select v-model="editedItem.maturity" label="Maturity" :items="editedItem.maturity_items"></v-select>
-                  <v-select v-model="editedItem.no" label="Maturity" :items="editedItem.maturity_items"></v-select>
                   <v-text-field v-model="editedItem.notes" label="Notes"></v-text-field>
                   <v-btn color="success" @click="saveNewExploit">
                     Save

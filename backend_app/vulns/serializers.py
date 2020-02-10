@@ -7,10 +7,14 @@ from .models import Vuln, ExploitMetadata, ThreatMetadata
 
 class VulnSerializer(serializers.HyperlinkedModelSerializer):
     cve = serializers.SerializerMethodField()
+    exploit_count = serializers.SerializerMethodField()
     vulnerable_products = serializers.SerializerMethodField()
 
     def get_cve(self, instance):
         return instance.cve_id.cve_id
+
+    def get_exploit_count(self, instance):
+        return instance.exploitmetadata_set.count()
 
     def get_vulnerable_products(self, instance):
         return instance.cve_id.vulnerable_products
@@ -23,6 +27,7 @@ class VulnSerializer(serializers.HyperlinkedModelSerializer):
             'cvss', 'cvss_time', 'cvss_vector',
             'cwe_id', 'access', 'impact',
             'is_exploitable',
+            'exploit_count',
             'is_confirmed',
             'is_in_the_news',
             'is_in_the_wild',

@@ -60,6 +60,8 @@ class Bulletin(models.Model):
     severity = models.CharField(max_length=250, default="", null=True)
     impact = models.CharField(max_length=250, default="", null=True)
     published = models.DateTimeField(blank=True, null=True)
+    modified = models.DateTimeField(blank=True, null=True)
+    # raw = JSONField(default=dict, blank=True, null=True)
     created_at = models.DateTimeField(default=timezone.now, null=True)
     updated_at = models.DateTimeField(default=timezone.now, null=True)
     history = HistoricalRecords()
