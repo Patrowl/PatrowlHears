@@ -10,8 +10,8 @@
       <v-badge color="grey" v-if="this.exploits.length == 0" :content="'0'">Exploits</v-badge>
     </v-tab>
     <v-tab>
-      <v-badge color="deep-orange"  v-if="this.threats.length > 0" :content="this.threats.length">Activities</v-badge>
-      <v-badge color="grey"  v-if="this.threats.length == 0" :content="'0'">Activities</v-badge>
+      <v-badge color="deep-orange"  v-if="this.threats.length > 0" :content="this.threats.length">Threat activities</v-badge>
+      <v-badge color="grey"  v-if="this.threats.length == 0" :content="'0'">Threat activities</v-badge>
     </v-tab>
     <!-- <v-tab>Metadata</v-tab> -->
     <!-- <v-tab>Assets</v-tab> -->
@@ -346,16 +346,15 @@
         <v-timeline v-if="this.history.length > 0" clipped dense>
           <v-timeline-item
             v-for="change in this.history"
-            :key="change"
+            :key="change.date"
             color="blue"
             small
             fill-dot
-
           >
             <v-card class="elevation-2">
-              <v-card-title class="headline">Change</v-card-title>
-              <v-card-text>
-                {{change}}
+              <v-card-title class="headline">{{change.reason}} at '{{change.date}}'</v-card-title>
+              <v-card-text dense>
+                <p v-for="c in change.changes" :key="c">{{c}}</p>
               </v-card-text>
             </v-card>
           </v-timeline-item>

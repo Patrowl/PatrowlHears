@@ -51,10 +51,10 @@ HISTORY_IMPORTANT_FIELDS = {
 
 
 def get_history_diffs(item, scope):
-    diffs = []
+    diffs = {}
 
     record = item.history.earliest()
-    diffs.append({
+    diffs.update({
         record.history_date.timestamp(): {
             'date': record.history_date,
             'reason': 'New {} created'.format(scope),
@@ -73,7 +73,7 @@ def get_history_diffs(item, scope):
         if len(hdiffs) > 0:
             # print(record.__dict__)
             # print(record.history_date.timestamp())
-            diffs.append({
+            diffs.update({
                 next.history_date.timestamp(): {
                     'date': next.history_date,
                     'reason': 'Change in {}'.format(scope),
@@ -89,19 +89,19 @@ def get_history_diffs(item, scope):
 @api_view(['GET'])
 def get_vuln_history(self, vuln_id):
     vuln = get_object_or_404(Vuln, id=vuln_id)
-    res = []
+    res = {}
 
-    res.extend(get_history_diffs(vuln, 'vuln'))
+    res.update(get_history_diffs(vuln, 'vuln'))
 
     for exploit in vuln.exploitmetadata_set.all():
-        res.extend(get_history_diffs(exploit, 'exploit'))
+        res.update(get_history_diffs(exploit, 'exploit'))
     for threat in vuln.threatmetadata_set.all():
-        res.extend(get_history_diffs(threat, 'threat'))
-    # history = []
-    # for h in sorted(res, key=lambda x: x[1]):
-    #     history.append(res[h])
-    # return JsonResponse(history, safe=False)
-    return JsonResponse(res, safe=False)
+        res.update(get_history_diffs(threat, 'threat'))
+    history = []
+    for h in sorted(res.keys()):
+        history.append(res[h])
+    return JsonResponse(history, safe=False)
+    # return JsonResponse(res, safe=False)
 
 
 @api_view(['GET'])
