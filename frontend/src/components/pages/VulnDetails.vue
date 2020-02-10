@@ -339,6 +339,29 @@
       </v-snackbar>
     </v-tab-item>
 
+    <!-- Timeline -->
+    <v-tab-item>
+      <v-card v-if="this.history">
+        <!-- {{this.history}} -->
+        <v-timeline v-if="this.history.length > 0" clipped dense>
+          <v-timeline-item
+            v-for="change in this.history"
+            :key="change"
+            color="blue"
+            small
+            fill-dot
+
+          >
+            <v-card class="elevation-2">
+              <v-card-title class="headline">Change</v-card-title>
+              <v-card-text>
+                {{change}}
+              </v-card-text>
+            </v-card>
+          </v-timeline-item>
+        </v-timeline>
+      </v-card>
+    </v-tab-item>
   </v-tabs>
 
 
@@ -361,6 +384,7 @@ export default {
       access: {authentication: '', complexity: '', vector: ''},
     },
     ratings: {},
+    history: {},
     threats: {},
     threat_headers: [
       // { text: 'ID', value: 'publicid' },
@@ -447,18 +471,19 @@ export default {
     getDataFromApi(vuln_id) {
       // this.loading = true;
       return new Promise((resolve, reject) => {
-        let vuln = this.getdetails(vuln_id);
+        let vuln = this.getVulnDetails(vuln_id);
+        let history = this.getHistory(vuln_id);
         let ratings = this.getRatings(vuln_id);
         let exploits = this.getExploits(vuln_id);
         let threats = this.getThreats(vuln_id);
 
         setTimeout(() => {
           this.loading = false;
-          resolve({ vuln, ratings, exploits, threats });
+          resolve({ vuln, history, ratings, exploits, threats });
         }, 300);
       });
     },
-    getdetails(vuln_id) {
+    getVulnDetails(vuln_id) {
       this.loading = true;
       this.$api.get('/api/vulns/'+vuln_id).then(res => {
         this.vuln = res.data;
@@ -523,6 +548,24 @@ export default {
         swal.fire({
           title: 'Error',
           text: 'unable to get related threats',
+          showConfirmButton: false,
+          showCloseButton: false,
+          timer: 3000
+        });
+      });
+      this.loading = false;
+    },
+    getHistory(vuln_id) {
+      this.loading = true;
+      this.$api.get('/api/vulns/'+vuln_id+'/history').then(res => {
+        this.history = res.data;
+        return this.threats;
+      }).catch(e => {
+        this.history = {};
+        this.loading = false;
+        swal.fire({
+          title: 'Error',
+          text: 'unable to get vuln history',
           showConfirmButton: false,
           showCloseButton: false,
           timer: 3000

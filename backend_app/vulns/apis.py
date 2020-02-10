@@ -43,24 +43,45 @@ class ThreatMetadataSet(viewsets.ModelViewSet):
     pagination_class = StandardResultsSetPagination
 
 
-def get_history_diffs(item):
+HISTORY_IMPORTANT_FIELDS = {
+    'vuln': ['cvss', 'cvss_vector', 'summary', 'is_exploitable', 'is_confirmed', 'is_in_the_news', 'is_in_the_wild'],
+    'exploit': ['link', 'trust_level', 'tlp_level', 'source', 'availability', 'maturity'],
+    'threat': ['link', 'trust_level', 'tlp_level', 'source', 'is_in_the_news', 'is_in_the_news']
+}
+
+
+def get_history_diffs(item, scope):
     diffs = []
 
     record = item.history.earliest()
-    # print(record)
+    diffs.append({
+        record.history_date.timestamp(): {
+            'date': record.history_date,
+            'reason': 'New {} created'.format(scope),
+            'changes': ["'{}' has been set to '{}'".format(f, getattr(record, f)) for f in HISTORY_IMPORTANT_FIELDS[scope]],
+            'scope': scope
+        }
+    })
     while True:
         hdiffs = []
-        # print(record)
         next = record.next_record
         if next is None:
             break
         delta = next.diff_against(record)
         for change in delta.changes:
-            # print("{} changed from {} to {}".format(change.field, change.old, change.new))
             hdiffs.append("'{}' changed from '{}' to '{}'".format(change.field, change.old, change.new))
-        record = next
         if len(hdiffs) > 0:
-            diffs.append(hdiffs)
+            # print(record.__dict__)
+            # print(record.history_date.timestamp())
+            diffs.append({
+                next.history_date.timestamp(): {
+                    'date': next.history_date,
+                    'reason': 'Change in {}'.format(scope),
+                    'changes': hdiffs,
+                    'scope': scope
+                }
+            })
+        record = next
 
     return diffs
 
@@ -70,18 +91,16 @@ def get_vuln_history(self, vuln_id):
     vuln = get_object_or_404(Vuln, id=vuln_id)
     res = []
 
-    res.extend(get_history_diffs(vuln))
+    res.extend(get_history_diffs(vuln, 'vuln'))
 
-    # for history in vuln.history.all():
-    #     res.append(model_to_dict(history))
     for exploit in vuln.exploitmetadata_set.all():
-        res.extend(get_history_diffs(exploit))
-        # for he in exploit.history.all():
-        #     res.append(model_to_dict(he))
+        res.extend(get_history_diffs(exploit, 'exploit'))
     for threat in vuln.threatmetadata_set.all():
-        res.extend(get_history_diffs(threat))
-        # for ht in threat.history.all():
-        #     res.append(model_to_dict(ht))
+        res.extend(get_history_diffs(threat, 'threat'))
+    # history = []
+    # for h in sorted(res, key=lambda x: x[1]):
+    #     history.append(res[h])
+    # return JsonResponse(history, safe=False)
     return JsonResponse(res, safe=False)
 
 
