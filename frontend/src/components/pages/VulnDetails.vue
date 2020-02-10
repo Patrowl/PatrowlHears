@@ -99,47 +99,38 @@
           <!-- Side cards -->
           <v-flex md4>
             <v-flex>
-              <v-card color="red lighten-1">
-                <v-card-title primary class="title">Graph here</v-card-title>
-                <v-card-text>la, la, la et la</v-card-text>
+              <!-- <v-card color="red lighten-1"> -->
+              <v-card :color="getRatingColor(vprating)" v-if="this.ratings.score >= 0">
+                <v-card-title class="title">Rating Scores</v-card-title>
+                <v-card-text>
+                  <v-row align="center">
+                    <v-col class="display-3" cols="4" align="center">
+                      {{vprating}}
+                    </v-col>
+                    <v-col cols="6">
+                      CVSSv2 Base: {{cvssv2adj[0]}}
+                      CVSSv2 Temporal: {{cvssv2adj[1]}}
+                    </v-col>
+                  </v-row>
+                </v-card-text>
               </v-card>
             </v-flex>
             <v-flex>
               <v-card color="grey lighten-5">
                 <v-card-title primary class="title">Metrics</v-card-title>
                 <v-card-text>
-                  Exploitable ?: {{this.vuln.is_exploitable}}<br/>
-                  Confirmed ?: {{this.vuln.is_confirmed}}<br/>
-                  In the news ?: {{this.vuln.is_in_the_news}}<br/>
-                  Exploited in the wild ?: {{this.vuln.is_in_the_wild}}
+                  <v-switch v-model="is_exploitable" color="red" readonly hide-details label="Exploitable"></v-switch>
+                  <v-switch v-model="is_confirmed" color="red" readonly hide-details label="Confirmed"></v-switch>
+                  <v-switch v-model="is_in_the_news" color="red" readonly hide-details label="In the News"></v-switch>
+                  <v-switch v-model="is_in_the_wild" color="red" readonly hide-details label="In the Wild"></v-switch>
                 </v-card-text>
               </v-card>
             </v-flex>
-            <!-- <v-flex>
-              <v-card color="grey lighten-5">
-                <v-card-title primary class="title">Impact</v-card-title>
-                <v-card-text>
-                  Confidentiality: {{this.vuln.impact.confidentiality}}<br/>
-                  Integrity: {{this.vuln.impact.integrity}}<br/>
-                  Availability: {{this.vuln.impact.availability}}<br/>
-                </v-card-text>
-              </v-card>
-            </v-flex>
-            <v-flex>
-              <v-card color="grey lighten-5">
-                <v-card-title primary class="title">Access</v-card-title>
-                <v-card-text>
-                  Authentication: {{this.vuln.access.authentication}}<br/>
-                  Complexity: {{this.vuln.access.complexity}}<br/>
-                  Vector: {{this.vuln.access.vector}}<br/>
-                </v-card-text>
-              </v-card>
-            </v-flex> -->
 
             <v-flex>
               <v-row no-gutters>
                 <v-col cols="12" sm="6">
-                  <v-card color="grey lighten-5">
+                  <v-card color="grey lighten-5" height="100%">
                     <v-card-title primary class="title">Impact</v-card-title>
                     <v-card-text>
                       Confidentiality: {{this.vuln.impact.confidentiality}}<br/>
@@ -149,7 +140,7 @@
                   </v-card>
                 </v-col>
                 <v-col cols="12" sm="6">
-                  <v-card color="grey lighten-5" >
+                  <v-card color="grey lighten-5" height="100%">
                     <v-card-title primary class="title">Access</v-card-title>
                     <v-card-text>
                       Authentication: {{this.vuln.access.authentication}}<br/>
@@ -238,9 +229,9 @@
                   <v-select v-model="editedItem.availability" label="Availability" :items="editedItem.availability_items"></v-select>
                   <v-select v-model="editedItem.maturity" label="Maturity" :items="editedItem.maturity_items"></v-select>
                   <v-text-field v-model="editedItem.notes" label="Notes"></v-text-field>
-                  <v-btn color="success" @click="saveNewExploit">
-                    Save
-                  </v-btn>
+
+                  <v-btn color="success" @click="saveNewExploit">Save</v-btn>
+                  <v-btn color="warning" type="reset">Reset</v-btn>
                 </v-form>
               </v-container>
             </v-card-text>
@@ -369,6 +360,7 @@ export default {
       impact: {confidentiality: '', integrity: '', availability: ''},
       access: {authentication: '', complexity: '', vector: ''},
     },
+    ratings: {},
     threats: {},
     threat_headers: [
       // { text: 'ID', value: 'publicid' },
@@ -396,7 +388,7 @@ export default {
       { text: '', value: 'data-table-expand' },
     ],
     editedIndex: -1,
-    editedItem: {
+    defaultMetadata: {
       link: 'https://',
       notes: '',
       trust_level: 'trusted',
@@ -409,42 +401,60 @@ export default {
       maturity: 'unknown',
       maturity_items: ['unknown', 'unproven', 'poc', 'functional'],
       modified: '',
-      is_in_the_wild: 1,
-      is_in_the_news: 1,
+      is_in_the_wild: 0,
+      is_in_the_news: 0,
       published: ''
     },
+    editedItem: {},
     dialog_exploit: false,
     dialog_threat: false,
     snack: false,
     snackColor: '',
     snackText: '',
-    // assets: {},
   }),
   mounted() {
     this.vuln_id = this.$router.currentRoute.params.vuln_id;
+    this.editedItem = this.defaultMetadata;
     this.getDataFromApi(this.vuln_id);
   },
   computed: {
-    formExploitTitle () {
+    formExploitTitle() {
       return this.editedIndex === -1 ? 'New Exploit' : 'Edit Exploit'
     },
-    formThreatTitle () {
+    formThreatTitle() {
       return this.editedIndex === -1 ? 'New threat activity' : 'Edit threat activity'
     },
+    is_exploitable(){
+      return this.vuln.is_exploitable;
+    },
+    is_confirmed(){
+      return this.vuln.is_confirmed;
+    },
+    is_in_the_news(){
+      return this.vuln.is_in_the_news;
+    },
+    is_in_the_wild(){
+      return this.vuln.is_in_the_wild;
+    },
+    vprating(){
+      return this.ratings.score;
+    },
+    cvssv2adj(){
+      return this.ratings.cvssv2adj;
+    }
   },
   methods: {
     getDataFromApi(vuln_id) {
       // this.loading = true;
       return new Promise((resolve, reject) => {
         let vuln = this.getdetails(vuln_id);
+        let ratings = this.getRatings(vuln_id);
         let exploits = this.getExploits(vuln_id);
         let threats = this.getThreats(vuln_id);
 
         setTimeout(() => {
           this.loading = false;
-          resolve({
-            vuln, exploits, threats
-          });
+          resolve({ vuln, ratings, exploits, threats });
         }, 300);
       });
     },
@@ -459,6 +469,24 @@ export default {
         swal.fire({
           title: 'Error',
           text: 'unable to get vuln details',
+          showConfirmButton: false,
+          showCloseButton: false,
+          timer: 3000
+        });
+      });
+      this.loading = false;
+    },
+    getRatings(vuln_id) {
+      this.loading = true;
+      this.$api.get('/api/ratings/calc/'+vuln_id).then(res => {
+        this.ratings = res.data;
+        return this.vuln;
+      }).catch(e => {
+        this.ratings = {};
+        this.loading = false;
+        swal.fire({
+          title: 'Error',
+          text: 'unable to get vuln ratings',
           showConfirmButton: false,
           showCloseButton: false,
           timer: 3000
@@ -517,8 +545,16 @@ export default {
       else if (tlp_level === 'black') return 'black';
       else return 'grey';
     },
+    getRatingColor(rating) {
+      if (rating >= 80 ) return 'red';
+      else if (rating >= 60) return 'orange';
+      else if (rating >= 40) return 'yellow';
+      else if (rating >= 0) return 'blue';
+      else return 'grey';
+    },
     saveNewExploit() {
       // Save in backend
+      this.editedItem.modified = new Date();
       this.$api.post('/api/vulns/'+this.vuln_id+'/exploits/add', this.editedItem).then(res => {
         if (res && res.status === 200) {
           // Snack notifications
@@ -541,15 +577,21 @@ export default {
           timer: 3000
         });
         this.dialog_exploit = false;
+        this.editedItem = this.defaultMetadata;
         return;
       });
 
       // Update the datatable
+      let new_exploit = JSON.parse(JSON.stringify(this.editedItem));
       if (this.editedIndex > -1) {
-          Object.assign(this.exploits[this.editedIndex], this.editedItem);
+          Object.assign(this.exploits[this.editedIndex], new_exploit);
       } else {
-          this.exploits.push(this.editedItem);
+          console.log("push");
+          this.exploits.push(new_exploit);
       }
+
+      // this.editedItem = this.defaultMetadata;
+      this.editedItem = JSON.parse(JSON.stringify(this.defaultMetadata));
       this.dialog_exploit = false;
     },
     editExploit(item) {
@@ -591,6 +633,7 @@ export default {
     },
     saveNewThreat() {
       // Save in backend
+      this.editedItem.modified = new Date();
       this.$api.post('/api/vulns/'+this.vuln_id+'/threats/add', this.editedItem).then(res => {
         if (res && res.status === 200) {
           // Snack notifications
@@ -617,11 +660,14 @@ export default {
       });
 
       // Update the datatable
+      let new_threat = JSON.parse(JSON.stringify(this.editedItem));
       if (this.editedIndex > -1) {
-          Object.assign(this.exploits[this.editedIndex], this.editedItem);
+          Object.assign(this.threats[this.editedIndex], new_threat);
       } else {
-          this.threats.push(this.editedItem);
+          this.threats.push(new_threat);
       }
+
+      this.editedItem = JSON.parse(JSON.stringify(this.defaultMetadata));
       this.dialog_threat = false;
     },
     editThreat(item) {
@@ -632,7 +678,7 @@ export default {
       this.snackColor = 'success';
       this.snackText = 'Threat activity successfuly edited.';
     },
-    deleteThreatt(item) {
+    deleteThreat(item) {
       // save in backend
       this.$api.get('/api/vulns/'+this.vuln_id+'/threats/'+item.id+'/del').then(res => {
         if (res){

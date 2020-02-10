@@ -106,6 +106,7 @@ def add_exploit(self, vuln_id):
         'source': self.data['source'],
         'availability': self.data['availability'],
         'maturity': self.data['maturity'],
+        'modified': self.data['modified']
     }
     new_exploit = ExploitMetadata(**data)
     new_exploit.save()
@@ -129,6 +130,31 @@ def get_threats(self, vuln_id):
         res.append(model_to_dict(threat))
     return JsonResponse(res, safe=False)
 
+
+@api_view(['POST'])
+def add_threat(self, vuln_id):
+    vuln = get_object_or_404(Vuln, id=vuln_id)
+    data = {
+        'vuln': vuln,
+        'link': self.data['link'],
+        'trust_level': self.data['trust_level'],
+        'tlp_level': self.data['tlp_level'],
+        'source': self.data['source'],
+        'is_in_the_wild': self.data['is_in_the_wild'],
+        'is_in_the_news': self.data['is_in_the_news'],
+        'modified': self.data['modified']
+    }
+    new_threat = ThreatMetadata(**data)
+    new_threat.save()
+    return JsonResponse(model_to_dict(new_threat), safe=False)
+
+
+@api_view(['GET'])
+def del_threat(self, vuln_id, threat_id):
+    vuln = get_object_or_404(Vuln, id=vuln_id)
+    threat = get_object_or_404(ThreatMetadata, id=threat_id)
+    threat.delete()
+    return JsonResponse("deleted", safe=False)
 #
 # @api_view(['GET'])
 # def refresh_metadata_cve(self, cve_id):

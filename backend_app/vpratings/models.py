@@ -84,19 +84,22 @@ VPR_METRICS = {
     'asset': {
         'max_score': 4,
         'criticality': {
-            'default': 0.3,
+            'default': 1,
+            # 'default': 0.3,
             'low': 0.1,
             'medium': 0.3,
             'high': 1
         },
         'exposure': {
-            'default': 1,
+            'default': 2,
+            # 'default': 1,
             'restricted': 0.5,
             'internal': 1,
             'internet': 2
         },
         'distribution': {
-            'default': 0.5,
+            'default': 1,
+            # 'default': 0.5,
             'low': 0.2,
             'medium': 0.5,
             'high': 1
@@ -104,12 +107,15 @@ VPR_METRICS = {
     }
 }
 
-# VPR_DECISION_CAPS = {
-#     '80': 'very-high',
-#     '60': 'high',
-#     '40': 'moderate',
-#     '0': 'low'
-# }
+VPR_DEFAULT_SCORES = {
+    'vuln': 0,
+    'threat': 0,
+    'asset': 0
+}
+
+
+def get_default_scores():
+    return dict(vuln=0, threat=0, asset=0)
 
 # class VPRatingPolicy(models.Model):
 #     name = models.CharField(max_length=255, default="")
@@ -138,6 +144,7 @@ VPR_METRICS = {
 class VPRating(models.Model):
     vector = models.CharField(max_length=255, default="")
     score = models.IntegerField(default=0)
+    score_details = JSONField(default=get_default_scores)
     cvssv2adj = models.FloatField(default=0.0)
     data = JSONField(default=dict)
     vuln = models.ForeignKey(Vuln, on_delete=models.CASCADE)
@@ -163,18 +170,27 @@ class VPRating(models.Model):
 
     def calc_cvssv2adj(self):
         # Todo
-        print('calc_cvssv2adj', self.score, self.vector, self.vuln.cvss2)
+        print('calc_cvssv2adj:', self.score, self.vector, self.vuln.cvss2)
         return self.cvssv2adj
 
     def calc_score(self):
         if not self.data:   # Empty data
             self.score = 0
+            self.score_details = VPR_DEFAULT_SCORES
         else:
             # self.score = int(self._calc_vpr_vuln() * self._calc_vpr_threat() * self._calc_vpr_asset())
+            vpr_vuln = self._calc_vpr_vuln()
+            vpr_threat = self._calc_vpr_threat()
+            vpr_asset = self._calc_vpr_asset()
             self.score = int(
-                self._calc_vpr_vuln() * 12 +
-                self._calc_vpr_threat() * 4 +
-                self._calc_vpr_asset() * 5)
+                vpr_vuln * 12 +
+                vpr_threat * 4 +
+                vpr_asset * 5)
+            self.score_details = {
+                'vuln': int(vpr_vuln),
+                'threat': int(vpr_threat),
+                'asset': int(vpr_asset)
+            }
         print('calc_score:', self.score, self.vector)
         return self.score
 
