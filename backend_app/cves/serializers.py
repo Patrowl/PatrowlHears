@@ -66,7 +66,7 @@ class CPESerializer(serializers.HyperlinkedModelSerializer):
 class VendorSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = CPE
-        fields = ['vendor']
+        fields = ['vendor', 'id']
 
 
 class VendorFilter(FilterSet):
@@ -136,7 +136,7 @@ class BulletinFilter(FilterSet):
         return queryset.filter(
             Q(publicid__icontains=value) |
             Q(vendor__icontains=value) |
-            Q(title__icontains=value) 
+            Q(title__icontains=value)
         )
 
     sorted_by = OrderingFilter(

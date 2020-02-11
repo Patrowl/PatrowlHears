@@ -170,7 +170,7 @@ class VPRating(models.Model):
 
     def calc_cvssv2adj(self):
         # Todo
-        print('calc_cvssv2adj:', self.score, self.vector, self.vuln.cvss2)
+        # print('calc_cvssv2adj:', self.score, self.vector, self.vuln.cvss2)
         return self.cvssv2adj
 
     def calc_score(self):
@@ -191,7 +191,7 @@ class VPRating(models.Model):
                 'threat': int(vpr_threat),
                 'asset': int(vpr_asset)
             }
-        print('calc_score:', self.score, self.vector)
+        # print('calc_score:', self.score, self.vector)
         return self.score
 
     def _calc_vpr_vuln(self):
@@ -232,7 +232,7 @@ class VPRating(models.Model):
         if vpr_vuln_score > VPR_METRICS['vulnerability']['max_score']:
             vpr_vuln_score = VPR_METRICS['vulnerability']['max_score']
 
-        print("vpr_vuln_score:", vpr_vuln_score)
+        # print("vpr_vuln_score:", vpr_vuln_score)
         return vpr_vuln_score
 
     def _calc_vpr_threat(self):
@@ -257,10 +257,11 @@ class VPRating(models.Model):
 
             # Age
             for c in VPR_METRICS['threat']['exploit_age']['caps'].keys():
-                delta = datetime.now() - exploit.published
-                if delta.days <= int(c):
-                    exploit_score += VPR_METRICS['threat']['exploit_age']['caps'][c]
-                    break
+                if exploit.published is not None:
+                    delta = datetime.now() - exploit.published
+                    if delta.days <= int(c):
+                        exploit_score += VPR_METRICS['threat']['exploit_age']['caps'][c]
+                        break
             else:
                 exploit_score += VPR_METRICS['threat']['exploit_age']['default']
 
@@ -279,7 +280,7 @@ class VPRating(models.Model):
         if vpr_threat_score > VPR_METRICS['threat']['max_score']:
             vpr_threat_score = VPR_METRICS['threat']['max_score']
 
-        print("vpr_threat_score:", vpr_threat_score)
+        # print("vpr_threat_score:", vpr_threat_score)
         return vpr_threat_score
 
     def _calc_vpr_asset(self):
@@ -308,5 +309,5 @@ class VPRating(models.Model):
         if vpr_asset_score > VPR_METRICS['asset']['max_score']:
             vpr_asset_score = VPR_METRICS['asset']['max_score']
 
-        print("vpr_asset_score:", vpr_asset_score)
+        # print("vpr_asset_score:", vpr_asset_score)
         return vpr_asset_score

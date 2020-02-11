@@ -48,6 +48,17 @@
         </v-clamp>
       </template>
 
+      <!-- Rating -->
+      <template v-slot:item.rating="{ item }">
+        <v-chip
+          :color="getRatingColor(item.rating)"
+          class="text-center"
+          small
+        >
+        {{item.rating}}
+        </v-chip>
+      </template>
+
       <!-- Is exploitable -->
       <template v-slot:item.is_exploitable="{ item }">
         <v-chip
@@ -126,6 +137,7 @@ export default {
       { text: 'CVE', value: 'cve', width: '150px' },
       { text: 'Summary', value: 'summary' },
       { text: 'CVSSv2', value: 'cvss', align: 'center' },
+      { text: 'Score', value: 'rating', align: 'center' },
       // { text: 'Exploits', value: 'is_exploitable', align: 'center' },
       { text: 'Exploits', value: 'exploit_count', align: 'center' },
       { text: 'Confirm ?', value: 'is_confirmed', align: 'center' },
@@ -232,6 +244,13 @@ export default {
       else if (criticity == 'low') return 'yellow';
       else if (criticity == 'medium') return 'orange';
       else if (criticity == 'high') return 'red';
+      else return 'grey';
+    },
+    getRatingColor(rating) {
+      if (rating >= 80 ) return 'red';
+      else if (rating >= 60) return 'orange';
+      else if (rating >= 40) return 'yellow';
+      else if (rating >= 0) return 'blue';
       else return 'grey';
     },
     getBool(b) {

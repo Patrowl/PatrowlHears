@@ -27,7 +27,7 @@
         }"
         :loading="loading"
         class="elevation-4"
-        item-key="id"
+        item-key="cve_id"
         show-select
         multi-sort
       >

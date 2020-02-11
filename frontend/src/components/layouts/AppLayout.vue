@@ -8,27 +8,29 @@
     >
       <!-- -->
       <v-list dense class="grey lighten-4">
-        <template v-for="(item, i) in menu_items" :to="item.to">
-          <v-row
-            v-if="item.heading"
-            :key="i"
-            align="center"
+        <template v-for="(item, i) in menu_items">
+          <v-list-group
+            no-action
+            v-if="item.submenu"
+            :prepend-icon="item.icon"
           >
-            <v-col cols="6">
-              <v-subheader v-if="item.heading">
-                {{ item.heading }}
-              </v-subheader>
-            </v-col>
-            <!-- <v-col cols="6" class="text-right">
-              <v-btn small text>edit</v-btn>
-            </v-col> -->
-          </v-row>
-          <v-divider
-            v-else-if="item.divider"
-            :key="i"
-            dark
-            class="my-4"
-          />
+            <template v-slot:activator>
+              <v-list-item-content>
+                <v-list-item-title v-text="item.text"></v-list-item-title>
+              </v-list-item-content>
+            </template>
+            <v-list-item
+              v-for="(sb, i) in item.submenu"
+              :key="i"
+              :to="sb.to"
+            >
+              <v-list-item-content>
+                <v-list-item-title v-text="sb.text" link :to="sb.to"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-group>
+
+          <v-divider v-else-if="item.divider" :key="i"/>
           <v-list-item v-else :key="i" link :to="item.to">
             <v-list-item-action>
               <v-icon>{{ item.icon }}</v-icon>
@@ -95,10 +97,15 @@ export default {
   data: () => ({
     drawer: null,
     menu_items: [
-      { heading: 'KB' },
-      { icon: 'mdi-bookmark', text: 'Vendors & Products', to: '/kb/vendors' },
-      { icon: 'mdi-bookmark', text: 'CVE', to: '/kb/cves' },
-      { icon: 'mdi-bookmark', text: 'Bulletins', to: '/kb/bulletins' },
+      // { heading: 'KB' },
+      // { icon: 'mdi-bookmark', text: 'Vendors & Products', to: '/kb/vendors' },
+      // { icon: 'mdi-bookmark', text: 'CVE', to: '/kb/cves' },
+      // { icon: 'mdi-bookmark', text: 'Bulletins', to: '/kb/bulletins' },
+      { icon: 'mdi-bookmark', text: 'KB', to: '', submenu: [
+        { icon: 'mdi-bookmark', text: 'Vendors & Products', to: '/kb/vendors' },
+        { icon: 'mdi-bookmark', text: 'CVE', to: '/kb/cves' },
+        { icon: 'mdi-bookmark', text: 'Bulletins', to: '/kb/bulletins' }
+      ]},
       { divider: true },
       { icon: 'mdi-file-find', text: 'Vulnerabilities', to: '/vulns' },
       { icon: 'mdi-security', text: 'Ratings', to: '/ratings' },

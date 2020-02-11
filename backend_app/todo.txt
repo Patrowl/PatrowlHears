@@ -12,7 +12,6 @@
 [ ] DB performance tuning
 
 
-
 YaraRules
 CVE-2017–11882: https://medium.com/@Sebdraven/a-quick-analysis-malicious-rtf-to-write-yara-rule-part-1-234fa34db551
 CVE-2017-11882 https://blog.reversinglabs.com/blog/reversinglabs-yara-rule-detects-cobalt-payload-exploiting-cve-2017-11882
@@ -22,6 +21,18 @@ Sigma Detection
 https://github.com/Neo23x0/sigma/blob/master/rules/web/web_citrix_cve_2019_19781_exploit.yml
 
 OpenCTI integration
+
+----------------
+ALTER SEQUENCE kb_cve_id_seq RESTART;
+ALTER SEQUENCE cves_historicalcve_history_id_seq RESTART;
+ALTER SEQUENCE vulns_id_seq RESTART;
+ALTER SEQUENCE threats_metadata_id_seq RESTART;
+ALTER SEQUENCE vulns_historicalvuln_history_id_seq RESTART;
+ALTER SEQUENCE vulns_historicalthreatmetadata_history_id_seq RESTART;
+ALTER SEQUENCE vulns_historicalexploitmetadata_history_id_seq RESTART;
+ALTER SEQUENCE exploits_metadata_id_seq RESTART;
+
+----------------
 
 Bulletins
 redhat: CVE-2018-12326

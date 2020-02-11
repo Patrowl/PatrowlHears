@@ -13,8 +13,6 @@
       <v-badge color="deep-orange"  v-if="this.threats.length > 0" :content="this.threats.length">Threat activities</v-badge>
       <v-badge color="grey"  v-if="this.threats.length == 0" :content="'0'">Threat activities</v-badge>
     </v-tab>
-    <!-- <v-tab>Metadata</v-tab> -->
-    <!-- <v-tab>Assets</v-tab> -->
     <v-tab>Timeline</v-tab>
 
     <!-- Summary -->
@@ -353,8 +351,8 @@
           >
             <v-card class="elevation-2">
               <v-card-title class="headline">{{change.reason}} at '{{change.date}}'</v-card-title>
-              <v-card-text dense>
-                <p v-for="c in change.changes" :key="c">{{c}}</p>
+              <v-card-text>
+                <span v-for="c in change.changes" :key="c">{{c}}<br/></span>
               </v-card-text>
             </v-card>
           </v-timeline-item>

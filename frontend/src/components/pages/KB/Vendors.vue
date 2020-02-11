@@ -26,7 +26,7 @@
         }"
         :loading="loading"
         class="elevation-4"
-        item-key="id"
+        item-key="vendor"
         show-select
       >
       <template v-slot:item.actions="{ item }">
@@ -60,6 +60,7 @@ export default {
     headers: [
       { text: 'Vendor', value: 'vendor' },
       { text: 'Actions', value: 'actions' }
+
     ],
     rowsPerPageItems: [5, 10, 20, 50, 100],
   }),

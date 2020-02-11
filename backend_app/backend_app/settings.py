@@ -9,10 +9,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '&-e9z@w=gerd+_k1)rj2#ri2_cswyp_cg5zj-g!-fo(3vx9l33x'
+SECRET_KEY = os.environ.get('SECRET_KEY', '&-e9z@w=gerd+_k1)rj2#ri2_cswyp_cg5zj-g!-fo(3vx9l33x')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', True)
 
 ALLOWED_HOSTS = ['*']
 
@@ -108,11 +108,12 @@ WSGI_APPLICATION = 'backend_app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'patrowlhears_db',
-        'USER': 'patrowlhears',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '',
+        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ.get('DB_ENV_DB', 'patrowlhears_db'),
+        'USER': os.environ.get('DB_ENV_POSTGRES_USER', 'patrowlhears'),
+        'PASSWORD': os.environ.get('DB_ENV_POSTGRES_PASSWORD', ''),
+        'HOST': os.environ.get('DB_PORT_5432_TCP_HOST', 'localhost'),
+        'PORT': os.environ.get('DB_PORT_5432_TCP_PORT', ''),
     },
     'mongodb': {
         'HOST': 'localhost',

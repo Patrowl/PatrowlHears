@@ -1,6 +1,4 @@
 from django.forms.models import model_to_dict
-from vulns.serializers import (
-    VulnSerializer, ExploitMetadataSerializer, ThreatMetadataSerializer)
 from .models import VPRating
 from cvsslib import cvss2, calculate_vector
 import logging
@@ -8,7 +6,7 @@ logger = logging.getLogger(__name__)
 
 
 def _calc_vprating(vuln, asset_metadata={}, save=False):
-    print("_calc_vprating():", vuln)
+    # print("_calc_vprating():", vuln)
     vpr = VPRating(vuln=vuln)
 
     v = vuln.__dict__
@@ -69,11 +67,12 @@ def _calc_vprating(vuln, asset_metadata={}, save=False):
     vpr.calc_score()
     if save is True:
         vpr.save()
-    print("END: CVSSv2 Adjusted:", vpr.cvssv2adj, "VPRating:", vpr.score)
+    # print("END: CVSSv2 Adjusted:", vpr.cvssv2adj, "VPRating:", vpr.score)
     return vpr
 
 
 def _refresh_vprating(vuln_id, asset_metadata={}):
+    from vulns.serializers import VulnSerializer
     vpr = VPRating.objects.filter(vuln_id=vuln_id).first()
     if vpr is None:
         vpr = VPRating()
@@ -128,7 +127,7 @@ def _refresh_vprating(vuln_id, asset_metadata={}):
             vpr.vector += "/TD:L"
 
     adjusted_cvss2_scores = calculate_vector(vpr.vector, cvss2)
-    print("adjusted_cvss2_scores:", adjusted_cvss2_scores)
+    # print("adjusted_cvss2_scores:", adjusted_cvss2_scores)
     # vpr.cvssv2adj = adjusted_cvss2_scores
     vpr.save()
     return vpr

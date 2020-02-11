@@ -78,10 +78,11 @@ def sync_cpes_fromdb(from_date=None):
         settings.DATABASES['mongodb']['PORT'])
     db = cli['cvedb']
     cpes = db.cpe
-    my_cpes = CPE.objects.values_list('vector', flat=True)
+    my_cpes = list(CPE.objects.values_list('vector', flat=True))
 
     for cpe in cpes.find():
         if cpe['cpe_2_2'] not in my_cpes:
+            # It's a new CPE
             try:
                 c = _CPE(cpe['cpe_2_2'])
                 new_cpe = CPE(
@@ -95,70 +96,29 @@ def sync_cpes_fromdb(from_date=None):
                 for p in cpe['cpe_name']:
                     if 'cpe23Uri' in p.keys():
                         new_cpe.vulnerable_products.append(p['cpe23Uri'])
-                    # else:
-                    #     print(p)
 
                 new_cpe.save()
+
+                # Add the currect CPE to inner list
+                my_cpes.append(cpe['cpe_2_2'])
+            except Exception as e:
+                logger.error(e)
+        else:
+            # Update existing CPE and check for new vulnerable products
+            old_cpe = CPE.objects.filter(vector=cpe['cpe_2_2'])[0]
+            vp = []
+            try:
+                for p in cpe['cpe_name']:
+                    if 'cpe23Uri' in p.keys():
+                        vp.append(p['cpe23Uri'])
+                if len(vp) > len(old_cpe.vulnerable_products):
+                    old_cpe.vulnerable_products = vp
+                    old_cpe.save()
             except Exception as e:
                 logger.error(e)
     return True
 
 
-# def sync_cves_fromdb(from_date=None):
-#     cli = MongoClient(
-#         settings.DATABASES['mongodb']['HOST'],
-#         settings.DATABASES['mongodb']['PORT'])
-#     db = cli['cvedb']
-#     cves = db.cves
-#     vias = db.via4
-#
-#     for cve in cves.find():
-#         _new_cve = {
-#             'cve_id': cve['id'],
-#             'summary': cve.get('summary', None),
-#             'published': cve.get('Published', None),
-#             'modified': cve.get('Modified', None),
-#             'assigner': cve.get('assigner', None),
-#             'cvss': cve.get('cvss', None),
-#             'cvss_time': cve.get('cvss-time', None),
-#             'cvss_vector': cve.get('cvss-vector', None),
-#             'access': cve.get('access', None),
-#             'impact': cve.get('impact', None),
-#             'vulnerable_products': []
-#         }
-#         # Set CWE
-#         cwe_id = cve.get('cwe', None)
-#         _cwe = CWE.objects.filter(cwe_id=cwe_id).first()
-#         if _cwe is not None:
-#             _new_cve.update({'cwe': _cwe})
-#
-#         # Set vulnerable products (CPE vectors)
-#         for vp in cve['vulnerable_configuration']:
-#             _new_cve['vulnerable_products'].append(vp)
-#             # if CPE.objects.filter(vector=vp):
-#             #     print("found!")
-#
-#         cur_cve = CVE.objects.filter(cve_id=cve['id']).first()
-#         if cur_cve is None:
-#             try:
-#                 cur_cve = CVE(**_new_cve)
-#                 cur_cve.save()
-#             except Exception as e:
-#                 logger.error(e)
-#         else:
-#             CVE.objects.filter(id=cur_cve.id).update(**_new_cve)
-#
-#         # Update VIA references
-#         via = vias.find_one({'id': cur_cve.cve_id})
-#         if via:
-#             cur_cve.references = without_keys(via, ['id', '_id'])
-#             cur_cve.save(update_fields=["references"])
-#
-#         # Create or update Vuln (metrics)
-#         sync_vuln_fromcve(cve=cur_cve)
-#         via = None
-#
-#     return True
 def sync_bulletins_fromdb(from_date=None):
     cli = MongoClient(
         settings.DATABASES['mongodb']['HOST'],
@@ -190,7 +150,6 @@ def _sync_bulletin_fromdb(cve, vendor):
         if bulletin is None:
             # Create new bulletin
             bulletin = Bulletin(**new_bulletin)
-            # print('new bulletin:', bulletin)
         else:
             # Update existing one if any change
             for v in new_bulletin.keys():
@@ -217,6 +176,7 @@ def _sync_bulletin_fromdb(cve, vendor):
     return True
 
 
+# Sync all CVE
 def sync_cves_fromdb(from_date=None):
     cli = MongoClient(
         settings.DATABASES['mongodb']['HOST'],
@@ -233,6 +193,7 @@ def sync_cves_fromdb(from_date=None):
     return True
 
 
+# Sync a single CVE
 def sync_cve_fromdb(cve_id, from_date=None):
     cli = MongoClient(
         settings.DATABASES['mongodb']['HOST'],
@@ -277,7 +238,6 @@ def _sync_cve_fromdb(cve, via):
         # Create it
         try:
             cur_cve = CVE(**_new_cve)
-            # cur_cve.save()
         except Exception as e:
             logger.error(e)
     else:

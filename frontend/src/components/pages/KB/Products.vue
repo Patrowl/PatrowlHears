@@ -26,7 +26,7 @@
         }"
         :loading="loading"
         class="elevation-4"
-        item-key="id"
+        item-key="product"
         show-select
       >
       </v-data-table>

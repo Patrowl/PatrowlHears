@@ -4,7 +4,7 @@
     <div class="loading" v-if="loading===true">Loading&#8230;</div>
     <v-card>
       <v-card-title>
-        CVE
+        Bulletins
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
@@ -26,10 +26,11 @@
         }"
         :loading="loading"
         class="elevation-4"
-        item-key="id"
+        item-key="publicid"
         show-select
         multi-sort
       >
+
       <!-- Summary -->
       <template v-slot:item.title="{ item }">
         <v-clamp autoresize :max-lines="1">
