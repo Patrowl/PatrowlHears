@@ -1,6 +1,7 @@
 """backend_app URL Configuration."""
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from rest_framework import routers
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -40,3 +41,5 @@ urlpatterns = [
     # path('', include('pages.urls')),
     # path('favicon.ico', RedirectView.as_view(url='/static/images/favicon.ico')),
 ]
+
+urlpatterns += staticfiles_urlpatterns()
