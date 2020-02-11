@@ -6,7 +6,7 @@ import jwt_decode from 'jwt-decode'
 
 // axios.defaults.xsrfCookieName = 'csrftoken'
 // axios.defaults.xsrfHeaderName = 'X-CSRFToken'
-axios.defaults.baseURL = 'http://localhost:3333/'
+axios.defaults.baseURL = process.env.VUE_APP_API_BASE_URL || process.env.API_BASE_URL || 'http://localhost:3333/'
 
 Vue.use(Vuex)
 Vue.use(VueAxios, axios);
@@ -19,8 +19,8 @@ export default new Vuex.Store({
     jwt_auth_token: localStorage.getItem('authToken'),
     jwt_refresh_token: localStorage.getItem('refreshToken'),
     endpoints: {
-      obtainJWT: 'http://localhost:3333/auth-jwt/obtain_jwt_token/',
-      refreshJWT: 'http://localhost:3333/auth-jwt/refresh_jwt_token/'
+      obtainJWT: '/auth-jwt/obtain_jwt_token/',
+      refreshJWT: '/auth-jwt/refresh_jwt_token/'
     }
   },
   getters: {
@@ -51,7 +51,8 @@ export default new Vuex.Store({
         username: username,
         password: password
       }
-      axios.post(this.state.endpoints.obtainJWT, payload)
+      // axios.post(this.state.endpoints.obtainJWT, payload)
+      this.$api.post(this.state.endpoints.obtainJWT, payload)
         .then((response)=>{
             this.commit('updateToken', response.data.access);
           })
@@ -63,7 +64,8 @@ export default new Vuex.Store({
       const payload = {
         token: this.state.jwt_refresh_token
       }
-      axios.post(this.state.endpoints.refreshJWT, payload)
+      // axios.post(this.state.endpoints.refreshJWT, payload)
+      this.$api.post(this.state.endpoints.refreshJWT, payload)
         .then((response)=>{
             this.commit('updateToken', response.data.access)
           })

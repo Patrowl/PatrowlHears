@@ -61,3 +61,55 @@
 2020-02-11 14:37:23,188 django.request WARNING  Not Found: /static/rest_framework/js/default.js
 2020-02-11 14:37:38,519 django.request WARNING  Not Found: /static/rest_framework/css/bootstrap.min.css
 2020-02-11 14:37:42,363 django.request WARNING  Not Found: /staticfiles/rest_framework/css/bootstrap.min.css
+2020-02-11 14:55:12,976 django.request WARNING  Not Found: /static/rest_framework/css/bootstrap.min.css.map
+2020-02-11 14:55:13,036 django.request WARNING  Not Found: /favicon.ico
+2020-02-11 14:56:24,003 django.request WARNING  Bad Request: /api/vulns/
+2020-02-11 14:56:25,636 django.request WARNING  Bad Request: /api/vulns/
+2020-02-11 14:56:27,684 django.request WARNING  Bad Request: /api/vulns/
+2020-02-11 14:56:29,986 django.request WARNING  Bad Request: /api/vulns/
+2020-02-11 14:56:31,629 django.request WARNING  Bad Request: /api/vulns/
+2020-02-11 14:56:33,753 django.request WARNING  Bad Request: /api/vulns/
+2020-02-11 15:01:49,840 django.request WARNING  Not Found: /auth-jwt/obtain_jwt_tokene/
+2020-02-11 15:25:09,046 django.request WARNING  Not Found: /static/rest_framework/css/bootstrap.min.css.map
+2020-02-11 15:25:09,126 django.request WARNING  Not Found: /favicon.ico
+2020-02-11 15:28:15,163 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-02-11 15:28:20,717 django.server INFO     "GET /api/vulns/122395/exploits HTTP/1.1" 200 2
+2020-02-11 15:28:20,718 django.server INFO     "GET /api/ratings/calc/122395 HTTP/1.1" 200 826
+2020-02-11 15:28:20,720 django.server INFO     "GET /api/vulns/122395/threats HTTP/1.1" 200 2
+2020-02-11 15:28:20,727 django.server INFO     "GET /api/vulns/122395/ HTTP/1.1" 200 974
+2020-02-11 15:28:20,737 django.server INFO     "GET /api/vulns/122395/history HTTP/1.1" 200 744
+2020-02-11 15:31:17,476 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-02-11 15:31:22,753 django.request WARNING  Not Found: /cpicpi
+2020-02-11 15:31:22,754 django.server WARNING  "GET /cpicpi HTTP/1.1" 404 11934
+2020-02-11 15:31:31,170 django.server INFO     "GET / HTTP/1.1" 200 1109
+2020-02-11 15:31:31,217 django.server INFO     "GET /static/css/app.9982921e.css HTTP/1.1" 200 174
+2020-02-11 15:31:31,230 django.server INFO     "GET /static/js/app.92efcd6b.js HTTP/1.1" 200 54233
+2020-02-11 15:31:31,235 django.server INFO     "GET /static/css/chunk-vendors.fadeb5fe.css HTTP/1.1" 200 411880
+2020-02-11 15:31:31,241 django.server INFO     "GET /static/js/chunk-vendors.afb4737e.js HTTP/1.1" 200 842437
+2020-02-11 15:31:31,409 django.server INFO     "GET /static/js/app.92efcd6b.js.map HTTP/1.1" 200 189930
+2020-02-11 15:31:31,450 django.server INFO     "GET /static/js/chunk-vendors.afb4737e.js.map HTTP/1.1" 200 2702292
+2020-02-11 15:31:33,418 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 438
+2020-02-11 15:31:33,435 django.server INFO     "GET /users/api/current HTTP/1.1" 200 105
+2020-02-11 15:31:36,816 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=& HTTP/1.1" 200 500202
+2020-02-11 15:31:46,441 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=& HTTP/1.1" 200 500202
+2020-02-11 15:31:57,030 django.server INFO     "GET /api/vulns/122448 HTTP/1.1" 301 0
+2020-02-11 15:31:57,066 django.server INFO     "GET /api/vulns/122448/exploits HTTP/1.1" 200 2
+2020-02-11 15:31:57,067 django.server INFO     "GET /api/ratings/calc/122448 HTTP/1.1" 200 610
+2020-02-11 15:31:57,068 django.server INFO     "GET /api/vulns/122448/ HTTP/1.1" 200 700
+2020-02-11 15:31:57,070 django.server INFO     "GET /api/vulns/122448/threats HTTP/1.1" 200 2
+2020-02-11 15:31:57,085 django.server INFO     "GET /api/vulns/122448/history HTTP/1.1" 200 705
+2020-02-11 15:32:03,167 django.server INFO     "GET /api/ratings/calc/122448 HTTP/1.1" 200 610
+2020-02-11 15:32:03,178 django.server INFO     "GET /api/vulns/122448/exploits HTTP/1.1" 200 2
+2020-02-11 15:32:03,179 django.server INFO     "GET /api/vulns/122448/threats HTTP/1.1" 200 2
+2020-02-11 15:32:03,183 django.server INFO     "GET /api/vulns/122448/ HTTP/1.1" 200 700
+2020-02-11 15:32:03,194 django.server INFO     "GET /api/vulns/122448/history HTTP/1.1" 200 705
+2020-02-11 15:32:06,374 django.server INFO     "GET /api/kb/cve?limit=20&page=1&search= HTTP/1.1" 301 0
+2020-02-11 15:32:06,861 django.server INFO     "GET /api/kb/cve/?limit=20&page=1&search= HTTP/1.1" 200 90323
+2020-02-11 15:32:08,781 django.server INFO     "GET /api/kb/cve?limit=20&page=1&sorted_by=cve_id&search= HTTP/1.1" 301 0
+2020-02-11 15:32:08,882 django.server INFO     "GET /api/kb/cve/?limit=20&page=1&sorted_by=cve_id&search= HTTP/1.1" 200 90340
+2020-02-11 15:32:09,502 django.server INFO     "GET /api/kb/cve?limit=20&page=1&sorted_by=-cve_id&search= HTTP/1.1" 301 0
+2020-02-11 15:32:09,610 django.server INFO     "GET /api/kb/cve/?limit=20&page=1&sorted_by=-cve_id&search= HTTP/1.1" 200 497281
+2020-02-11 15:35:44,886 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=& HTTP/1.1" 200 500202
+2020-02-11 15:35:52,569 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 438
+2020-02-11 15:35:52,582 django.server INFO     "GET /users/api/current HTTP/1.1" 200 105
+2020-02-11 15:36:03,657 django.request WARNING  Not Found: /homepage

@@ -92,7 +92,7 @@ export default {
       if (this.$refs.form.validate()) {
         this.loading = true;
         this.$store.commit("removeToken");
-        axios.post(this.$store.state.endpoints.obtainJWT, this.credentials).then(res => {
+        this.$api.post(this.$store.state.endpoints.obtainJWT, this.credentials).then(res => {
           this.$store.commit('updateToken', res.data.access);
 
           // get and set auth user

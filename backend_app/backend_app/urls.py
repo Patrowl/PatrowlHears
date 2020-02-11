@@ -12,6 +12,7 @@ from monitored_assets import apis as ma_apis
 from vulns import apis as vulns_apis
 from vpratings import apis as vpr_apis
 from cves import apis as cves_apis
+from .views import index
 
 
 router = routers.DefaultRouter()
@@ -28,6 +29,7 @@ router.register(r'api/kb/vendors', cves_apis.VendorSet, 'vendors')
 router.register(r'api/kb/bulletin', cves_apis.BulletinSet)
 
 urlpatterns = [
+    path('', index, name='index'),
     path('auth-jwt/obtain_jwt_token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('auth-jwt/refresh_jwt_token/', TokenRefreshView.as_view(), name='token_refresh'),
     path('auth-jwt/verify/', TokenVerifyView.as_view(), name='token_verify'),
