@@ -44,9 +44,18 @@ class ThreatMetadataSet(viewsets.ModelViewSet):
 
 
 HISTORY_IMPORTANT_FIELDS = {
-    'vuln': ['cvss', 'cvss_vector', 'summary', 'is_exploitable', 'is_confirmed', 'is_in_the_news', 'is_in_the_wild'],
-    'exploit': ['link', 'trust_level', 'tlp_level', 'source', 'availability', 'maturity'],
-    'threat': ['link', 'trust_level', 'tlp_level', 'source', 'is_in_the_news', 'is_in_the_news']
+    'vuln': [
+        'cvss', 'cvss_vector', 'summary', 'is_exploitable', 'is_confirmed',
+        'is_in_the_news', 'is_in_the_wild', 'monitored'
+    ],
+    'exploit': [
+        'link', 'trust_level', 'tlp_level', 'source', 'availability',
+        'maturity'
+    ],
+    'threat': [
+        'link', 'trust_level', 'tlp_level', 'source', 'is_in_the_news',
+        'is_in_the_news'
+    ]
 }
 
 

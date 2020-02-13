@@ -2,32 +2,23 @@ from django.db import models
 from django.utils import timezone
 from simple_history.models import HistoricalRecords
 
+MONITORING_STATUSES = (
+    ('idle', 'Idle'),
+    ('monitoring', 'Monitoring')
+)
 
-class MonitoredAsset(models.Model):
-    ASSET_TYPES = (
-        ('bulletin', 'Bulletin'),
-        ('cve', 'CVE'),
-        ('cpe', 'CPE'),
-        ('vendor', 'Vendor'),
-        ('product', 'Product'),
-        # ('People', 'People'),
-        # ('Keyword', 'Keyword')
-    )
 
-    MONITORING_STATUSES = (
-        ('idle', 'Idle'),
-        ('monitoring', 'Monitoring')
-    )
-
-    name = models.CharField(max_length=255, unique=True)
-    type = models.CharField(max_length=20, choices=ASSET_TYPES)
-    status = models.CharField(max_length=20, choices=MONITORING_STATUSES, default='monitoring')
+class MonitoredProduct(models.Model):
+    vendor = models.CharField(max_length=255, default="")
+    product = models.CharField(max_length=255, default="")
+    # type = models.CharField(max_length=20, choices=ASSET_TYPES)
+    monitored = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now, null=True)
     updated_at = models.DateTimeField(default=timezone.now, null=True)
     history = HistoricalRecords()
 
     class Meta:
-        db_table = "monitored_assets"
+        db_table = "monitored_products"
 
     def __unicode__(self):
         return self.name
@@ -40,4 +31,4 @@ class MonitoredAsset(models.Model):
         if not self.created_at:
             self.created_at = timezone.now()
         self.updated_at = timezone.now()
-        return super(MonitoredAsset, self).save(*args, **kwargs)
+        return super(MonitoredProduct, self).save(*args, **kwargs)

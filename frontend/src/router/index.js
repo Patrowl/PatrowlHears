@@ -11,6 +11,7 @@ import Vulns from '@/components/pages/Vulns'
 import VulnDetails from '@/components/pages/VulnDetails'
 import KBVendors from '@/components/pages/KB/Vendors'
 import KBProducts from '@/components/pages/KB/Products'
+import KBProductVersions from '@/components/pages/KB/ProductVersions'
 import KBCVE from '@/components/pages/KB/CVE'
 import KBBulletins from '@/components/pages/KB/Bulletins'
 
@@ -29,8 +30,9 @@ const routes = [
     component: AppLayout,
     children: [
       { path: 'homepage', name: 'Homepage', component: Homepage },
+      { path: '/kb/products', name: 'KBProducts', component: KBProducts },
       { path: '/kb/vendors', name: 'KBVendors', component: KBVendors },
-      { path: '/kb/vendors/:vendor_name', name: 'KBProducts', component: KBProducts },
+      { path: '/kb/vendors/:vendor_name', name: 'KBProductVersions', component: KBProductVersions },
       { path: '/kb/cves', name: 'KBCVE', component: KBCVE },
       { path: '/kb/bulletins', name: 'KBBulletins', component: KBBulletins },
       { path: '/vulns', name: 'Vulns', component: Vulns },

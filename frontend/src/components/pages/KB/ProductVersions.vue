@@ -1,10 +1,10 @@
 <template>
   <div>
-    <!-- Products Page -->
+    <!-- Product Versions Page -->
     <div class="loading" v-if="loading===true">Loading&#8230;</div>
     <v-card>
       <v-card-title>
-        Products
+        Product Versions for {{this.vendor_name}}
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
@@ -26,32 +26,10 @@
         }"
         :loading="loading"
         class="elevation-4"
-        item-key="item"
+        item-key="product"
         show-select
       >
-
-        <!-- Monitored -->
-        <template v-slot:item.monitored="{ item }">
-          <v-chip
-            small label outlined color="deep-orange"
-            @click="toggleMonitored(item)"
-            v-if="item.monitored">Yes</v-chip>
-          <v-chip
-            small label outlined color="grey"
-            @click="toggleMonitored(item)"
-            v-if="!item.monitored">No</v-chip>
-        </template>
-
-        <!-- Updated at -->
-        <template v-slot:item.updated_at="{ item }">
-          <span>{{moment(item.updated_at).format('YYYY-MM-DD')}}</span>
-        </template>
       </v-data-table>
-
-      <v-snackbar v-model="snack" :timeout="3000" :color="snackColor">
-        {{ snackText }}
-        <v-btn text @click="snack = false">Close</v-btn>
-      </v-snackbar>
     </v-card>
   </div>
 </template>
@@ -62,6 +40,7 @@ import swal from 'sweetalert2';
 export default {
   name: "products",
   data: () => ({
+    vendor_name: "",
     products: [],
     loading: true,
     limit: 20,
@@ -70,17 +49,11 @@ export default {
     options: {},
     selected: [],
     headers: [
-      { text: 'Vendor', value: 'vendor' },
       { text: 'Product', value: 'product' },
-      // { text: 'Version', value: 'title' },
-      // { text: 'Vector', value: 'vector' },
-      { text: 'Monitored', value: 'monitored', align: 'center' },
-      { text: 'Last update', value: 'updated_at' },
+      { text: 'Version', value: 'title' },
+      { text: 'Vector', value: 'vector' },
     ],
     rowsPerPageItems: [5, 10, 20, 50, 100],
-    snack: false,
-    snackColor: '',
-    snackText: '',
   }),
   mounted() {
     this.vendor_name = this.$router.currentRoute.params.vendor_name;
@@ -143,7 +116,7 @@ export default {
       }
 
       // this.$api.get('/api/kb/vendors/'+this.vendor_name+'/products?product__icontains='+this.search+'&'+sorted_by).then(res => {
-      this.$api.get('/api/kb/cpe/?limit='+itemsPerPage+'&page='+page+'&product__icontains='+this.search+'&'+sorted_by).then(res => {
+      this.$api.get('/api/kb/vendors/'+this.vendor_name+'/products?limit='+itemsPerPage+'&page='+page+'&product__icontains='+this.search+'&'+sorted_by).then(res => {
         this.products = res.data;
         return this.products;
       }).catch(e => {
@@ -158,33 +131,6 @@ export default {
         })
       });
       this.loading = false;
-    },
-    toggleMonitored(item) {
-      // save in backend
-      let data = {'monitored': !item.monitored};
-      this.$api.put('/api/kb/products/'+item.id+'/', data).then(res => {
-        if (res){
-          item.monitored = !item.monitored;
-          // Snack notifications
-          this.snack = true;
-          this.snackColor = 'success';
-          this.snackText = 'Monitoring status successfuly updated.';
-        } else {
-          this.snack = true;
-          this.snackColor = 'error';
-          this.snackText = 'Unable to change the monitoring status';
-        }
-      }).catch(e => {
-        this.loading = false;
-        swal.fire({
-          title: 'Error',
-          text: 'Unable to change the monitoring status',
-          showConfirmButton: false,
-          showCloseButton: false,
-          timer: 3000
-        });
-        return;
-      });
     },
   }
 };

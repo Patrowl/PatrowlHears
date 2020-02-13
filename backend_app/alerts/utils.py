@@ -8,9 +8,11 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def send_email_message(short="", long={}):
-    msg_text = render_to_string('vuln.txt', {'data': long})
-    msg_html = render_to_string('vuln.html', {'data': long})
+def send_email_message(short="", long={}, template="vuln"):
+    tmpl_txt = "{}.txt".format(template)
+    tmpl_html = "{}.html".format(template)
+    msg_text = render_to_string(tmpl_txt, {'data': long})
+    msg_html = render_to_string(tmpl_html, {'data': long})
     # contact_mail = Setting.objects.get(key="alerts.endpoint.email").value
     # send_mail(
     #     '[PatrowlFeeds] New alert: '+short,
@@ -22,10 +24,13 @@ def send_email_message(short="", long={}):
 
     subject = '[PatrowlFeeds-Alert]'+short
     from_email, to = settings.EMAIL_HOST_USER, settings.EMAIL_RCPT_USER
-    msg = EmailMultiAlternatives(subject, msg_text, from_email, [to])
-    msg.attach_alternative(msg_html, "text/html")
-    msg.send()
-
+    try:
+        msg = EmailMultiAlternatives(subject, msg_text, from_email, [to])
+        msg.attach_alternative(msg_html, "text/html")
+        msg.send()
+    except Exception as e:
+        logger.error('Unable to send Email message:', e)
+        return False
     return True
 
 
@@ -42,3 +47,5 @@ def send_slack_message(short="", long={}):
             headers={'content-type': 'application/json'})
     except Exception as e:
         logger.error('Unable to send Slack message:', e)
+        return False
+    return True

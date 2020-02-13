@@ -29,6 +29,7 @@
         item-key="vendor"
         show-select
       >
+      <!-- Actions -->
       <template v-slot:item.actions="{ item }">
         <v-icon
           small
@@ -39,7 +40,24 @@
         </v-icon>
         </v-icon>
       </template>
+
+      <!-- Monitored -->
+      <template v-slot:item.monitored="{ item }">
+        <v-chip
+          small label outlined color="deep-orange"
+          @click="toggleMonitored(item)"
+          v-if="item.monitored">Yes</v-chip>
+        <v-chip
+          small label outlined color="grey"
+          @click="toggleMonitored(item)"
+          v-if="!item.monitored">No</v-chip>
+      </template>
       </v-data-table>
+
+      <v-snackbar v-model="snack" :timeout="3000" :color="snackColor">
+        {{ snackText }}
+        <v-btn text @click="snack = false">Close</v-btn>
+      </v-snackbar>
     </v-card>
   </div>
 </template>
@@ -59,10 +77,14 @@ export default {
     selected: [],
     headers: [
       { text: 'Vendor', value: 'vendor' },
+      // { text: 'Monitored', value: 'monitored', align: 'center' },
       { text: 'Actions', value: 'actions' }
 
     ],
     rowsPerPageItems: [5, 10, 20, 50, 100],
+    // snack: false,
+    // snackColor: '',
+    // snackText: '',
   }),
   mounted() {
     // nothing yet
@@ -73,8 +95,7 @@ export default {
         this.search = filter;
         this.options.page = 1;  // reset page count
         this.getDataFromApi().then(data => {
-          // this.vendors = data.results;
-          // this.totalvendors = data.count;
+          // nothing
         });
       },
       deep: true
@@ -82,8 +103,7 @@ export default {
     options: {
       handler() {
         this.getDataFromApi().then(data => {
-          // this.vendors = data.results;
-          // this.totalvendors = data.count;
+          // nothing
         });
       },
       deep: true
@@ -141,8 +161,35 @@ export default {
       this.loading = false;
     },
     viewProducts(vendor_name) {
-      this.$router.push({ 'name': 'KBProducts', 'params': { 'vendor_name': vendor_name } });
+      this.$router.push({ 'name': 'KBProductVersions', 'params': { 'vendor_name': vendor_name } });
     },
+    // toggleMonitored(item) {
+    //   // save in backend
+    //   let data = {'monitored': !item.monitored};
+    //   this.$api.put('/api/kb/vendor/'+item.id+'/', data).then(res => {
+    //     if (res){
+    //       item.monitored = !item.monitored;
+    //       // Snack notifications
+    //       this.snack = true;
+    //       this.snackColor = 'success';
+    //       this.snackText = 'Monitoring status successfuly updated.';
+    //     } else {
+    //       this.snack = true;
+    //       this.snackColor = 'error';
+    //       this.snackText = 'Unable to change the monitoring status';
+    //     }
+    //   }).catch(e => {
+    //     this.loading = false;
+    //     swal.fire({
+    //       title: 'Error',
+    //       text: 'Unable to change the monitoring status',
+    //       showConfirmButton: false,
+    //       showCloseButton: false,
+    //       timer: 3000
+    //     });
+    //     return;
+    //   });
+    // },
   }
 };
 </script>

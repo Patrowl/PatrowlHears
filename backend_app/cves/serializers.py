@@ -12,11 +12,13 @@ class CVESerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = CVE
         fields = [
+            'id',
             'cve_id', 'summary', 'assigner',
             'published', 'modified',
             'cvss', 'cvss_time', 'cvss_vector',
             'cwe_id', 'access', 'impact', 'vulnerable_products',
             'references', 'bulletins',
+            'monitored',
             'created_at', 'updated_at',
         ]
 
@@ -41,6 +43,8 @@ class CVEFilter(FilterSet):
             ('-summary', _('Summary (desc)')),
             ('modified', _('Modified')),
             ('-modified', _('Modified (desc)')),
+            ('monitored', _('Monitored')),
+            ('-monitored', _('Monitored (desc)')),
         )
     )
 
@@ -55,17 +59,51 @@ class CVEFilter(FilterSet):
 
 
 class CPESerializer(serializers.HyperlinkedModelSerializer):
+    # monitored = serializers.SerializerMethodField()
+    #
+    # def get_monitored(self, instance):
+    #     return instance.is_monitored()
+
     class Meta:
         model = CPE
         fields = [
-            'title', 'vector',
-            'vendor', 'product', 'vulnerable_products'
+            'id', 'title', 'vector',
+            'vendor', 'product', 'vulnerable_products',
+            'monitored',
+            'updated_at'
         ]
+
+
+class CPEFilter(FilterSet):
+    sorted_by = OrderingFilter(
+        choices=(
+            ('vendor', _('Vendor')),
+            ('-vendor', _('Vendor (Desc)')),
+            ('product', _('Product')),
+            ('-product', _('Product (Desc)')),
+            ('title', _('Title')),
+            ('-title', _('Title (Desc)')),
+            ('vector', _('Vector')),
+            ('-vector', _('Vector (desc)')),
+            # ('monitored', _('Monitored')),
+            # ('-monitored', _('Monitored (desc)')),
+        )
+    )
+
+    class Meta:
+        model = CPE
+        fields = {
+            'vendor': ['icontains', 'exact'],
+            'product': ['icontains', 'exact'],
+            'title': ['icontains', 'exact'],
+            # 'monitored': [''],
+        }
 
 
 class VendorSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = CPE
+        # fields = ['vendor', 'id', 'monitored']
         fields = ['vendor', 'id']
 
 
@@ -75,6 +113,8 @@ class VendorFilter(FilterSet):
         choices=(
             ('vendor', _('Vendor')),
             ('-vendor', _('Vendor (Desc)')),
+            # ('monitored', _('Monitored')),
+            # ('-monitored', _('Monitored (desc)')),
         )
     )
 
@@ -95,6 +135,10 @@ class ProductFilter(FilterSet):
             ('-product', _('Product (Desc)')),
             ('title', _('Title')),
             ('-title', _('Title (Desc)')),
+            ('vector', _('Vector')),
+            ('-vector', _('Vector (desc)')),
+            # ('monitored', _('Monitored')),
+            # ('-monitored', _('Monitored (desc)')),
         )
     )
 
@@ -110,7 +154,8 @@ class ProductFilter(FilterSet):
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = CPE
-        fields = ['vendor', 'product', 'title']
+        # fields = ['vendor', 'product', 'title', 'monitored', 'vector']
+        fields = ['vendor', 'product', 'title', 'vector']
 
 
 class CWESerializer(serializers.HyperlinkedModelSerializer):
@@ -125,7 +170,9 @@ class BulletinSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Bulletin
         fields = [
-            'publicid', 'vendor', 'title', 'severity', 'impact', 'published'
+            'id',
+            'publicid', 'vendor', 'title', 'severity', 'impact', 'published',
+            'monitored'
         ]
 
 
@@ -142,8 +189,8 @@ class BulletinFilter(FilterSet):
     sorted_by = OrderingFilter(
         # tuple-mapping retains order
         choices=(
-            ('publicid', _('ID')),
-            ('-publicid', _('ID (desc)')),
+            ('publicid', _('Public ID')),
+            ('-publicid', _('Public ID (desc)')),
             ('vendor', _('Vendor')),
             ('-vendor', _('Vendor (desc)')),
             ('title', _('Title')),
@@ -152,5 +199,7 @@ class BulletinFilter(FilterSet):
             ('-severity', _('Severity (desc)')),
             ('published', _('Published')),
             ('-published', _('Published (desc)')),
+            ('monitored', _('Monitored')),
+            ('-monitored', _('Monitored (desc)')),
         )
     )

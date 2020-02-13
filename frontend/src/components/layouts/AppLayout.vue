@@ -102,7 +102,8 @@ export default {
       // { icon: 'mdi-bookmark', text: 'CVE', to: '/kb/cves' },
       // { icon: 'mdi-bookmark', text: 'Bulletins', to: '/kb/bulletins' },
       { icon: 'mdi-bookmark', text: 'KB', to: '', submenu: [
-        { icon: 'mdi-bookmark', text: 'Vendors & Products', to: '/kb/vendors' },
+        { icon: 'mdi-bookmark', text: 'Vendors & Products', to: '/kb/products' },
+        { icon: 'mdi-bookmark', text: 'Product Versions', to: '/kb/vendors' },
         { icon: 'mdi-bookmark', text: 'CVE', to: '/kb/cves' },
         { icon: 'mdi-bookmark', text: 'Bulletins', to: '/kb/bulletins' }
       ]},

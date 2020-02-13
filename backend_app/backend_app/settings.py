@@ -83,6 +83,8 @@ LOGGING = {
     },
 }
 
+# APPEND_SLASH = False
+
 AUTH_USER_MODEL = 'users.User'
 
 ROOT_URLCONF = 'backend_app.urls'

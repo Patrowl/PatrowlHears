@@ -1,9 +1,8 @@
-# from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import MonitoredAsset
+from .models import MonitoredProduct
 
 
-class MonitoredAssetSerializer(serializers.HyperlinkedModelSerializer):
+class MonitoredProductsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = MonitoredAsset
-        fields = ['name', 'type', 'status', 'created_at', 'updated_at']
+        model = MonitoredProduct
+        fields = ['vendor', 'product', 'monitored', 'created_at', 'updated_at']

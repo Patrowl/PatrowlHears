@@ -10,7 +10,7 @@ class VulnSerializer(serializers.HyperlinkedModelSerializer):
     cve = serializers.SerializerMethodField()
     exploit_count = serializers.SerializerMethodField()
     rating = serializers.SerializerMethodField()
-    vulnerable_products = serializers.SerializerMethodField()
+    # vulnerable_products = serializers.SerializerMethodField()
 
     def get_cve(self, instance):
         return instance.cve_id.cve_id
@@ -21,8 +21,8 @@ class VulnSerializer(serializers.HyperlinkedModelSerializer):
     def get_rating(self, instance):
         return _calc_vprating(instance).score
 
-    def get_vulnerable_products(self, instance):
-        return instance.cve_id.vulnerable_products
+    # def get_vulnerable_products(self, instance):
+    #     return instance.cve_id.vulnerable_products
 
     class Meta:
         model = Vuln
@@ -40,6 +40,7 @@ class VulnSerializer(serializers.HyperlinkedModelSerializer):
             # 'exploitmetadata_set',
             # 'threatmetadata_set',
             'vulnerable_products',
+            'monitored',
             'reflinks',
             'reflinkids',
             'created_at', 'updated_at']
@@ -65,6 +66,7 @@ class VulnFilter(FilterSet):
             ('cve', _('CVE')), ('-cve', _('CVE (Desc)')),
             ('cvss', _('CVSS')), ('-cvss', _('CVSS (Desc)')),
             # ('rating', _('Rating')), ('-rating', _('Rating (Desc)')),
+            ('monitored', _('Monitored')), ('-monitored', _('Monitored (Desc)')),
             ('published', _('Published')), ('-published', _('Published (Desc)')),
             ('updated_at', _('Updated at')), ('-updated_at', _('Updated_at (Desc)')),
             ('is_exploitable', _('Exploitable')), ('-is_exploitable', _('Not exploitable')),

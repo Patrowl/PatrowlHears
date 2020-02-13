@@ -9,6 +9,7 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView,
 )
 from monitored_assets import apis as ma_apis
+from alerts import apis as alerts_apis
 from vulns import apis as vulns_apis
 from vpratings import apis as vpr_apis
 from cves import apis as cves_apis
@@ -16,7 +17,9 @@ from .views import index
 
 
 router = routers.DefaultRouter()
-router.register(r'api/assets', ma_apis.MonitoredAssetSet)
+router.register(r'api/monitored/products', ma_apis.MonitoredProductsSet)
+router.register(r'api/monitored/vulns', ma_apis.MonitoredVulnsSet)
+router.register(r'api/alerts', alerts_apis.AlertingRuleSet)
 router.register(r'api/vulns', vulns_apis.VulnSet)
 router.register(r'api/exploits', vulns_apis.ExploitMetadataSet)
 router.register(r'api/threats', vulns_apis.ThreatMetadataSet)
@@ -35,7 +38,8 @@ urlpatterns = [
     path('auth-jwt/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
-    path('api/assets/', include('monitored_assets.urls')),
+    path('api/monitor/', include('monitored_assets.urls')),
+    path('api/alerts/', include('alerts.urls')),
     path('api/vulns/', include('vulns.urls')),
     path('api/ratings/', include('vpratings.urls')),
     path('api/kb/', include('cves.urls')),

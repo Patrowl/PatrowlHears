@@ -10,10 +10,8 @@ class AlertingRuleSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = AlertingRule
         fields = [
-            'cve_id', 'summary', 'assigner',
-            'published', 'modified',
-            'cvss', 'cvss_time', 'cvss_vector',
-            'cwe_id', 'access', 'impact', 'vulnerable_products',
-            'references', 'bulletins',
+            'id', 'title', 'target',
+            'action', 'conditions', 'check_fields', 'severity', 'template',
+            'on_monitored', 'in_bulk', 'enabled',
             'created_at', 'updated_at'
         ]

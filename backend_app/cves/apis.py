@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.forms.models import model_to_dict
 from django_filters import rest_framework as filters
+from rest_framework import filters as drfilters
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from common.utils import cvesearch
@@ -10,7 +11,7 @@ from .models import CVE, CPE, CWE, Bulletin
 from .serializers import (
     CVESerializer, CPESerializer, CWESerializer, BulletinSerializer,
     VendorSerializer, ProductSerializer,
-    CVEFilter, VendorFilter, ProductFilter, BulletinFilter
+    CVEFilter, CPEFilter, VendorFilter, ProductFilter, BulletinFilter
 )
 from .tasks import (
     sync_cwes_task, sync_cpes_task, sync_cves_task, sync_vias_task,
@@ -32,10 +33,14 @@ class CVESet(viewsets.ModelViewSet):
 class CPESet(viewsets.ModelViewSet):
     """API endpoint that allows CPE to be viewed or edited."""
 
-    queryset = CPE.objects.all().order_by('id')
+    # queryset = CPE.objects.all().order_by('id').distinct()
     serializer_class = CPESerializer
     filter_backends = (filters.DjangoFilterBackend,)
+    filterset_fields = ('vendor', 'product', 'monitored',)
+    filterset_class = CPEFilter
     pagination_class = StandardResultsSetPagination
+
+    queryset = CPE.objects.filter(vendor='apache').order_by('id').distinct()
 
 
 class VendorSet(viewsets.ModelViewSet):
@@ -54,14 +59,13 @@ class ProductSet(viewsets.ModelViewSet):
 
     serializer_class = ProductSerializer
     filter_backends = (filters.DjangoFilterBackend,)
-    filterset_fields = ('product', 'title',)
+    filterset_fields = ('product', 'title', 'vector',)
     filterset_class = ProductFilter
     pagination_class = StandardResultsSetPagination
 
     def get_queryset(self):
-        # print(self.kwargs['vendor_name'])
         vendor_name = self.kwargs['vendor_name']
-        return CPE.objects.filter(vendor=vendor_name).order_by('title').values('title', 'product').distinct()
+        return CPE.objects.filter(vendor=vendor_name).order_by('title').values('title', 'product', 'vector').distinct()
 
 
 class CWESet(viewsets.ModelViewSet):

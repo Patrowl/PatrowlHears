@@ -23,12 +23,27 @@
           <v-flex md8>
             <!-- Summary -->
             <v-card color="grey lighten-5">
-              <v-card-title primary class="title">Vuln ID: PH-{{ $route.params.vuln_id }}</v-card-title>
+              <v-card-title primary class="title">
+                <v-container class="grey lighten-5">
+                  <v-row no-gutters >
+                    <v-col class="pa-2" md="auto">
+                        Vuln ID: PH-{{ $route.params.vuln_id }}
+                    </v-col>
+                    <v-col class="pa-2">
+                      <v-chip
+                        small label outlined color="deep-orange"
+                        @click="toggleMonitored"
+                        v-if="this.vuln.monitored">Monitored</v-chip>
+                      <v-chip
+                        small label outlined color="grey"
+                        @click="toggleMonitored"
+                        v-if="!this.vuln.monitored">Not monitored</v-chip>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-card-title>
               <v-card-text>
-                <v-list
-                  subheader
-                  color="grey lighten-5"
-                >
+                <v-list subheader color="grey lighten-5">
                   <v-list-item>
                     <v-list-item-content>
                       <v-list-item-subtitle>CVE</v-list-item-subtitle>
@@ -746,6 +761,34 @@ export default {
 
       this.editedIndex = this.threats.indexOf(item);
       this.threats.splice(this.editedIndex, 1)
+    },
+    toggleMonitored(item) {
+      // save in backend
+      let data = {'monitored': !this.vuln.monitored};
+      this.$api.put('/api/vulns/'+this.vuln_id+'/', data).then(res => {
+        if (res){
+          this.vuln.monitored = !this.vuln.monitored;
+          // Snack notifications
+          this.snack = true;
+          this.snackColor = 'success';
+          this.snackText = 'Vulnerability monitoring successfuly updated.';
+        } else {
+          this.snack = true;
+          this.snackColor = 'error';
+          this.snackText = 'Unable to change the vulnerability monitoring status';
+        }
+      }).catch(e => {
+        this.loading = false;
+        swal.fire({
+          title: 'Error',
+          text: 'Unable to change the vulnerability monitoring status',
+          showConfirmButton: false,
+          showCloseButton: false,
+          timer: 3000
+        });
+        return;
+      });
+
     },
   }
 }

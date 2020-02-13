@@ -127,14 +127,14 @@ class AlertingRule(models.Model):
             self.updated_at = timezone.now()
         return super(AlertingRule, self).save(*args, **kwargs)
 
-    def notify(self, short="", long=""):
+    def notify(self, short="", long="", template=""):
         if self.action == 'debug':
             print("[Alert Notification][Debug] short: {}, long: {}". format(short, long))
             logger.debug("short: {}, long: {}". format(short, long))
         elif self.action == 'email':
             print("[Alert Notification][Mail] short: {}, long: {}". format(short, long))
             print("loooong:", long)
-            send_email_message_task.apply_async(args=[short, long], queue='default', retry=False)
+            send_email_message_task.apply_async(args=[short, long, template], queue='default', retry=False)
         # elif self.action == 'twitter':
         #     send_twitter_message(self, message)
         # elif self.action == 'slack':

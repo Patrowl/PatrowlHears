@@ -5,9 +5,9 @@ logger = logging.getLogger(__name__)
 
 
 @shared_task(bind=True, acks_late=True)
-def send_email_message_task(self, short, long):
+def send_email_message_task(self, short, long, template):
     logger.debug("Entering 'send_email_message_task'")
-    send_email_message(short, long)
+    send_email_message(short, long, template)
     return True
 
 

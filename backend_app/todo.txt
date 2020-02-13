@@ -18,6 +18,10 @@ CVE-2017–11882: https://medium.com/@Sebdraven/a-quick-analysis-malicious-rtf-t
 CVE-2017-11882 https://blog.reversinglabs.com/blog/reversinglabs-yara-rule-detects-cobalt-payload-exploiting-cve-2017-11882
 CVE-2019-19781: https://github.com/Neo23x0/signature-base/blob/master/yara/exploit_shitrix.yar
 CVE-2020-8438: https://sku11army.blogspot.com/2020/01/ruckus-rce-ruckus-m500-via-injection-on.html
+CVE-2020-8772: https://www.wordfence.com/blog/2020/01/critical-authentication-bypass-vulnerability-in-infinitewp-client-plugin/
+CVE-2020-8772: https://www.webarxsecurity.com/vulnerability-infinitewp-client-wp-time-capsule/
+CVE-2019-7482-CVE-2019-7486: https://blog.scrt.ch/2020/02/11/sonicwall-sra-and-sma-vulnerabilties/
+https://research.securitum.com/css-data-exfiltration-in-firefox-via-single-injection-point/
 
 Sigma Detection
 https://github.com/Neo23x0/sigma/blob/master/rules/web/web_citrix_cve_2019_19781_exploit.yml
@@ -42,9 +46,9 @@ msbulletin: CVE-2017-8713
 
 ----------------
 Monitored assets:
-- Create/Update/Delete asset to monitor: CVE, Bulletin, Vendor, Product
+- Create/Update/Delete asset to monitor: Vuln, CVE, Bulletin, CPE, Vendor, Product
 - Send alerts on changes
-- Send regular reports
+- Send periodic reports
 
 ----------------
 Alerting use cases:

@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.postgres.fields import JSONField, ArrayField
 from simple_history.models import HistoricalRecords
+from monitored_assets.models import MonitoredProduct
 
 
 def access_default_dict():
@@ -27,6 +28,10 @@ class CPE(models.Model):
     vector = models.CharField(max_length=250, default="", null=True)
     vulnerable_products = ArrayField(
         models.CharField(max_length=250, blank=True), null=True)
+    # monitored = models.BooleanField(default=False)
+    created_at = models.DateTimeField(default=timezone.now, null=True)
+    updated_at = models.DateTimeField(default=timezone.now, null=True)
+    history = HistoricalRecords(excluded_fields=['updated_at'], cascade_delete_history=True)
 
     class Meta:
         db_table = "kb_cpe"
@@ -36,6 +41,22 @@ class CPE(models.Model):
 
     def __str__(self):
         return self.vector
+
+    def is_monitored(self):
+        monitored = False
+        if MonitoredProduct.objects.filter(vendor=self.vendor, product=self.product, monitored=True).count() > 0:
+            monitored = True
+        return monitored
+
+    @property
+    def monitored(self):
+        return self.is_monitored()
+
+    def save(self, *args, **kwargs):
+        if not self.created_at:
+            self.created_at = timezone.now()
+        self.updated_at = timezone.now()
+        return super(CPE, self).save(*args, **kwargs)
 
 
 class CWE(models.Model):
@@ -62,6 +83,7 @@ class Bulletin(models.Model):
     published = models.DateTimeField(blank=True, null=True)
     modified = models.DateTimeField(blank=True, null=True)
     # raw = JSONField(default=dict, blank=True, null=True)
+    monitored = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now, null=True)
     updated_at = models.DateTimeField(default=timezone.now, null=True)
     history = HistoricalRecords()
@@ -99,6 +121,7 @@ class CVE(models.Model):
         models.CharField(max_length=250, blank=True), null=True)
     bulletins = models.ManyToManyField(Bulletin, blank=True)
     references = JSONField(default=dict)
+    monitored = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now, null=True)
     updated_at = models.DateTimeField(default=timezone.now, null=True)
     history = HistoricalRecords()

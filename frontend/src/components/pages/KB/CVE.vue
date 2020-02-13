@@ -47,12 +47,28 @@
         </v-clamp>
       </template>
 
+      <!-- Monitored -->
+      <template v-slot:item.monitored="{ item }">
+        <v-chip
+          small label outlined color="deep-orange"
+          @click="toggleMonitored(item)"
+          v-if="item.monitored">Yes</v-chip>
+        <v-chip
+          small label outlined color="grey"
+          @click="toggleMonitored(item)"
+          v-if="!item.monitored">No</v-chip>
+      </template>
+
       <!-- Modified -->
       <template v-slot:item.modified="{ item }">
         <span>{{moment(item.modified).format('YYYY-MM-DD')}}</span>
       </template>
-
       </v-data-table>
+
+      <v-snackbar v-model="snack" :timeout="3000" :color="snackColor">
+        {{ snackText }}
+        <v-btn text @click="snack = false">Close</v-btn>
+      </v-snackbar>
     </v-card>
   </div>
 </template>
@@ -79,9 +95,13 @@ export default {
       { text: 'Summary', value: 'summary', sortable: false },
       { text: 'CVSS', value: 'cvss', align: 'center' },
       { text: 'CVSS Vector', value: 'cvss_vector', align: 'center', sortable: false },
+      { text: 'Monitored', value: 'monitored', align: 'center' },
       { text: 'Modified', value: 'modified', align: 'center' },
     ],
     rowsPerPageItems: [5, 10, 20, 50, 100],
+    snack: false,
+    snackColor: '',
+    snackText: '',
   }),
   mounted() {
     // nothing yet
@@ -159,6 +179,33 @@ export default {
         })
       });
       this.loading = false;
+    },
+    toggleMonitored(item) {
+      // save in backend
+      let data = {'monitored': !item.monitored};
+      this.$api.put('/api/kb/vendor/'+item.id+'/', data).then(res => {
+        if (res){
+          item.monitored = !item.monitored;
+          // Snack notifications
+          this.snack = true;
+          this.snackColor = 'success';
+          this.snackText = 'Monitoring status successfuly updated.';
+        } else {
+          this.snack = true;
+          this.snackColor = 'error';
+          this.snackText = 'Unable to change the monitoring status';
+        }
+      }).catch(e => {
+        this.loading = false;
+        swal.fire({
+          title: 'Error',
+          text: 'Unable to change the monitoring status',
+          showConfirmButton: false,
+          showCloseButton: false,
+          timer: 3000
+        });
+        return;
+      });
     },
   }
 };

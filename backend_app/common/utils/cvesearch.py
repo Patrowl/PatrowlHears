@@ -656,6 +656,7 @@ def sync_exploits_fromvia(vuln_id=None, cve=None, from_date=None):
                     if ex is None:
                         new_exploit = ExploitMetadata(**_new_exploit)
                         new_exploit.save()
+
                 for feed in COMMON_EXPLOIT_FEEDS:
                     if feed in b:
                         vuln.is_exploitable = True
@@ -700,6 +701,7 @@ def sync_vuln_fromcve(cve):
         'cvss_time': cve.cvss_time,
         'cvss_vector': cve.cvss_vector,
         'cwe': cve.cwe,
+        'vulnerable_products': cve.vulnerable_products,
         'access': cve.access,
         'impact': cve.impact
     }

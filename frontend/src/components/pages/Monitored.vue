@@ -1,10 +1,10 @@
 <template>
   <div>
-    <!-- Bulletins Page -->
+    <!-- Monitored Page -->
     <div class="loading" v-if="loading===true">Loading&#8230;</div>
     <v-card>
       <v-card-title>
-        Bulletins
+        Monitored assets
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
@@ -17,38 +17,32 @@
 
       <v-data-table
         :headers="headers"
-        :items="bulletins.results"
+        :items="monitored.results"
         :options.sync="options"
-        :server-items-length="bulletins.count"
+        :server-items-length="monitored.count"
         :search="search"
         :footer-props="{
           'items-per-page-options': rowsPerPageItems
         }"
         :loading="loading"
         class="elevation-4"
-        item-key="publicid"
+        item-key="vendor"
         show-select
-        multi-sort
       >
-
-      <!-- Summary -->
-      <template v-slot:item.title="{ item }">
-        <v-clamp autoresize :max-lines="1">
-          {{ item.title }}
-          <button
-            v-if="expanded || clamped"
-            slot="after"
-            slot-scope="{ toggle, expanded, clamped }"
-            class="toggle btn btn-sm"
-            @click="toggle"
-          >
-            {{ ' more' }}
-          </button>
-        </v-clamp>
+      <!-- Actions -->
+      <template v-slot:item.actions="{ item }">
+        <v-icon
+          small
+          class="mdi mdi-eye"
+          color="blue"
+          @click="viewProducts(item.vendor)"
+        >
+        </v-icon>
+        </v-icon>
       </template>
 
       <!-- Monitored -->
-      <template v-slot:item.monitored="{ item }">
+      <!-- <template v-slot:item.monitored="{ item }">
         <v-chip
           small label outlined color="deep-orange"
           @click="toggleMonitored(item)"
@@ -57,13 +51,7 @@
           small label outlined color="grey"
           @click="toggleMonitored(item)"
           v-if="!item.monitored">No</v-chip>
-      </template>
-
-      <!-- Modified -->
-      <template v-slot:item.published="{ item }">
-        <span>{{moment(item.published).format('YYYY-MM-DD')}}</span>
-      </template>
-
+      </template> -->
       </v-data-table>
 
       <v-snackbar v-model="snack" :timeout="3000" :color="snackColor">
@@ -76,28 +64,23 @@
 
 <script>
 import swal from 'sweetalert2';
-import VClamp from 'vue-clamp';
 
 export default {
-  name: "bulletins",
-  components: {
-    VClamp
-  },
+  name: "monitored",
   data: () => ({
-    bulletins: [],
-    totalbulletins: 0,
+    monitored: [],
+    totalmonitored: 0,
     loading: true,
     limit: 20,
     search: '',
     options: {},
     selected: [],
     headers: [
-      { text: 'ID', value: 'publicid', width: '150px' },
       { text: 'Vendor', value: 'vendor' },
-      { text: 'Title', value: 'title' },
-      { text: 'Severity', value: 'severity' },
-      { text: 'Monitored', value: 'monitored', align: 'center' },
-      { text: 'Published', value: 'published' },
+      { text: 'Product', value: 'product' },
+      { text: 'Status', value: 'status', align: 'center' },
+      { text: 'Actions', value: 'actions' }
+
     ],
     rowsPerPageItems: [5, 10, 20, 50, 100],
     snack: false,
@@ -105,7 +88,7 @@ export default {
     snackText: '',
   }),
   mounted() {
-    // nothing yet
+    // nothing ye t
   },
   watch: {
     search: {
@@ -113,8 +96,8 @@ export default {
         this.search = filter;
         this.options.page = 1;  // reset page count
         this.getDataFromApi().then(data => {
-          // this.bulletins = data.results;
-          // this.totalbulletins = data.count;
+          // this.monitored = data.results;
+          // this.totalmonitored = data.count;
         });
       },
       deep: true
@@ -122,8 +105,8 @@ export default {
     options: {
       handler() {
         this.getDataFromApi().then(data => {
-          // this.bulletins = data.results;
-          // this.totalbulletins = data.count;
+          // this.monitored = data.results;
+          // this.totalmonitored = data.count;
         });
       },
       deep: true
@@ -143,7 +126,7 @@ export default {
         let search = this.search.trim().toLowerCase();
 
         this.limit = itemsPerPage;
-        let items = this.getbulletins(page, this.limit, sortBy, sortDesc);
+        let items = this.getmonitored(page, this.limit, sortBy, sortDesc);
 
         setTimeout(() => {
           this.loading = false;
@@ -153,7 +136,7 @@ export default {
         }, 300);
       });
     },
-    getbulletins(page, itemsPerPage, sortBy, sortDesc) {
+    getmonitored(page, itemsPerPage, sortBy, sortDesc) {
       this.loading = true;
       let sorted_by = '';
       if (sortBy.length > 0) {
@@ -164,15 +147,15 @@ export default {
         }
       }
 
-      this.$api.get('/api/kb/bulletin?limit='+itemsPerPage+'&page='+page+'&'+sorted_by+'&search='+this.search).then(res => {
-        this.bulletins = res.data;
-        return this.bulletins;
+      this.$api.get('/api/kb/monitored?limit='+itemsPerPage+'&page='+page+'&vendor__icontains='+this.search+'&'+sorted_by).then(res => {
+        this.monitored = res.data;
+        return this.monitored;
       }).catch(e => {
-        this.bulletins = [];
+        this.monitored = [];
         this.loading = false;
         swal.fire({
           title: 'Error',
-          text: 'unable to get bulletins',
+          text: 'unable to get monitored',
           showConfirmButton: false,
           showCloseButton: false,
           timer: 3000
@@ -180,10 +163,13 @@ export default {
       });
       this.loading = false;
     },
+    viewProducts(vendor_name) {
+      this.$router.push({ 'name': 'KBProducts', 'params': { 'vendor_name': vendor_name } });
+    },
     toggleMonitored(item) {
       // save in backend
       let data = {'monitored': !item.monitored};
-      this.$api.put('/api/kb/bulletin/'+item.id+'/', data).then(res => {
+      this.$api.put('/api/kb/vendor/'+item.id+'/', data).then(res => {
         if (res){
           item.monitored = !item.monitored;
           // Snack notifications
