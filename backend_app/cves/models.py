@@ -41,16 +41,16 @@ class CPE(models.Model):
 
     def __str__(self):
         return self.vector
-
-    def is_monitored(self):
-        monitored = False
-        if MonitoredProduct.objects.filter(vendor=self.vendor, product=self.product, monitored=True).count() > 0:
-            monitored = True
-        return monitored
-
-    @property
-    def monitored(self):
-        return self.is_monitored()
+    # 
+    # def is_monitored(self):
+    #     monitored = False
+    #     if MonitoredProduct.objects.filter(vendor=self.vendor, product=self.product, monitored=True).count() > 0:
+    #         monitored = True
+    #     return monitored
+    #
+    # @property
+    # def monitored(self):
+    #     return self.is_monitored()
 
     def save(self, *args, **kwargs):
         if not self.created_at:

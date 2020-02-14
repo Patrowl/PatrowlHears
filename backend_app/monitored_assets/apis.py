@@ -23,7 +23,7 @@ class MonitoredProductsSet(viewsets.ModelViewSet):
     pagination_class = StandardResultsSetPagination
 
 
-@api_view(['POST'])
+@api_view(['POST', 'PUT'])
 def toggle_monitor_product(self):
     if set(['vendor', 'product', 'monitored']).issubset(self.data.keys()) is False:
         return JsonResponse("error.", safe=False, status=500)

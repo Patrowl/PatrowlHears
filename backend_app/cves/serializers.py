@@ -126,6 +126,14 @@ class VendorFilter(FilterSet):
 
 
 class ProductFilter(FilterSet):
+    search = CharFilter(method='filter_search')
+
+    def filter_search(self,  queryset, name, value):
+        return queryset.filter(
+            Q(vendor__icontains=value) |
+            Q(product__icontains=value)
+        )
+
     sorted_by = OrderingFilter(
         # tuple-mapping retains order
         choices=(
@@ -152,10 +160,14 @@ class ProductFilter(FilterSet):
 
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
+    monitored = serializers.SerializerMethodField()
+
+    def get_monitored(self, instance):
+        return instance.monitored   # Set by ProductSet.get_queryset annotation
+
     class Meta:
         model = CPE
-        # fields = ['vendor', 'product', 'title', 'monitored', 'vector']
-        fields = ['vendor', 'product', 'title', 'vector']
+        fields = ['vendor', 'product', 'monitored']
 
 
 class CWESerializer(serializers.HyperlinkedModelSerializer):

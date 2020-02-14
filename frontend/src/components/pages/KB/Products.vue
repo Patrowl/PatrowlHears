@@ -4,7 +4,24 @@
     <div class="loading" v-if="loading===true">Loading&#8230;</div>
     <v-card>
       <v-card-title>
-        Products
+        <v-container>
+          <v-row no-gutters >
+            <v-col class="pa-2" md="auto">
+                Products
+            </v-col>
+            <v-col class="pa-2">
+              <v-chip
+                small label outlined color="deep-orange"
+                @click="toggleProductMonitored"
+                v-if="this.only_monitored">Show all</v-chip>
+              <v-chip
+                small label outlined color="grey"
+                @click="toggleProductMonitored"
+                v-if="!this.only_monitored">Show monitored only</v-chip>
+            </v-col>
+          </v-row>
+        </v-container>
+
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
@@ -12,7 +29,9 @@
           label="Search"
           single-line
           hide-details
+          @input="is_searching = true"
         ></v-text-field>
+
       </v-card-title>
 
       <v-data-table
@@ -58,6 +77,7 @@
 
 <script>
 import swal from 'sweetalert2';
+import _ from 'lodash';
 
 export default {
   name: "products",
@@ -66,15 +86,15 @@ export default {
     loading: true,
     limit: 20,
     totalproducts: 0,
+    only_monitored: false,
     search: '',
+    is_searching: false,
     options: {},
     selected: [],
     headers: [
       { text: 'Vendor', value: 'vendor' },
       { text: 'Product', value: 'product' },
-      // { text: 'Version', value: 'title' },
-      // { text: 'Vector', value: 'vector' },
-      { text: 'Monitored', value: 'monitored', align: 'center' },
+      { text: 'Monitored', value: 'monitored', align: 'center', sortable: false },
       { text: 'Last update', value: 'updated_at' },
     ],
     rowsPerPageItems: [5, 10, 20, 50, 100],
@@ -83,26 +103,24 @@ export default {
     snackText: '',
   }),
   mounted() {
-    this.vendor_name = this.$router.currentRoute.params.vendor_name;
-    this.getDataFromApi();
+    // this.getDataFromApi();
   },
   watch: {
-    search: {
-      handler(filter) {
-        this.search = filter;
-        this.options.page = 1;  // reset page count
-        this.getDataFromApi().then(data => {
-          //nothin
-        });
+    search: _.debounce(function (filter) {
+    	this.is_searching = false;
+      this.search = filter;
+      this.options.page = 1;  // reset page count
+      this.getDataFromApi();
+    }, 500),
+    only_monitored: {
+      handler() {
+        this.getDataFromApi();
       },
       deep: true
     },
     options: {
       handler() {
-        this.getDataFromApi().then(data => {
-          // this.vendors = data.results;
-          // this.totalvendors = data.count;
-        });
+        this.getDataFromApi();
       },
       deep: true
     }
@@ -118,7 +136,7 @@ export default {
           page,
           itemsPerPage
         } = this.options;
-        let search = this.search.trim().toLowerCase();
+        // let search = this.search.trim().toLowerCase();
         this.limit = itemsPerPage;
 
         let items = this.getProducts(page, this.limit, sortBy, sortDesc);
@@ -136,14 +154,14 @@ export default {
       let sorted_by = '';
       if (sortBy.length > 0) {
         if (sortDesc[0] === true) {
-          sorted_by = 'sorted_by=-' + sortBy;
+          sorted_by = '&sorted_by=-' + sortBy;
         } else {
-          sorted_by = 'sorted_by=' + sortBy;
+          sorted_by = '&sorted_by=' + sortBy;
         }
       }
+      let monitored = this.only_monitored ? "&monitored=yes" : "";
 
-      // this.$api.get('/api/kb/vendors/'+this.vendor_name+'/products?product__icontains='+this.search+'&'+sorted_by).then(res => {
-      this.$api.get('/api/kb/cpe/?limit='+itemsPerPage+'&page='+page+'&product__icontains='+this.search+'&'+sorted_by).then(res => {
+      this.$api.get('/api/kb/products/?limit='+itemsPerPage+'&page='+page+'&search='+this.search+sorted_by+monitored).then(res => {
         this.products = res.data;
         return this.products;
       }).catch(e => {
@@ -161,8 +179,12 @@ export default {
     },
     toggleMonitored(item) {
       // save in backend
-      let data = {'monitored': !item.monitored};
-      this.$api.put('/api/kb/products/'+item.id+'/', data).then(res => {
+      let data = {
+        'vendor': item.vendor,
+        'product': item.product,
+        'monitored': !item.monitored
+      };
+      this.$api.post('/api/monitor/product/toggle', data).then(res => {
         if (res){
           item.monitored = !item.monitored;
           // Snack notifications
@@ -181,11 +203,14 @@ export default {
           text: 'Unable to change the monitoring status',
           showConfirmButton: false,
           showCloseButton: false,
-          timer: 3000
+          timer: 2000
         });
         return;
       });
     },
+    toggleProductMonitored() {
+      this.only_monitored = !this.only_monitored;
+    }
   }
 };
 </script>

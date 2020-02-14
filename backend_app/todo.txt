@@ -22,6 +22,10 @@ CVE-2020-8772: https://www.wordfence.com/blog/2020/01/critical-authentication-by
 CVE-2020-8772: https://www.webarxsecurity.com/vulnerability-infinitewp-client-wp-time-capsule/
 CVE-2019-7482-CVE-2019-7486: https://blog.scrt.ch/2020/02/11/sonicwall-sra-and-sma-vulnerabilties/
 https://research.securitum.com/css-data-exfiltration-in-firefox-via-single-injection-point/
+cve-2020-0601: https://blog.trendmicro.com/trendlabs-security-intelligence/an-in-depth-technical-analysis-of-curveball-cve-2020-0601/
+https://www.secjuice.com/modsecurity-vulnerability-cve-2019-19886/
+CVE-2020-8547: https://tech.michaelaltfield.net/2020/02/14/phplist-hardening-security/
+CVE-2019-15605: https://snyk.io/blog/node-js-release-fixes-a-critical-http-security-vulnerability/
 
 Sigma Detection
 https://github.com/Neo23x0/sigma/blob/master/rules/web/web_citrix_cve_2019_19781_exploit.yml

@@ -1,8 +1,9 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.forms.models import model_to_dict
+from django.db.models import Case, When, BooleanField, Value, Subquery
 from django_filters import rest_framework as filters
-from rest_framework import filters as drfilters
+# from rest_framework import filters as drfilters
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from common.utils import cvesearch
@@ -17,6 +18,7 @@ from .tasks import (
     sync_cwes_task, sync_cpes_task, sync_cves_task, sync_vias_task,
     sync_bulletins_task
 )
+from monitored_assets.models import MonitoredProduct
 
 
 class CVESet(viewsets.ModelViewSet):
@@ -64,8 +66,25 @@ class ProductSet(viewsets.ModelViewSet):
     pagination_class = StandardResultsSetPagination
 
     def get_queryset(self):
-        vendor_name = self.kwargs['vendor_name']
-        return CPE.objects.filter(vendor=vendor_name).order_by('title').values('title', 'product', 'vector').distinct()
+        mp = MonitoredProduct.objects.filter(monitored=True).values('product').distinct()
+
+        if 'vendor_name' in self.kwargs.keys():
+            vendor_name = self.kwargs['vendor_name']
+            return CPE.objects.filter(vendor=vendor_name).values('title', 'product', 'vector').order_by('title').distinct()
+        if 'monitored' in self.request.GET.keys() and self.request.GET.get('monitored') == 'yes':
+            # return CPE.objects.filter(product__in=mp).only('vendor', 'product').distinct('vendor', 'product').order_by('vendor', 'product')
+            return CPE.objects.filter(product__in=mp).annotate(
+                monitored=Value(True, output_field=BooleanField())
+            ).distinct('vendor', 'product').order_by('vendor', 'product')
+
+        return CPE.objects.annotate(
+            monitored=Case(
+                When(product__in=Subquery(mp), then=True), default=False, output_field=BooleanField()
+            )
+        ).distinct('vendor', 'product').order_by('vendor', 'product')
+        # return CPE.objects.annotate(
+        #     monitored=Case(When(product__in=mp, then=True), default=False, output_field=BooleanField())
+        # ).distinct('vendor', 'product').order_by('vendor', 'product')
 
 
 class CWESet(viewsets.ModelViewSet):
@@ -170,10 +189,8 @@ def get_vendors(self):
     filter = self.GET.get('name', None)
     res = []
     if filter is not None:
-        # res = CPE.objects.filter(vendor__icontains=filter).values_list('vendor', flat=True).order_by('vendor').distinct()
         res = CPE.objects.filter(vendor__icontains=filter).values('title').order_by('title').distinct()
     else:
-        # res = CPE.objects.all().values_list('vendor', flat=True).order_by('vendor').distinct()
         res = CPE.objects.all().values('title').order_by('title').distinct()
     return JsonResponse(list(res), safe=False)
 

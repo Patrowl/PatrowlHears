@@ -11,6 +11,7 @@
     "axios": "^0.19.2",
     "core-js": "^3.4.4",
     "jwt-decode": "^2.2.0",
+    "lodash": "^4.17.15",
     "sweetalert2": "^9.7.1",
     "vue": "^2.6.10",
     "vue-axios": "^2.1.5",
