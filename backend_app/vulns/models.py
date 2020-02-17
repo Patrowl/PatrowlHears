@@ -82,6 +82,7 @@ class Vuln(models.Model):
         return "PH-{}".format(self.id)
 
     def to_dict(self):
+        from vpratings.utils import _calc_vprating
         j = {
             'id': self.id,
             'cve_id': self.cve_id.cve_id,
@@ -89,7 +90,7 @@ class Vuln(models.Model):
             'published': self.published,
             'modified': self.modified,
             'assigner': self.assigner,
-            'cwe': self.cwe,
+            'cwe': self.cwe.cwe_id,
             'vulnerable_products': self.vulnerable_products,
             'cvss': self.cvss,
             'cvss_time': self.cvss_time,
@@ -100,10 +101,12 @@ class Vuln(models.Model):
             'is_confirmed': self.is_confirmed,
             'is_in_the_news': self.is_in_the_news,
             'is_in_the_wild': self.is_in_the_wild,
+            'rating': _calc_vprating(self).score,
             'reflinks': self.reflinks,
             'monitored': self.monitored,
             'created_at': self.created_at,
             'updated_at': self.updated_at,
+            'exploit_cnt': self.exploitmetadata_set.count(),
             # 'exploits': self.exploitmetadata_set,
             # 'threats': self.threatmetadata_set,
         }
@@ -172,6 +175,9 @@ class ExploitMetadata(models.Model):
         if not self.created_at:
             self.created_at = timezone.now()
         self.updated_at = timezone.now()
+        if self.vuln.is_exploitable is False:
+            self.vuln.is_exploitable = True
+            self.vuln.save()
         return super(ExploitMetadata, self).save(*args, **kwargs)
 
 

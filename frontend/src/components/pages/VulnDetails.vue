@@ -132,10 +132,10 @@
               <v-card color="grey lighten-5">
                 <v-card-title primary class="title">Metrics</v-card-title>
                 <v-card-text>
-                  <v-switch v-model="is_exploitable" color="red" readonly hide-details label="Exploitable"></v-switch>
-                  <v-switch v-model="is_confirmed" color="red" readonly hide-details label="Confirmed"></v-switch>
-                  <v-switch v-model="is_in_the_news" color="red" readonly hide-details label="In the News"></v-switch>
-                  <v-switch v-model="is_in_the_wild" color="red" readonly hide-details label="In the Wild"></v-switch>
+                  <v-switch v-model="is_exploitable" color="deep-orange" readonly hide-details label="Exploitable"></v-switch>
+                  <v-switch v-model="is_confirmed" color="deep-orange" readonly hide-details label="Confirmed"></v-switch>
+                  <v-switch v-model="is_in_the_news" color="deep-orange" readonly hide-details label="Relayed in the News"></v-switch>
+                  <v-switch v-model="is_in_the_wild" color="deep-orange" readonly hide-details label="Exploited in the Wild"></v-switch>
                 </v-card-text>
               </v-card>
             </v-flex>

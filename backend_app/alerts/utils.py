@@ -8,11 +8,11 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def send_email_message(short="", long={}, template="vuln"):
+def send_email_message(subject="", body={}, template="vuln"):
     tmpl_txt = "{}.txt".format(template)
     tmpl_html = "{}.html".format(template)
-    msg_text = render_to_string(tmpl_txt, {'data': long})
-    msg_html = render_to_string(tmpl_html, {'data': long})
+    msg_text = render_to_string(tmpl_txt, body)
+    msg_html = render_to_string(tmpl_html, body)
     # contact_mail = Setting.objects.get(key="alerts.endpoint.email").value
     # send_mail(
     #     '[PatrowlFeeds] New alert: '+short,
@@ -22,7 +22,7 @@ def send_email_message(short="", long={}, template="vuln"):
     #     fail_silently=False,
     # )
 
-    subject = '[PatrowlFeeds-Alert]'+short
+    subject = '[PatrowlFeeds-Alert] '+subject
     from_email, to = settings.EMAIL_HOST_USER, settings.EMAIL_RCPT_USER
     try:
         msg = EmailMultiAlternatives(subject, msg_text, from_email, [to])
