@@ -78,6 +78,7 @@ class VulnFilter(FilterSet):
         fields = {
             'summary': ['icontains'],
             'search': ['icontains'],
+            'updated_at': ['gte', 'lte'],
             # 'rating': [''],
         }
 

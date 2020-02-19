@@ -5,15 +5,43 @@
 
     <v-card>
       <v-card-title>
-        Vulnerabilities
-        <v-spacer></v-spacer>
+        <!-- Vulnerabilities -->
+        <v-container>
+          <v-row no-gutters >
+            <v-col class="pa-2" md="auto">
+                Vulnerabilities
+            </v-col>
+            <v-col class="pa-2">
+              <v-chip
+                small label outlined :color="getBoolColor(this.show_all)"
+                @click="toggleShowAll()">All</v-chip>&nbsp;
+              <v-chip
+                small label outlined :color="getBoolColor(this.show_last_day)"
+                @click="toggleShowLastDay()">Last 24h</v-chip>&nbsp;
+              <v-chip
+                small label outlined :color="getBoolColor(this.show_last_week)"
+                @click="toggleShowLastWeek()">Last Week</v-chip>
+            </v-col>
+            <v-col class="pa-2" md="6">
+              <v-text-field
+                v-model="search"
+                append-icon="mdi-magnify"
+                label="Search"
+                single-line
+                hide-details
+              ></v-text-field>
+
+            </v-col>
+          </v-row>
+        </v-container>
+        <!-- <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
           append-icon="mdi-magnify"
           label="Search"
           single-line
           hide-details
-        ></v-text-field>
+        ></v-text-field> -->
       </v-card-title>
 
       <v-data-table
@@ -137,10 +165,12 @@
 <script>
 import swal from 'sweetalert2';
 import VClamp from 'vue-clamp';
-
+import Colors from "../../common/colors";
+import moment from 'moment';
 
 export default {
   name: "vulns",
+  mixins: [Colors],
   components: {
     VClamp
   },
@@ -150,6 +180,9 @@ export default {
     loading: true,
     limit: 20,
     search: '',
+    show_all: false,
+    show_last_day: true,
+    show_last_week: false,
     options: {},
     selected: [],
     headers: [
@@ -190,12 +223,31 @@ export default {
     options: {
       handler() {
         this.getDataFromApi().then(data => {
-          // this.vulns = data.results;
-          // this.totalvulns = data.count;
         });
       },
       deep: true
-    }
+    },
+    show_all: {
+      handler() {
+        this.getDataFromApi().then(data => {
+        });
+      },
+      deep: true
+    },
+    show_last_day: {
+      handler() {
+        this.getDataFromApi().then(data => {
+        });
+      },
+      deep: true
+    },
+    show_last_week: {
+      handler() {
+        this.getDataFromApi().then(data => {
+        });
+      },
+      deep: true
+    },
   },
 
   methods: {
@@ -211,7 +263,7 @@ export default {
         let search = this.search.trim().toLowerCase();
 
         this.limit = itemsPerPage;
-        let items = this.getvulns(page, this.limit, sortBy, sortDesc);
+        let items = this.getVulns(page, this.limit, sortBy, sortDesc);
 
         setTimeout(() => {
           resolve({
@@ -221,7 +273,7 @@ export default {
       });
       this.loading = false;
     },
-    getvulns(page, itemsPerPage, sortBy, sortDesc) {
+    getVulns(page, itemsPerPage, sortBy, sortDesc) {
       // this.loading = true;
       let sorted_by = '';
       if (sortBy.length > 0) {
@@ -232,7 +284,14 @@ export default {
         }
       }
 
-      this.$api.get('/api/vulns/?limit='+itemsPerPage+'&page='+page+'&search='+this.search+'&'+sorted_by).then(res => {
+      let filter_by_date = '';
+      if (this.show_last_day == true) {
+        filter_by_date = "&updated_at__gte=" + moment(new Date()).format('YYYY-MM-DD');
+      } else if (this.show_last_week == true) {
+        filter_by_date = "&updated_at__gte=" + moment(new Date()).subtract(7 , 'day').format('YYYY-MM-DD');
+      }
+
+      this.$api.get('/api/vulns/?limit='+itemsPerPage+'&page='+page+'&search='+this.search+'&'+sorted_by+filter_by_date).then(res => {
         this.vulns = res.data;
         this.loading = false;
         return this.vulns;
@@ -260,23 +319,42 @@ export default {
     clickRow(vulnRow) {
       this.$router.push({ 'name': 'VulnDetails', 'params': { 'vuln_id': vulnRow.id } });
     },
-    getColor(criticity) {
-      if (criticity == 'info') return 'blue';
-      else if (criticity == 'low') return 'yellow';
-      else if (criticity == 'medium') return 'orange';
-      else if (criticity == 'high') return 'red';
-      else return 'grey';
-    },
-    getRatingColor(rating) {
-      if (rating >= 80 ) return 'red';
-      else if (rating >= 60) return 'orange';
-      else if (rating >= 40) return 'yellow';
-      else if (rating >= 0) return 'blue';
-      else return 'grey';
-    },
     getBool(b) {
       if (b == true) return 'red';
       else return 'grey';
+    },
+    toggleShowAll() {
+      if (this.show_all == false) {
+        this.show_all = !this.show_all;
+      }
+      if (this.show_all == true) {
+        this.show_last_day = false;
+        this.show_last_week = false;
+      }
+    },
+    toggleShowLastDay() {
+      if (this.show_last_day == true) {
+        this.show_all = true;
+        this.show_last_day = false;
+        this.show_last_week = false;
+      }
+      if (this.show_last_day == false) {
+        this.show_last_day = true;
+        this.show_all = false;
+        this.show_last_week = false;
+      }
+    },
+    toggleShowLastWeek() {
+      if (this.show_last_week == true) {
+        this.show_all = true;
+        this.show_last_day = false;
+        this.show_last_week = false;
+      }
+      if (this.show_last_week == false) {
+        this.show_last_week = true;
+        this.show_all = false;
+        this.show_last_day = false;
+      }
     },
   }
 };

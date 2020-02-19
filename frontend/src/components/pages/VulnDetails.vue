@@ -237,6 +237,7 @@
               <v-container>
                 <v-form ref="form-new-exploit">
                   <v-text-field v-model="editedItem.link" label="link"></v-text-field>
+                  <v-select v-model="editedItem.trust_level" label="Trust Level" :items="editedItem.trust_level_items"></v-select>
                   <v-select v-model="editedItem.tlp_level" label="TLP Level" :items="editedItem.tlp_level_items"></v-select>
                   <v-text-field v-model="editedItem.source" label="Source"></v-text-field>
                   <v-select v-model="editedItem.availability" label="Availability" :items="editedItem.availability_items"></v-select>
@@ -323,16 +324,15 @@
             </v-card-title>
             <v-card-text>
               <v-container>
-                <v-form ref="form-new-exploit">
+                <v-form ref="form-new-threat">
                   <v-text-field v-model="editedItem.link" label="link"></v-text-field>
+                  <v-select v-model="editedItem.trust_level" label="Trust Level" :items="editedItem.trust_level_items"></v-select>
                   <v-select v-model="editedItem.tlp_level" label="TLP Level" :items="editedItem.tlp_level_items"></v-select>
                   <v-text-field v-model="editedItem.source" label="Source"></v-text-field>
                   <v-select v-model="editedItem.availability" label="Availability" :items="editedItem.availability_items"></v-select>
                   <v-select v-model="editedItem.maturity" label="Maturity" :items="editedItem.maturity_items"></v-select>
                   <v-text-field v-model="editedItem.notes" label="Notes"></v-text-field>
-                  <v-btn color="success" @click="saveNewThreat">
-                    Save
-                  </v-btn>
+                  <v-btn color="success" @click="saveNewThreat">Save</v-btn>
                 </v-form>
               </v-container>
             </v-card-text>
@@ -432,7 +432,7 @@ export default {
       tlp_level: 'white',
       tlp_level_items: ['white', 'green', 'amber', 'red', 'black'],
       source: 'manual',
-      availability: 'unknown',
+      availability: 'public',
       availability_items: ['unknown', 'private', 'public'],
       maturity: 'unknown',
       maturity_items: ['unknown', 'unproven', 'poc', 'functional'],
