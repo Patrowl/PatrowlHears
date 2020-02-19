@@ -1,7 +1,6 @@
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
 from django.db.models import Q
-# from common.utils.pagination import StandardResultsSetPagination
 from rest_framework.decorators import api_view
 from vulns.models import Vuln, ExploitMetadata, ThreatMetadata
 
@@ -18,12 +17,12 @@ def search_query(self, query):
         Q(reflinks__icontains=query) |
         Q(reflinkids__icontains=query) |
         Q(vulnerable_products__icontains=query)
-    ):
+    ).order_by('updated_at', 'score'):
         results.append({
             'type': 'vuln',
-            'value': model_to_dict(vuln)
+            'value': vuln.to_dict()
         })
-        vuln_ids.append(vuln.id)
+        # vuln_ids.append(vuln.id)
 
     # Search in ExploitMetadata
     for exploit in ExploitMetadata.objects.filter(

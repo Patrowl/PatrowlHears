@@ -11212,3 +11212,407 @@ django.core.exceptions.FieldError: Cannot resolve keyword 'publicid' into field.
 2020-02-19 10:49:33,363 django.server INFO     "GET /api/ratings/calc/32746 HTTP/1.1" 200 826
 2020-02-19 10:49:33,394 django.server INFO     "GET /api/vulns/32746/ HTTP/1.1" 200 1182
 2020-02-19 10:49:33,419 django.server INFO     "GET /api/vulns/32746/history HTTP/1.1" 200 2253
+2020-02-19 11:35:09,863 django.server INFO     "GET /api/ratings/calc/32746 HTTP/1.1" 200 826
+2020-02-19 11:35:09,873 django.server INFO     "GET /api/vulns/32746/exploits HTTP/1.1" 200 1586
+2020-02-19 11:35:09,875 django.server INFO     "GET /api/vulns/32746/threats HTTP/1.1" 200 2
+2020-02-19 11:35:09,875 django.server INFO     "GET /api/vulns/32746/ HTTP/1.1" 200 1182
+2020-02-19 11:35:09,924 django.server INFO     "GET /api/vulns/32746/history HTTP/1.1" 200 2253
+2020-02-19 11:35:14,107 django.server INFO     "OPTIONS /api/search/coucou?limit=undefined&page=undefined HTTP/1.1" 200 0
+2020-02-19 11:35:16,868 django.server INFO     "OPTIONS /api/search/apache?limit=undefined&page=undefined HTTP/1.1" 200 0
+2020-02-19 11:35:17,192 django.server INFO     "GET /api/search/coucou?limit=undefined&page=undefined HTTP/1.1" 200 2
+2020-02-19 11:35:27,048 django.server INFO     "GET /api/search/apache?limit=undefined&page=undefined HTTP/1.1" 200 116293986
+2020-02-19 11:35:28,828 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=& HTTP/1.1" 200 32164
+2020-02-19 11:35:36,182 django.server INFO     "OPTIONS /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 0
+2020-02-19 11:35:38,481 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2420
+2020-02-19 11:36:25,699 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2420
+2020-02-19 11:38:30,810 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2420
+2020-02-19 11:39:30,341 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2420
+2020-02-19 11:46:51,955 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2420
+2020-02-19 11:48:14,359 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2420
+2020-02-19 11:48:20,430 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2420
+2020-02-19 11:48:25,288 django.server INFO     "GET /api/ratings/calc/32746 HTTP/1.1" 200 826
+2020-02-19 11:48:25,289 django.server INFO     "GET /api/vulns/32746/exploits HTTP/1.1" 200 1586
+2020-02-19 11:48:25,289 django.server INFO     "GET /api/vulns/32746/threats HTTP/1.1" 200 2
+2020-02-19 11:48:25,300 django.server INFO     "GET /api/vulns/32746/ HTTP/1.1" 200 1182
+2020-02-19 11:48:25,368 django.server INFO     "GET /api/vulns/32746/history HTTP/1.1" 200 2253
+2020-02-19 11:48:30,880 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2420
+2020-02-19 11:48:45,736 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2420
+2020-02-19 11:48:48,262 django.server INFO     "GET /api/vulns/32746/threats HTTP/1.1" 200 2
+2020-02-19 11:48:48,262 django.server INFO     "GET /api/vulns/32746/exploits HTTP/1.1" 200 1586
+2020-02-19 11:48:48,262 django.server INFO     "GET /api/ratings/calc/32746 HTTP/1.1" 200 826
+2020-02-19 11:48:48,263 django.server INFO     "GET /api/vulns/32746/ HTTP/1.1" 200 1182
+2020-02-19 11:48:48,318 django.server INFO     "GET /api/vulns/32746/history HTTP/1.1" 200 2253
+2020-02-19 11:48:52,503 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2420
+2020-02-19 11:49:43,282 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2420
+2020-02-19 11:50:21,109 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=& HTTP/1.1" 200 32164
+2020-02-19 11:50:24,964 django.server INFO     "GET /api/ratings/calc/32746 HTTP/1.1" 200 826
+2020-02-19 11:50:24,965 django.server INFO     "GET /api/vulns/32746/threats HTTP/1.1" 200 2
+2020-02-19 11:50:24,965 django.server INFO     "GET /api/vulns/32746/exploits HTTP/1.1" 200 1586
+2020-02-19 11:50:24,973 django.server INFO     "GET /api/vulns/32746/ HTTP/1.1" 200 1182
+2020-02-19 11:50:25,027 django.server INFO     "GET /api/vulns/32746/history HTTP/1.1" 200 2253
+2020-02-19 11:50:48,059 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2420
+2020-02-19 11:51:33,248 django.server INFO     "GET /api/ratings/calc/32746 HTTP/1.1" 200 826
+2020-02-19 11:51:33,250 django.server INFO     "GET /api/vulns/32746/exploits HTTP/1.1" 200 1586
+2020-02-19 11:51:33,250 django.server INFO     "GET /api/vulns/32746/threats HTTP/1.1" 200 2
+2020-02-19 11:51:33,284 django.server INFO     "GET /api/vulns/32746/ HTTP/1.1" 200 1182
+2020-02-19 11:51:33,323 django.server INFO     "GET /api/vulns/32746/history HTTP/1.1" 200 2253
+2020-02-19 11:51:36,879 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2420
+2020-02-19 11:51:42,664 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2420
+2020-02-19 11:52:44,542 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2420
+2020-02-19 11:53:32,897 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2420
+2020-02-19 11:54:14,931 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2420
+2020-02-19 11:54:43,959 django.server INFO     "GET /api/ratings/calc/32746 HTTP/1.1" 200 826
+2020-02-19 11:54:43,959 django.server INFO     "GET /api/vulns/32746/threats HTTP/1.1" 200 2
+2020-02-19 11:54:43,959 django.server INFO     "GET /api/vulns/32746/exploits HTTP/1.1" 200 1586
+2020-02-19 11:54:43,981 django.server INFO     "GET /api/vulns/32746/ HTTP/1.1" 200 1182
+2020-02-19 11:54:44,029 django.server INFO     "GET /api/vulns/32746/history HTTP/1.1" 200 2253
+2020-02-19 11:55:07,787 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2420
+2020-02-19 11:57:42,870 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/search/apis.py changed, reloading.
+2020-02-19 11:57:43,942 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-02-19 11:57:52,061 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2294
+2020-02-19 11:59:37,854 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2294
+2020-02-19 12:03:53,451 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2294
+2020-02-19 12:05:07,830 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2294
+2020-02-19 12:05:14,723 django.server INFO     "OPTIONS /api/vulns/32746 HTTP/1.1" 200 0
+2020-02-19 12:05:14,723 django.server INFO     "OPTIONS /api/vulns/32746/history HTTP/1.1" 200 0
+2020-02-19 12:05:14,725 django.server INFO     "OPTIONS /api/vulns/32746/exploits HTTP/1.1" 200 0
+2020-02-19 12:05:14,728 django.server INFO     "OPTIONS /api/vulns/32746/threats HTTP/1.1" 200 0
+2020-02-19 12:05:14,730 django.server INFO     "OPTIONS /api/ratings/calc/32746 HTTP/1.1" 200 0
+2020-02-19 12:05:14,736 django.server INFO     "OPTIONS /api/vulns/32746/ HTTP/1.1" 200 0
+2020-02-19 12:05:14,752 django.server INFO     "GET /api/vulns/32746/exploits HTTP/1.1" 200 1586
+2020-02-19 12:05:14,762 django.server INFO     "GET /api/ratings/calc/32746 HTTP/1.1" 200 826
+2020-02-19 12:05:14,763 django.server INFO     "GET /api/vulns/32746/ HTTP/1.1" 200 1182
+2020-02-19 12:05:14,766 django.server INFO     "GET /api/vulns/32746/threats HTTP/1.1" 200 2
+2020-02-19 12:05:14,841 django.server INFO     "GET /api/vulns/32746/history HTTP/1.1" 200 2253
+2020-02-19 12:05:18,914 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2294
+2020-02-19 12:05:49,190 django.server INFO     "OPTIONS /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 0
+2020-02-19 12:05:50,663 django.request ERROR    Internal Server Error: /api/search/cve-2008-33
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/search/apis.py", line 25, in search_query
+    'value': vuln.to_dict()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/models.py", line 96, in to_dict
+    'cwe': self.cwe.cwe_id,
+AttributeError: 'NoneType' object has no attribute 'cwe_id'
+2020-02-19 12:05:50,664 django.server ERROR    "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 500 19688
+2020-02-19 12:06:46,534 django.request ERROR    Internal Server Error: /api/search/cve-2008-33
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/search/apis.py", line 25, in search_query
+    'value': vuln.to_dict()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/models.py", line 96, in to_dict
+    'cwe': self.cwe.cwe_id,
+AttributeError: 'NoneType' object has no attribute 'cwe_id'
+2020-02-19 12:06:46,540 django.server ERROR    "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 500 113836
+2020-02-19 12:07:40,970 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/models.py changed, reloading.
+2020-02-19 12:07:41,660 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-02-19 12:07:43,300 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/models.py changed, reloading.
+2020-02-19 12:07:44,019 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-02-19 12:07:53,810 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 12:08:26,186 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 13:44:19,467 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 13:44:43,105 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 13:46:15,737 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/search/apis.py changed, reloading.
+2020-02-19 13:46:16,770 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-02-19 13:46:19,542 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/search/apis.py changed, reloading.
+2020-02-19 13:46:20,325 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-02-19 13:46:33,420 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 13:46:46,736 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 13:46:57,747 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 13:48:37,605 django.server INFO     "OPTIONS /api/vulns/32937 HTTP/1.1" 200 0
+2020-02-19 13:48:37,607 django.server INFO     "OPTIONS /api/ratings/calc/32937 HTTP/1.1" 200 0
+2020-02-19 13:48:37,608 django.server INFO     "OPTIONS /api/vulns/32937/history HTTP/1.1" 200 0
+2020-02-19 13:48:37,615 django.server INFO     "OPTIONS /api/vulns/32937/exploits HTTP/1.1" 200 0
+2020-02-19 13:48:37,619 django.server INFO     "GET /api/vulns/32937 HTTP/1.1" 301 0
+2020-02-19 13:48:37,619 django.server INFO     "OPTIONS /api/vulns/32937/threats HTTP/1.1" 200 0
+2020-02-19 13:48:37,631 django.server INFO     "OPTIONS /api/vulns/32937/ HTTP/1.1" 200 0
+2020-02-19 13:48:37,666 django.server INFO     "GET /api/ratings/calc/32937 HTTP/1.1" 200 818
+2020-02-19 13:48:37,672 django.server INFO     "GET /api/vulns/32937/exploits HTTP/1.1" 200 2
+2020-02-19 13:48:37,674 django.server INFO     "GET /api/vulns/32937/threats HTTP/1.1" 200 2
+2020-02-19 13:48:37,683 django.server INFO     "GET /api/vulns/32937/ HTTP/1.1" 200 1246
+2020-02-19 13:48:37,718 django.server INFO     "GET /api/vulns/32937/history HTTP/1.1" 200 1500
+2020-02-19 13:49:11,272 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 13:49:17,123 django.server INFO     "OPTIONS /api/search/cve-2008-335?limit=undefined&page=undefined HTTP/1.1" 200 0
+2020-02-19 13:49:19,629 django.server INFO     "GET /api/search/cve-2008-335?limit=undefined&page=undefined HTTP/1.1" 200 55798
+2020-02-19 13:49:28,005 django.server INFO     "OPTIONS /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 0
+2020-02-19 13:49:30,616 django.server INFO     "GET /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 130316
+2020-02-19 13:54:10,482 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/search/apis.py changed, reloading.
+2020-02-19 13:54:11,202 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-02-19 13:54:31,389 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2294
+2020-02-19 13:55:14,171 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2294
+2020-02-19 13:55:14,190 django.server INFO     "GET /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 130316
+2020-02-19 13:55:17,897 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2294
+2020-02-19 13:55:17,935 django.server INFO     "GET /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 130316
+2020-02-19 13:57:52,113 django.server INFO     "GET /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 130316
+2020-02-19 13:57:52,393 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2294
+2020-02-19 13:58:28,164 django.server INFO     "GET /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 130316
+2020-02-19 13:58:28,172 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2294
+2020-02-19 13:58:32,132 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2294
+2020-02-19 13:58:32,149 django.server INFO     "GET /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 130316
+2020-02-19 13:58:58,205 django.server INFO     "OPTIONS /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 0
+2020-02-19 13:59:00,572 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 13:59:59,931 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 13:59:59,932 django.server INFO     "GET /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 130316
+2020-02-19 14:00:35,282 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 14:01:00,089 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 14:02:16,244 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/search/apis.py changed, reloading.
+2020-02-19 14:02:16,944 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-02-19 14:02:18,538 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/search/apis.py changed, reloading.
+2020-02-19 14:02:19,278 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-02-19 14:02:29,094 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 14:03:09,906 django.server INFO     "GET /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 130316
+2020-02-19 14:03:09,918 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 14:03:50,373 django.server INFO     "GET /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 130316
+2020-02-19 14:03:50,375 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 14:05:22,650 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 14:05:30,826 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 14:14:36,702 django.server INFO     "GET /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 130316
+2020-02-19 14:14:37,307 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 14:15:09,803 django.server INFO     "GET /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 130316
+2020-02-19 14:15:10,175 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 14:15:26,266 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 14:15:58,651 django.server INFO     "GET /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 130316
+2020-02-19 14:15:59,015 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 14:17:11,387 django.server INFO     "GET /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 130316
+2020-02-19 14:17:11,642 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 14:17:25,324 django.server INFO     "OPTIONS /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 0
+2020-02-19 14:17:28,023 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 14:17:59,342 django.server INFO     "GET /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 130316
+2020-02-19 14:17:59,618 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 14:18:41,824 django.server INFO     "GET /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 130316
+2020-02-19 14:18:42,144 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 14:19:06,480 django.server INFO     "GET /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 130316
+2020-02-19 14:19:06,814 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 14:20:58,982 django.server INFO     "GET /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 130316
+2020-02-19 14:20:59,303 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 14:21:41,765 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2294
+2020-02-19 14:22:48,258 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2294
+2020-02-19 14:28:20,471 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2294
+2020-02-19 14:28:20,493 django.server INFO     "GET /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 130316
+2020-02-19 14:28:57,579 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2294
+2020-02-19 14:28:57,588 django.server INFO     "GET /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 130316
+2020-02-19 14:29:17,818 django.server INFO     "GET /api/ratings/calc/32746 HTTP/1.1" 200 826
+2020-02-19 14:29:17,818 django.server INFO     "GET /api/vulns/32746/exploits HTTP/1.1" 200 1586
+2020-02-19 14:29:17,823 django.server INFO     "GET /api/vulns/32746/threats HTTP/1.1" 200 2
+2020-02-19 14:29:17,855 django.server INFO     "GET /api/vulns/32746/ HTTP/1.1" 200 1182
+2020-02-19 14:29:17,883 django.server INFO     "GET /api/vulns/32746/history HTTP/1.1" 200 2253
+2020-02-19 14:31:43,977 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2294
+2020-02-19 14:31:44,025 django.server INFO     "GET /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 130316
+2020-02-19 14:34:39,142 django.server INFO     "GET /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 130316
+2020-02-19 14:34:39,143 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2294
+2020-02-19 14:35:51,697 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2294
+2020-02-19 14:35:51,751 django.server INFO     "GET /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 130316
+2020-02-19 14:36:34,551 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2294
+2020-02-19 14:36:34,604 django.server INFO     "GET /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 130316
+2020-02-19 14:36:55,884 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2294
+2020-02-19 14:36:55,935 django.server INFO     "GET /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 130316
+2020-02-19 14:37:19,716 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2294
+2020-02-19 14:37:19,772 django.server INFO     "GET /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 130316
+2020-02-19 14:40:15,886 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2294
+2020-02-19 14:40:15,954 django.server INFO     "GET /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 130316
+2020-02-19 14:40:43,675 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2294
+2020-02-19 14:40:43,729 django.server INFO     "GET /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 130316
+2020-02-19 14:41:43,815 django.server INFO     "GET /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 130316
+2020-02-19 14:41:43,839 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2294
+2020-02-19 14:44:01,511 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2294
+2020-02-19 14:44:01,534 django.server INFO     "GET /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 130316
+2020-02-19 14:44:45,572 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2294
+2020-02-19 14:44:45,577 django.server INFO     "GET /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 130316
+2020-02-19 14:45:33,512 django.server INFO     "GET /api/search/cve-2008-3386?limit=undefined&page=undefined HTTP/1.1" 200 2294
+2020-02-19 14:45:33,554 django.server INFO     "GET /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 130316
+2020-02-19 14:46:55,652 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 14:48:08,599 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/search/apis.py changed, reloading.
+2020-02-19 14:48:09,637 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-02-19 14:48:17,807 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 14:48:31,056 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/search/apis.py changed, reloading.
+2020-02-19 14:48:31,796 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-02-19 14:50:10,386 django.server INFO     "GET /api/search/cve-2008-332?limit=undefined&page=undefined HTTP/1.1" 200 130316
+2020-02-19 14:50:35,424 django.server INFO     "OPTIONS /api/vulns/32683 HTTP/1.1" 200 0
+2020-02-19 14:50:35,429 django.server INFO     "OPTIONS /api/vulns/32683/threats HTTP/1.1" 200 0
+2020-02-19 14:50:35,428 django.server INFO     "OPTIONS /api/vulns/32683/history HTTP/1.1" 200 0
+2020-02-19 14:50:35,431 django.server INFO     "GET /api/vulns/32683 HTTP/1.1" 301 0
+2020-02-19 14:50:35,438 django.server INFO     "OPTIONS /api/ratings/calc/32683 HTTP/1.1" 200 0
+2020-02-19 14:50:35,440 django.server INFO     "OPTIONS /api/vulns/32683/exploits HTTP/1.1" 200 0
+2020-02-19 14:50:35,496 django.server INFO     "GET /api/vulns/32683/threats HTTP/1.1" 200 2
+2020-02-19 14:50:35,514 django.server INFO     "GET /api/ratings/calc/32683 HTTP/1.1" 200 830
+2020-02-19 14:50:35,518 django.server INFO     "GET /api/vulns/32683/exploits HTTP/1.1" 200 7081
+2020-02-19 14:50:35,592 django.server INFO     "OPTIONS /api/vulns/32683/ HTTP/1.1" 200 0
+2020-02-19 14:50:35,626 django.server INFO     "GET /api/vulns/32683/ HTTP/1.1" 200 1846
+2020-02-19 14:50:35,696 django.server INFO     "GET /api/vulns/32683/history HTTP/1.1" 200 2915
+2020-02-19 14:50:36,416 django.server INFO     "OPTIONS /api/ratings/calc/32685 HTTP/1.1" 200 0
+2020-02-19 14:50:36,416 django.server INFO     "OPTIONS /api/vulns/32685 HTTP/1.1" 200 0
+2020-02-19 14:50:36,416 django.server INFO     "OPTIONS /api/vulns/32685/threats HTTP/1.1" 200 0
+2020-02-19 14:50:36,416 django.server INFO     "OPTIONS /api/vulns/32685/history HTTP/1.1" 200 0
+2020-02-19 14:50:36,416 django.server INFO     "OPTIONS /api/vulns/32685/exploits HTTP/1.1" 200 0
+2020-02-19 14:50:36,427 django.server INFO     "GET /api/vulns/32685 HTTP/1.1" 301 0
+2020-02-19 14:50:36,452 django.server INFO     "GET /api/vulns/32685/threats HTTP/1.1" 200 2
+2020-02-19 14:50:36,453 django.server INFO     "GET /api/ratings/calc/32685 HTTP/1.1" 200 831
+2020-02-19 14:50:36,455 django.server INFO     "OPTIONS /api/vulns/32685/ HTTP/1.1" 200 0
+2020-02-19 14:50:36,455 django.server INFO     "GET /api/vulns/32685/exploits HTTP/1.1" 200 9522
+2020-02-19 14:50:36,483 django.server INFO     "GET /api/vulns/32685/ HTTP/1.1" 200 2022
+2020-02-19 14:50:36,521 django.server INFO     "GET /api/vulns/32685/history HTTP/1.1" 200 2724
+2020-02-19 14:50:53,407 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 14:54:00,346 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 14:55:55,293 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 14:55:58,196 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 14:56:55,369 django.server INFO     "OPTIONS /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 0
+2020-02-19 14:56:58,380 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 14:59:06,760 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 14:59:09,459 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 14:59:57,274 django.server INFO     "OPTIONS /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 0
+2020-02-19 15:00:00,014 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 15:00:18,728 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 15:02:25,219 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 15:02:57,678 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 15:02:58,068 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 15:03:17,083 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 15:04:04,246 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 15:04:04,627 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 15:04:24,065 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 15:04:24,630 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 15:04:50,832 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 15:04:51,238 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 15:05:09,054 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 15:05:30,655 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 15:06:14,022 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 15:07:16,640 django.server INFO     "OPTIONS /api/search/cve-2008-338%3Csvg%20onload=alert(1)%3E?limit=undefined&page=undefined HTTP/1.1" 200 0
+2020-02-19 15:07:19,138 django.server INFO     "GET /api/search/cve-2008-338%3Csvg%20onload=alert(1)%3E?limit=undefined&page=undefined HTTP/1.1" 200 2
+2020-02-19 15:07:53,561 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/search/apis.py changed, reloading.
+2020-02-19 15:07:54,485 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-02-19 15:09:56,013 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 15:11:36,990 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/search/apis.py changed, reloading.
+2020-02-19 15:11:37,958 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-02-19 15:13:21,645 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 15:13:21,877 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 15:15:26,354 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 15:15:26,660 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 15:16:26,791 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 15:16:27,144 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 15:16:59,271 django.server INFO     "OPTIONS /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 0
+2020-02-19 15:17:01,929 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 15:17:33,884 django.server INFO     "OPTIONS /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 0
+2020-02-19 15:17:36,250 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 15:17:38,484 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 15:20:25,028 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 15:20:25,635 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 15:23:40,184 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 15:23:40,363 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 15:24:08,755 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 15:24:09,164 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 15:24:38,205 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 15:24:38,464 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 15:24:50,760 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 15:24:51,140 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 15:26:13,032 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 15:26:13,335 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 15:26:23,436 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 15:27:24,496 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 15:27:24,781 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 15:29:04,082 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 15:29:04,451 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 15:29:24,770 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 15:29:25,077 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 15:29:51,129 django.server INFO     "OPTIONS /api/vulns/32749 HTTP/1.1" 200 0
+2020-02-19 15:29:51,131 django.server INFO     "OPTIONS /api/vulns/32749/history HTTP/1.1" 200 0
+2020-02-19 15:29:51,131 django.server INFO     "OPTIONS /api/ratings/calc/32749 HTTP/1.1" 200 0
+2020-02-19 15:29:51,134 django.server INFO     "GET /api/vulns/32749 HTTP/1.1" 301 0
+2020-02-19 15:29:51,137 django.server INFO     "OPTIONS /api/vulns/32749/exploits HTTP/1.1" 200 0
+2020-02-19 15:29:51,139 django.server INFO     "OPTIONS /api/vulns/32749/threats HTTP/1.1" 200 0
+2020-02-19 15:29:51,161 django.server INFO     "GET /api/ratings/calc/32749 HTTP/1.1" 200 824
+2020-02-19 15:29:51,161 django.server INFO     "GET /api/vulns/32749/exploits HTTP/1.1" 200 5115
+2020-02-19 15:29:51,162 django.server INFO     "OPTIONS /api/vulns/32749/ HTTP/1.1" 200 0
+2020-02-19 15:29:51,163 django.server INFO     "GET /api/vulns/32749/threats HTTP/1.1" 200 2
+2020-02-19 15:29:51,190 django.server INFO     "GET /api/vulns/32749/ HTTP/1.1" 200 2753
+2020-02-19 15:29:51,230 django.server INFO     "GET /api/vulns/32749/history HTTP/1.1" 200 3452
+2020-02-19 15:30:32,213 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 15:30:32,475 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 15:30:48,933 django.server INFO     "OPTIONS /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 0
+2020-02-19 15:30:51,631 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 15:32:47,585 django.server INFO     "GET /api/search/cve-2008-338?limit=undefined&page=undefined HTTP/1.1" 200 89451
+2020-02-19 15:33:47,333 django.server INFO     "OPTIONS /api/vulns/?limit=20&page=1&search=& HTTP/1.1" 200 0
+2020-02-19 15:33:50,039 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=& HTTP/1.1" 200 32164
+2020-02-19 15:34:20,265 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=& HTTP/1.1" 200 32164
+2020-02-19 15:34:54,835 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=& HTTP/1.1" 200 32164
+2020-02-19 15:37:04,645 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=& HTTP/1.1" 200 32164
+2020-02-19 15:37:18,518 django.server INFO     "OPTIONS /api/vulns/?limit=20&page=1&search=&sorted_by=score HTTP/1.1" 200 0
+2020-02-19 15:37:21,288 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&sorted_by=score HTTP/1.1" 200 26811
+2020-02-19 15:37:23,465 django.server INFO     "OPTIONS /api/vulns/?limit=20&page=1&search=&sorted_by=-score HTTP/1.1" 200 0
+2020-02-19 15:37:26,223 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&sorted_by=-score HTTP/1.1" 200 32044
+2020-02-19 15:37:33,268 django.server INFO     "OPTIONS /api/vulns/?limit=20&page=1&search=L&sorted_by=-score HTTP/1.1" 200 0
+2020-02-19 15:37:33,328 django.server INFO     "OPTIONS /api/vulns/?limit=20&page=1&search=La&sorted_by=-score HTTP/1.1" 200 0
+2020-02-19 15:37:33,436 django.server INFO     "OPTIONS /api/vulns/?limit=20&page=1&search=Las&sorted_by=-score HTTP/1.1" 200 0
+2020-02-19 15:37:33,702 django.server INFO     "OPTIONS /api/vulns/?limit=20&page=1&search=Last&sorted_by=-score HTTP/1.1" 200 0
+2020-02-19 15:37:35,612 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=Las&sorted_by=-score HTTP/1.1" 200 39262
+2020-02-19 15:37:35,821 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=Last&sorted_by=-score HTTP/1.1" 200 62035
+2020-02-19 15:37:36,406 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=La&sorted_by=-score HTTP/1.1" 200 26919
+2020-02-19 15:37:37,646 django.server INFO     "OPTIONS /api/vulns/?limit=20&page=1&search=a&sorted_by=-score HTTP/1.1" 200 0
+2020-02-19 15:37:37,689 django.server INFO     "OPTIONS /api/vulns/?limit=20&page=1&search=ap&sorted_by=-score HTTP/1.1" 200 0
+2020-02-19 15:37:37,860 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=Las&sorted_by=-score HTTP/1.1" 200 39262
+2020-02-19 15:37:37,884 django.server INFO     "OPTIONS /api/vulns/?limit=20&page=1&search=apa&sorted_by=-score HTTP/1.1" 200 0
+2020-02-19 15:37:41,143 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=La&sorted_by=-score HTTP/1.1" 200 26919
+2020-02-19 15:37:41,145 django.server INFO     "OPTIONS /api/vulns/?limit=20&page=1&search=apac&sorted_by=-score HTTP/1.1" 200 0
+2020-02-19 15:37:41,147 django.server INFO     "OPTIONS /api/vulns/?limit=20&page=1&search=apach&sorted_by=-score HTTP/1.1" 200 0
+2020-02-19 15:37:41,148 django.server INFO     "OPTIONS /api/vulns/?limit=20&page=1&search=apache&sorted_by=-score HTTP/1.1" 200 0
+2020-02-19 15:37:41,278 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=apa&sorted_by=-score HTTP/1.1" 200 53612
+2020-02-19 15:37:41,553 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=L&sorted_by=-score HTTP/1.1" 200 32045
+2020-02-19 15:37:44,371 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=apac&sorted_by=-score HTTP/1.1" 200 81331
+2020-02-19 15:37:44,408 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&sorted_by=-score HTTP/1.1" 200 32044
+2020-02-19 15:37:44,459 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=apach&sorted_by=-score HTTP/1.1" 200 89660
+2020-02-19 15:37:44,970 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=apache&sorted_by=-score HTTP/1.1" 200 89661
+2020-02-19 15:37:45,657 django.server INFO     "OPTIONS /api/vulns/?limit=20&page=1&search=w&sorted_by=-score HTTP/1.1" 200 0
+2020-02-19 15:37:45,704 django.server INFO     "OPTIONS /api/vulns/?limit=20&page=1&search=wp&sorted_by=-score HTTP/1.1" 200 0
+2020-02-19 15:37:46,557 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=ap&sorted_by=-score HTTP/1.1" 200 27848
+2020-02-19 15:37:47,606 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=a&sorted_by=-score HTTP/1.1" 200 32045
+2020-02-19 15:37:47,744 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=wp&sorted_by=-score HTTP/1.1" 200 37614
+2020-02-19 15:37:49,977 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=L&sorted_by=-score HTTP/1.1" 200 32045
+2020-02-19 15:37:50,861 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=w&sorted_by=-score HTTP/1.1" 200 32045
+2020-02-19 15:37:58,599 django.server INFO     "OPTIONS /api/vulns/207/history HTTP/1.1" 200 0
+2020-02-19 15:37:58,599 django.server INFO     "OPTIONS /api/vulns/207 HTTP/1.1" 200 0
+2020-02-19 15:37:58,599 django.server INFO     "OPTIONS /api/ratings/calc/207 HTTP/1.1" 200 0
+2020-02-19 15:37:58,606 django.server INFO     "OPTIONS /api/vulns/207/exploits HTTP/1.1" 200 0
+2020-02-19 15:37:58,606 django.server INFO     "OPTIONS /api/vulns/207/threats HTTP/1.1" 200 0
+2020-02-19 15:37:58,611 django.server INFO     "OPTIONS /api/vulns/207/ HTTP/1.1" 200 0
+2020-02-19 15:37:58,633 django.server INFO     "GET /api/ratings/calc/207 HTTP/1.1" 200 830
+2020-02-19 15:37:58,633 django.server INFO     "GET /api/vulns/207/exploits HTTP/1.1" 200 17273
+2020-02-19 15:37:58,633 django.server INFO     "GET /api/vulns/207/threats HTTP/1.1" 200 2
+2020-02-19 15:37:58,643 django.server INFO     "GET /api/vulns/207/ HTTP/1.1" 200 1423
+2020-02-19 15:37:58,731 django.server INFO     "GET /api/vulns/207/history HTTP/1.1" 200 3262
+2020-02-19 15:38:12,895 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=& HTTP/1.1" 200 32164

@@ -281,3 +281,9 @@ export default {
   }
 };
 </script>
+
+<style>
+.v-data-table td, .v-data-table th {
+    padding: 0 8px;
+}
+</style>
