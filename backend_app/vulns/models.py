@@ -47,6 +47,8 @@ class Vuln(models.Model):
     access = JSONField(default=access_default_dict)
     impact = JSONField(default=impact_default_dict)
 
+    score = models.IntegerField(default=0, null=True)
+
     is_exploitable = models.BooleanField(default=False)
     is_confirmed = models.BooleanField(default=False)
     is_in_the_news = models.BooleanField(default=False)
@@ -71,6 +73,7 @@ class Vuln(models.Model):
             'access', 'impact',
             'is_exploitable', 'is_confirmed',
             'is_in_the_news', 'is_in_the_wild',
+            'score',
             'monitored']
         for field in self.__important_fields:
             setattr(self, '__original_%s' % field, getattr(self, field))
@@ -82,7 +85,7 @@ class Vuln(models.Model):
         return "PH-{}".format(self.id)
 
     def to_dict(self):
-        from vpratings.utils import _calc_vprating
+        # from vpratings.utils import _calc_vprating
         j = {
             'id': self.id,
             'cve_id': self.cve_id.cve_id,
@@ -101,7 +104,8 @@ class Vuln(models.Model):
             'is_confirmed': self.is_confirmed,
             'is_in_the_news': self.is_in_the_news,
             'is_in_the_wild': self.is_in_the_wild,
-            'rating': _calc_vprating(self).score,
+            # 'rating': _calc_vprating(self).score,
+            'score': self.score,
             'reflinks': self.reflinks,
             'monitored': self.monitored,
             'created_at': self.created_at,
@@ -130,10 +134,16 @@ class Vuln(models.Model):
                 changes.append(field)
         return changes
 
+    def update_score(self):
+        from vpratings.utils import _calc_vprating
+        self.score = _calc_vprating(self).score
+
     def save(self, *args, **kwargs):
         if not self.created_at:
             self.created_at = timezone.now()
         self.updated_at = timezone.now()
+
+        self.update_score()
         return super(Vuln, self).save(*args, **kwargs)
 
 
@@ -177,7 +187,9 @@ class ExploitMetadata(models.Model):
         self.updated_at = timezone.now()
         if self.vuln.is_exploitable is False:
             self.vuln.is_exploitable = True
-            self.vuln.save()
+            # self.vuln.save()
+        self.vuln.update_score()
+        self.vuln.save()
         return super(ExploitMetadata, self).save(*args, **kwargs)
 
 
@@ -214,6 +226,8 @@ class ThreatMetadata(models.Model):
         if not self.created_at:
             self.created_at = timezone.now()
         self.updated_at = timezone.now()
+        self.vuln.update_score()
+        self.vuln.save()
         return super(ThreatMetadata, self).save(*args, **kwargs)
 
 

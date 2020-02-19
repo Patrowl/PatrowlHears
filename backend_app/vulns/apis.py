@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
 from django.shortcuts import get_object_or_404
+from django.db.models import F, Count
 from common.utils.pagination import StandardResultsSetPagination
 from rest_framework import viewsets
 from django_filters import rest_framework as filters
@@ -10,13 +11,17 @@ from .serializers import (
     VulnSerializer, ExploitMetadataSerializer, ThreatMetadataSerializer,
     VulnFilter, ExploitMetadataFilter)
 # from .utils import _refresh_metadata_cve
-# from .tasks import refresh_monitored_cves_task
+from .tasks import refresh_vulns_score_task
 
 
 class VulnSet(viewsets.ModelViewSet):
     """API endpoint that allows vuln to be viewed or edited."""
 
-    queryset = Vuln.objects.all().order_by('-updated_at')
+    queryset = Vuln.objects.all().annotate(
+        cve=F('cve_id__cve_id')
+    ).annotate(
+        exploit_count=Count('exploitmetadata')
+    ).order_by('-updated_at')
     serializer_class = VulnSerializer
     filterset_class = VulnFilter
     filter_backends = (filters.DjangoFilterBackend,)
@@ -194,3 +199,9 @@ def del_threat(self, vuln_id, threat_id):
 # def refresh_monitored_cves_async(self):
 #     refresh_monitored_cves_task.apply_async(args=[], queue='default', retry=False)
 #     return JsonResponse("enqueued", safe=False)
+
+
+@api_view(['GET'])
+def refresh_vulns_score_async(self):
+    refresh_vulns_score_task.apply_async(args=[], queue='default', retry=False)
+    return JsonResponse("enqueued", safe=False)

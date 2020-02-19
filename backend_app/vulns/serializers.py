@@ -9,17 +9,18 @@ from vpratings.utils import _calc_vprating
 class VulnSerializer(serializers.HyperlinkedModelSerializer):
     cve = serializers.SerializerMethodField()
     exploit_count = serializers.SerializerMethodField()
-    rating = serializers.SerializerMethodField()
+    # rating = serializers.SerializerMethodField()
     # vulnerable_products = serializers.SerializerMethodField()
 
     def get_cve(self, instance):
-        return instance.cve_id.cve_id
+        # return instance.cve_id.cve_id
+        return instance.cve
 
     def get_exploit_count(self, instance):
         return instance.exploitmetadata_set.count()
 
-    def get_rating(self, instance):
-        return _calc_vprating(instance).score
+    # def get_rating(self, instance):
+    #     return _calc_vprating(instance).score
 
     # def get_vulnerable_products(self, instance):
     #     return instance.cve_id.vulnerable_products
@@ -28,12 +29,15 @@ class VulnSerializer(serializers.HyperlinkedModelSerializer):
         model = Vuln
         fields = [
             'id',
-            'cve_id_id', 'cve', 'summary', 'published', 'modified', 'assigner',
+            'cve_id_id',
+            'cve',
+            'summary', 'published', 'modified', 'assigner',
             'cvss', 'cvss_time', 'cvss_vector',
             'cwe_id', 'access', 'impact',
             'is_exploitable',
             'exploit_count',
-            'rating',
+            # 'rating',
+            'score',
             'is_confirmed',
             'is_in_the_news',
             'is_in_the_wild',
@@ -48,24 +52,20 @@ class VulnSerializer(serializers.HyperlinkedModelSerializer):
 
 class VulnFilter(FilterSet):
     search = CharFilter(method='filter_search', field_name='search')
-    # rating = CharFilter(method='filter_rating', field_name='rating')
 
     def filter_search(self,  queryset, name, value):
         return queryset.filter(
             Q(cve_id__cve_id__icontains=value) |
             Q(summary__icontains=value)
         )
-    #
-    # def filter_rating(self,  queryset, name, value):
-    #     print(_calc_vprating(self).score)
-    #     return queryset.all()
 
     sorted_by = OrderingFilter(
         choices=(
             ('id', _('PHID')), ('-id', _('PHID (Desc)')),
             ('cve', _('CVE')), ('-cve', _('CVE (Desc)')),
             ('cvss', _('CVSS')), ('-cvss', _('CVSS (Desc)')),
-            # ('rating', _('Rating')), ('-rating', _('Rating (Desc)')),
+            ('score', _('Score')), ('-score', _('Score (Desc)')),
+            ('exploit_count', _('NB Exploits')), ('-exploit_count', _('NB Exploits (Desc)')),
             ('monitored', _('Monitored')), ('-monitored', _('Monitored (Desc)')),
             ('published', _('Published')), ('-published', _('Published (Desc)')),
             ('updated_at', _('Updated at')), ('-updated_at', _('Updated_at (Desc)')),

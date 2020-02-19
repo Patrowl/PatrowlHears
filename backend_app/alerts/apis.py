@@ -11,7 +11,7 @@ from .serializers import AlertingRuleSerializer
 from .tasks import send_email_message_task
 from vulns.models import Vuln
 from monitored_assets.models import MonitoredProduct
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 class AlertingRuleSet(viewsets.ModelViewSet):
@@ -45,8 +45,8 @@ def get_dailymail_report_vendors(self):
     ).values_list('vendorproduct', flat=True)
 
     # Get last created/updated vulns
-    last_vulns = Vuln.objects.filter(updated_at__gte=datetime(2020, 2, 14))
-    # last_vulns = Vuln.objects.filter(updated_at__gte=datetime.now() - timedelta(days=1))
+    # last_vulns = Vuln.objects.filter(updated_at__gte=datetime(2020, 2, 14))
+    last_vulns = Vuln.objects.filter(updated_at__gte=datetime.now() - timedelta(days=1))
 
     for lv in last_vulns:
         # Check if the vulnerability is monitored

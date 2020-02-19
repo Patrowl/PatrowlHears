@@ -1,7 +1,8 @@
 <template>
   <div>
     <!-- Vulns Page -->
-    <div class="loading" v-if="loading===true">Loading&#8230;</div>
+    <!-- <div class="loading" v-if="loading===true">Loading&#8230;</div> -->
+
     <v-card>
       <v-card-title>
         Vulnerabilities
@@ -30,8 +31,8 @@
         item-key="id"
         show-select
         multi-sort
-
       >
+
       <template v-slot:item.summary="{ item }">
         <!-- {{ item.summary | truncate(150, '...') }} -->
         <v-clamp autoresize :max-lines="1">
@@ -49,13 +50,22 @@
       </template>
 
       <!-- Rating -->
-      <template v-slot:item.rating="{ item }">
+      <!-- <template v-slot:item.rating="{ item }">
         <v-chip
           :color="getRatingColor(item.rating)"
           class="text-center"
           small
         >
         {{item.rating}}
+        </v-chip>
+      </template> -->
+      <template v-slot:item.score="{ item }">
+        <v-chip
+          :color="getRatingColor(item.score)"
+          class="text-center"
+          small
+        >
+        {{item.score}}
         </v-chip>
       </template>
 
@@ -71,7 +81,7 @@
       </template>
 
       <!-- Is confirmed -->
-      <template v-slot:item.is_confirmed="{ item }">
+      <!-- <template v-slot:item.is_confirmed="{ item }">
         <v-chip
           :color="getBool(item.is_confirmed)"
           class="text-center"
@@ -79,6 +89,16 @@
           label
         >
         </v-chip>
+      </template> -->
+      <template v-slot:item.is_confirmed="{ item }">
+        <v-icon
+          small
+          class="mdi mdi-check"
+          color="gray"
+          v-if="item.is_confirmed == true"
+        >
+        </v-icon>
+
       </template>
 
       <!-- Updated at -->
@@ -137,7 +157,8 @@ export default {
       { text: 'CVE', value: 'cve', width: '150px' },
       { text: 'Summary', value: 'summary' },
       { text: 'CVSSv2', value: 'cvss', align: 'center' },
-      { text: 'Score', value: 'rating', align: 'center' },
+      // { text: 'Score', value: 'rating', align: 'center' },
+      { text: 'Score', value: 'score', align: 'center' },
       // { text: 'Exploits', value: 'is_exploitable', align: 'center' },
       { text: 'Exploits', value: 'exploit_count', align: 'center' },
       { text: 'Confirm ?', value: 'is_confirmed', align: 'center' },
@@ -193,15 +214,15 @@ export default {
         let items = this.getvulns(page, this.limit, sortBy, sortDesc);
 
         setTimeout(() => {
-          this.loading = false;
           resolve({
             items
           });
         }, 300);
       });
+      this.loading = false;
     },
     getvulns(page, itemsPerPage, sortBy, sortDesc) {
-      this.loading = true;
+      // this.loading = true;
       let sorted_by = '';
       if (sortBy.length > 0) {
         if (sortDesc[0] === true) {
@@ -213,10 +234,11 @@ export default {
 
       this.$api.get('/api/vulns/?limit='+itemsPerPage+'&page='+page+'&search='+this.search+'&'+sorted_by).then(res => {
         this.vulns = res.data;
+        this.loading = false;
         return this.vulns;
       }).catch(e => {
         this.vulns = [];
-        this.loading = false;
+        // this.loading = false;
         swal.fire({
           title: 'Error',
           text: 'unable to get vulns',
@@ -225,7 +247,6 @@ export default {
           timer: 3000
         })
       });
-      this.loading = false;
     },
     viewVuln(vuln_id) {
       this.$router.push({ 'name': 'VulnDetails', 'params': { 'vuln_id': vuln_id } });

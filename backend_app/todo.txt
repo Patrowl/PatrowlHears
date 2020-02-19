@@ -35,6 +35,10 @@ CVE-2019-18683: https://a13xp0p0v.github.io/2020/02/15/CVE-2019-18683.html
 CVE-2020-0668: https://itm4n.github.io/cve-2020-0668-windows-service-tracing-eop/
 https://www.webarxsecurity.com/critical-issue-in-themegrill-demo-importer/
 CVE-2020-0683: https://padovah4ck.github.io/CVE-2020-0683/
+CVE-2019-2215: https://github.com/DimitriFourny/cve-2019-2215
+CVE-2020-0728: https://github.com/irsl/CVE-2020-0728
+CVE-2018-4344: https://www.synacktiv.com/posts/exploit/lightspeed-a-race-for-an-iosmacos-sandbox-escape.html
+
 Sigma Detection
 https://github.com/Neo23x0/sigma/blob/master/rules/web/web_citrix_cve_2019_19781_exploit.yml
 

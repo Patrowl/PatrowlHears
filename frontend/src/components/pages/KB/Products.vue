@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Products Page -->
-    <div class="loading" v-if="loading===true">Loading&#8230;</div>
+    <!-- <div class="loading" v-if="loading===true">Loading&#8230;</div> -->
     <v-card>
       <v-card-title>
         <v-container>
@@ -19,19 +19,16 @@
                 @click="toggleProductMonitored"
                 v-if="!this.only_monitored">Show monitored only</v-chip>
             </v-col>
+            <v-text-field
+              v-model="search"
+              append-icon="mdi-magnify"
+              label="Search"
+              single-line
+              hide-details
+            ></v-text-field>
           </v-row>
         </v-container>
-
         <v-spacer></v-spacer>
-        <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          label="Search"
-          single-line
-          hide-details
-          @input="is_searching = true"
-        ></v-text-field>
-
       </v-card-title>
 
       <v-data-table
@@ -88,7 +85,6 @@ export default {
     totalproducts: 0,
     only_monitored: false,
     search: '',
-    is_searching: false,
     options: {},
     selected: [],
     headers: [
@@ -107,7 +103,6 @@ export default {
   },
   watch: {
     search: _.debounce(function (filter) {
-    	this.is_searching = false;
       this.search = filter;
       this.options.page = 1;  // reset page count
       this.getDataFromApi();
@@ -142,15 +137,14 @@ export default {
         let items = this.getProducts(page, this.limit, sortBy, sortDesc);
 
         setTimeout(() => {
-          this.loading = false;
           resolve({
             items
           });
         }, 300);
       });
+      this.loading = false;
     },
     getProducts(page, itemsPerPage, sortBy, sortDesc) {
-      this.loading = true;
       let sorted_by = '';
       if (sortBy.length > 0) {
         if (sortDesc[0] === true) {
@@ -162,11 +156,11 @@ export default {
       let monitored = this.only_monitored ? "&monitored=yes" : "";
 
       this.$api.get('/api/kb/products/?limit='+itemsPerPage+'&page='+page+'&search='+this.search+sorted_by+monitored).then(res => {
+        this.loading = false;
         this.products = res.data;
         return this.products;
       }).catch(e => {
         this.products = [];
-        this.loading = false;
         swal.fire({
           title: 'Error',
           text: 'unable to get products',
@@ -175,7 +169,6 @@ export default {
           timer: 3000
         })
       });
-      this.loading = false;
     },
     toggleMonitored(item) {
       // save in backend
@@ -185,6 +178,7 @@ export default {
         'monitored': !item.monitored
       };
       this.$api.post('/api/monitor/product/toggle', data).then(res => {
+        this.loading = false;
         if (res){
           item.monitored = !item.monitored;
           // Snack notifications

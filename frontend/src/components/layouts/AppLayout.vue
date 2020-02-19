@@ -58,12 +58,14 @@
       <v-app-bar-nav-icon @click="drawer = !drawer" />
       <span class="title ml-3 mr-5">Patrowl&nbsp;<span class="font-weight-light">Hears</span></span>
       <v-text-field
+        v-model="appsearch"
         solo-inverted
         flat
         hide-details
         label="Search"
         prepend-inner-icon="mdi-magnify"
         dense
+        @keydown.enter="search()"
       />
 
       <v-spacer />
@@ -96,6 +98,7 @@ export default {
   // },
   data: () => ({
     drawer: null,
+    appsearch: '',
     menu_items: [
       // { heading: 'KB' },
       // { icon: 'mdi-bookmark', text: 'Vendors & Products', to: '/kb/vendors' },
@@ -103,19 +106,19 @@ export default {
       // { icon: 'mdi-bookmark', text: 'Bulletins', to: '/kb/bulletins' },
       { icon: 'mdi-bookmark', text: 'KB', to: '', submenu: [
         { icon: 'mdi-bookmark', text: 'Vendors & Products', to: '/kb/products' },
-        { icon: 'mdi-bookmark', text: 'Product Versions', to: '/kb/vendors' },
+        // { icon: 'mdi-bookmark', text: 'Product Versions', to: '/kb/vendors' },
         { icon: 'mdi-bookmark', text: 'CVE', to: '/kb/cves' },
         { icon: 'mdi-bookmark', text: 'Bulletins', to: '/kb/bulletins' }
       ]},
       { divider: true },
       { icon: 'mdi-file-find', text: 'Vulnerabilities', to: '/vulns' },
+      { icon: 'mdi-knife-military', text: 'Exploits', to: '/exploits' },
       { icon: 'mdi-security', text: 'Ratings', to: '/ratings' },
-      { icon: 'mdi-cctv', text: 'Monitoring', to: '/monitoring' },
       { icon: 'mdi-alert', text: 'Alerts', to: '/alerts' },
-      { icon: 'mdi-file-chart', text: 'Reports', to: '/reports' },
+      { icon: 'mdi-file-chart', text: 'Reports' },
       { divider: true },
       // { heading: 'Labels' },
-      { icon: 'mdi-settings', text: 'Settings' },
+      { icon: 'mdi-settings', text: 'Settings', to: '/settings' },
       { icon: 'mdi-help-circle', text: 'Help' },
     ],
     username: ''
@@ -137,6 +140,14 @@ export default {
     },
     getUsername() {
       this.username = this.$store.state.authUser.username;
+    },
+    search() {
+      // this.$router.go()
+      if(this.$route.path === '/search/'+this.appsearch) {
+        this.$router.go();
+      } else {
+        this.$router.push({ 'path': '/search/'+this.appsearch });
+      }
     }
   }
 }

@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'vulns',
     'vpratings',
     'alerts',
+    'search',
 ]
 
 MIDDLEWARE = [
@@ -264,12 +265,17 @@ CELERY_TASK_IGNORE_RESULT = True
 # CELERY_TASK_RESULT_EXPIRES = 300
 CELERY_ACKS_LATE = True
 
-# CELERY_BEAT_SCHEDULE = {
-#     'refresh_monitored_cves': {
-#         'task': 'vulns.tasks.refresh_monitored_cve_task',
-#         'schedule': timedelta(minutes=30)
-#     }
-# }
+CELERY_BEAT_SCHEDULE = {
+    # 'refresh_monitored_cves': {
+    #     'task': 'vulns.tasks.refresh_monitored_cve_task',
+    #     'schedule': timedelta(minutes=30)
+    # },
+    'refresh_vulns_scores': {
+        'task': 'vulns.tasks.refresh_vulns_score_task',
+        'schedule': timedelta(days=1)
+    },
+
+}
 
 # Email settings
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', True)

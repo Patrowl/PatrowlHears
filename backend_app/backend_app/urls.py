@@ -39,6 +39,7 @@ urlpatterns = [
     path('auth-jwt/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
+    path('api/search/', include('search.urls')),
     path('api/monitor/', include('monitored_assets.urls')),
     path('api/alerts/', include('alerts.urls')),
     path('api/vulns/', include('vulns.urls')),

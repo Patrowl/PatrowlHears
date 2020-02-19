@@ -7,6 +7,10 @@ import UserAuth from '@/components/pages/UserAuth'
 
 import AppLayout from '@/components/layouts/AppLayout.vue'
 import Homepage from '@/components/pages/Homepage'
+import Alerts from '@/components/pages/Alerts'
+import Ratings from '@/components/pages/Ratings'
+import Settings from '@/components/pages/Settings'
+import Search from '@/components/pages/Search'
 import Vulns from '@/components/pages/Vulns'
 import VulnDetails from '@/components/pages/VulnDetails'
 import KBVendors from '@/components/pages/KB/Vendors'
@@ -30,6 +34,11 @@ const routes = [
     component: AppLayout,
     children: [
       { path: 'homepage', name: 'Homepage', component: Homepage },
+      { path: 'alerts', name: 'Alerts', component: Alerts },
+      { path: 'ratings', name: 'Ratings', component: Ratings },
+      { path: 'settings', name: 'Settings', component: Settings },
+      { path: 'search', name: 'Search', component: Search },
+      { path: 'search/:appsearch', name: 'SearchData', component: Search, props: true },
       { path: '/kb/products', name: 'KBProducts', component: KBProducts },
       { path: '/kb/vendors', name: 'KBVendors', component: KBVendors },
       { path: '/kb/vendors/:vendor_name', name: 'KBProductVersions', component: KBProductVersions },
