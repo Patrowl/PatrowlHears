@@ -3,7 +3,6 @@ from rest_framework import serializers
 from django_filters import FilterSet, OrderingFilter, CharFilter
 from django.utils.translation import gettext_lazy as _
 from .models import Vuln, ExploitMetadata, ThreatMetadata
-from vpratings.utils import _calc_vprating
 
 
 class VulnSerializer(serializers.HyperlinkedModelSerializer):
@@ -84,12 +83,18 @@ class VulnFilter(FilterSet):
 
 
 class ExploitMetadataSerializer(serializers.HyperlinkedModelSerializer):
+    vp = serializers.SerializerMethodField()
+
+    def get_vp(self, instance):
+        return instance.vp
+
     class Meta:
         model = ExploitMetadata
         fields = [
             'id',
             'publicid',
             'vuln_id',
+            'vp',
             'link',
             'notes',
             'trust_level', 'tlp_level', 'source',
@@ -101,12 +106,21 @@ class ExploitMetadataSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ExploitMetadataFilter(FilterSet):
+    search = CharFilter(method='filter_search', field_name='search')
+
+    def filter_search(self,  queryset, name, value):
+        return queryset.filter(
+            Q(link__icontains=value) |
+            Q(notes__icontains=value)
+        )
+
     sorted_by = OrderingFilter(
         # tuple-mapping retains order
         choices=(
             ('trust_level', _('Trust Level')), ('-trust_level', _('Trust Level (Desc)')),
             ('tlp_level', _('TLP Level')), ('-tlp_level', _('TLP Level (Desc)')),
             ('availability', _('Availability')), ('-availability', _('Availability (Desc)')),
+            ('link', _('Link')), ('-link', _('Link (Desc)')),
             ('updated_at', _('Updated at')), ('-updated_at', _('Updated_at (Desc)')),
         )
     )
@@ -116,7 +130,7 @@ class ExploitMetadataFilter(FilterSet):
         fields = {
             'link': ['icontains'],
             'notes': ['icontains'],
-            'vuln_id': ['exact'],
+            # 'vuln_id': ['exact'],
         }
 
 

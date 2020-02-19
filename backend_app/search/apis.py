@@ -8,7 +8,7 @@ from vulns.models import Vuln, ExploitMetadata, ThreatMetadata
 @api_view(['GET'])
 def search_query(self, query):
     results = []
-    vuln_ids = []
+    # vuln_ids = []
 
     # Search in Vulns
     for vuln in Vuln.objects.filter(

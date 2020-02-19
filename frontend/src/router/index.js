@@ -13,6 +13,7 @@ import Settings from '@/components/pages/Settings'
 import Search from '@/components/pages/Search'
 import Vulns from '@/components/pages/Vulns'
 import VulnDetails from '@/components/pages/VulnDetails'
+import Exploits from '@/components/pages/Exploits'
 import KBVendors from '@/components/pages/KB/Vendors'
 import KBProducts from '@/components/pages/KB/Products'
 import KBProductVersions from '@/components/pages/KB/ProductVersions'
@@ -46,6 +47,7 @@ const routes = [
       { path: '/kb/bulletins', name: 'KBBulletins', component: KBBulletins },
       { path: '/vulns', name: 'Vulns', component: Vulns },
       { path: '/vulns/:vuln_id', name: 'VulnDetails', component: VulnDetails },
+      { path: '/exploits', name: 'Exploits', component: Exploits },
     ]
   },
   {

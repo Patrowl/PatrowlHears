@@ -31,7 +31,9 @@ class VulnSet(viewsets.ModelViewSet):
 class ExploitMetadataSet(viewsets.ModelViewSet):
     """API endpoint that allows exploit metadata to be viewed or edited."""
 
-    queryset = ExploitMetadata.objects.all().order_by('-updated_at')
+    queryset = ExploitMetadata.objects.all().annotate(
+        vp=F('vuln__vulnerable_products')
+    ).order_by('-updated_at')
     serializer_class = ExploitMetadataSerializer
     filterset_class = ExploitMetadataFilter
     filter_backends = (filters.DjangoFilterBackend,)

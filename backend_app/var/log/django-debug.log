@@ -11616,3 +11616,228 @@ AttributeError: 'NoneType' object has no attribute 'cwe_id'
 2020-02-19 15:37:58,643 django.server INFO     "GET /api/vulns/207/ HTTP/1.1" 200 1423
 2020-02-19 15:37:58,731 django.server INFO     "GET /api/vulns/207/history HTTP/1.1" 200 3262
 2020-02-19 15:38:12,895 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=& HTTP/1.1" 200 32164
+2020-02-19 15:39:01,186 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/search/apis.py changed, reloading.
+2020-02-19 15:39:02,202 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-02-19 15:40:17,802 django.server INFO     "OPTIONS /api/kb/products/?limit=10&page=1&search= HTTP/1.1" 200 0
+2020-02-19 15:40:21,071 django.server INFO     "GET /api/search/cve-2008-33?limit=undefined&page=undefined HTTP/1.1" 200 506865
+2020-02-19 15:40:24,851 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search= HTTP/1.1" 200 765
+2020-02-19 15:40:31,667 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search= HTTP/1.1" 200 765
+2020-02-19 15:47:52,172 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=& HTTP/1.1" 200 32164
+2020-02-19 15:48:47,871 django.server INFO     "GET / HTTP/1.1" 200 1109
+2020-02-19 15:48:47,963 django.server INFO     "GET /static/css/chunk-vendors.fadeb5fe.css HTTP/1.1" 200 411880
+2020-02-19 15:48:47,965 django.server INFO     "GET /static/js/chunk-vendors.afb4737e.js HTTP/1.1" 200 842437
+2020-02-19 15:48:48,315 django.request WARNING  Not Found: /favicon.ico
+2020-02-19 15:48:48,315 django.server WARNING  "GET /favicon.ico HTTP/1.1" 404 14786
+2020-02-19 15:48:51,052 django.server INFO     "GET / HTTP/1.1" 200 1109
+2020-02-19 15:48:53,725 django.server INFO     "GET / HTTP/1.1" 200 1109
+2020-02-19 15:48:57,707 django.request WARNING  Not Found: /e
+2020-02-19 15:48:57,708 django.server WARNING  "GET /e HTTP/1.1" 404 14756
+2020-02-19 15:49:03,786 django.request WARNING  Not Found: /api/
+2020-02-19 15:49:03,787 django.server WARNING  "GET /api/ HTTP/1.1" 404 14765
+2020-02-19 15:49:15,174 django.server INFO     "GET /api/exploits HTTP/1.1" 301 0
+2020-02-19 15:51:45,298 django.server INFO     "GET /api/exploits/1/ HTTP/1.1" 200 17054
+2020-02-19 15:51:45,398 django.server INFO     "GET /static/rest_framework/js/jquery-3.4.1.min.js HTTP/1.1" 200 88145
+2020-02-19 15:51:45,403 django.server INFO     "GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 200 39680
+2020-02-19 15:51:45,421 django.server INFO     "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 200 121457
+2020-02-19 15:53:17,618 django.server INFO     "GET /api/exploits/1/ HTTP/1.1" 200 17054
+2020-02-19 15:53:19,649 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/serializers.py changed, reloading.
+2020-02-19 15:53:21,513 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-02-19 15:53:41,027 django.server INFO     "GET /api/exploits/2 HTTP/1.1" 301 0
+2020-02-19 15:53:41,270 django.server INFO     "GET /api/exploits/2/ HTTP/1.1" 200 16948
+2020-02-19 15:54:00,185 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/serializers.py changed, reloading.
+2020-02-19 15:54:01,251 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-02-19 15:54:06,686 django.server INFO     "GET /api/exploits/2/ HTTP/1.1" 200 17008
+2020-02-19 15:55:11,250 django.server INFO     "GET /api/exploits/3 HTTP/1.1" 301 0
+2020-02-19 15:55:11,487 django.server INFO     "GET /api/exploits/3/ HTTP/1.1" 200 17333
+2020-02-19 15:56:03,929 django.request WARNING  Not Found: /api/
+2020-02-19 15:56:03,945 django.server WARNING  "GET /api/ HTTP/1.1" 404 14765
+2020-02-19 15:56:15,120 django.server INFO     "GET /api/threats/ HTTP/1.1" 200 165853
+2020-02-19 15:56:30,548 django.server INFO     "OPTIONS /api/threats/ HTTP/1.1" 200 134648
+2020-02-19 15:56:33,667 django.server INFO     "OPTIONS /api/threats/ HTTP/1.1" 200 134274
+2020-02-19 15:56:39,649 django.server INFO     "OPTIONS /api/threats/ HTTP/1.1" 200 134680
+2020-02-19 15:56:50,566 django.server INFO     "GET /api/threats/ HTTP/1.1" 200 166093
+2020-02-19 15:56:59,539 django.server INFO     "GET /api/threats/?page=2 HTTP/1.1" 200 166058
+2020-02-19 15:57:16,097 django.server INFO     "GET /api/threats/?page=2&limit=2 HTTP/1.1" 200 134208
+2020-02-19 15:58:05,873 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/apis.py changed, reloading.
+2020-02-19 16:03:03,272 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-02-19 16:03:54,733 django.server INFO     "OPTIONS /api/exploits?limit=10&page=1&search= HTTP/1.1" 200 0
+2020-02-19 16:03:54,737 django.server INFO     "GET /api/exploits?limit=10&page=1&search= HTTP/1.1" 301 0
+2020-02-19 16:03:54,756 django.server INFO     "OPTIONS /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 0
+2020-02-19 16:03:55,106 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5183
+2020-02-19 16:03:55,449 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5183
+2020-02-19 16:03:59,897 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5183
+2020-02-19 16:04:00,237 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5183
+2020-02-19 16:04:06,996 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5183
+2020-02-19 16:04:07,341 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5183
+2020-02-19 16:05:56,481 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5183
+2020-02-19 16:05:56,826 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5183
+2020-02-19 16:05:58,124 django.server INFO     "OPTIONS /api/vulns/32746 HTTP/1.1" 200 0
+2020-02-19 16:05:58,130 django.server INFO     "OPTIONS /api/vulns/32746/history HTTP/1.1" 200 0
+2020-02-19 16:05:58,134 django.server INFO     "OPTIONS /api/vulns/32746/threats HTTP/1.1" 200 0
+2020-02-19 16:05:58,134 django.server INFO     "OPTIONS /api/ratings/calc/32746 HTTP/1.1" 200 0
+2020-02-19 16:05:58,135 django.server INFO     "OPTIONS /api/vulns/32746/exploits HTTP/1.1" 200 0
+2020-02-19 16:05:58,145 django.server INFO     "OPTIONS /api/vulns/32746/ HTTP/1.1" 200 0
+2020-02-19 16:05:58,167 django.server INFO     "GET /api/vulns/32746/threats HTTP/1.1" 200 2
+2020-02-19 16:05:58,169 django.server INFO     "GET /api/ratings/calc/32746 HTTP/1.1" 200 826
+2020-02-19 16:05:58,175 django.server INFO     "GET /api/vulns/32746/exploits HTTP/1.1" 200 1586
+2020-02-19 16:05:58,178 django.server INFO     "GET /api/vulns/32746/ HTTP/1.1" 200 1182
+2020-02-19 16:05:58,234 django.server INFO     "GET /api/vulns/32746/history HTTP/1.1" 200 2253
+2020-02-19 16:06:02,498 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5183
+2020-02-19 16:08:45,311 django.server INFO     "GET /api/exploits/ HTTP/1.1" 200 39255
+2020-02-19 16:11:48,693 django.server INFO     "OPTIONS /api/exploits?limit=10&page=1&search=&sorted_by=link HTTP/1.1" 200 0
+2020-02-19 16:11:48,697 django.server INFO     "GET /api/exploits?limit=10&page=1&search=&sorted_by=link HTTP/1.1" 301 0
+2020-02-19 16:11:48,703 django.server INFO     "OPTIONS /api/exploits/?limit=10&page=1&search=&sorted_by=link HTTP/1.1" 200 0
+2020-02-19 16:11:48,712 django.request WARNING  Bad Request: /api/exploits/
+2020-02-19 16:11:48,713 django.server WARNING  "GET /api/exploits/?limit=10&page=1&search=&sorted_by=link HTTP/1.1" 400 82
+2020-02-19 16:12:18,169 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/serializers.py changed, reloading.
+2020-02-19 16:12:19,232 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-02-19 16:12:24,597 django.server INFO     "OPTIONS /api/exploits?limit=10&page=1&search=&sorted_by=-link HTTP/1.1" 200 0
+2020-02-19 16:12:24,600 django.server INFO     "GET /api/exploits?limit=10&page=1&search=&sorted_by=-link HTTP/1.1" 301 0
+2020-02-19 16:12:24,608 django.server INFO     "OPTIONS /api/exploits/?limit=10&page=1&search=&sorted_by=-link HTTP/1.1" 200 0
+2020-02-19 16:12:25,132 django.server INFO     "GET /api/exploits/?limit=10&page=1&search=&sorted_by=-link HTTP/1.1" 200 4626
+2020-02-19 16:12:26,592 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5183
+2020-02-19 16:12:28,105 django.server INFO     "GET /api/exploits/?limit=10&page=1&search=&sorted_by=link HTTP/1.1" 200 6022
+2020-02-19 16:12:29,127 django.server INFO     "OPTIONS /api/exploits?limit=10&page=1&search=&sorted_by=updated_at HTTP/1.1" 200 0
+2020-02-19 16:12:29,129 django.server INFO     "GET /api/exploits?limit=10&page=1&search=&sorted_by=updated_at HTTP/1.1" 301 0
+2020-02-19 16:12:29,136 django.server INFO     "OPTIONS /api/exploits/?limit=10&page=1&search=&sorted_by=updated_at HTTP/1.1" 200 0
+2020-02-19 16:12:29,480 django.server INFO     "GET /api/exploits/?limit=10&page=1&search=&sorted_by=updated_at HTTP/1.1" 200 6534
+2020-02-19 16:12:30,356 django.server INFO     "OPTIONS /api/exploits?limit=10&page=1&search=&sorted_by=-updated_at HTTP/1.1" 200 0
+2020-02-19 16:12:30,358 django.server INFO     "GET /api/exploits?limit=10&page=1&search=&sorted_by=-updated_at HTTP/1.1" 301 0
+2020-02-19 16:12:30,365 django.server INFO     "OPTIONS /api/exploits/?limit=10&page=1&search=&sorted_by=-updated_at HTTP/1.1" 200 0
+2020-02-19 16:12:30,710 django.server INFO     "GET /api/exploits/?limit=10&page=1&search=&sorted_by=-updated_at HTTP/1.1" 200 5205
+2020-02-19 16:12:31,860 django.server INFO     "OPTIONS /api/exploits?limit=10&page=1&search=&sorted_by=vuln_id HTTP/1.1" 200 0
+2020-02-19 16:12:31,862 django.server INFO     "GET /api/exploits?limit=10&page=1&search=&sorted_by=vuln_id HTTP/1.1" 301 0
+2020-02-19 16:12:31,869 django.server INFO     "OPTIONS /api/exploits/?limit=10&page=1&search=&sorted_by=vuln_id HTTP/1.1" 200 0
+2020-02-19 16:12:31,878 django.request WARNING  Bad Request: /api/exploits/
+2020-02-19 16:12:31,879 django.server WARNING  "GET /api/exploits/?limit=10&page=1&search=&sorted_by=vuln_id HTTP/1.1" 400 85
+2020-02-19 16:13:01,468 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5183
+2020-02-19 16:13:01,810 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5183
+2020-02-19 16:13:08,836 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5183
+2020-02-19 16:13:09,178 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5183
+2020-02-19 16:14:28,697 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5183
+2020-02-19 16:14:29,046 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5183
+2020-02-19 16:15:15,276 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5183
+2020-02-19 16:16:02,301 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5183
+2020-02-19 16:16:02,640 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5183
+2020-02-19 16:16:04,814 django.server INFO     "GET /api/vulns/32746/exploits HTTP/1.1" 200 1586
+2020-02-19 16:16:04,814 django.server INFO     "GET /api/vulns/32746/threats HTTP/1.1" 200 2
+2020-02-19 16:16:04,821 django.server INFO     "GET /api/ratings/calc/32746 HTTP/1.1" 200 826
+2020-02-19 16:16:04,822 django.server INFO     "GET /api/vulns/32746/ HTTP/1.1" 200 1182
+2020-02-19 16:16:04,871 django.server INFO     "GET /api/vulns/32746/history HTTP/1.1" 200 2253
+2020-02-19 16:16:08,428 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5183
+2020-02-19 16:16:21,052 django.server INFO     "GET /api/ratings/calc/32746 HTTP/1.1" 200 826
+2020-02-19 16:16:21,057 django.server INFO     "GET /api/vulns/32746/exploits HTTP/1.1" 200 1586
+2020-02-19 16:16:21,059 django.server INFO     "GET /api/vulns/32746/ HTTP/1.1" 200 1182
+2020-02-19 16:16:21,059 django.server INFO     "GET /api/vulns/32746/threats HTTP/1.1" 200 2
+2020-02-19 16:16:21,114 django.server INFO     "GET /api/vulns/32746/history HTTP/1.1" 200 2253
+2020-02-19 16:17:46,319 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/apis.py changed, reloading.
+2020-02-19 16:17:47,032 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-02-19 16:17:53,445 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5183
+2020-02-19 16:18:45,379 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/serializers.py changed, reloading.
+2020-02-19 16:18:46,077 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-02-19 16:18:52,428 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5345
+2020-02-19 16:19:12,412 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5345
+2020-02-19 16:19:13,332 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5345
+2020-02-19 16:19:17,833 django.server INFO     "OPTIONS /api/exploits?limit=10&page=2&search= HTTP/1.1" 200 0
+2020-02-19 16:19:17,834 django.server INFO     "GET /api/exploits?limit=10&page=2&search= HTTP/1.1" 301 0
+2020-02-19 16:19:17,841 django.server INFO     "OPTIONS /api/exploits/?limit=10&page=2&search= HTTP/1.1" 200 0
+2020-02-19 16:19:17,933 django.server INFO     "OPTIONS /api/exploits?limit=10&page=3&search= HTTP/1.1" 200 0
+2020-02-19 16:19:17,934 django.server INFO     "GET /api/exploits?limit=10&page=3&search= HTTP/1.1" 301 0
+2020-02-19 16:19:17,941 django.server INFO     "OPTIONS /api/exploits/?limit=10&page=3&search= HTTP/1.1" 200 0
+2020-02-19 16:19:18,129 django.server INFO     "OPTIONS /api/exploits?limit=10&page=4&search= HTTP/1.1" 200 0
+2020-02-19 16:19:18,131 django.server INFO     "GET /api/exploits?limit=10&page=4&search= HTTP/1.1" 301 0
+2020-02-19 16:19:18,140 django.server INFO     "OPTIONS /api/exploits/?limit=10&page=4&search= HTTP/1.1" 200 0
+2020-02-19 16:19:18,644 django.server INFO     "OPTIONS /api/exploits?limit=10&page=5&search= HTTP/1.1" 200 0
+2020-02-19 16:19:18,646 django.server INFO     "GET /api/exploits?limit=10&page=5&search= HTTP/1.1" 301 0
+2020-02-19 16:19:18,652 django.server INFO     "OPTIONS /api/exploits/?limit=10&page=5&search= HTTP/1.1" 200 0
+2020-02-19 16:19:19,103 django.server INFO     "GET /api/exploits/?limit=10&page=2&search= HTTP/1.1" 200 5424
+2020-02-19 16:19:19,125 django.server INFO     "GET /api/exploits/?limit=10&page=3&search= HTTP/1.1" 200 30665
+2020-02-19 16:19:19,232 django.server INFO     "GET /api/exploits/?limit=10&page=4&search= HTTP/1.1" 200 30545
+2020-02-19 16:19:19,701 django.server INFO     "GET /api/exploits/?limit=10&page=5&search= HTTP/1.1" 200 8674
+2020-02-19 16:19:19,915 django.server INFO     "OPTIONS /api/exploits?limit=10&page=6&search= HTTP/1.1" 200 0
+2020-02-19 16:19:19,917 django.server INFO     "GET /api/exploits?limit=10&page=6&search= HTTP/1.1" 301 0
+2020-02-19 16:19:19,923 django.server INFO     "OPTIONS /api/exploits/?limit=10&page=6&search= HTTP/1.1" 200 0
+2020-02-19 16:19:20,881 django.server INFO     "GET /api/exploits/?limit=10&page=6&search= HTTP/1.1" 200 10329
+2020-02-19 16:19:24,401 django.server INFO     "OPTIONS /api/vulns/122016 HTTP/1.1" 200 0
+2020-02-19 16:19:24,404 django.server INFO     "OPTIONS /api/vulns/122016/history HTTP/1.1" 200 0
+2020-02-19 16:19:24,405 django.server INFO     "GET /api/vulns/122016 HTTP/1.1" 301 0
+2020-02-19 16:19:24,410 django.server INFO     "OPTIONS /api/vulns/122016/exploits HTTP/1.1" 200 0
+2020-02-19 16:19:24,411 django.server INFO     "OPTIONS /api/vulns/122016/threats HTTP/1.1" 200 0
+2020-02-19 16:19:24,416 django.server INFO     "OPTIONS /api/ratings/calc/122016 HTTP/1.1" 200 0
+2020-02-19 16:19:24,416 django.server INFO     "OPTIONS /api/vulns/122016/ HTTP/1.1" 200 0
+2020-02-19 16:19:24,442 django.server INFO     "GET /api/vulns/122016/threats HTTP/1.1" 200 2
+2020-02-19 16:19:24,443 django.server INFO     "GET /api/vulns/122016/exploits HTTP/1.1" 200 5146
+2020-02-19 16:19:24,446 django.server INFO     "GET /api/ratings/calc/122016 HTTP/1.1" 200 617
+2020-02-19 16:19:24,448 django.server INFO     "GET /api/vulns/122016/ HTTP/1.1" 200 1476
+2020-02-19 16:19:24,485 django.server INFO     "GET /api/vulns/122016/history HTTP/1.1" 200 3508
+2020-02-19 16:19:29,618 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5345
+2020-02-19 16:19:31,940 django.server INFO     "GET /api/exploits/?limit=10&page=1&search=&sorted_by=updated_at HTTP/1.1" 200 11583
+2020-02-19 16:20:56,483 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5345
+2020-02-19 16:20:57,575 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5345
+2020-02-19 16:22:43,508 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5345
+2020-02-19 16:22:44,429 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5345
+2020-02-19 16:22:49,225 django.server INFO     "GET /api/exploits/?limit=10&page=2&search= HTTP/1.1" 200 5424
+2020-02-19 16:22:51,374 django.server INFO     "GET /api/exploits/?limit=10&page=3&search= HTTP/1.1" 200 30665
+2020-02-19 16:22:54,680 django.server INFO     "GET /api/exploits/?limit=10&page=1&search=&sorted_by=updated_at HTTP/1.1" 200 11583
+2020-02-19 16:22:56,362 django.server INFO     "GET /api/exploits/?limit=10&page=1&search=&sorted_by=-updated_at HTTP/1.1" 200 5367
+2020-02-19 16:22:58,051 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5345
+2020-02-19 16:23:00,552 django.server INFO     "GET /api/exploits/?limit=10&page=1&search=&sorted_by=updated_at HTTP/1.1" 200 11583
+2020-02-19 16:23:38,470 django.server INFO     "OPTIONS /api/exploits?limit=10&page=1&search=19109&sorted_by=updated_at HTTP/1.1" 200 0
+2020-02-19 16:23:38,472 django.server INFO     "GET /api/exploits?limit=10&page=1&search=19109&sorted_by=updated_at HTTP/1.1" 301 0
+2020-02-19 16:23:38,479 django.server INFO     "OPTIONS /api/exploits/?limit=10&page=1&search=19109&sorted_by=updated_at HTTP/1.1" 200 0
+2020-02-19 16:23:39,371 django.server INFO     "GET /api/exploits/?limit=10&page=1&search=19109&sorted_by=updated_at HTTP/1.1" 200 11588
+2020-02-19 16:25:16,012 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/serializers.py changed, reloading.
+2020-02-19 16:25:16,697 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-02-19 16:25:28,306 django.server INFO     "GET /api/exploits/?limit=10&page=1&search=19109&sorted_by=updated_at HTTP/1.1" 200 7088
+2020-02-19 16:26:07,579 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/serializers.py changed, reloading.
+2020-02-19 16:26:08,285 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-02-19 16:26:14,684 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5345
+2020-02-19 16:26:15,972 django.server INFO     "OPTIONS /api/exploits?limit=10&page=1&search=19 HTTP/1.1" 200 0
+2020-02-19 16:26:15,974 django.server INFO     "GET /api/exploits?limit=10&page=1&search=19 HTTP/1.1" 301 0
+2020-02-19 16:26:15,981 django.server INFO     "OPTIONS /api/exploits/?limit=10&page=1&search=19 HTTP/1.1" 200 0
+2020-02-19 16:26:16,743 django.server INFO     "OPTIONS /api/exploits?limit=10&page=1&search=1909 HTTP/1.1" 200 0
+2020-02-19 16:26:16,745 django.server INFO     "GET /api/exploits?limit=10&page=1&search=1909 HTTP/1.1" 301 0
+2020-02-19 16:26:16,753 django.server INFO     "OPTIONS /api/exploits/?limit=10&page=1&search=1909 HTTP/1.1" 200 0
+2020-02-19 16:26:18,458 django.server INFO     "OPTIONS /api/exploits?limit=10&page=1&search=19109 HTTP/1.1" 200 0
+2020-02-19 16:26:18,460 django.server INFO     "GET /api/exploits?limit=10&page=1&search=19109 HTTP/1.1" 301 0
+2020-02-19 16:26:18,470 django.server INFO     "OPTIONS /api/exploits/?limit=10&page=1&search=19109 HTTP/1.1" 200 0
+2020-02-19 16:26:23,128 django.server INFO     "GET /api/exploits/?limit=10&page=1&search=1909 HTTP/1.1" 200 79904
+2020-02-19 16:26:24,739 django.server INFO     "GET /api/exploits/?limit=10&page=1&search=19109 HTTP/1.1" 200 7543
+2020-02-19 16:26:24,878 django.server INFO     "GET /api/exploits/?limit=10&page=1&search=19 HTTP/1.1" 200 5700
+2020-02-19 16:26:30,316 django.server INFO     "GET /api/exploits/?limit=10&page=1&search=19 HTTP/1.1" 200 5700
+2020-02-19 16:26:36,131 django.server INFO     "OPTIONS /api/vulns/122225 HTTP/1.1" 200 0
+2020-02-19 16:26:36,132 django.server INFO     "OPTIONS /api/vulns/122225/history HTTP/1.1" 200 0
+2020-02-19 16:26:36,134 django.server INFO     "OPTIONS /api/ratings/calc/122225 HTTP/1.1" 200 0
+2020-02-19 16:26:36,138 django.server INFO     "OPTIONS /api/vulns/122225/exploits HTTP/1.1" 200 0
+2020-02-19 16:26:36,139 django.server INFO     "GET /api/vulns/122225 HTTP/1.1" 301 0
+2020-02-19 16:26:36,143 django.server INFO     "OPTIONS /api/vulns/122225/threats HTTP/1.1" 200 0
+2020-02-19 16:26:36,147 django.server INFO     "OPTIONS /api/vulns/122225/ HTTP/1.1" 200 0
+2020-02-19 16:26:36,166 django.server INFO     "GET /api/vulns/122225/exploits HTTP/1.1" 200 577
+2020-02-19 16:26:36,167 django.server INFO     "GET /api/ratings/calc/122225 HTTP/1.1" 200 819
+2020-02-19 16:26:36,172 django.server INFO     "GET /api/vulns/122225/threats HTTP/1.1" 200 2
+2020-02-19 16:26:36,172 django.server INFO     "GET /api/vulns/122225/ HTTP/1.1" 200 913
+2020-02-19 16:26:36,199 django.server INFO     "GET /api/vulns/122225/history HTTP/1.1" 200 1394
+2020-02-19 16:26:45,767 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5345
+2020-02-19 16:26:50,797 django.server INFO     "OPTIONS /api/exploits?limit=10&page=1&search=1910 HTTP/1.1" 200 0
+2020-02-19 16:26:50,798 django.server INFO     "GET /api/exploits?limit=10&page=1&search=1910 HTTP/1.1" 301 0
+2020-02-19 16:26:50,806 django.server INFO     "OPTIONS /api/exploits/?limit=10&page=1&search=1910 HTTP/1.1" 200 0
+2020-02-19 16:26:57,157 django.server INFO     "GET /api/exploits/?limit=10&page=1&search=1910 HTTP/1.1" 200 19732
+2020-02-19 16:26:57,993 django.server INFO     "GET /api/exploits/?limit=10&page=1&search=19109 HTTP/1.1" 200 7543
+2020-02-19 16:26:58,027 django.server INFO     "GET /api/exploits/?limit=10&page=1&search=19 HTTP/1.1" 200 5700
+2020-02-19 16:27:06,484 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/serializers.py changed, reloading.
+2020-02-19 16:27:07,272 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-02-19 16:27:13,551 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5345
+2020-02-19 16:27:17,628 django.server INFO     "GET /api/exploits/?limit=10&page=1&search=19109 HTTP/1.1" 200 7088
+2020-02-19 16:27:24,870 django.server INFO     "OPTIONS /api/vulns/118462 HTTP/1.1" 200 0
+2020-02-19 16:27:24,874 django.server INFO     "OPTIONS /api/vulns/118462/history HTTP/1.1" 200 0
+2020-02-19 16:27:24,874 django.server INFO     "OPTIONS /api/ratings/calc/118462 HTTP/1.1" 200 0
+2020-02-19 16:27:24,876 django.server INFO     "GET /api/vulns/118462 HTTP/1.1" 301 0
+2020-02-19 16:27:24,881 django.server INFO     "OPTIONS /api/vulns/118462/threats HTTP/1.1" 200 0
+2020-02-19 16:27:24,881 django.server INFO     "OPTIONS /api/vulns/118462/exploits HTTP/1.1" 200 0
+2020-02-19 16:27:24,888 django.server INFO     "OPTIONS /api/vulns/118462/ HTTP/1.1" 200 0
+2020-02-19 16:27:24,909 django.server INFO     "GET /api/ratings/calc/118462 HTTP/1.1" 200 830
+2020-02-19 16:27:24,910 django.server INFO     "GET /api/vulns/118462/exploits HTTP/1.1" 200 13470
+2020-02-19 16:27:24,915 django.server INFO     "GET /api/vulns/118462/threats HTTP/1.1" 200 2
+2020-02-19 16:27:24,917 django.server INFO     "GET /api/vulns/118462/ HTTP/1.1" 200 1514
+2020-02-19 16:27:24,958 django.server INFO     "GET /api/vulns/118462/history HTTP/1.1" 200 2448
+2020-02-19 16:28:29,588 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=& HTTP/1.1" 200 32164
