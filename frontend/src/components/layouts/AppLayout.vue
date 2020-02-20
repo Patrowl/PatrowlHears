@@ -121,7 +121,7 @@ export default {
       { icon: 'mdi-settings', text: 'Settings', to: '/settings' },
       { icon: 'mdi-help-circle', text: 'Help' },
     ],
-    username: ''
+    username: '',
   }),
   computed: {
     isAuthenticated() {

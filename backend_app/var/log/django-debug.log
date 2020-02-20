@@ -11962,3 +11962,53 @@ AttributeError: 'NoneType' object has no attribute 'cwe_id'
 2020-02-19 17:12:12,033 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-02-19 HTTP/1.1" 200 1234
 2020-02-19 17:12:15,647 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=& HTTP/1.1" 200 32164
 2020-02-19 17:12:18,471 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=& HTTP/1.1" 200 32164
+2020-02-19 17:18:07,324 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-02-19 HTTP/1.1" 200 1234
+2020-02-19 17:18:07,574 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-02-19 HTTP/1.1" 200 1234
+2020-02-19 17:18:09,402 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-02-19 HTTP/1.1" 200 1234
+2020-02-19 17:18:09,683 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-02-19 HTTP/1.1" 200 1234
+2020-02-19 17:18:11,022 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-02-12 HTTP/1.1" 200 32191
+2020-02-19 17:18:11,503 django.server INFO     "OPTIONS /api/vulns/?limit=20&page=1&search=c&&updated_at__gte=2020-02-19 HTTP/1.1" 200 0
+2020-02-19 17:18:11,537 django.server INFO     "OPTIONS /api/vulns/?limit=20&page=1&search=co&&updated_at__gte=2020-02-19 HTTP/1.1" 200 0
+2020-02-19 17:18:11,570 django.server INFO     "OPTIONS /api/vulns/?limit=20&page=1&search=cou&&updated_at__gte=2020-02-19 HTTP/1.1" 200 0
+2020-02-19 17:18:11,606 django.server INFO     "OPTIONS /api/vulns/?limit=20&page=1&search=couc&&updated_at__gte=2020-02-19 HTTP/1.1" 200 0
+2020-02-19 17:18:11,639 django.server INFO     "OPTIONS /api/vulns/?limit=20&page=1&search=couco&&updated_at__gte=2020-02-19 HTTP/1.1" 200 0
+2020-02-19 17:18:11,833 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=cou&&updated_at__gte=2020-02-19 HTTP/1.1" 200 52
+2020-02-19 17:18:11,834 django.server INFO     "OPTIONS /api/vulns/?limit=20&page=1&search=coucou&&updated_at__gte=2020-02-19 HTTP/1.1" 200 0
+2020-02-19 17:18:11,849 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=couc&&updated_at__gte=2020-02-19 HTTP/1.1" 200 52
+2020-02-19 17:18:11,863 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=couco&&updated_at__gte=2020-02-19 HTTP/1.1" 200 52
+2020-02-19 17:18:11,929 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=c&&updated_at__gte=2020-02-19 HTTP/1.1" 200 1234
+2020-02-19 17:18:11,966 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=co&&updated_at__gte=2020-02-19 HTTP/1.1" 200 1234
+2020-02-19 17:18:12,002 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=coucou&&updated_at__gte=2020-02-19 HTTP/1.1" 200 52
+2020-02-19 17:18:13,509 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=couco&&updated_at__gte=2020-02-19 HTTP/1.1" 200 52
+2020-02-19 17:18:13,995 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-02-12 HTTP/1.1" 200 32191
+2020-02-19 17:18:14,015 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=couc&&updated_at__gte=2020-02-19 HTTP/1.1" 200 52
+2020-02-19 17:18:14,089 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=cou&&updated_at__gte=2020-02-19 HTTP/1.1" 200 52
+2020-02-19 17:18:14,812 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=co&&updated_at__gte=2020-02-19 HTTP/1.1" 200 1234
+2020-02-19 17:18:14,845 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=c&&updated_at__gte=2020-02-19 HTTP/1.1" 200 1234
+2020-02-19 17:18:14,872 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-02-19 HTTP/1.1" 200 1234
+2020-02-19 17:18:20,132 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-02-12 HTTP/1.1" 200 32191
+2020-02-19 17:18:22,925 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-02-12 HTTP/1.1" 200 32191
+2020-02-19 17:18:28,807 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=& HTTP/1.1" 200 32164
+2020-02-19 17:18:31,532 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=& HTTP/1.1" 200 32164
+2020-02-19 17:18:35,900 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 5345
+2020-02-20 09:13:01,224 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-02-20 09:13:10,976 django.server INFO     "GET / HTTP/1.1" 200 1109
+2020-02-20 09:13:11,036 django.server INFO     "GET /static/css/app.f14d3633.css HTTP/1.1" 200 391
+2020-02-20 09:13:11,044 django.server INFO     "GET /static/js/app.e320edcb.js HTTP/1.1" 200 75211
+2020-02-20 09:13:11,047 django.server INFO     "GET /static/css/chunk-vendors.fadeb5fe.css HTTP/1.1" 200 411880
+2020-02-20 09:13:11,050 django.server INFO     "GET /static/js/chunk-vendors.4384b090.js HTTP/1.1" 200 915638
+2020-02-20 09:13:20,614 django.server INFO     "GET /api/search/cve-2020-8772?limit=undefined&page=undefined HTTP/1.1" 200 748
+2020-02-20 09:13:55,678 django.request WARNING  Not Found: /search/CVE-2020-8772
+2020-02-20 09:13:55,678 django.server WARNING  "GET /search/CVE-2020-8772 HTTP/1.1" 404 14813
+2020-02-20 09:14:01,587 django.request WARNING  Not Found: /search/CVE-2020-8772
+2020-02-20 09:14:01,588 django.server WARNING  "GET /search/CVE-2020-8772 HTTP/1.1" 404 14813
+2020-02-20 09:14:04,325 django.request WARNING  Not Found: /search/CVE-2020-8772
+2020-02-20 09:14:04,325 django.server WARNING  "GET /search/CVE-2020-8772 HTTP/1.1" 404 14813
+2020-02-20 09:14:17,743 django.server INFO     "GET /api/search/CVE-2020-8772 HTTP/1.1" 200 748
+2020-02-20 09:14:20,790 django.request WARNING  Not Found: /search/CVE-2020-8772
+2020-02-20 09:14:20,790 django.server WARNING  "GET /search/CVE-2020-8772 HTTP/1.1" 404 14813
+2020-02-20 09:14:47,026 django.request WARNING  Not Found: /search/CVE-2020-8772
+2020-02-20 09:15:11,469 django.request WARNING  Not Found: /vulns
+2020-02-20 09:15:42,564 django.request WARNING  Not Found: /index
+2020-02-20 09:17:23,579 django.request WARNING  Not Found: /index
+2020-02-20 09:17:42,063 django.request WARNING  Not Found: /vulns

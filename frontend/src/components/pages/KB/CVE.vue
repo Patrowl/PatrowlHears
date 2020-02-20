@@ -1,7 +1,6 @@
 <template>
   <div>
     <!-- Vendor Page -->
-    <div class="loading" v-if="loading===true">Loading&#8230;</div>
     <v-card>
       <v-card-title>
         CVE
@@ -145,15 +144,14 @@ export default {
         let items = this.getcves(page, this.limit, sortBy, sortDesc);
 
         setTimeout(() => {
-          this.loading = false;
           resolve({
             items
           });
         }, 300);
       });
+      this.loading = false;
     },
     getcves(page, itemsPerPage, sortBy, sortDesc) {
-      this.loading = true;
       let sorted_by = '';
       if (sortBy.length > 0) {
         if (sortDesc[0] === true) {
@@ -166,6 +164,7 @@ export default {
       // this.$api.get('/api/kb/cve?limit='+itemsPerPage+'&page='+page+sorted_by+'&summary__icontains='+this.search).then(res => {
       this.$api.get('/api/kb/cve?limit='+itemsPerPage+'&page='+page+sorted_by+'&search='+this.search).then(res => {
         this.cves = res.data;
+        this.loading = false;
         return this.cves;
       }).catch(e => {
         this.cves = [];
@@ -178,7 +177,6 @@ export default {
           timer: 3000
         })
       });
-      this.loading = false;
     },
     toggleMonitored(item) {
       // save in backend
@@ -195,6 +193,7 @@ export default {
           this.snackColor = 'error';
           this.snackText = 'Unable to change the monitoring status';
         }
+        this.loading = false;
       }).catch(e => {
         this.loading = false;
         swal.fire({

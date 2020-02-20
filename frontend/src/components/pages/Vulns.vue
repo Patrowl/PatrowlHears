@@ -7,7 +7,8 @@
       <v-card-title>
         <!-- Vulnerabilities -->
         <v-container>
-          <v-row no-gutters >
+          <v-row>
+          <!-- <v-row no-gutters > -->
             <v-col class="pa-2" md="auto">
                 Vulnerabilities
             </v-col>
@@ -200,23 +201,12 @@ export default {
     ],
     rowsPerPageItems: [5, 10, 20, 50, 100],
   }),
-  mounted() {
-    // nothing yet
-  },
-  // computed: {
-  //   formatdate(){
-  //     return Vue.filter('date')(this.value)
-  //   }
-  // },
   watch: {
     search: {
       handler(filter) {
         this.search = filter;
         this.options.page = 1;  // reset page count
-        this.getDataFromApi().then(data => {
-          // this.vulns = data.results;
-          // this.totalvulns = data.count;
-        });
+        this.getDataFromApi();
       },
       deep: true
     },
@@ -229,22 +219,19 @@ export default {
     },
     show_all: {
       handler() {
-        this.getDataFromApi().then(data => {
-        });
+        this.getDataFromApi();
       },
       deep: true
     },
     show_last_day: {
       handler() {
-        this.getDataFromApi().then(data => {
-        });
+        this.getDataFromApi();
       },
       deep: true
     },
     show_last_week: {
       handler() {
-        this.getDataFromApi().then(data => {
-        });
+        this.getDataFromApi();
       },
       deep: true
     },
@@ -297,7 +284,7 @@ export default {
         return this.vulns;
       }).catch(e => {
         this.vulns = [];
-        // this.loading = false;
+        this.loading = false;
         swal.fire({
           title: 'Error',
           text: 'unable to get vulns',

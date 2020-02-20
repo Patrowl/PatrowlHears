@@ -99,8 +99,8 @@ export default {
           this.$api.get("/users/api/current").then((response) => {
             this.$store.commit("setAuthUser",
               {authUser: response.data, isAuthenticated: true}
-            )
-            this.$router.push({name: 'Homepage'});
+            );
+            this.$router.push({name: 'Vulns'});
           });
 
         }).catch(e => {

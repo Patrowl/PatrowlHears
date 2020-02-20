@@ -177,7 +177,7 @@ export default {
         } = this.options;
         // let search = this.search.trim().toLowerCase();
 
-        this.limit = itemsPerPage;
+        // this.limit = itemsPerPage;
         let items = this.search_query(page, this.limit, sortBy, sortDesc);
 
         setTimeout(() => {
@@ -204,7 +204,7 @@ export default {
         return this.vulns;
       }).catch(e => {
         this.results = [];
-        // this.loading = false;
+        this.loading = false;
         swal.fire({
           title: 'Error',
           text: 'unable to get results from search query',
@@ -218,7 +218,9 @@ export default {
       return b?'Yes':'No';
     },
     getVendorProduct(cpes) {
-      // console.log(cpes);
+      if (cpes == undefined) {
+        return "unknown";
+      }
       var cpe, vp;
       var vp_list = Array();
       var res = "";
