@@ -6,7 +6,7 @@ import jwt_decode from 'jwt-decode'
 
 // axios.defaults.xsrfCookieName = 'csrftoken'
 // axios.defaults.xsrfHeaderName = 'X-CSRFToken'
-axios.defaults.baseURL = process.env.VUE_APP_API_BASE_URL || process.env.API_BASE_URL || 'http://localhost:3333/'
+// axios.defaults.baseURL = process.env.VUE_APP_API_BASE_URL || process.env.API_BASE_URL || 'http://localhost:3333/'
 
 Vue.use(Vuex)
 Vue.use(VueAxios, axios);

@@ -11,11 +11,12 @@ module.exports = {
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
-    proxy: {
-      '^/api/': {
-        target: 'http://127.0.0.1:3333/api/',
-      }
-    }
+    proxy: 'http://127.0.0.1:3333'
+    // proxy: {
+    //   '^/api/': {
+    //     target: 'http://127.0.0.1:3333/api/',
+    //   }
+    // }
   },
   lintOnSave: false,
   outputDir: './dist/',

@@ -12018,3 +12018,60 @@ AttributeError: 'NoneType' object has no attribute 'cwe_id'
 2020-02-24 09:29:08,202 django.request WARNING  Unauthorized: /api/kb/cpes/sync
 2020-02-24 11:57:28,325 django.request WARNING  Not Found: /vulns
 2020-02-24 13:26:49,549 django.request WARNING  Not Found: /vulns
+2020-02-24 13:50:03,296 django.request WARNING  Not Found: /favicon.ico
+2020-02-24 13:50:30,210 django.request WARNING  Not Found: /vulns
+2020-02-24 14:15:39,198 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-02-24 14:15:44,651 django.server INFO     "GET / HTTP/1.1" 200 1109
+2020-02-24 14:15:44,706 django.server INFO     "GET /static/css/chunk-vendors.fadeb5fe.css HTTP/1.1" 304 0
+2020-02-24 14:15:44,707 django.server INFO     "GET /static/css/app.f14d3633.css HTTP/1.1" 304 0
+2020-02-24 14:15:44,708 django.server INFO     "GET /static/js/chunk-vendors.4384b090.js HTTP/1.1" 304 0
+2020-02-24 14:15:44,708 django.server INFO     "GET /static/js/app.ec0679de.js HTTP/1.1" 304 0
+2020-02-24 14:15:45,033 django.request WARNING  Not Found: /favicon.ico
+2020-02-24 14:15:45,033 django.server WARNING  "GET /favicon.ico HTTP/1.1" 404 14786
+2020-02-24 14:15:53,169 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-02-24 HTTP/1.1" 200 57082
+2020-02-24 14:16:04,164 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-02-24 14:16:09,483 django.server INFO     "GET / HTTP/1.1" 200 1109
+2020-02-24 14:16:09,521 django.server INFO     "GET /static/css/app.f14d3633.css HTTP/1.1" 200 391
+2020-02-24 14:16:09,525 django.server INFO     "GET /static/js/app.ec0679de.js HTTP/1.1" 200 75124
+2020-02-24 14:16:09,525 django.server INFO     "GET /static/css/chunk-vendors.fadeb5fe.css HTTP/1.1" 200 411880
+2020-02-24 14:16:09,530 django.server INFO     "GET /static/js/chunk-vendors.4384b090.js HTTP/1.1" 200 915638
+2020-02-24 14:16:09,697 django.request WARNING  Not Found: /favicon.ico
+2020-02-24 14:16:09,697 django.server WARNING  "GET /favicon.ico HTTP/1.1" 404 14786
+2020-02-24 14:16:20,647 django.server INFO     "GET /static/js/app.ec0679de.js.map HTTP/1.1" 200 271829
+2020-02-24 14:16:20,705 django.server INFO     "GET /static/js/chunk-vendors.4384b090.js.map HTTP/1.1" 200 3399316
+2020-02-24 14:23:20,117 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-02-24 14:23:30,730 django.server INFO     "GET / HTTP/1.1" 200 1109
+2020-02-24 14:23:30,774 django.server INFO     "GET /static/css/app.f14d3633.css HTTP/1.1" 200 391
+2020-02-24 14:23:30,779 django.server INFO     "GET /static/js/app.ec0679de.js HTTP/1.1" 200 75124
+2020-02-24 14:23:30,787 django.server INFO     "GET /static/css/chunk-vendors.fadeb5fe.css HTTP/1.1" 200 411880
+2020-02-24 14:23:30,791 django.server INFO     "GET /static/js/chunk-vendors.4384b090.js HTTP/1.1" 200 915638
+2020-02-24 14:23:30,973 django.server INFO     "GET /static/js/app.ec0679de.js.map HTTP/1.1" 200 271829
+2020-02-24 14:23:31,058 django.server INFO     "GET /static/js/chunk-vendors.4384b090.js.map HTTP/1.1" 200 3399316
+2020-02-24 14:30:31,971 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-02-24 14:30:37,263 django.request WARNING  Not Found: /auth
+2020-02-24 14:30:37,263 django.server WARNING  "GET /auth HTTP/1.1" 404 14765
+2020-02-24 14:30:37,392 django.request WARNING  Not Found: /favicon.ico
+2020-02-24 14:30:37,393 django.server WARNING  "GET /favicon.ico HTTP/1.1" 404 14786
+2020-02-24 14:30:43,373 django.server INFO     "GET / HTTP/1.1" 200 1109
+2020-02-24 14:30:43,420 django.server INFO     "GET /static/css/app.f14d3633.css HTTP/1.1" 200 391
+2020-02-24 14:30:43,423 django.server INFO     "GET /static/js/app.0a73a7d8.js HTTP/1.1" 200 74952
+2020-02-24 14:30:43,427 django.server INFO     "GET /static/css/chunk-vendors.fadeb5fe.css HTTP/1.1" 200 411880
+2020-02-24 14:30:43,432 django.server INFO     "GET /static/js/chunk-vendors.4384b090.js HTTP/1.1" 200 915638
+2020-02-24 14:30:43,612 django.server INFO     "GET /static/js/app.0a73a7d8.js.map HTTP/1.1" 200 271718
+2020-02-24 14:30:43,681 django.server INFO     "GET /static/js/chunk-vendors.4384b090.js.map HTTP/1.1" 200 3399316
+2020-02-24 14:30:50,012 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 438
+2020-02-24 14:30:50,039 django.server INFO     "GET /users/api/current HTTP/1.1" 200 105
+2020-02-24 14:30:51,261 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-02-24 HTTP/1.1" 200 57082
+2020-02-24 14:31:44,454 django.request WARNING  Not Found: /vulns
+2020-02-24 14:31:44,454 django.server WARNING  "GET /vulns HTTP/1.1" 404 14768
+2020-02-24 14:34:54,124 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-02-24 14:35:00,624 django.request WARNING  Not Found: /api/auth-jwt/obtain_jwt_token/
+2020-02-24 14:35:00,624 django.server WARNING  "POST /api/auth-jwt/obtain_jwt_token/ HTTP/1.1" 404 14844
+2020-02-24 14:35:04,612 django.request WARNING  Not Found: /api/auth-jwt/obtain_jwt_token/
+2020-02-24 14:35:04,612 django.server WARNING  "POST /api/auth-jwt/obtain_jwt_token/ HTTP/1.1" 404 14844
+2020-02-24 14:35:58,450 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 438
+2020-02-24 14:35:58,466 django.server INFO     "GET /users/api/current HTTP/1.1" 200 105
+2020-02-24 14:36:00,406 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-02-24 HTTP/1.1" 200 57082
+2020-02-24 14:36:03,086 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-02-17 HTTP/1.1" 200 57083
+2020-02-24 14:36:06,125 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-02-17 HTTP/1.1" 200 57083
+2020-02-24 15:43:46,297 django.request WARNING  Not Found: /favicon.ico
