@@ -12012,3 +12012,9 @@ AttributeError: 'NoneType' object has no attribute 'cwe_id'
 2020-02-20 09:15:42,564 django.request WARNING  Not Found: /index
 2020-02-20 09:17:23,579 django.request WARNING  Not Found: /index
 2020-02-20 09:17:42,063 django.request WARNING  Not Found: /vulns
+2020-02-21 17:08:06,823 django.request WARNING  Not Found: /auth
+2020-02-21 17:08:06,991 django.request WARNING  Not Found: /favicon.ico
+2020-02-24 09:28:53,165 django.request WARNING  Not Found: /favicon.ico
+2020-02-24 09:29:08,202 django.request WARNING  Unauthorized: /api/kb/cpes/sync
+2020-02-24 11:57:28,325 django.request WARNING  Not Found: /vulns
+2020-02-24 13:26:49,549 django.request WARNING  Not Found: /vulns

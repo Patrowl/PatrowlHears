@@ -38,6 +38,19 @@ CVE-2020-0683: https://padovah4ck.github.io/CVE-2020-0683/
 CVE-2019-2215: https://github.com/DimitriFourny/cve-2019-2215
 CVE-2020-0728: https://github.com/irsl/CVE-2020-0728
 CVE-2018-4344: https://www.synacktiv.com/posts/exploit/lightspeed-a-race-for-an-iosmacos-sandbox-escape.html
+CVE-2019-20099: https://fr.tenable.com/security/research/tra-2020-05?tns_redirect=true
+CVE-2019-20099: https://medium.com/tenable-techblog/exploiting-jira-for-host-discovery-43be3cddf023
+CVE-2019-18846: https://seclists.org/fulldisclosure/2020/Feb/23
+CVE-2018-8611: https://research.nccgroup.com/2020/02/21/cve-2018-8611-diving-into-the-windows-kernel-transaction-manager-ktm-for-fun-and-exploitation/
+CVE-2017-11176: https://blog.lexfo.fr/cve-2017-11176-linux-kernel-exploitation-part1.html
+CVE-2020-7247: https://github.com/r0lh/CVE-2020-7247
+CVE-2020-1693: https://zeroauth.ltd/blog/2020/02/18/proof-of-concept-exploit-for-cve-2020-1693-spacewalk/
+CVE-2020-1938: https://github.com/hypn0s/AJPy
+CVE-2020-7247: https://pastebin.com/ZgLp4Lv1
+CVE-2020-0767: https://github.com/phoenhex/files/blob/master/pocs/cve-2020-0767.js
+CVE-2020-0753, CVE-2020-0754: https://github.com/afang5472/CVE-2020-0753-and-CVE-2020-0754
+CVE-2020-8813: https://github.com/mhaskar/CVE-2020-8813
+
 
 Sigma Detection
 https://github.com/Neo23x0/sigma/blob/master/rules/web/web_citrix_cve_2019_19781_exploit.yml

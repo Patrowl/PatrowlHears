@@ -19,7 +19,6 @@ import KBProducts from '@/components/pages/KB/Products'
 import KBProductVersions from '@/components/pages/KB/ProductVersions'
 import KBCVE from '@/components/pages/KB/CVE'
 import KBBulletins from '@/components/pages/KB/Bulletins'
-
 import NotFound from '@/components/general/NotFound.vue'
 
 Vue.use(VueRouter)
