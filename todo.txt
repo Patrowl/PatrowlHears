@@ -49,7 +49,17 @@ CVE-2020-1938: https://github.com/hypn0s/AJPy
 CVE-2020-7247: https://pastebin.com/ZgLp4Lv1
 CVE-2020-0767: https://github.com/phoenhex/files/blob/master/pocs/cve-2020-0767.js
 CVE-2020-0753, CVE-2020-0754: https://github.com/afang5472/CVE-2020-0753-and-CVE-2020-0754
-CVE-2020-8813: https://github.com/mhaskar/CVE-2020-8813
+CVE-2020-8813: https://github.com/mhaskar/CVE-2020-8813, https://shells.systems/cacti-v1-2-8-authenticated-remote-code-execution-cve-2020-8813/
+CVE-2020-5187: https://packetstormsecurity.com/files/156489/dnn944zipslip-traversal.txt
+CVE-2020-5188: https://packetstormsecurity.com/files/156484/dnn950-bypass.txt
+CVE-2020-7471: https://github.com/advisories/GHSA-hmr4-m2h5-33qx, https://github.com/django/django/commit/eb31d845323618d688ad429479c6dda973056136, https://ryu22e.org/en/posts/2020/02/06/django-cve-2020-7471/
+CVE-2020-6418: https://chromereleases.googleblog.com/2020/02/stable-channel-update-for-desktop_24.html?m=1
+CVE-2020-3837: https://github.com/jakeajames/time_waste
+CVE-2020-0688: https://www.thezdi.com/blog/2020/2/24/cve-2020-0688-remote-code-execution-on-microsoft-exchange-server-through-fixed-cryptographic-keys
+https://www.wordfence.com/blog/2020/02/zero-day-vulnerability-in-themerex-addons-plugin-exploited-in-the-wild/
+CVE-2020-0609: https://blog.rop.la/en/vulnerabilities/2020/02/25/bluegate-internals.html
+CVE-2020-0610: https://blog.rop.la/en/vulnerabilities/2020/02/25/bluegate-internals.html
+CVE-2019-15126: https://www.eset.com/int/kr00k/
 
 
 Sigma Detection

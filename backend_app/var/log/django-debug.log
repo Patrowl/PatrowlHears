@@ -12075,3 +12075,4 @@ AttributeError: 'NoneType' object has no attribute 'cwe_id'
 2020-02-24 14:36:03,086 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-02-17 HTTP/1.1" 200 57083
 2020-02-24 14:36:06,125 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-02-17 HTTP/1.1" 200 57083
 2020-02-24 15:43:46,297 django.request WARNING  Not Found: /favicon.ico
+2020-02-25 11:22:50,730 django.request WARNING  Not Found: /HNAP1/
