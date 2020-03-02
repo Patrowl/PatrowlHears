@@ -2,7 +2,7 @@
     <div>
       Settings Page
       <v-row dense>
-        <v-col cols="3">
+        <!-- <v-col cols="3">
           <v-card
           class="mx-auto"
           tile
@@ -16,7 +16,7 @@
                   @click="callAction(sync_item)"
                 >
                   <v-list-item-icon>
-                    <v-icon v-text="sync_item.icon"></v-icon>
+                    <v-icon v-text="sync_item.icon" color="deep-orange"></v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title
@@ -29,7 +29,7 @@
               </v-list-item-group>
             </v-list>
           </v-card>
-        </v-col>
+        </v-col> -->
         <v-col cols="3">
           <v-card
           class="mx-auto"
@@ -44,7 +44,8 @@
                   @click="callAction(async_item)"
                 >
                   <v-list-item-icon>
-                    <v-icon v-text="async_item.icon"></v-icon>
+                    <v-icon v-text="async_item.icon" color="deep-orange">
+                    </v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title
@@ -71,14 +72,14 @@ import router from "../../router";
 export default {
   name: "Settings",
   data: () => ({
-    sync_item: 1,
-    sync_items: [
-      { text: 'CWE', icon: 'mdi-flag', to: '/api/kb/cwes/sync' },
-      { text: 'CPE', icon: 'mdi-flag', to: '/api/kb/cpes/sync' },
-      { text: 'Bulletins', icon: 'mdi-flag', to: '/api/kb/bulletins/sync' },
-      { text: 'CVE', icon: 'mdi-flag', to: '/api/kb/cves/sync' },
-      { text: 'VIA', icon: 'mdi-flag', to: '/api/kb/vias/sync' },
-    ],
+    // sync_item: 1,
+    // sync_items: [
+    //   { text: 'CWE', icon: 'mdi-flag', to: '/api/kb/cwes/sync' },
+    //   { text: 'CPE', icon: 'mdi-flag', to: '/api/kb/cpes/sync' },
+    //   { text: 'Bulletins', icon: 'mdi-flag', to: '/api/kb/bulletins/sync' },
+    //   { text: 'CVE', icon: 'mdi-flag', to: '/api/kb/cves/sync' },
+    //   { text: 'VIA', icon: 'mdi-flag', to: '/api/kb/vias/sync' },
+    // ],
     async_item: 1,
     async_items: [
       { text: 'CWE', icon: 'mdi-clock', to: '/api/kb/cwes/async' },
@@ -96,17 +97,16 @@ export default {
   },
   methods: {
     callAction(item) {
-      console.log(item);
       this.$api.get(item.to).then(res => {
         if (res && res.status === 200) {
           // Snack notifications
           this.snack = true;
           this.snackColor = 'success';
-          this.snackText = 'Exploit successfuly saved.';
+          this.snackText = 'Sync successfuly enqueued.';
         } else {
           this.snack = true;
           this.snackColor = 'error';
-          this.snackText = 'Unable to save the exploit metadata.';
+          this.snackText = 'Unable to sync :/';
         }
         //this.vuln = res.data;
       }).catch(e => {

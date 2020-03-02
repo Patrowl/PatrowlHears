@@ -16,3 +16,11 @@ def send_slack_message_task(self, short, long):
     logger.debug("Entering 'send_slack_message_task'")
     send_slack_message(short, long)
     return True
+
+
+@shared_task(bind=True, acks_late=True)
+def get_dailymail_report_vendors_task(self):
+    from .apis import get_dailymail_report_vendors
+    logger.debug("Entering 'get_dailymail_report_vendors_task'")
+    get_dailymail_report_vendors()
+    return True

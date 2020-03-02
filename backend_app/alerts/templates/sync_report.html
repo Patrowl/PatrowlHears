@@ -8,7 +8,7 @@
       <th>Product</th>
       <th>Summary</th>
       <th>CVSS BS</th>
-      <th>Rating</th>
+      <th>Score</th>
       <th># exploits</th>
     </tr>
   {% for product in products_summary %}
@@ -27,8 +27,8 @@
       <td>
         <span
         class="score"
-        style="background-color: {{product.rating|rating_color}}"
-        >{{product.rating}}</span>
+        style="background-color: {{product.score|rating_color}}"
+        >{{product.score}}</span>
       </td>
       <td>{{product.exploit_cnt}}</td>
     </tr>
@@ -49,12 +49,12 @@
         <div class="vuln-content">
           <div class="vuln-content-subtitle">Scores</div>
             <dl>
-              <dt>Threat Rating</dt>
+              <dt>Threat Score</dt>
               <dd>
                 <span
                 class="score"
-                style="background-color: {{vuln.rating|rating_color}}"
-                >{{vuln.rating}}</span>
+                style="background-color: {{vuln.score|rating_color}}"
+                >{{vuln.score}}</span>
               </dd>
 
               <dt>CVSSv2 Base Score</dt>

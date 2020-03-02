@@ -41,7 +41,7 @@ class CPE(models.Model):
 
     def __str__(self):
         return self.vector
-    # 
+    #
     # def is_monitored(self):
     #     monitored = False
     #     if MonitoredProduct.objects.filter(vendor=self.vendor, product=self.product, monitored=True).count() > 0:
@@ -140,4 +140,5 @@ class CVE(models.Model):
         if not self.created_at:
             self.created_at = timezone.now()
         self.updated_at = timezone.now()
+        print("saved")
         return super(CVE, self).save(*args, **kwargs)

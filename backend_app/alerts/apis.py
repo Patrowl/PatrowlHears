@@ -46,7 +46,7 @@ def get_dailymail_report_vendors(self):
 
     # Get last created/updated vulns
     # last_vulns = Vuln.objects.filter(updated_at__gte=datetime(2020, 2, 14))
-    last_vulns = Vuln.objects.filter(updated_at__gte=datetime.now() - timedelta(days=1))
+    last_vulns = Vuln.objects.filter(updated_at__gte=datetime.now() - timedelta(days=1)).order_by('-updated_at')
 
     for lv in last_vulns:
         # Check if the vulnerability is monitored
@@ -78,8 +78,8 @@ def get_dailymail_report_vendors(self):
     for product in last_vulns_monitored.keys():
         max_rating = 0
         for vuln in last_vulns_monitored[product]:
-            if vuln['rating'] > max_rating:
-                max_rating = vuln['rating']
+            if vuln['score'] > max_rating:
+                max_rating = vuln['score']
         for vuln in last_vulns_monitored[product]:
             products_summary.append({
                 'vuln_id': vuln['id'],
@@ -88,13 +88,13 @@ def get_dailymail_report_vendors(self):
                 'cve': vuln['cve_id'],
                 'summary': vuln['summary'],
                 'cvss': vuln['cvss'],
-                'rating': vuln['rating'],
+                'score': vuln['score'],
                 'exploit_cnt': vuln['exploit_cnt'],
                 'max_rating': max_rating   # For triage
             })
 
     body = {
-        'products_summary': sorted(products_summary, key=lambda i: (i['max_rating'], i['rating'], i['product_name']))[::-1],
+        'products_summary': sorted(products_summary, key=lambda i: (i['max_rating'], i['score'], i['product_name']))[::-1],
         'products_details': last_vulns_monitored,
         'baseurl': settings.BASE_URL
     }

@@ -7,6 +7,7 @@ from cpe import CPE as _CPE
 import datetime
 import json
 import requests
+import deepdiff
 import logging
 logger = logging.getLogger(__name__)
 
@@ -238,17 +239,21 @@ def _sync_cve_fromdb(cve, via):
         # Create it
         try:
             cur_cve = CVE(**_new_cve)
+            cur_cve.save()
         except Exception as e:
             logger.error(e)
     else:
         # Update it
+        has_update = False
         for v in _new_cve.keys():
             if _new_cve[v] != getattr(cur_cve, v):
+                has_update = True
                 setattr(cur_cve, v, _new_cve[v])
-    cur_cve.save()
+        if has_update is True:
+            cur_cve.save()
 
-    # Update VIA references
-    if via:
+    # Update VIA references (if any)
+    if via and bool(deepdiff.DeepDiff(without_keys(via, ['id', '_id']), cur_cve.references, ignore_order=True)):
         cur_cve.references = without_keys(via, ['id', '_id'])
         cur_cve.save(update_fields=["references"])
 

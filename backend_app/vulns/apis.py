@@ -6,6 +6,7 @@ from common.utils.pagination import StandardResultsSetPagination
 from rest_framework import viewsets
 from django_filters import rest_framework as filters
 from rest_framework.decorators import api_view
+from monitored_assets.models import MonitoredProduct
 from .models import Vuln, ExploitMetadata, ThreatMetadata
 from .serializers import (
     VulnSerializer, ExploitMetadataSerializer, ThreatMetadataSerializer,
@@ -207,3 +208,26 @@ def del_threat(self, vuln_id, threat_id):
 def refresh_vulns_score_async(self):
     refresh_vulns_score_task.apply_async(args=[], queue='default', retry=False)
     return JsonResponse("enqueued", safe=False)
+
+
+@api_view(['GET'])
+def get_vuln_stats(self):
+    res = {
+        'vulns': Vuln.objects.count(),
+        'exploits': ExploitMetadata.objects.count(),
+        'threats': ThreatMetadata.objects.count(),
+        'monitored': MonitoredProduct.objects.count()
+    }
+    return JsonResponse(res, safe=False)
+
+
+@api_view(['GET'])
+def get_latest_vulns(self):
+    res = {
+        'vulns': list(Vuln.objects.all().annotate(
+            cve=F('cve_id__cve_id')
+        ).order_by('-updated_at').values('id', 'cve', 'summary', 'score')[:20]),
+        'exploits': list(ExploitMetadata.objects.all().values('source', 'link', 'trust_level').distinct()[:20]),
+        'monitored': MonitoredProduct.objects.count()
+    }
+    return JsonResponse(res, safe=False)

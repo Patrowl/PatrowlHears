@@ -266,15 +266,31 @@ CELERY_TASK_IGNORE_RESULT = True
 CELERY_ACKS_LATE = True
 
 CELERY_BEAT_SCHEDULE = {
-    # 'refresh_monitored_cves': {
-    #     'task': 'vulns.tasks.refresh_monitored_cve_task',
-    #     'schedule': timedelta(minutes=30)
-    # },
+    'refresh_cwes': {
+        'task': 'cves.tasks.sync_cwes_task',
+        'schedule': timedelta(days=1)
+    },
+    'refresh_cpes': {
+        'task': 'cves.tasks.sync_cpes_task',
+        'schedule': timedelta(days=1)
+    },
+    'refresh_vias': {
+        'task': 'cves.tasks.sync_vias_task',
+        'schedule': timedelta(days=1)
+    },
+    'refresh_bulletins': {
+        'task': 'cves.tasks.sync_bulletins_task',
+        'schedule': timedelta(days=1)
+    },
     'refresh_vulns_scores': {
         'task': 'vulns.tasks.refresh_vulns_score_task',
         'schedule': timedelta(days=1)
     },
-
+    # Alerting
+    'alert_monitored_products': {
+        'task': 'alerts.tasks.get_dailymail_report_vendors_task',
+        'schedule': timedelta(days=1)
+    },
 }
 
 # Email settings

@@ -47,7 +47,7 @@ class Vuln(models.Model):
     access = JSONField(default=access_default_dict)
     impact = JSONField(default=impact_default_dict)
 
-    score = models.IntegerField(default=0, null=True)
+    score = models.IntegerField(default=0)
 
     is_exploitable = models.BooleanField(default=False)
     is_confirmed = models.BooleanField(default=False)
