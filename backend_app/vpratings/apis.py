@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from rest_framework import viewsets
 from vulns.models import Vuln
-from .models import VPRating
+from .models import VPRating, VPR_METRICS
 from .serializers import VPRatingSerializer
 from .utils import _refresh_vprating, _calc_vprating
 
@@ -14,6 +14,10 @@ class VPRatingSet(viewsets.ModelViewSet):
 
     queryset = VPRating.objects.all().order_by('-updated_at')
     serializer_class = VPRatingSerializer
+
+
+def get_vprating_metrics(self):
+    return JsonResponse(VPR_METRICS)
 
 
 def get_vprating_by_cveid(self, cve_id):

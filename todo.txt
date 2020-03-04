@@ -67,7 +67,7 @@ CVE-2020–7246: https://medium.com/@tobinmshields/qdpm-v9-1-authenticated-rce-e
 CVE-2020-5401: https://nathandavison.com/blog/cache-poisoning-dos-in-cloudfoundry-gorouter
 CVE-2019-9465: https://alexbakker.me/post/mysterious-google-titan-m-bug-cve-2019-9465.html
 CVE-2020-0688: https://github.com/Yt1g3r/CVE-2020-0688_EXP/blob/master/CVE-2020-0688_EXP.py
-
+CVE-2020-0041: https://lore.kernel.org/lkml/20191213202531.55010-1-tkjos@google.com/
 
 Sigma Detection
 https://github.com/Neo23x0/sigma/blob/master/rules/web/web_citrix_cve_2019_19781_exploit.yml

@@ -117,12 +117,12 @@
                 <v-card-title class="title">Rating Scores</v-card-title>
                 <v-card-text>
                   <v-row align="center">
-                    <v-col class="display-3" cols="4" align="center">
+                    <v-col class="display-3 font-weight-bold" cols="4" align="center">
                       {{vprating}}
                     </v-col>
                     <v-col cols="6">
-                      CVSSv2 Base: {{cvssv2adj[0]}}
-                      CVSSv2 Temporal: {{cvssv2adj[1]}}
+                      CVSSv2 Base: <span class="font-weight-bold">{{cvssv2adj[0]}}</span><br/>
+                      CVSSv2 Temporal: <span class="font-weight-bold">{{cvssv2adj[1]}}</span>
                     </v-col>
                   </v-row>
                 </v-card-text>
@@ -132,10 +132,10 @@
               <v-card color="grey lighten-5">
                 <v-card-title primary class="title">Metrics</v-card-title>
                 <v-card-text>
-                  <v-switch v-model="is_exploitable" color="deep-orange" readonly hide-details label="Exploitable"></v-switch>
-                  <v-switch v-model="is_confirmed" color="deep-orange" readonly hide-details label="Confirmed"></v-switch>
-                  <v-switch v-model="is_in_the_news" color="deep-orange" readonly hide-details label="Relayed in the News"></v-switch>
-                  <v-switch v-model="is_in_the_wild" color="deep-orange" readonly hide-details label="Exploited in the Wild"></v-switch>
+                  <v-switch v-model="is_exploitable" color="deep-orange" readonly hide-details label="Exploitable" style="margin-top: 0px;"></v-switch>
+                  <v-switch v-model="is_confirmed" color="deep-orange" readonly hide-details label="Confirmed" style="margin-top: 0px;"></v-switch>
+                  <v-switch v-model="is_in_the_news" color="deep-orange" readonly hide-details label="Relayed in the News" style="margin-top: 0px;"></v-switch>
+                  <v-switch v-model="is_in_the_wild" color="deep-orange" readonly hide-details label="Exploited in the Wild" style="margin-top: 0px;"></v-switch>
                 </v-card-text>
               </v-card>
             </v-flex>
@@ -146,9 +146,9 @@
                   <v-card color="grey lighten-5" height="100%">
                     <v-card-title primary class="title">Impact</v-card-title>
                     <v-card-text>
-                      Confidentiality: {{this.vuln.impact.confidentiality}}<br/>
-                      Integrity: {{this.vuln.impact.integrity}}<br/>
-                      Availability: {{this.vuln.impact.availability}}<br/>
+                      Confidentiality: <span class="font-weight-bold">{{this.vuln.impact.confidentiality}}</span><br/>
+                      Integrity: <span class="font-weight-bold">{{this.vuln.impact.integrity}}</span><br/>
+                      Availability: <span class="font-weight-bold">{{this.vuln.impact.availability}}</span>
                     </v-card-text>
                   </v-card>
                 </v-col>
@@ -156,9 +156,9 @@
                   <v-card color="grey lighten-5" height="100%">
                     <v-card-title primary class="title">Access</v-card-title>
                     <v-card-text>
-                      Authentication: {{this.vuln.access.authentication}}<br/>
-                      Complexity: {{this.vuln.access.complexity}}<br/>
-                      Vector: {{this.vuln.access.vector}}<br/>
+                      Authentication: <span class="font-weight-bold">{{this.vuln.access.authentication}}</span><br/>
+                      Complexity: <span class="font-weight-bold">{{this.vuln.access.complexity}}</span><br/>
+                      Vector: <span class="font-weight-bold">{{this.vuln.access.vector}}</span>
                     </v-card-text>
                   </v-card>
                 </v-col>
@@ -179,7 +179,7 @@
 
     <!-- Exploits -->
     <v-tab-item>
-      <v-card>
+      <v-card color="grey lighten-5">
         <v-data-table
           :headers="exploit_headers"
           :items="exploits"
@@ -354,7 +354,7 @@
 
     <!-- Timeline -->
     <v-tab-item>
-      <v-card v-if="this.history">
+      <v-card v-if="this.history" color="grey lighten-5">
         <!-- {{this.history}} -->
         <v-timeline v-if="this.history.length > 0" clipped dense>
           <v-timeline-item
@@ -427,8 +427,8 @@ export default {
     defaultMetadata: {
       link: 'https://',
       notes: '',
-      trust_level: 'trusted',
-      trust_level_items: ['unknown', 'low', 'medium', 'trusted'],
+      trust_level: 'high',
+      trust_level_items: ['unknown', 'low', 'medium', 'high'],
       tlp_level: 'white',
       tlp_level_items: ['white', 'green', 'amber', 'red', 'black'],
       source: 'manual',

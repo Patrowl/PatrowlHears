@@ -8,6 +8,7 @@ import store from './store'
 import moment from 'moment'
 import axios from 'axios'
 import './common/filters'
+import './common/scores'
 
 // Axios
 axios.interceptors.response.use(

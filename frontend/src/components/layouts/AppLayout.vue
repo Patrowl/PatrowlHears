@@ -51,12 +51,12 @@
     <v-app-bar
       app
       clipped-left
-      color="light-blue accent-4"
+      color="grey lighten-2"
       dense
     >
       <!-- -->
       <v-app-bar-nav-icon @click="drawer = !drawer" />
-      <span class="title ml-3 mr-5">Patrowl&nbsp;<span class="font-weight-light">Hears</span></span>
+      <span class="title ml-3 mr-5 deep-orange--text">Patrowl&nbsp;<span class="font-weight-light deep">Hears</span></span>
       <v-text-field
         v-model="appsearch"
         solo-inverted
@@ -84,8 +84,9 @@
      </v-container>
    </v-content>
 
-   <v-footer app>
-     <!-- -->
+   <v-footer>
+     <v-spacer></v-spacer>
+    <div class="caption">&copy; {{ new Date().getFullYear() }} - Patrowl Hears</div>
    </v-footer>
   </v-app>
 </template>
@@ -126,9 +127,8 @@ export default {
   }),
   computed: {
     isAuthenticated() {
-      // return true;
       return this.$store.getters.isAuthenticated;
-    }
+    },
   },
   mounted() {
     this.getUsername();

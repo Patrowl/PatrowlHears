@@ -48,7 +48,7 @@ def get_dailymail_report_vendors(self):
     # last_vulns = Vuln.objects.filter(updated_at__gte=datetime(2020, 2, 14))
     last_vulns = Vuln.objects.filter(updated_at__gte=datetime.now() - timedelta(days=1)).order_by('-updated_at')
 
-    for lv in last_vulns:
+    for lv in last_vulns[:1000]:
         # Check if the vulnerability is monitored
         if lv.monitored is True and lv.vulnerable_products is not None and len(lv.vulnerable_products) > 0:
             for lvvp in lv.vulnerable_products:

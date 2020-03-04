@@ -142,9 +142,9 @@ class Vuln(models.Model):
     def save(self, *args, **kwargs):
         if not self.created_at:
             self.created_at = timezone.now()
-        self.updated_at = timezone.now()
 
         self.update_score()
+        self.updated_at = timezone.now()
         return super(Vuln, self).save(*args, **kwargs)
 
 

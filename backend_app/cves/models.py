@@ -140,5 +140,4 @@ class CVE(models.Model):
         if not self.created_at:
             self.created_at = timezone.now()
         self.updated_at = timezone.now()
-        print("saved")
         return super(CVE, self).save(*args, **kwargs)

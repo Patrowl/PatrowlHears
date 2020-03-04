@@ -1,42 +1,13 @@
 <template>
     <div>
       Settings Page
-      <v-row dense>
-        <!-- <v-col cols="3">
-          <v-card
-          class="mx-auto"
-          tile
-          >
-            <v-list dense>
-              <v-subheader>Sync with DB</v-subheader>
-              <v-list-item-group v-model="sync_item" color="primary">
-                <v-list-item
-                  v-for="(sync_item, i) in sync_items"
-                  :key="i"
-                  @click="callAction(sync_item)"
-                >
-                  <v-list-item-icon>
-                    <v-icon v-text="sync_item.icon" color="deep-orange"></v-icon>
-                  </v-list-item-icon>
-                  <v-list-item-content>
-                    <v-list-item-title
-                      v-text="sync_item.text"
-                      link
-                      :to="sync_item.to">
-                    </v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list-item-group>
-            </v-list>
-          </v-card>
-        </v-col> -->
+      <v-row>
         <v-col cols="3">
           <v-card
           class="mx-auto"
-          tile
           >
             <v-list dense>
-              <v-subheader>ASync with DB</v-subheader>
+              <v-subheader>Synchronize data</v-subheader>
               <v-list-item-group v-model="async_item" color="primary">
                 <v-list-item
                   v-for="(async_item, i) in async_items"

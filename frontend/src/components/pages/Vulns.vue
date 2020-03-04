@@ -240,6 +240,7 @@ export default {
   methods: {
     getDataFromApi() {
       this.loading = true;
+
       return new Promise((resolve, reject) => {
         const {
           sortBy,

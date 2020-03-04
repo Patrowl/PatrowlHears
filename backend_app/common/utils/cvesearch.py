@@ -328,7 +328,8 @@ def sync_exploits_fromvia(vuln_id=None, cve=None, from_date=None):
             }
             ex_hash = hash(json.dumps(_new_exploit, sort_keys=True, default=_json_serial))
             _new_exploit.update({'hash': ex_hash})
-            ex = ExploitMetadata.objects.filter(vuln=vuln, publicid=_new_exploit['publicid']).first()
+            ex = ExploitMetadata.objects.filter(
+                vuln=vuln, link=_new_exploit['link']).first()
             if ex is None:
                 new_exploit = ExploitMetadata(**_new_exploit)
                 new_exploit.save()
@@ -365,7 +366,8 @@ def sync_exploits_fromvia(vuln_id=None, cve=None, from_date=None):
             }
             ex_hash = hash(json.dumps(_new_exploit, sort_keys=True, default=_json_serial))
             _new_exploit.update({'hash': ex_hash})
-            ex = ExploitMetadata.objects.filter(vuln=vuln, publicid=_new_exploit['publicid']).first()
+            # ex = ExploitMetadata.objects.filter(vuln=vuln, publicid=_new_exploit['publicid']).first()
+            ex = ExploitMetadata.objects.filter(vuln=vuln, link=_new_exploit['link']).first()
             if ex is None:
                 new_exploit = ExploitMetadata(**_new_exploit)
                 new_exploit.save()
@@ -400,7 +402,8 @@ def sync_exploits_fromvia(vuln_id=None, cve=None, from_date=None):
             }
             ex_hash = hash(json.dumps(_new_exploit, sort_keys=True, default=_json_serial))
             _new_exploit.update({'hash': ex_hash})
-            ex = ExploitMetadata.objects.filter(vuln=vuln, publicid=_new_exploit['publicid']).first()
+            # ex = ExploitMetadata.objects.filter(vuln=vuln, publicid=_new_exploit['publicid']).first()
+            ex = ExploitMetadata.objects.filter(vuln=vuln, link=_new_exploit['link']).first()
             if ex is None:
                 new_exploit = ExploitMetadata(**_new_exploit)
                 new_exploit.save()
@@ -435,7 +438,8 @@ def sync_exploits_fromvia(vuln_id=None, cve=None, from_date=None):
             }
             ex_hash = hash(json.dumps(_new_exploit, sort_keys=True, default=_json_serial))
             _new_exploit.update({'hash': ex_hash})
-            ex = ExploitMetadata.objects.filter(vuln=vuln, publicid=_new_exploit['publicid']).first()
+            # ex = ExploitMetadata.objects.filter(vuln=vuln, publicid=_new_exploit['publicid']).first()
+            ex = ExploitMetadata.objects.filter(vuln=vuln, link=_new_exploit['link']).first()
             if ex is None:
                 new_exploit = ExploitMetadata(**_new_exploit)
                 new_exploit.save()
@@ -479,7 +483,8 @@ def sync_exploits_fromvia(vuln_id=None, cve=None, from_date=None):
                 }
                 ex_hash = hash(json.dumps(_new_exploit, sort_keys=True, default=_json_serial))
                 _new_exploit.update({'hash': ex_hash})
-                ex = ExploitMetadata.objects.filter(vuln=vuln, publicid=_new_exploit['publicid']).first()
+                # ex = ExploitMetadata.objects.filter(vuln=vuln, publicid=_new_exploit['publicid']).first()
+                ex = ExploitMetadata.objects.filter(vuln=vuln, link=_new_exploit['link']).first()
                 if ex is None:
                     new_exploit = ExploitMetadata(**_new_exploit)
                     new_exploit.save()
@@ -513,7 +518,8 @@ def sync_exploits_fromvia(vuln_id=None, cve=None, from_date=None):
             }
             ex_hash = hash(json.dumps(_new_exploit, sort_keys=True, default=_json_serial))
             _new_exploit.update({'hash': ex_hash})
-            ex = ExploitMetadata.objects.filter(vuln=vuln, publicid=_new_exploit['publicid']).first()
+            # ex = ExploitMetadata.objects.filter(vuln=vuln, publicid=_new_exploit['publicid']).first()
+            ex = ExploitMetadata.objects.filter(vuln=vuln, link=_new_exploit['link']).first()
             if ex is None:
                 new_exploit = ExploitMetadata(**_new_exploit)
                 new_exploit.save()
@@ -583,7 +589,8 @@ def sync_exploits_fromvia(vuln_id=None, cve=None, from_date=None):
                 }
                 ex_hash = hash(json.dumps(_new_exploit, sort_keys=True, default=_json_serial))
                 _new_exploit.update({'hash': ex_hash})
-                ex = ExploitMetadata.objects.filter(vuln=vuln, publicid=_new_exploit['publicid']).first()
+                # ex = ExploitMetadata.objects.filter(vuln=vuln, publicid=_new_exploit['publicid']).first()
+                ex = ExploitMetadata.objects.filter(vuln=vuln, link=_new_exploit['link']).first()
                 if ex is None:
                     new_exploit = ExploitMetadata(**_new_exploit)
                     new_exploit.save()
@@ -689,9 +696,10 @@ def sync_exploits_fromvia(vuln_id=None, cve=None, from_date=None):
 
     # Update reflinks and reflinkids
     reflinks.extend(vuln.reflinks)
-    vuln.reflinks = sorted(set(reflinks))
-    vuln.reflinkids.update(reflinkids)
-    vuln.save()
+    if sorted(vuln.reflinks) != sorted(set(reflinks)) or (not reflinkids.items() <= vuln.reflinkids.items()):
+        vuln.reflinks = sorted(set(reflinks))
+        vuln.reflinkids.update(reflinkids)
+        vuln.save()
     return True
 
 
@@ -713,13 +721,18 @@ def sync_vuln_fromcve(cve):
     vuln = Vuln.objects.filter(cve_id=cve).first()
     if vuln is None:
         vuln = Vuln(**_vuln_data)
+        vuln.save()
     else:
         # _vuln_data.update({'changeReason': 'sync'})
         # Vuln.objects.filter(id=vuln.id).update(**_vuln_data)
+        has_update = False
         for v in _vuln_data.keys():
             if _vuln_data[v] != getattr(vuln, v):
+                has_update = True
                 setattr(vuln, v, _vuln_data[v])
-    vuln.save()
+        if has_update is True:
+            vuln.save()
+    # vuln.save()
 
     sync_exploits_fromvia(vuln.id)
     return vuln

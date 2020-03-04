@@ -13216,3 +13216,395 @@ KeyError: 'rating'
 2020-03-02 12:25:20,269 django.server INFO     "GET /api/ratings/calc/2195 HTTP/1.1" 200 825
 2020-03-02 12:25:20,421 django.server INFO     "GET /api/vulns/2195/ HTTP/1.1" 200 1586
 2020-03-02 12:25:20,978 django.server INFO     "GET /api/vulns/2195/history HTTP/1.1" 200 2744
+2020-03-02 12:31:34,571 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/alerts/apis.py changed, reloading.
+2020-03-02 12:31:45,448 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-02 12:32:09,876 django.server INFO     "GET /api/alerts/vendors/report/daily HTTP/1.1" 200 2864039
+2020-03-02 12:34:30,565 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/models.py changed, reloading.
+2020-03-02 12:34:31,686 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-02 12:37:31,381 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+2020-03-02 12:37:32,734 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-02 14:18:12,329 django.server INFO     "GET /api/kb/bulletins/async HTTP/1.1" 200 11
+2020-03-02 14:18:21,702 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 20452
+2020-03-02 14:18:25,134 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-02 HTTP/1.1" 200 192946
+2020-03-02 14:18:29,220 django.server INFO     "GET /api/vulns/95026 HTTP/1.1" 301 0
+2020-03-02 14:18:29,273 django.server INFO     "GET /api/ratings/calc/95026 HTTP/1.1" 200 819
+2020-03-02 14:18:29,274 django.server INFO     "GET /api/vulns/95026/ HTTP/1.1" 200 139663
+2020-03-02 14:18:29,274 django.server INFO     "GET /api/vulns/95026/threats HTTP/1.1" 200 2
+2020-03-02 14:18:29,275 django.server INFO     "GET /api/vulns/95026/exploits HTTP/1.1" 200 15740
+2020-03-02 14:18:29,460 django.server INFO     "GET /api/vulns/95026/history HTTP/1.1" 200 143558
+2020-03-02 14:33:53,453 django.server INFO     "GET /api/ratings/calc/95026 HTTP/1.1" 200 819
+2020-03-02 14:33:53,455 django.server INFO     "GET /api/vulns/95026/threats HTTP/1.1" 200 2
+2020-03-02 14:33:53,457 django.server INFO     "GET /api/vulns/95026/exploits HTTP/1.1" 200 15740
+2020-03-02 14:33:53,701 django.server INFO     "GET /api/vulns/95026/ HTTP/1.1" 200 139663
+2020-03-02 14:33:53,727 django.server INFO     "GET /api/vulns/95026/history HTTP/1.1" 200 143558
+2020-03-02 14:36:24,229 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search= HTTP/1.1" 200 765
+2020-03-02 14:36:25,331 django.server INFO     "GET /api/kb/cve?limit=20&page=1&search= HTTP/1.1" 301 0
+2020-03-02 14:36:25,509 django.server INFO     "GET /api/kb/cve/?limit=20&page=1&search= HTTP/1.1" 200 90830
+2020-03-02 14:36:29,660 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-02 HTTP/1.1" 200 192946
+2020-03-02 14:36:41,596 django.server INFO     "GET /api/vulns/95022 HTTP/1.1" 301 0
+2020-03-02 14:36:41,651 django.server INFO     "GET /api/vulns/95022/threats HTTP/1.1" 200 2
+2020-03-02 14:36:41,653 django.server INFO     "GET /api/ratings/calc/95022 HTTP/1.1" 200 826
+2020-03-02 14:36:41,653 django.server INFO     "GET /api/vulns/95022/exploits HTTP/1.1" 200 11766
+2020-03-02 14:36:41,670 django.server INFO     "GET /api/vulns/95022/ HTTP/1.1" 200 2958
+2020-03-02 14:36:41,897 django.server INFO     "GET /api/vulns/95022/history HTTP/1.1" 200 3850
+2020-03-02 14:39:15,461 django.server INFO     "GET /api/vulns/95022/exploits HTTP/1.1" 200 11766
+2020-03-02 14:39:15,463 django.server INFO     "GET /api/vulns/95022/threats HTTP/1.1" 200 2
+2020-03-02 14:39:15,466 django.server INFO     "GET /api/ratings/calc/95022 HTTP/1.1" 200 826
+2020-03-02 14:39:15,677 django.server INFO     "GET /api/vulns/95022/ HTTP/1.1" 200 2958
+2020-03-02 14:39:15,780 django.server INFO     "GET /api/vulns/95022/history HTTP/1.1" 200 3850
+2020-03-02 14:39:27,859 django.server INFO     "GET /api/ratings/calc/95022 HTTP/1.1" 200 826
+2020-03-02 14:39:27,873 django.server INFO     "GET /api/vulns/95022/threats HTTP/1.1" 200 2
+2020-03-02 14:39:27,882 django.server INFO     "GET /api/ratings/calc/2195 HTTP/1.1" 200 825
+2020-03-02 14:39:27,912 django.server INFO     "GET /api/vulns/95022/exploits HTTP/1.1" 200 11766
+2020-03-02 14:39:27,971 django.server INFO     "GET /api/vulns/2195/exploits HTTP/1.1" 200 1051
+2020-03-02 14:39:27,985 django.server INFO     "GET /api/vulns/2195/threats HTTP/1.1" 200 2
+2020-03-02 14:39:27,991 django.server INFO     "GET /api/vulns/2195/ HTTP/1.1" 200 1586
+2020-03-02 14:39:27,993 django.server INFO     "GET /api/vulns/95022/ HTTP/1.1" 200 2958
+2020-03-02 14:39:28,224 django.server INFO     "GET /api/vulns/95022/history HTTP/1.1" 200 3850
+2020-03-02 14:39:28,372 django.server INFO     "GET /api/vulns/2195/history HTTP/1.1" 200 2744
+2020-03-02 14:39:37,383 django.server INFO     "GET /api/ratings/calc/2195 HTTP/1.1" 200 825
+2020-03-02 14:39:37,389 django.server INFO     "GET /api/vulns/2195/threats HTTP/1.1" 200 2
+2020-03-02 14:39:37,401 django.server INFO     "GET /api/vulns/2195/exploits HTTP/1.1" 200 1051
+2020-03-02 14:39:37,432 django.server INFO     "GET /api/ratings/calc/95022 HTTP/1.1" 200 826
+2020-03-02 14:39:37,483 django.server INFO     "GET /api/vulns/95022/exploits HTTP/1.1" 200 11766
+2020-03-02 14:39:37,499 django.server INFO     "GET /api/vulns/2195/ HTTP/1.1" 200 1586
+2020-03-02 14:39:37,500 django.server INFO     "GET /api/vulns/95022/threats HTTP/1.1" 200 2
+2020-03-02 14:39:37,514 django.server INFO     "GET /api/vulns/95022/ HTTP/1.1" 200 2958
+2020-03-02 14:39:37,744 django.server INFO     "GET /api/vulns/95022/history HTTP/1.1" 200 3850
+2020-03-02 14:39:37,890 django.server INFO     "GET /api/vulns/2195/history HTTP/1.1" 200 2744
+2020-03-02 14:41:15,912 django.server INFO     "GET /api/vulns/95022/exploits HTTP/1.1" 200 11766
+2020-03-02 14:41:15,915 django.server INFO     "GET /api/ratings/calc/95022 HTTP/1.1" 200 826
+2020-03-02 14:41:15,945 django.server INFO     "GET /api/vulns/95022/threats HTTP/1.1" 200 2
+2020-03-02 14:41:15,955 django.server INFO     "GET /api/vulns/95022/ HTTP/1.1" 200 2958
+2020-03-02 14:41:15,996 django.server INFO     "GET /api/ratings/calc/2195 HTTP/1.1" 200 825
+2020-03-02 14:41:15,998 django.server INFO     "GET /api/vulns/2195/exploits HTTP/1.1" 200 1051
+2020-03-02 14:41:16,005 django.server INFO     "GET /api/vulns/2195/threats HTTP/1.1" 200 2
+2020-03-02 14:41:16,015 django.server INFO     "GET /api/vulns/2195/ HTTP/1.1" 200 1586
+2020-03-02 14:41:16,265 django.server INFO     "GET /api/vulns/95022/history HTTP/1.1" 200 3850
+2020-03-02 14:41:16,384 django.server INFO     "GET /api/vulns/2195/history HTTP/1.1" 200 2744
+2020-03-02 14:42:34,651 django.server INFO     "GET /api/vulns/2195/exploits HTTP/1.1" 200 1051
+2020-03-02 14:42:34,655 django.server INFO     "GET /api/ratings/calc/2195 HTTP/1.1" 200 825
+2020-03-02 14:42:34,662 django.server INFO     "GET /api/vulns/2195/threats HTTP/1.1" 200 2
+2020-03-02 14:42:34,676 django.server INFO     "GET /api/vulns/2195/ HTTP/1.1" 200 1586
+2020-03-02 14:42:35,003 django.server INFO     "GET /api/vulns/2195/history HTTP/1.1" 200 2744
+2020-03-02 14:44:24,517 django.server INFO     "GET /api/ratings/calc/2195 HTTP/1.1" 200 825
+2020-03-02 14:44:24,517 django.server INFO     "GET /api/vulns/2195/ HTTP/1.1" 200 1586
+2020-03-02 14:44:24,517 django.server INFO     "GET /api/vulns/2195/threats HTTP/1.1" 200 2
+2020-03-02 14:44:24,530 django.server INFO     "GET /api/vulns/2195/exploits HTTP/1.1" 200 1051
+2020-03-02 14:44:24,592 django.server INFO     "GET /api/ratings/calc/95022 HTTP/1.1" 200 826
+2020-03-02 14:44:24,598 django.server INFO     "GET /api/vulns/95022/threats HTTP/1.1" 200 2
+2020-03-02 14:44:24,599 django.server INFO     "GET /api/vulns/95022/ HTTP/1.1" 200 2958
+2020-03-02 14:44:24,600 django.server INFO     "GET /api/vulns/95022/exploits HTTP/1.1" 200 11766
+2020-03-02 14:44:24,795 django.server INFO     "GET /api/vulns/95022/history HTTP/1.1" 200 3850
+2020-03-02 14:44:24,906 django.server INFO     "GET /api/vulns/2195/history HTTP/1.1" 200 2744
+2020-03-02 14:44:58,812 django.server INFO     "GET /api/vulns/95022/ HTTP/1.1" 200 2958
+2020-03-02 14:44:58,813 django.server INFO     "GET /api/vulns/95022/exploits HTTP/1.1" 200 11766
+2020-03-02 14:44:58,818 django.server INFO     "GET /api/vulns/95022/threats HTTP/1.1" 200 2
+2020-03-02 14:44:58,820 django.server INFO     "GET /api/ratings/calc/95022 HTTP/1.1" 200 826
+2020-03-02 14:44:58,867 django.server INFO     "GET /api/vulns/2195/exploits HTTP/1.1" 200 1051
+2020-03-02 14:44:58,876 django.server INFO     "GET /api/ratings/calc/2195 HTTP/1.1" 200 825
+2020-03-02 14:44:58,881 django.server INFO     "GET /api/vulns/2195/threats HTTP/1.1" 200 2
+2020-03-02 14:44:58,882 django.server INFO     "GET /api/vulns/2195/ HTTP/1.1" 200 1586
+2020-03-02 14:44:59,134 django.server INFO     "GET /api/vulns/95022/history HTTP/1.1" 200 3850
+2020-03-02 14:44:59,267 django.server INFO     "GET /api/vulns/2195/history HTTP/1.1" 200 2744
+2020-03-02 14:47:21,993 django.server INFO     "GET /api/ratings/calc/2195 HTTP/1.1" 200 825
+2020-03-02 14:47:21,995 django.server INFO     "GET /api/vulns/2195/exploits HTTP/1.1" 200 1051
+2020-03-02 14:47:21,996 django.server INFO     "GET /api/vulns/2195/threats HTTP/1.1" 200 2
+2020-03-02 14:47:22,007 django.server INFO     "GET /api/vulns/2195/ HTTP/1.1" 200 1586
+2020-03-02 14:47:22,143 django.server INFO     "GET /api/ratings/calc/95022 HTTP/1.1" 200 826
+2020-03-02 14:47:22,143 django.server INFO     "GET /api/vulns/95022/threats HTTP/1.1" 200 2
+2020-03-02 14:47:22,145 django.server INFO     "GET /api/vulns/95022/ HTTP/1.1" 200 2958
+2020-03-02 14:47:22,145 django.server INFO     "GET /api/vulns/95022/exploits HTTP/1.1" 200 11766
+2020-03-02 14:47:22,506 django.server INFO     "GET /api/vulns/95022/history HTTP/1.1" 200 3850
+2020-03-02 14:47:22,639 django.server INFO     "GET /api/vulns/2195/history HTTP/1.1" 200 2744
+2020-03-02 14:49:26,780 django.server INFO     "GET /api/alerts/vendors/report/daily HTTP/1.1" 200 2723779
+2020-03-02 14:50:34,748 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/models.py changed, reloading.
+2020-03-02 14:50:35,961 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-02 14:50:42,037 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/models.py changed, reloading.
+2020-03-02 14:50:42,771 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-02 14:54:22,054 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/tasks.py changed, reloading.
+2020-03-02 14:54:22,825 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-02 14:59:16,284 django.server INFO     "GET /api/alerts/vendors/report/daily HTTP/1.1" 200 2723779
+2020-03-02 14:59:18,616 django.server INFO     "GET /api/kb/cve/CVE-2000-0624/sync HTTP/1.1" 200 7
+2020-03-02 14:59:40,095 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/models.py changed, reloading.
+2020-03-02 14:59:40,844 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-02 14:59:45,726 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/models.py changed, reloading.
+2020-03-02 14:59:46,466 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-02 14:59:54,250 django.server INFO     "GET /api/kb/cve/CVE-2000-0624/sync HTTP/1.1" 200 7
+2020-03-02 15:10:35,812 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+2020-03-02 15:10:36,621 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-02 15:10:42,251 django.server INFO     "GET /api/kb/cve/CVE-2000-0624/sync HTTP/1.1" 200 7
+2020-03-02 15:10:48,266 django.server INFO     "GET /api/kb/cve/CVE-2000-0624/sync HTTP/1.1" 200 7
+2020-03-02 15:11:04,697 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+2020-03-02 15:11:05,414 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-02 15:11:10,967 django.server INFO     "GET /api/kb/cve/CVE-2000-0624/sync HTTP/1.1" 200 7
+2020-03-02 15:11:20,226 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+2020-03-02 15:11:20,948 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-02 15:11:26,606 django.server INFO     "GET /api/kb/cve/CVE-2000-0624/sync HTTP/1.1" 200 7
+2020-03-02 15:11:58,705 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+2020-03-02 15:11:59,400 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-02 15:12:05,061 django.server INFO     "GET /api/kb/cve/CVE-2000-0624/sync HTTP/1.1" 200 7
+2020-03-02 15:14:43,667 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+2020-03-02 15:14:44,750 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-02 15:14:50,404 django.server INFO     "GET /api/kb/cve/CVE-2000-0624/sync HTTP/1.1" 200 7
+2020-03-02 15:15:57,606 django.server INFO     "GET /api/kb/cve/CVE-2000-0624/sync HTTP/1.1" 200 7
+2020-03-02 15:16:04,184 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-02 15:16:09,702 django.server INFO     "GET /api/kb/cve/CVE-2000-0624/sync HTTP/1.1" 200 7
+2020-03-02 15:17:08,211 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+2020-03-02 15:17:09,446 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-02 15:17:16,891 django.server INFO     "GET /api/kb/cve/CVE-2000-0624/sync HTTP/1.1" 200 7
+2020-03-02 15:18:10,030 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+2020-03-02 15:18:11,079 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-02 15:18:17,999 django.server INFO     "GET /api/kb/cve/CVE-2000-0624/sync HTTP/1.1" 200 7
+2020-03-02 15:18:28,096 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+2020-03-02 15:18:29,162 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-02 15:18:52,869 django.server INFO     "GET /api/kb/cve/CVE-2000-0624/sync HTTP/1.1" 200 7
+2020-03-02 15:18:57,964 django.server INFO     "GET /api/kb/cve/CVE-2000-0624/sync HTTP/1.1" 200 7
+2020-03-02 15:19:18,899 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+2020-03-02 15:19:19,968 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-02 15:19:28,203 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+2020-03-02 15:19:29,208 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-02 15:19:34,204 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+2020-03-02 15:19:35,083 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-02 15:19:40,586 django.server INFO     "GET /api/kb/cve/CVE-2000-0624/sync HTTP/1.1" 200 7
+2020-03-02 15:20:50,658 django.server INFO     "GET /api/kb/cve/CVE-2000-0624/sync HTTP/1.1" 200 7
+2020-03-02 15:20:55,053 django.server INFO     "GET /api/kb/cve/CVE-2000-0624/sync HTTP/1.1" 200 7
+2020-03-02 15:21:38,516 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+2020-03-02 15:21:39,545 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-02 15:21:49,947 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/models.py changed, reloading.
+2020-03-02 15:21:50,942 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-02 15:22:34,074 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+2020-03-02 15:22:35,135 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-02 15:22:44,380 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+2020-03-02 15:22:45,157 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-02 15:22:52,854 django.server INFO     "GET /api/kb/cve/CVE-2000-0624/sync HTTP/1.1" 200 7
+2020-03-02 15:22:55,466 django.server INFO     "GET /api/kb/cve/CVE-2000-0624/sync HTTP/1.1" 200 7
+2020-03-02 15:22:55,964 django.server INFO     "GET /api/kb/cve/CVE-2000-0624/sync HTTP/1.1" 200 7
+2020-03-02 15:22:56,519 django.server INFO     "GET /api/kb/cve/CVE-2000-0624/sync HTTP/1.1" 200 7
+2020-03-02 15:22:56,769 django.server INFO     "GET /api/kb/cve/CVE-2000-0624/sync HTTP/1.1" 200 7
+2020-03-02 15:22:56,934 django.server INFO     "GET /api/kb/cve/CVE-2000-0624/sync HTTP/1.1" 200 7
+2020-03-02 15:22:57,124 django.server INFO     "GET /api/kb/cve/CVE-2000-0624/sync HTTP/1.1" 200 7
+2020-03-02 15:22:57,272 django.server INFO     "GET /api/kb/cve/CVE-2000-0624/sync HTTP/1.1" 200 7
+2020-03-02 15:22:57,440 django.server INFO     "GET /api/kb/cve/CVE-2000-0624/sync HTTP/1.1" 200 7
+2020-03-02 15:22:57,624 django.server INFO     "GET /api/kb/cve/CVE-2000-0624/sync HTTP/1.1" 200 7
+2020-03-02 15:24:52,126 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 70
+2020-03-02 15:24:52,784 django.server INFO     "GET /api/vulns/latest HTTP/1.1" 200 7982
+2020-03-02 15:25:04,723 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-02 HTTP/1.1" 200 191384
+2020-03-02 15:25:06,592 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 70
+2020-03-02 15:25:07,193 django.server INFO     "GET /api/vulns/latest HTTP/1.1" 200 7982
+2020-03-02 15:25:15,440 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search=django HTTP/1.1" 200 904
+2020-03-02 15:25:15,605 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search= HTTP/1.1" 200 765
+2020-03-02 15:25:34,923 django.server INFO     "GET /api/ratings/calc/2195 HTTP/1.1" 200 825
+2020-03-02 15:25:34,929 django.server INFO     "GET /api/vulns/2195/exploits HTTP/1.1" 200 1051
+2020-03-02 15:25:34,937 django.server INFO     "GET /api/vulns/2195/threats HTTP/1.1" 200 2
+2020-03-02 15:25:34,947 django.server INFO     "GET /api/vulns/2195/ HTTP/1.1" 200 1587
+2020-03-02 15:25:35,379 django.server INFO     "GET /api/vulns/2195/history HTTP/1.1" 200 3358
+2020-03-02 15:25:37,837 django.server INFO     "GET /api/vulns/2195/threats HTTP/1.1" 200 2
+2020-03-02 15:25:37,842 django.server INFO     "GET /api/vulns/2195/ HTTP/1.1" 200 1587
+2020-03-02 15:25:37,843 django.server INFO     "GET /api/ratings/calc/2195 HTTP/1.1" 200 825
+2020-03-02 15:25:37,846 django.server INFO     "GET /api/vulns/2195/exploits HTTP/1.1" 200 1051
+2020-03-02 15:25:38,238 django.server INFO     "GET /api/vulns/2195/history HTTP/1.1" 200 3358
+2020-03-02 15:25:41,285 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search= HTTP/1.1" 200 765
+2020-03-02 15:25:42,762 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search=django HTTP/1.1" 200 904
+2020-03-02 15:25:48,355 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search= HTTP/1.1" 200 765
+2020-03-02 15:25:59,641 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search=django HTTP/1.1" 200 904
+2020-03-02 15:26:04,760 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-02 15:26:05,733 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-02 15:26:11,962 django.server INFO     "GET /api/kb/products/?limit=10&page=2&search=django HTTP/1.1" 200 311
+2020-03-02 15:26:23,543 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-02 HTTP/1.1" 200 191384
+2020-03-02 15:26:29,280 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=dj&&updated_at__gte=2020-03-02 HTTP/1.1" 200 105864
+2020-03-02 15:26:29,498 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=dja&&updated_at__gte=2020-03-02 HTTP/1.1" 200 57034
+2020-03-02 15:26:29,847 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=djan&&updated_at__gte=2020-03-02 HTTP/1.1" 200 83805
+2020-03-02 15:26:30,277 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=djang&&updated_at__gte=2020-03-02 HTTP/1.1" 200 83806
+2020-03-02 15:26:30,701 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=django&&updated_at__gte=2020-03-02 HTTP/1.1" 200 83807
+2020-03-02 15:26:32,718 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=d&&updated_at__gte=2020-03-02 HTTP/1.1" 200 191385
+2020-03-02 15:26:51,234 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=djang&&updated_at__gte=2020-03-02 HTTP/1.1" 200 83806
+2020-03-02 15:26:51,603 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=django&&updated_at__gte=2020-03-02 HTTP/1.1" 200 83807
+2020-03-02 15:26:56,786 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=django&sorted_by=cve&updated_at__gte=2020-03-02 HTTP/1.1" 200 42962
+2020-03-02 15:26:59,176 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=django&sorted_by=-cve&updated_at__gte=2020-03-02 HTTP/1.1" 200 83822
+2020-03-02 15:27:05,176 django.server INFO     "GET /api/vulns/94439 HTTP/1.1" 301 0
+2020-03-02 15:27:05,212 django.server INFO     "GET /api/ratings/calc/94439 HTTP/1.1" 200 823
+2020-03-02 15:27:05,213 django.server INFO     "GET /api/vulns/94439/exploits HTTP/1.1" 200 18544
+2020-03-02 15:27:05,222 django.server INFO     "GET /api/vulns/94439/ HTTP/1.1" 200 2139
+2020-03-02 15:27:05,224 django.server INFO     "GET /api/vulns/94439/threats HTTP/1.1" 200 2
+2020-03-02 15:27:05,315 django.server INFO     "GET /api/vulns/94439/history HTTP/1.1" 200 3392
+2020-03-02 15:41:34,162 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 70
+2020-03-02 15:41:34,711 django.server INFO     "GET /api/vulns/latest HTTP/1.1" 200 7982
+2020-03-02 15:45:16,353 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search= HTTP/1.1" 200 765
+2020-03-02 15:47:00,109 django.server INFO     "GET /api/vulns/2195/exploits HTTP/1.1" 200 1051
+2020-03-02 15:47:00,110 django.server INFO     "GET /api/ratings/calc/2195 HTTP/1.1" 200 825
+2020-03-02 15:47:00,114 django.server INFO     "GET /api/vulns/2195/threats HTTP/1.1" 200 2
+2020-03-02 15:47:00,115 django.server INFO     "GET /api/vulns/2195/ HTTP/1.1" 200 1587
+2020-03-02 15:47:00,430 django.server INFO     "GET /api/vulns/2195/history HTTP/1.1" 200 3358
+2020-03-02 15:47:01,468 django.server INFO     "GET /api/vulns/2195/threats HTTP/1.1" 200 2
+2020-03-02 15:47:01,473 django.server INFO     "GET /api/vulns/2195/exploits HTTP/1.1" 200 1051
+2020-03-02 15:47:01,475 django.server INFO     "GET /api/ratings/calc/2195 HTTP/1.1" 200 825
+2020-03-02 15:47:01,480 django.server INFO     "GET /api/vulns/2195/ HTTP/1.1" 200 1587
+2020-03-02 15:47:01,797 django.server INFO     "GET /api/vulns/2195/history HTTP/1.1" 200 3358
+2020-03-02 15:47:06,159 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search= HTTP/1.1" 200 765
+2020-03-02 15:47:12,215 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search= HTTP/1.1" 200 765
+2020-03-02 15:48:21,058 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search= HTTP/1.1" 200 765
+2020-03-02 15:48:25,390 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 70
+2020-03-02 15:48:25,926 django.server INFO     "GET /api/vulns/latest HTTP/1.1" 200 7982
+2020-03-02 15:48:28,061 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search= HTTP/1.1" 200 765
+2020-03-02 15:51:54,361 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 70
+2020-03-02 15:51:54,915 django.server INFO     "GET /api/vulns/latest HTTP/1.1" 200 7982
+2020-03-02 15:52:55,304 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-02 HTTP/1.1" 200 191384
+2020-03-02 15:53:09,282 django.server INFO     "GET /api/search/django?limit=25&page=undefined HTTP/1.1" 200 699890
+2020-03-02 15:53:49,428 django.server INFO     "GET /api/vulns/23289 HTTP/1.1" 301 0
+2020-03-02 15:53:49,461 django.server INFO     "GET /api/vulns/23289/threats HTTP/1.1" 200 2
+2020-03-02 15:53:49,464 django.server INFO     "GET /api/vulns/23289/exploits HTTP/1.1" 200 2
+2020-03-02 15:53:49,469 django.server INFO     "GET /api/vulns/23289/ HTTP/1.1" 200 1185
+2020-03-02 15:53:49,469 django.server INFO     "GET /api/ratings/calc/23289 HTTP/1.1" 200 825
+2020-03-02 15:53:49,576 django.server INFO     "GET /api/vulns/23289/history HTTP/1.1" 200 1699
+2020-03-02 15:56:33,718 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 20452
+2020-03-02 15:56:36,814 django.server INFO     "GET /api/exploits/?limit=10&page=2&search= HTTP/1.1" 200 21708
+2020-03-02 15:56:46,125 django.server INFO     "GET /api/ratings/calc/122590 HTTP/1.1" 200 830
+2020-03-02 15:56:46,125 django.server INFO     "GET /api/vulns/122590/exploits HTTP/1.1" 200 20463
+2020-03-02 15:56:46,126 django.server INFO     "GET /api/vulns/122590/ HTTP/1.1" 200 4329
+2020-03-02 15:56:46,127 django.server INFO     "GET /api/vulns/122590/threats HTTP/1.1" 200 2
+2020-03-02 15:56:46,164 django.server INFO     "GET /api/vulns/122590/history HTTP/1.1" 200 2114
+2020-03-02 15:58:30,722 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 20452
+2020-03-02 16:43:01,246 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 70
+2020-03-02 16:43:01,824 django.server INFO     "GET /api/vulns/latest HTTP/1.1" 200 7982
+2020-03-02 16:43:12,864 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search=&monitored=yes HTTP/1.1" 200 720
+2020-03-02 16:43:14,965 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-02 16:43:16,576 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-02 16:43:17,326 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-02 16:43:17,850 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search= HTTP/1.1" 200 765
+2020-03-02 16:43:21,895 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search=&monitored=yes HTTP/1.1" 200 687
+2020-03-02 16:43:26,387 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search= HTTP/1.1" 200 765
+2020-03-02 16:43:30,572 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search=&monitored=yes HTTP/1.1" 200 687
+2020-03-02 16:43:34,195 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search= HTTP/1.1" 200 765
+2020-03-02 16:43:42,716 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search=&monitored=yes HTTP/1.1" 200 687
+2020-03-02 16:43:46,566 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search= HTTP/1.1" 200 765
+2020-03-02 16:43:48,976 django.server INFO     "GET /api/kb/products/?limit=10&page=2&search=&monitored=yes HTTP/1.1" 200 238
+2020-03-03 09:07:43,065 django.request WARNING  Not Found: /HNAP1/
+2020-03-03 09:10:20,462 django.request WARNING  Not Found: /BasicDeviceDescription.xml
+2020-03-03 10:57:21,166 django.request WARNING  Not Found: /api/vpratings/metrics
+2020-03-03 10:57:21,399 django.request WARNING  Not Found: /favicon.ico
+2020-03-03 14:39:54,553 django.request ERROR    Internal Server Error: /api/ratings/calc/122590
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vpratings/apis.py", line 58, in calc_vprating_by_vulnid
+    vpr = _calc_vprating(vuln=vuln, asset_metadata=asset_metadata)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vpratings/utils.py", line 67, in _calc_vprating
+    vpr.calc_score()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vpratings/models.py", line 183, in calc_score
+    vpr_threat = self._calc_vpr_threat()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vpratings/models.py", line 256, in _calc_vpr_threat
+    exploit_score += VPR_METRICS['threat']['exploit_trust'][exploit.trust_level]
+KeyError: 'trusted'
+2020-03-03 14:40:26,857 django.request ERROR    Internal Server Error: /api/ratings/calc/122590
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vpratings/apis.py", line 58, in calc_vprating_by_vulnid
+    vpr = _calc_vprating(vuln=vuln, asset_metadata=asset_metadata)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vpratings/utils.py", line 67, in _calc_vprating
+    vpr.calc_score()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vpratings/models.py", line 183, in calc_score
+    vpr_threat = self._calc_vpr_threat()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vpratings/models.py", line 256, in _calc_vpr_threat
+    exploit_score += VPR_METRICS['threat']['exploit_trust'][exploit.trust_level]
+KeyError: 'trusted'
+2020-03-03 14:40:30,641 django.request ERROR    Internal Server Error: /api/ratings/calc/122590
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vpratings/apis.py", line 58, in calc_vprating_by_vulnid
+    vpr = _calc_vprating(vuln=vuln, asset_metadata=asset_metadata)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vpratings/utils.py", line 67, in _calc_vprating
+    vpr.calc_score()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vpratings/models.py", line 183, in calc_score
+    vpr_threat = self._calc_vpr_threat()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vpratings/models.py", line 256, in _calc_vpr_threat
+    exploit_score += VPR_METRICS['threat']['exploit_trust'][exploit.trust_level]
+KeyError: 'trusted'
+2020-03-03 14:43:18,746 django.request ERROR    Internal Server Error: /api/ratings/calc/122590
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vpratings/apis.py", line 58, in calc_vprating_by_vulnid
+    vpr = _calc_vprating(vuln=vuln, asset_metadata=asset_metadata)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vpratings/utils.py", line 67, in _calc_vprating
+    vpr.calc_score()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vpratings/models.py", line 183, in calc_score
+    vpr_vuln = self._calc_vpr_vuln()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vpratings/models.py", line 256, in _calc_vpr_threat
+    # Trust level
+KeyError: 'trusted'
+2020-03-04 10:20:43,632 django.request WARNING  Not Found: /favicon.ico

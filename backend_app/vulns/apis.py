@@ -151,7 +151,7 @@ def add_exploit(self, vuln_id):
 
 @api_view(['GET'])
 def del_exploit(self, vuln_id, exploit_id):
-    vuln = get_object_or_404(Vuln, id=vuln_id)
+    get_object_or_404(Vuln, id=vuln_id)
     exploit = get_object_or_404(ExploitMetadata, id=exploit_id)
     exploit.delete()
     return JsonResponse("deleted", safe=False)
@@ -187,7 +187,7 @@ def add_threat(self, vuln_id):
 
 @api_view(['GET'])
 def del_threat(self, vuln_id, threat_id):
-    vuln = get_object_or_404(Vuln, id=vuln_id)
+    get_object_or_404(Vuln, id=vuln_id)
     threat = get_object_or_404(ThreatMetadata, id=threat_id)
     threat.delete()
     return JsonResponse("deleted", safe=False)

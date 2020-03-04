@@ -23,6 +23,48 @@ VPR_METRICS = {
         'cvss2_base_score': {   # 70% --> max_cvss=3,5
             'default': 2.5,
         },
+        'cvss2': {
+            'access': {
+                'complexity': {
+                    'default': 0.35,
+                    'low': 0.71,
+                    'medium': 0.61,
+                    'high': 0.35
+                },
+                'authentication': {
+                    'default': 0.704,
+                    'none': 0.704,
+                    'single': 0.56,
+                    'multiple': 0.45
+                },
+                'vector': {
+                    'default': 0.395,
+                    'local': 0.395,
+                    'adjacent': 0.646,
+                    'network': 1
+                }
+            },
+            'impact': {
+                'confidentiality': {
+                    'default': 0,
+                    'none': 0,
+                    'partial': 0.275,
+                    'complete': 0.660
+                },
+                'integrity': {
+                    'default': 0,
+                    'none': 0,
+                    'partial': 0.275,
+                    'complete': 0.660
+                },
+                'availability': {
+                    'default': 0,
+                    'none': 0,
+                    'partial': 0.275,
+                    'complete': 0.660
+                }
+            }
+        },
         'confirmation': {
             'default': 0,
             'is_confirmed': 0.25
@@ -65,6 +107,7 @@ VPR_METRICS = {
             'unknown': 0,
             'low': 0.1,
             'medium': 0.25,
+            'high': 0.5,
             'trusted': 0.5
         },
         'exploit_age': {    # Less than N days
@@ -77,8 +120,10 @@ VPR_METRICS = {
         },
         'threat_intensity': {
             'default': 0,
-            'is_in_the_news': 0.75,
-            'is_in_the_wild': 0.75
+            'is_in_the_news': 0.66,
+            'is_in_the_wild': 0.66,
+            # 'is_in_the_news': 0.75,
+            # 'is_in_the_wild': 0.75
         },
     },
     'asset': {
@@ -95,7 +140,7 @@ VPR_METRICS = {
             # 'default': 1,
             'restricted': 0.5,
             'internal': 1,
-            'internet': 2
+            'external': 2
         },
         'distribution': {
             'default': 1,
