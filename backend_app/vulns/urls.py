@@ -3,7 +3,7 @@ from . import apis
 
 
 urlpatterns = [
-    path('<vuln_id>/refresh_scores', apis.refresh_vulns_score_async, name='refresh_vulns_score_async'),
+    path('<vuln_id>/refresh_score', apis.refresh_vuln_score, name='refresh_vuln_score'),
     path('<vuln_id>/history', apis.get_vuln_history, name='get_vuln_history'),
     path('<vuln_id>/exploits', apis.get_exploits, name='get_exploits'),
     path('<vuln_id>/exploits/add', apis.add_exploit, name='add_exploit'),

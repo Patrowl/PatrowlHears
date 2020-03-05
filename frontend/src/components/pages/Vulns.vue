@@ -127,7 +127,6 @@
           v-if="item.is_confirmed == true"
         >
         </v-icon>
-
       </template>
 
       <!-- Updated at -->
@@ -191,9 +190,7 @@ export default {
       { text: 'CVE', value: 'cve', width: '150px' },
       { text: 'Summary', value: 'summary' },
       { text: 'CVSSv2', value: 'cvss', align: 'center' },
-      // { text: 'Score', value: 'rating', align: 'center' },
       { text: 'Score', value: 'score', align: 'center' },
-      // { text: 'Exploits', value: 'is_exploitable', align: 'center' },
       { text: 'Exploits', value: 'exploit_count', align: 'center' },
       { text: 'Confirm ?', value: 'is_confirmed', align: 'center' },
       { text: 'Last update', value: 'updated_at', align: 'center' },

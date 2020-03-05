@@ -31,6 +31,52 @@
       </v-layout>
 
       <v-layout row wrap>
+        <v-flex md12>
+          <v-card outlined>
+            <v-card-title>Latest Monitored Vulnerabilities</v-card-title>
+            <v-card-text class="text-center">
+              <v-data-table
+                :headers="monitored_vulns_headers"
+                :items="monitored_vulns"
+                :items-per-page="5"
+                @click:row="viewVuln"
+              >
+                <template v-slot:item.summary="{ item }">
+                  <v-clamp autoresize :max-lines="1">
+                    {{ item.summary }}
+                  </v-clamp>
+                </template>
+
+                <template v-slot:item.score="{ item }">
+                  <v-chip
+                    :color="getRatingColor(item.score)"
+                    class="text-center"
+                    small
+                  >
+                  {{item.score}}
+                  </v-chip>
+                </template>
+
+                <template v-slot:item.is_confirmed="{ item }">
+                  <v-icon
+                    small
+                    class="mdi mdi-check"
+                    color="gray"
+                    v-if="item.is_confirmed == true"
+                  >
+                  </v-icon>
+                </template>
+
+                <template v-slot:item.updated_at="{ item }">
+                  <span>{{moment(item.updated_at).format('YYYY-MM-DD, hh:mm:ss')}}</span>
+                </template>
+
+              </v-data-table>
+            </v-card-text>
+          </v-card>
+        </v-flex>
+      </v-layout>
+      <v-layout row wrap>
         <v-flex md6>
           <v-card outlined>
             <v-card-title>Latest Vulnerabilities</v-card-title>
@@ -81,9 +127,11 @@
 </template>
 
 <script>
-// import router from "../../router";
+import swal from 'sweetalert2';
 import VClamp from 'vue-clamp';
 import Colors from "../../common/colors";
+import moment from 'moment';
+
 export default {
   name: "Home",
   mixins: [Colors],
@@ -100,13 +148,22 @@ export default {
       { text: 'CVE', value: 'cve', fixed: true },
       { text: 'Summary', value: 'summary' },
     ],
+    monitored_vulns: [],
+    monitored_vulns_headers: [
+      { text: 'PHID', value: 'id', fixed: true },
+      { text: 'CVE', value: 'cve', fixed: true },
+      { text: 'Summary', value: 'summary' },
+      { text: 'Score', value: 'score' },
+      { text: 'Exploits', value: 'exploit_count', align: 'center' },
+      { text: 'Confirm ?', value: 'is_confirmed', align: 'center' },
+      { text: 'Last update', value: 'updated_at', align: 'center' }
+    ],
     exploits: [],
     exploits_headers: [
       { text: 'Source', value: 'source', fixed: true },
       { text: 'Link', value: 'link', fixed: true },
       { text: 'Trust', value: 'trust_level', fixed: true },
     ],
-    monitored: [],
   }),
   mounted() {
     this.getStats();
@@ -126,14 +183,15 @@ export default {
       });
     },
     getLastVulns() {
-      this.$api.get('/api/vulns/latest').then(res => {
+      this.$api.get('/api/vulns/latest?timedelta=30').then(res => {
         if (res && res.status === 200) {
           this.vulns = res.data.vulns;
           this.exploits = res.data.exploits;
+          this.monitored_vulns = res.data.monitored_vulns;
         }
       }).catch(e => {
         swal.fire({
-          title: 'Error', text: 'Unable to get stats',
+          title: 'Error', text: 'Unable to get vulnerabilities and exploits',
           showConfirmButton: false, showCloseButton: false, timer: 3000
         });
       });

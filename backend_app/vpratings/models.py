@@ -49,19 +49,22 @@ VPR_METRICS = {
                     'default': 0,
                     'none': 0,
                     'partial': 0.275,
-                    'complete': 0.660
+                    'complete': 0.660,
+                    'high': 0.660
                 },
                 'integrity': {
                     'default': 0,
                     'none': 0,
                     'partial': 0.275,
-                    'complete': 0.660
+                    'complete': 0.660,
+                    'high': 0.660
                 },
                 'availability': {
                     'default': 0,
                     'none': 0,
                     'partial': 0.275,
-                    'complete': 0.660
+                    'complete': 0.660,
+                    'high': 0.660
                 }
             }
         },
@@ -69,7 +72,6 @@ VPR_METRICS = {
             'default': 0,
             'is_confirmed': 0.25
         },
-        # 'detection': {},
         'remediation': {
             'default': 0,
             'unknown': 0,
@@ -129,21 +131,22 @@ VPR_METRICS = {
     'asset': {
         'max_score': 4,
         'criticality': {
-            'default': 1,
+            'default': 0,
+            # 'default': 1,
             # 'default': 0.3,
             'low': 0.1,
             'medium': 0.3,
             'high': 1
         },
         'exposure': {
-            'default': 2,
+            'default': 0,
             # 'default': 1,
             'restricted': 0.5,
             'internal': 1,
             'external': 2
         },
         'distribution': {
-            'default': 1,
+            'default': 0,
             # 'default': 0.5,
             'low': 0.2,
             'medium': 0.5,
@@ -232,16 +235,16 @@ class VPRating(models.Model):
                 vpr_threat * 4 +
                 vpr_asset * 5)
             self.score_details = {
-                'vuln': int(vpr_vuln),
-                'threat': int(vpr_threat),
-                'asset': int(vpr_asset)
+                'vuln': vpr_vuln,
+                'threat': vpr_threat,
+                'asset': vpr_asset
             }
-        # print('calc_score:', self.score, self.vector)
+        # print('calc_score:', self.score, self.score_details)
         return self.score
 
     def _calc_vpr_vuln(self):
         # print("_calc_vpr_vuln()", self.data['vulnerability'])
-        vpr_vuln_score = 0
+        vpr_vuln_score = 0.0
 
         # CVSSv2 Base Score (Impact + Exploitability)
         if 'cvss' in self.data['vulnerability'].keys():
@@ -263,7 +266,6 @@ class VPRating(models.Model):
 
         # Age
         if 'published' in self.data['vulnerability'].keys():
-            # vpr_vuln_score += VPR_METRICS['vulnerability']['age']
             for c in VPR_METRICS['vulnerability']['age']['caps'].keys():
                 pubdate = self.data['vulnerability']['published']
                 delta = datetime.now() - pubdate
@@ -300,7 +302,7 @@ class VPRating(models.Model):
             # Trust level
             exploit_score += VPR_METRICS['threat']['exploit_trust'][exploit.trust_level]
 
-            # Age
+            # Exploit Age
             for c in VPR_METRICS['threat']['exploit_age']['caps'].keys():
                 if exploit.published is not None:
                     delta = datetime.now() - exploit.published

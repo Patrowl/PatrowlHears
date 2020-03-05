@@ -3,71 +3,96 @@ export default {
     calcVulnScore(subvector, m_values) {
       if (m_values == undefined || Object.keys(m_values).length === 0) return 0;
       let score = 0.0;
+      let cvss2_score = 0.0;
+      let _cvss2_score = {
+        'vector': 0,
+        'complexity': 0,
+        'authentication': 0,
+        'confidentiality': 0,
+        'integrity': 0,
+        'availability': 0
+      };
       let m = "";
       let metrics = [];
       for(let i = 0; i < subvector.length; i++) {
         m = subvector[i].split(':');
-        m[0] === "AV" && !['N', 'A', 'L'].includes(m[1]) ? score += m_values.cvss2.access.vector.default:null;
-        m[0] === "AV" && m[1] === 'N' ? score += m_values.cvss2.access.vector.network:null;
-        m[0] === "AV" && m[1] === 'A' ? score += m_values.cvss2.access.vector.adjacent:null;
-        m[0] === "AV" && m[1] === 'L' ? score += m_values.cvss2.access.vector.local:null;
+        m[0] === "AV" && !['N', 'A', 'L'].includes(m[1]) ? _cvss2_score.vector += m_values.cvss2.access.vector.default:null;
+        m[0] === "AV" && m[1] === 'N' ? _cvss2_score.vector += m_values.cvss2.access.vector.network:null;
+        m[0] === "AV" && m[1] === 'A' ? _cvss2_score.vector += m_values.cvss2.access.vector.adjacent:null;
+        m[0] === "AV" && m[1] === 'L' ? _cvss2_score.vector += m_values.cvss2.access.vector.local:null;
         m[0] === "AV" ? metrics.push("AV"):null;
 
-        m[0] === "AC" && !['L', 'M', 'H'].includes(m[1]) ? score += m_values.cvss2.access.complexity.default:null;
-        m[0] === "AC" && m[1] === 'L' ? score += m_values.cvss2.access.complexity.low:null;
-        m[0] === "AC" && m[1] === 'M' ? score += m_values.cvss2.access.complexity.medium:null;
-        m[0] === "AC" && m[1] === 'H' ? score += m_values.cvss2.access.complexity.high:null;
+        m[0] === "AC" && !['L', 'M', 'H'].includes(m[1]) ? _cvss2_score.complexity += m_values.cvss2.access.complexity.default:null;
+        m[0] === "AC" && m[1] === 'L' ? _cvss2_score.complexity += m_values.cvss2.access.complexity.low:null;
+        m[0] === "AC" && m[1] === 'M' ? _cvss2_score.complexity += m_values.cvss2.access.complexity.medium:null;
+        m[0] === "AC" && m[1] === 'H' ? _cvss2_score.complexity += m_values.cvss2.access.complexity.high:null;
         m[0] === "AC" ? metrics.push("AC"):null;
 
-        m[0] === "Au" && !['N', 'S', 'M'].includes(m[1]) ? score += m_values.cvss2.access.authentication.default:null;
-        m[0] === "Au" && m[1] === 'N' ? score += m_values.cvss2.access.authentication.none:null;
-        m[0] === "Au" && m[1] === 'S' ? score += m_values.cvss2.access.authentication.single:null;
-        m[0] === "Au" && m[1] === 'M' ? score += m_values.cvss2.access.authentication.multiple:null;
+        m[0] === "Au" && !['N', 'S', 'M'].includes(m[1]) ? _cvss2_score.authentication += m_values.cvss2.access.authentication.default:null;
+        m[0] === "Au" && m[1] === 'N' ? _cvss2_score.authentication += m_values.cvss2.access.authentication.none:null;
+        m[0] === "Au" && m[1] === 'S' ? _cvss2_score.authentication += m_values.cvss2.access.authentication.single:null;
+        m[0] === "Au" && m[1] === 'M' ? _cvss2_score.authentication += m_values.cvss2.access.authentication.multiple:null;
         m[0] === "Au" ? metrics.push("Au"):null;
 
-        m[0] === "C" && !['N', 'L', 'H'].includes(m[1]) ? score += m_values.cvss2.impact.confidentiality.default:null;
-        m[0] === "C" && m[1] === 'N' ? score += m_values.cvss2.impact.confidentiality.none:null;
-        m[0] === "C" && m[1] === 'L' ? score += m_values.cvss2.impact.confidentiality.partial:null;
-        m[0] === "C" && m[1] === 'H' ? score += m_values.cvss2.impact.confidentiality.complete:null;
+        m[0] === "C" && !['N', 'L', 'P', 'C', 'H'].includes(m[1]) ? _cvss2_score.confidentiality += m_values.cvss2.impact.confidentiality.default:null;
+        m[0] === "C" && m[1] === 'N' ? _cvss2_score.confidentiality += m_values.cvss2.impact.confidentiality.none:null;
+        m[0] === "C" && m[1] === 'L' ? _cvss2_score.confidentiality += m_values.cvss2.impact.confidentiality.partial:null;
+        m[0] === "C" && m[1] === 'P' ? _cvss2_score.confidentiality += m_values.cvss2.impact.confidentiality.partial:null;
+        m[0] === "C" && m[1] === 'C' ? _cvss2_score.confidentiality += m_values.cvss2.impact.confidentiality.complete:null;
+        m[0] === "C" && m[1] === 'H' ? _cvss2_score.confidentiality += m_values.cvss2.impact.confidentiality.complete:null;
         m[0] === "C" ? metrics.push("C"):null;
 
-        m[0] === "I" && !['N', 'L', 'H'].includes(m[1]) ? score += m_values.cvss2.impact.integrity.default:null;
-        m[0] === "I" && m[1] === 'N' ? score += m_values.cvss2.impact.integrity.none:null;
-        m[0] === "I" && m[1] === 'L' ? score += m_values.cvss2.impact.integrity.partial:null;
-        m[0] === "I" && m[1] === 'H' ? score += m_values.cvss2.impact.integrity.complete:null;
+        m[0] === "I" && !['N', 'L', 'P', 'C', 'H'].includes(m[1]) ? _cvss2_score.integrity += m_values.cvss2.impact.integrity.default:null;
+        m[0] === "I" && m[1] === 'N' ? _cvss2_score.integrity += m_values.cvss2.impact.integrity.none:null;
+        m[0] === "I" && m[1] === 'L' ? _cvss2_score.integrity += m_values.cvss2.impact.integrity.partial:null;
+        m[0] === "I" && m[1] === 'P' ? _cvss2_score.integrity += m_values.cvss2.impact.integrity.partial:null;
+        m[0] === "I" && m[1] === 'C' ? _cvss2_score.integrity += m_values.cvss2.impact.integrity.complete:null;
+        m[0] === "I" && m[1] === 'H' ? _cvss2_score.integrity += m_values.cvss2.impact.integrity.complete:null;
         m[0] === "I" ? metrics.push("I"):null;
 
-        m[0] === "A" && !['N', 'L', 'H'].includes(m[1]) ? score += m_values.cvss2.impact.availability.default:null;
-        m[0] === "A" && m[1] === 'N' ? score += m_values.cvss2.impact.availability.none:null;
-        m[0] === "A" && m[1] === 'L' ? score += m_values.cvss2.impact.availability.partial:null;
-        m[0] === "A" && m[1] === 'H' ? score += m_values.cvss2.impact.availability.complete:null;
+        m[0] === "A" && !['N', 'L', 'P', 'C', 'H'].includes(m[1]) ? _cvss2_score.availability += m_values.cvss2.impact.availability.default:null;
+        m[0] === "A" && m[1] === 'N' ? _cvss2_score.availability += m_values.cvss2.impact.availability.none:null;
+        m[0] === "A" && m[1] === 'L' ? _cvss2_score.availability += m_values.cvss2.impact.availability.partial:null;
+        m[0] === "A" && m[1] === 'P' ? _cvss2_score.availability += m_values.cvss2.impact.availability.partial:null;
+        m[0] === "A" && m[1] === 'C' ? _cvss2_score.availability += m_values.cvss2.impact.availability.complete:null;
+        m[0] === "A" && m[1] === 'H' ? _cvss2_score.availability += m_values.cvss2.impact.availability.complete:null;
         m[0] === "A" ? metrics.push("A"):null;
 
         m[0] === "R" && !['U', 'W', 'T', 'O'].includes(m[1]) ? score += m_values.remediation.default:null;
         m[0] === "R" && m[1] === 'U' ? score += m_values.remediation.unavailable:null;
         m[0] === "R" && m[1] === 'W' ? score += m_values.remediation.workaround:null;
         m[0] === "R" && m[1] === 'T' ? score += m_values.remediation.temporary:null;
-        m[0] === "A" && m[1] === 'O' ? score += m_values.remediation.official:null;
+        m[0] === "R" && m[1] === 'O' ? score += m_values.remediation.official:null;
         m[0] === "R" ? metrics.push("R"):null;
 
         m[0] === "VX" && m[1] <= 15 ? score += m_values.age.caps['15']:null;
         m[0] === "VX" && m[1] > 15 && m[1] <= 45 ? score += m_values.age.caps['45']:null;
         m[0] === "VX" && m[1] > 45 ? score += m_values.age.caps['10000000']:null;
+        m[0] === "VX" ? metrics.push("VX"):null;
 
         m[0] === "CL" && m[1] === 'Y' ? score += m_values.confirmation.is_confirmed:null;
-        // console.log(m + ":" + score)
+        metrics.push("CL");
       }
 
       // Default values if not set in subvector
-      !metrics.includes("AV") ? score += m_values.cvss2.access.vector.default:null;
-      !metrics.includes("AC") ? score += m_values.cvss2.access.complexity.default:null;
-      !metrics.includes("Au") ? score += m_values.cvss2.access.authentication.default:null;
-      !metrics.includes("C") ? score += m_values.cvss2.impact.confidentiality.default:null;
-      !metrics.includes("I") ? score += m_values.cvss2.impact.integrity.default:null;
-      !metrics.includes("A") ? score += m_values.cvss2.impact.availability.default:null;
+      !metrics.includes("AV") ? _cvss2_score.vector = m_values.cvss2.access.vector.default:null;
+      !metrics.includes("AC") ? _cvss2_score.complexity = m_values.cvss2.access.complexity.default:null;
+      !metrics.includes("Au") ? _cvss2_score.authentication = m_values.cvss2.access.authentication.default:null;
+      !metrics.includes("C") ? _cvss2_score.confidentiality = m_values.cvss2.impact.confidentiality.default:null;
+      !metrics.includes("I") ? _cvss2_score.integrity = m_values.cvss2.impact.integrity.default:null;
+      !metrics.includes("A") ? _cvss2_score.availability = m_values.cvss2.impact.availability.default:null;
       !metrics.includes("VX") ? score += m_values.age.default:null;
       !metrics.includes("R") ? score += m_values.remediation.default:null;
 
+      // Calc CVSSv2 Base Score
+      let impact = 10.41 * (1 - (1 - _cvss2_score.confidentiality) * (1 - _cvss2_score.integrity) * (1 - _cvss2_score.availability))
+      let exploitability = 20 * _cvss2_score.complexity * _cvss2_score.vector * _cvss2_score.authentication
+      let f_impact = 0;
+      impact == 0 ? f_impact=0 : f_impact=1.176;
+      let basescore = (.6*impact +.4*exploitability-1.5)*f_impact;
+      score = score + (parseFloat(basescore).toFixed(1) * 70/100/2);
+
+      // Check max value
       score > m_values.max_score ? score = m_values.max_score:null;
       return parseFloat(score).toFixed(1);
     },
@@ -76,7 +101,6 @@ export default {
       let score = 0;
       let m = "";
       let metrics = [];
-      // console.log(m_values);
       for(let i = 0; i < subvector.length; i++) {
         m = subvector[i].split(':');
         m[0] === "EA" && !['X', 'R', 'U'].includes(m[1]) ? score += m_values.exploit_availability.default:null;
@@ -105,7 +129,6 @@ export default {
 
         m[0] === "N" && m[1] === 'Y' ? score += m_values.threat_intensity.is_in_the_news:null;
         m[0] === "W" && m[1] === 'Y' ? score += m_values.threat_intensity.is_in_the_wild:null;
-
       }
 
       // Default values if not set in subvector
@@ -122,7 +145,6 @@ export default {
       let score = 0;
       let m = "";
       let metrics = [];
-      // console.log(m_values);
       for(let i = 0; i < subvector.length; i++) {
         m = subvector[i].split(':');
         m[0] === "Cr" && !['L', 'M', 'H'].includes(m[1]) ? score += m_values.criticality.default:null;
@@ -152,6 +174,7 @@ export default {
       score > m_values.max_score ? score = m_values.max_score:null;
       return parseFloat(score).toFixed(1);
     },
+
   },
   mounted() {
 

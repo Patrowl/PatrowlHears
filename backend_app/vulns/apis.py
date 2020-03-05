@@ -1,7 +1,8 @@
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
 from django.shortcuts import get_object_or_404
-from django.db.models import F, Count
+from django.db.models import F, Count, Value
+from django.db.models.functions import Concat
 from common.utils.pagination import StandardResultsSetPagination
 from rest_framework import viewsets
 from django_filters import rest_framework as filters
@@ -13,6 +14,7 @@ from .serializers import (
     VulnFilter, ExploitMetadataFilter)
 # from .utils import _refresh_metadata_cve
 from .tasks import refresh_vulns_score_task
+from datetime import datetime, timedelta
 
 
 class VulnSet(viewsets.ModelViewSet):
@@ -191,17 +193,14 @@ def del_threat(self, vuln_id, threat_id):
     threat = get_object_or_404(ThreatMetadata, id=threat_id)
     threat.delete()
     return JsonResponse("deleted", safe=False)
-#
-# @api_view(['GET'])
-# def refresh_metadata_cve(self, cve_id):
-#     data = _refresh_metadata_cve(cve_id)
-#     return JsonResponse(data, safe=False)
-#
-#
-# @api_view(['GET'])
-# def refresh_monitored_cves_async(self):
-#     refresh_monitored_cves_task.apply_async(args=[], queue='default', retry=False)
-#     return JsonResponse("enqueued", safe=False)
+
+
+@api_view(['GET'])
+def refresh_vuln_score(self, vuln_id):
+    vuln = get_object_or_404(Vuln, id=vuln_id)
+    vuln.update_score()
+    vuln.save()
+    return JsonResponse(vuln.score, safe=False)
 
 
 @api_view(['GET'])
@@ -223,11 +222,45 @@ def get_vuln_stats(self):
 
 @api_view(['GET'])
 def get_latest_vulns(self):
+    MAX_VULNS = 20
+    MAX_TIMEDELTA_DAYS = 30
+    if self.GET.get('timedelta', None) and self.GET.get('timedelta').isnumeric():
+        MAX_TIMEDELTA_DAYS = int(self.GET.get('timedelta'))
+
+    vulns = list(Vuln.objects.all()
+        .annotate(cve=F('cve_id__cve_id'))
+        .order_by('-updated_at')
+        .values('id', 'cve', 'summary', 'score')[:MAX_VULNS])
+
+    exploits = list(ExploitMetadata.objects.all()
+        .order_by('-updated_at')
+        .values('source', 'link', 'trust_level')
+        .distinct()[:MAX_VULNS])
+
+    # Get monitored vendor/product and concatenate data
+    mp = MonitoredProduct.objects.filter(monitored=True).annotate(
+        vendorproduct=Concat(Value(':'), F('vendor'), Value(':'), F('product'), Value(':'))
+    ).values_list('vendorproduct', flat=True)
+
+    monitored_vulns = Vuln.objects.filter(monitored=True).annotate(
+            cve=F('cve_id__cve_id'),
+            exploit_count=Count('exploitmetadata')
+        ).order_by('-updated_at').values('id', 'cve', 'summary', 'score', 'exploit_count', 'updated_at', 'is_confirmed')[:MAX_VULNS]
+
+    monitored_vulns_list = list(monitored_vulns)
+    for lv in Vuln.objects.exclude(id__in=[o['id'] for o in monitored_vulns]).filter(monitored=False, modified__gte=datetime.now() - timedelta(days=MAX_TIMEDELTA_DAYS)).order_by('-updated_at')[:10000]:
+        # Check if vulnerable products are monitored
+        if lv.vulnerable_products is not None and len(lv.vulnerable_products) > 0:
+            for lvvp in lv.vulnerable_products:
+                res = [ele for ele in mp if(ele in lvvp)]
+                if bool(res):
+                    monitored_vulns_list.append(lv.to_dict())
+                    break
+
     res = {
-        'vulns': list(Vuln.objects.all().annotate(
-            cve=F('cve_id__cve_id')
-        ).order_by('-updated_at').values('id', 'cve', 'summary', 'score')[:20]),
-        'exploits': list(ExploitMetadata.objects.all().values('source', 'link', 'trust_level').distinct()[:20]),
-        'monitored': MonitoredProduct.objects.count()
+        'vulns': vulns,
+        'exploits': exploits,
+        'monitored_vulns': monitored_vulns_list,
+        'monitored_products': list(MonitoredProduct.objects.filter(monitored=True).values('vendor', 'product'))
     }
     return JsonResponse(res, safe=False)

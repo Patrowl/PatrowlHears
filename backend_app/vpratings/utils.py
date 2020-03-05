@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 
 
 def _calc_vprating(vuln, asset_metadata={}, save=False):
-    # print("_calc_vprating():", vuln)
+    print("_calc_vprating():", vuln)
     vpr = VPRating(vuln=vuln)
 
     v = vuln.__dict__
@@ -18,7 +18,7 @@ def _calc_vprating(vuln, asset_metadata={}, save=False):
             'cvss': v.get('cvss', 5.0),
             'cvss_time': v.get('cvss_time', None),
             'cvss_vector': v.get('cvss_vector', None),
-            'access': v.get('access', {}),
+            'access': v.get('access', {None}),
             'impact': v.get('impact', {None}),
             'is_confirmed': v.get('is_confirmed', False),
             'remediation': v.get('remediation', False)      # TODO

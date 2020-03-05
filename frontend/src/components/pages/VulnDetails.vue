@@ -62,7 +62,6 @@
                         ({{moment(this.vuln.cvss_time).format('YYYY-MM-DD')}})
                       </v-list-item-content>
                     </v-list-item>
-                  <!-- </v-list> -->
 
                   <v-list-item>
                     <v-list-item-content>
@@ -70,7 +69,6 @@
                       {{this.vuln.summary}}
                     </v-list-item-content>
                   </v-list-item>
-                <!-- </v-list> -->
 
                   <v-list-item
                     v-if="this.vuln.cwe_id != ''"
@@ -113,7 +111,11 @@
           <v-flex md4>
             <v-flex>
               <!-- <v-card color="red lighten-1"> -->
-              <v-card :color="getRatingColor(vprating)" v-if="this.ratings.score >= 0">
+              <v-card
+                :color="getRatingColor(vprating)"
+                v-if="this.ratings.score >= 0"
+                @click="viewRating()"
+                >
                 <v-card-title class="title">Rating Scores</v-card-title>
                 <v-card-text>
                   <v-row align="center">
@@ -384,6 +386,7 @@
 import axios from 'axios';
 import swal from 'sweetalert2';
 import router from '../../router';
+import moment from 'moment';
 
 export default {
   name: 'VulnDetails',
@@ -399,7 +402,6 @@ export default {
     history: {},
     threats: {},
     threat_headers: [
-      // { text: 'ID', value: 'publicid' },
       { text: 'Link', value: 'link' },
       { text: 'Trust level', value: 'trust_level' },
       { text: 'TLP', value: 'tlp_level', align: 'center' },
@@ -412,7 +414,6 @@ export default {
     ],
     exploits: [],
     exploit_headers: [
-      // { text: 'ID', value: 'publicid' },
       { text: 'Link', value: 'link' },
       { text: 'Trust level', value: 'trust_level' },
       { text: 'TLP', value: 'tlp_level', align: 'center' },
@@ -477,6 +478,50 @@ export default {
     },
     cvssv2adj(){
       return this.ratings.cvssv2adj;
+    },
+    vuln_vector(){
+      let vector = "";
+
+      // Vulnerability
+      vector += this.vuln.cvss_vector;
+      this.vuln.is_confirmed ? vector += "/CL:Y":null;
+      if (moment(this.vuln.published).isValid()) {
+        vector += "/VX:" + moment().diff(moment(this.vuln.published), 'days');
+      }
+
+      // Exploits/Threats
+      let ea_metrics = ['unknown', 'private', 'public'];
+      let ea_vectors = ['X', 'R', 'U'];
+      let em_metrics = ['unknown', 'unproven', 'poc', 'functional'];
+      let em_vectors = ['X', 'U', 'P', 'F'];
+      let et_metrics = ['unknown', 'low', 'medium', 'high', 'trusted'];
+      let et_vectors = ['X', 'L', 'M', 'H', 'H'];
+      let ea_idx, ea_max_idx = 0;
+      let em_idx, em_max_idx = 0;
+      let et_idx, et_max_idx = 0;
+      let ex_max_days = 0;
+      for (let i = 0; i < this.exploits.length; i++){
+        ea_idx = ea_metrics.indexOf(this.exploits[i].availability)
+        ea_idx > ea_max_idx ? ea_max_idx = ea_idx:null;
+        em_idx = em_metrics.indexOf(this.exploits[i].maturity)
+        em_idx > em_max_idx ? em_max_idx = em_idx:null;
+        et_idx = et_metrics.indexOf(this.exploits[i].trust_level)
+        et_idx > et_max_idx ? et_max_idx = et_idx:null;
+        if (moment(this.exploits[i].published).isValid()) {
+          if (moment().diff(moment(this.exploits[i].published), 'days') > ex_max_days) {
+            ex_max_days = moment().diff(moment(this.exploits[i].published), 'days');
+          }
+        }
+      }
+      vector += "/EA:" + ea_vectors[ea_max_idx];
+      vector += "/EM:" + em_vectors[em_max_idx];
+      vector += "/ET:" + et_vectors[et_max_idx];
+      vector += "/EX:" + ex_max_days;
+      this.is_in_the_news ? vector += "/N:Y":null;
+      this.is_in_the_wild ? vector += "/W:Y":null;
+
+
+      return vector;
     }
   },
   methods: {
@@ -641,7 +686,6 @@ export default {
       if (this.editedIndex > -1) {
           Object.assign(this.exploits[this.editedIndex], new_exploit);
       } else {
-          console.log("push");
           this.exploits.push(new_exploit);
       }
 
@@ -761,6 +805,9 @@ export default {
 
       this.editedIndex = this.threats.indexOf(item);
       this.threats.splice(this.editedIndex, 1)
+    },
+    viewRating() {
+      this.$router.push({ 'name': 'Ratings', 'query': { 'vector': this.vuln_vector } });
     },
     toggleMonitored(item) {
       // save in backend

@@ -61,6 +61,7 @@ CVE-2020-0609: https://blog.rop.la/en/vulnerabilities/2020/02/25/bluegate-intern
 CVE-2020-0610: https://blog.rop.la/en/vulnerabilities/2020/02/25/bluegate-internals.html
 CVE-2019-15126: https://www.eset.com/int/kr00k/
 CVE-2019-1458: https://securelist.com/windows-0-day-exploit-cve-2019-1458-used-in-operation-wizardopium/95432/
+CVE-2019-1458: https://github.com/piotrflorczyk/cve-2019-1458_POC
 CVE-2020-5497: https://www.securitymetrics.com/blog/MITREid-Connect-cross-site-scripting-CVE-2020-5497
 CVE-2016-10743 and CVE-2019-10064: https://moabi.com/advisories/CVE-2019-10064.html
 CVE-2020–7246: https://medium.com/@tobinmshields/qdpm-v9-1-authenticated-rce-exploit-f4b84e19df00

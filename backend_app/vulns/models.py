@@ -89,6 +89,7 @@ class Vuln(models.Model):
         j = {
             'id': self.id,
             'cve_id': self.cve_id.cve_id,
+            'cve': self.cve_id.cve_id,
             'summary': self.summary,
             'published': self.published,
             'modified': self.modified,
@@ -112,6 +113,7 @@ class Vuln(models.Model):
             'created_at': self.created_at,
             'updated_at': self.updated_at,
             'exploit_cnt': self.exploitmetadata_set.count(),
+            'exploit_count': self.exploitmetadata_set.count(),
             # 'exploits': self.exploitmetadata_set,
             # 'threats': self.threatmetadata_set,
         }

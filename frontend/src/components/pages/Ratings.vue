@@ -70,7 +70,7 @@
                 >
                   <v-btn small value="N">None (C:N)</v-btn>
                   <v-btn small value="L">Low (C:L)</v-btn>
-                  <v-btn small value="H">High (C:H)</v-btn>
+                  <v-btn small value="C">Complete (C:C)</v-btn>
                 </v-btn-toggle>
               </v-col>
               <v-col cols="4" class="py-2">
@@ -82,7 +82,7 @@
                 >
                   <v-btn small value="N">None (I:N)</v-btn>
                   <v-btn small value="L">Low (I:L)</v-btn>
-                  <v-btn small value="H">High (I:H)</v-btn>
+                  <v-btn small value="C">Complete (I:C)</v-btn>
                 </v-btn-toggle>
               </v-col>
               <v-col cols="4" class="py-2">
@@ -94,7 +94,7 @@
                 >
                   <v-btn small value="N">None (A:N)</v-btn>
                   <v-btn small value="L">Low (A:L)</v-btn>
-                  <v-btn small value="H">High (A:H)</v-btn>
+                  <v-btn small value="C">Complete (A:C)</v-btn>
                 </v-btn-toggle>
               </v-col>
 
@@ -141,7 +141,7 @@
                     <v-date-picker v-model="vulnerability.age" scrollable landscape>
                       <v-spacer></v-spacer>
                       <v-btn text color="primary" @click="menu_vage = false">Cancel</v-btn>
-                      <v-btn text color="primary" @click="$refs.menu_vage.save('')">Cancel</v-btn>
+                      <v-btn text color="primary" @click="$refs.menu_vage.save('')">Reset</v-btn>
                       <v-btn text color="primary" @click="$refs.menu_vage.save(vulnerability.age)">OK</v-btn>
                     </v-date-picker>
                   </v-menu>
@@ -171,7 +171,7 @@
                 :size="100"
                 :width="5"
                 color="deep-orange"
-              >{{parseInt(vuln_score*20)}}
+              >{{parseInt(vuln_score*20)}} ({{vuln_score}})
               </v-progress-circular>
             </v-card-text>
           </v-card>
@@ -401,10 +401,10 @@ export default {
   }),
   mounted() {
     this.base_vector = this.$route.query.vector;
+    this.getDataFromApi();
     if (this.base_vector != null || this.base_vector != '') {
       this.init_vector(this.base_vector);
     };
-    this.getDataFromApi();
   },
   computed: {
     rating_vector() {
@@ -462,11 +462,13 @@ export default {
         m[0] == 'AC' ? this.vulnerability.access.complexity = m[1]:null;
         m[0] == 'Au' ? this.vulnerability.access.authentication = m[1]:null;
         m[0] == 'C' ? this.vulnerability.impact.confidentiality = m[1]:null;
+        this.vulnerability.impact.confidentiality == 'P' ? this.vulnerability.impact.confidentiality = 'L':null;
         m[0] == 'I' ? this.vulnerability.impact.integrity = m[1]:null;
+        this.vulnerability.impact.integrity == 'P' ? this.vulnerability.impact.integrity = 'L':null;
         m[0] == 'A' ? this.vulnerability.impact.availability = m[1]:null;
+        this.vulnerability.impact.availability == 'P' ? this.vulnerability.impact.availability = 'L':null;
         metrics[i] == 'CL:Y' ? this.vulnerability.confirmation = true:null;
         m[0] == 'R' ? this.vulnerability.remediation = m[1]:null;
-        // m[0] == 'VX' ? this.vulnerability.age = moment().subtract(m[1], "days").format("YYYY/MMM/DD"):'';
         m[0] == 'VX' ? this.vulnerability.age = moment().subtract(m[1], "days").toISOString(true).substr(0, 10):'';
 
         // Threat
@@ -475,7 +477,6 @@ export default {
         m[0] == 'ET' ? this.threat.exploit_trust = m[1]:null;
         metrics[i] == 'N:Y' ? this.threat.in_the_news = true:null;
         metrics[i] == 'W:Y' ? this.threat.in_the_wild = true:null;
-        // m[0] == 'VX' ? this.threat.exploit_age = moment().subtract(m[1], "days").format("YYYY/MMM/DD"):'';
         m[0] == 'VX' ? this.threat.exploit_age = moment().subtract(m[1], "days").toISOString(true).substr(0, 10):'';
 
         // Assets
