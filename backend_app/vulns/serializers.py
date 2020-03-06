@@ -14,7 +14,7 @@ class VulnSerializer(serializers.HyperlinkedModelSerializer):
     def get_cve(self, instance):
         # return instance.cve_id.cve_id
         return instance.cve
-
+    
     def get_exploit_count(self, instance):
         return instance.exploitmetadata_set.count()
 

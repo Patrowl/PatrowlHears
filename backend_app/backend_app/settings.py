@@ -23,10 +23,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
+    'drf_yasg',
     'corsheaders',
     'django_filters',
     'simple_history',
     'django_celery_beat',
+    'debug_toolbar',
 
     'users',
     'cves',
@@ -47,7 +50,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
+
+DEBUG_TOOLBAR_CONFIG = {
+    "SHOW_TOOLBAR_CALLBACK": lambda request: True,
+}
 
 LOGGING = {
     'version': 1,
@@ -86,6 +94,8 @@ LOGGING = {
 
 AUTH_USER_MODEL = 'users.User'
 
+LOGIN_URL = '/admin/login/'
+
 ROOT_URLCONF = 'backend_app.urls'
 
 FRONTEND_DIR = os.path.join(BASE_DIR, '../frontend')
@@ -111,7 +121,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
             'libraries': {
-                'patrowl_tags': 'templatetags.common_tags'
+                'patrowl_tags': 'templatetags.common_tags',
             }
         },
     },
@@ -170,6 +180,7 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
           'django_filters.rest_framework.DjangoFilterBackend',
       ),
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 20
 }

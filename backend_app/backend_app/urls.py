@@ -1,8 +1,11 @@
 """backend_app URL Configuration."""
+from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from rest_framework import routers
+from rest_framework import routers, permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -15,6 +18,19 @@ from vpratings import apis as vpr_apis
 from cves import apis as cves_apis
 from .views import index
 
+schema_view = get_schema_view(
+   openapi.Info(
+      title="Patrowl Hears REST-API",
+      default_version='v1',
+      description="Patrowl Hears REST-API",
+      terms_of_service="https://www.google.com/policies/terms/",
+      contact=openapi.Contact(email="getsupport@patrowl.io"),
+      license=openapi.License(name="AGPLv3 License"),
+   ),
+   public=True,
+   # permission_classes=(permissions.IsAdminUser,),
+   permission_classes=(permissions.AllowAny,),
+)
 
 router = routers.DefaultRouter()
 router.register(r'api/monitored/products', ma_apis.MonitoredProductsSet)
@@ -45,9 +61,18 @@ urlpatterns = [
     path('api/vulns/', include('vulns.urls')),
     path('api/ratings/', include('vpratings.urls')),
     path('api/kb/', include('cves.urls')),
+    path('api/docs/swagger(?P<format>\.json|\.yaml)', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    path('api/docs/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('api/docs/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('', include(router.urls)),
     # path('', include('pages.urls')),
     # path('favicon.ico', RedirectView.as_view(url='/static/images/favicon.ico')),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
 
 urlpatterns += staticfiles_urlpatterns()

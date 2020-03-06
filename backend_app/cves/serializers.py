@@ -69,7 +69,7 @@ class CPESerializer(serializers.HyperlinkedModelSerializer):
         fields = [
             'id', 'title', 'vector',
             'vendor', 'product', 'vulnerable_products',
-            'monitored',
+            # 'monitored',
             'updated_at'
         ]
 

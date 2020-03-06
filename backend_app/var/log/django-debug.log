@@ -15406,3 +15406,542 @@ NameError: name 'console' is not defined
 2020-03-05 17:15:49,757 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 14120
 2020-03-05 17:16:59,616 django.server INFO     "GET /api/vulns/latest?timedelta=30&debug HTTP/1.1" 200 14120
 2020-03-05 17:17:06,903 django.server INFO     "GET /api/vulns/ HTTP/1.1" 200 338221
+2020-03-05 17:18:02,032 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/backend_app/settings.py changed, reloading.
+2020-03-05 17:18:03,037 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-05 17:20:30,050 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-05 17:20:40,133 django.server INFO     "GET /api/vulns/ HTTP/1.1" 200 347618
+2020-03-05 17:20:40,325 django.server INFO     "GET /static/debug_toolbar/img/ajax-loader.gif HTTP/1.1" 200 404
+2020-03-05 17:20:40,325 django.server INFO     "GET /static/debug_toolbar/css/toolbar.css HTTP/1.1" 200 14984
+2020-03-05 17:20:40,326 django.server INFO     "GET /static/debug_toolbar/js/toolbar.js HTTP/1.1" 200 12791
+2020-03-05 17:20:40,401 django.server INFO     "GET /static/debug_toolbar/css/print.css HTTP/1.1" 200 41
+2020-03-05 17:20:49,144 django.server INFO     "GET /static/debug_toolbar/img/close.png HTTP/1.1" 200 498
+2020-03-05 17:20:49,145 django.server INFO     "GET /static/debug_toolbar/img/indicator.png HTTP/1.1" 200 436
+2020-03-05 17:20:49,474 django.server INFO     "GET /__debug__/render_panel/?store_id=6a9d605940b84ffeadfd52882662ac00&panel_id=SQLPanel HTTP/1.1" 200 344088
+2020-03-05 17:22:22,078 django.server INFO     "GET /api/vulns/latest?timedelta=30&debug HTTP/1.1" 200 14120
+2020-03-05 17:22:32,605 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 70
+2020-03-05 17:22:44,652 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 70
+2020-03-05 17:22:49,803 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 14120
+2020-03-05 17:22:56,338 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 70
+2020-03-05 17:23:11,193 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 70
+2020-03-05 17:23:25,537 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 14120
+2020-03-05 17:23:38,174 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 14120
+2020-03-05 17:24:24,024 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-05 HTTP/1.1" 200 12758
+2020-03-05 17:24:29,832 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-02-27 HTTP/1.1" 200 198208
+2020-03-05 17:24:32,868 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-02-27 HTTP/1.1" 200 198208
+2020-03-05 17:24:43,446 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 20452
+2020-03-05 17:24:46,427 django.server INFO     "GET /api/ratings/metrics HTTP/1.1" 200 1606
+2020-03-05 17:24:48,163 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-05 HTTP/1.1" 200 12758
+2020-03-05 17:24:55,242 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search= HTTP/1.1" 200 765
+2020-03-05 17:25:05,754 django.request WARNING  Not Found: /api/kb/cpes/
+2020-03-05 17:25:05,755 django.server WARNING  "GET /api/kb/cpes/ HTTP/1.1" 404 26606
+2020-03-05 17:25:05,838 django.server INFO     "GET /static/debug_toolbar/js/toolbar.js HTTP/1.1" 304 0
+2020-03-05 17:25:05,839 django.server INFO     "GET /static/debug_toolbar/css/toolbar.css HTTP/1.1" 304 0
+2020-03-05 17:25:05,840 django.server INFO     "GET /static/debug_toolbar/img/ajax-loader.gif HTTP/1.1" 304 0
+2020-03-05 17:25:05,855 django.server INFO     "GET /static/debug_toolbar/css/print.css HTTP/1.1" 304 0
+2020-03-05 17:25:08,495 django.request WARNING  Not Found: /api/kb/cpes/list
+2020-03-05 17:25:08,496 django.server WARNING  "GET /api/kb/cpes/list HTTP/1.1" 404 26618
+2020-03-05 17:25:15,994 django.request ERROR    Internal Server Error: /api/kb/cpe/
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/viewsets.py", line 114, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/mixins.py", line 43, in list
+    return self.get_paginated_response(serializer.data)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 760, in data
+    ret = super().data
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 678, in to_representation
+    self.child.to_representation(item) for item in iterable
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 678, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 514, in to_representation
+    for field in fields:
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 375, in _readable_fields
+    for field in self.fields.values():
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/utils/functional.py", line 48, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 363, in fields
+    for key, value in self.get_fields().items():
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 1063, in get_fields
+    source, info, model, depth
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 1208, in build_field
+    return self.build_unknown_field(field_name, model_class)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 1325, in build_unknown_field
+    (field_name, model_class.__name__)
+django.core.exceptions.ImproperlyConfigured: Field name `monitored` is not valid for model `CPE`.
+2020-03-05 17:25:16,049 django.server ERROR    "GET /api/kb/cpe/ HTTP/1.1" 500 166014
+2020-03-05 17:25:19,368 django.server INFO     "GET /api/kb/cpe HTTP/1.1" 301 0
+2020-03-05 17:25:19,619 django.request ERROR    Internal Server Error: /api/kb/cpe/
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/viewsets.py", line 114, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/mixins.py", line 43, in list
+    return self.get_paginated_response(serializer.data)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 760, in data
+    ret = super().data
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 678, in to_representation
+    self.child.to_representation(item) for item in iterable
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 678, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 514, in to_representation
+    for field in fields:
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 375, in _readable_fields
+    for field in self.fields.values():
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/utils/functional.py", line 48, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 363, in fields
+    for key, value in self.get_fields().items():
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 1063, in get_fields
+    source, info, model, depth
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 1208, in build_field
+    return self.build_unknown_field(field_name, model_class)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 1325, in build_unknown_field
+    (field_name, model_class.__name__)
+django.core.exceptions.ImproperlyConfigured: Field name `monitored` is not valid for model `CPE`.
+2020-03-05 17:25:19,685 django.server ERROR    "GET /api/kb/cpe/ HTTP/1.1" 500 166014
+2020-03-05 17:25:21,932 django.server INFO     "GET /api/kb/cpe/list HTTP/1.1" 301 0
+2020-03-05 17:25:22,042 django.request ERROR    Internal Server Error: /api/kb/cpe/list/
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 145, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 143, in _get_response
+    response = response.render()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/response.py", line 105, in render
+    self.content = self.rendered_content
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/response.py", line 70, in rendered_content
+    ret = renderer.render(self.data, accepted_media_type, context)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/renderers.py", line 724, in render
+    context = self.get_context(data, accepted_media_type, renderer_context)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/renderers.py", line 656, in get_context
+    raw_data_put_form = self.get_raw_data_form(data, view, 'PUT', request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/renderers.py", line 563, in get_raw_data_form
+    data = serializer.data.copy()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 562, in data
+    ret = super().data
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 264, in data
+    self._data = self.get_initial()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 412, in get_initial
+    for field in self.fields.values()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/utils/functional.py", line 48, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 363, in fields
+    for key, value in self.get_fields().items():
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 1063, in get_fields
+    source, info, model, depth
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 1208, in build_field
+    return self.build_unknown_field(field_name, model_class)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 1325, in build_unknown_field
+    (field_name, model_class.__name__)
+django.core.exceptions.ImproperlyConfigured: Field name `monitored` is not valid for model `CPE`.
+2020-03-05 17:25:22,069 django.server ERROR    "GET /api/kb/cpe/list/ HTTP/1.1" 500 144193
+2020-03-05 17:25:27,265 django.request ERROR    Internal Server Error: /api/kb/cpe/
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/viewsets.py", line 114, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/mixins.py", line 43, in list
+    return self.get_paginated_response(serializer.data)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 760, in data
+    ret = super().data
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 678, in to_representation
+    self.child.to_representation(item) for item in iterable
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 678, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 514, in to_representation
+    for field in fields:
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 375, in _readable_fields
+    for field in self.fields.values():
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/utils/functional.py", line 48, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 363, in fields
+    for key, value in self.get_fields().items():
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 1063, in get_fields
+    source, info, model, depth
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 1208, in build_field
+    return self.build_unknown_field(field_name, model_class)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 1325, in build_unknown_field
+    (field_name, model_class.__name__)
+django.core.exceptions.ImproperlyConfigured: Field name `monitored` is not valid for model `CPE`.
+2020-03-05 17:25:27,320 django.server ERROR    "GET /api/kb/cpe/ HTTP/1.1" 500 166144
+2020-03-05 17:26:00,123 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/serializers.py changed, reloading.
+2020-03-05 17:26:01,271 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-05 17:26:09,539 django.server INFO     "GET /api/kb/cpe/ HTTP/1.1" 200 36763
+2020-03-05 17:26:09,662 django.server INFO     "GET /static/debug_toolbar/css/toolbar.css HTTP/1.1" 304 0
+2020-03-05 17:26:09,667 django.server INFO     "GET /static/debug_toolbar/img/ajax-loader.gif HTTP/1.1" 304 0
+2020-03-05 17:26:09,669 django.server INFO     "GET /static/debug_toolbar/js/toolbar.js HTTP/1.1" 304 0
+2020-03-05 17:26:09,873 django.server INFO     "GET /static/debug_toolbar/css/print.css HTTP/1.1" 304 0
+2020-03-05 17:26:13,179 django.server INFO     "GET /static/debug_toolbar/img/indicator.png HTTP/1.1" 304 0
+2020-03-05 17:26:13,179 django.server INFO     "GET /static/debug_toolbar/img/close.png HTTP/1.1" 304 0
+2020-03-05 17:26:13,181 django.server INFO     "GET /__debug__/render_panel/?store_id=22231da1a3e34008b2ce698060ccdfcf&panel_id=TimerPanel HTTP/1.1" 200 1305
+2020-03-05 17:26:13,196 django.server INFO     "GET /static/debug_toolbar/js/toolbar.timer.js HTTP/1.1" 200 2754
+2020-03-05 17:26:19,620 django.request WARNING  Not Found: /api/kb/cpe/list/
+2020-03-05 17:26:19,620 django.server WARNING  "GET /api/kb/cpe/list/ HTTP/1.1" 404 20697
+2020-03-05 17:26:22,203 django.server INFO     "GET /api/kb/cpe/ HTTP/1.1" 200 36763
+2020-03-05 17:26:38,248 django.server INFO     "GET /api/kb/cve/?limit=20&page=1&search= HTTP/1.1" 200 90830
+2020-03-05 17:26:40,078 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-05 HTTP/1.1" 200 12758
+2020-03-05 17:26:41,344 django.server INFO     "GET /api/kb/bulletin/?limit=10&page=1&&search= HTTP/1.1" 200 2124
+2020-03-05 17:26:43,526 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-05 HTTP/1.1" 200 12758
+2020-03-05 17:26:48,395 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-02-27 HTTP/1.1" 200 198208
+2020-03-05 17:26:51,589 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-02-27 HTTP/1.1" 200 198208
+2020-03-05 17:26:54,252 django.server INFO     "GET /api/vulns/ HTTP/1.1" 200 347615
+2020-03-05 17:26:59,995 django.server INFO     "GET /static/debug_toolbar/img/close.png HTTP/1.1" 304 0
+2020-03-05 17:26:59,996 django.server INFO     "GET /static/debug_toolbar/img/indicator.png HTTP/1.1" 304 0
+2020-03-05 17:27:00,289 django.server INFO     "GET /__debug__/render_panel/?store_id=305c5c8fb1a04a33846aefa4fac739c4&panel_id=SQLPanel HTTP/1.1" 200 344077
+2020-03-05 17:27:53,261 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/serializers.py changed, reloading.
+2020-03-05 17:27:54,389 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-05 17:28:07,505 django.request ERROR    Internal Server Error: /api/vulns/
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/viewsets.py", line 114, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/mixins.py", line 43, in list
+    return self.get_paginated_response(serializer.data)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 760, in data
+    ret = super().data
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 678, in to_representation
+    self.child.to_representation(item) for item in iterable
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 678, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 514, in to_representation
+    for field in fields:
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 375, in _readable_fields
+    for field in self.fields.values():
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/utils/functional.py", line 48, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 363, in fields
+    for key, value in self.get_fields().items():
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 1063, in get_fields
+    source, info, model, depth
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 1208, in build_field
+    return self.build_unknown_field(field_name, model_class)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 1325, in build_unknown_field
+    (field_name, model_class.__name__)
+django.core.exceptions.ImproperlyConfigured: Field name `exploit_count` is not valid for model `Vuln`.
+2020-03-05 17:28:08,070 django.server ERROR    "GET /api/vulns/ HTTP/1.1" 500 171350
+2020-03-05 17:28:08,181 django.server INFO     "GET /static/debug_toolbar/css/toolbar.css HTTP/1.1" 304 0
+2020-03-05 17:28:08,182 django.server INFO     "GET /static/debug_toolbar/img/ajax-loader.gif HTTP/1.1" 304 0
+2020-03-05 17:28:08,182 django.server INFO     "GET /static/debug_toolbar/js/toolbar.js HTTP/1.1" 304 0
+2020-03-05 17:28:08,201 django.server INFO     "GET /static/debug_toolbar/css/print.css HTTP/1.1" 304 0
+2020-03-05 17:28:41,346 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/serializers.py changed, reloading.
+2020-03-05 17:28:42,471 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-05 17:29:35,369 django.server INFO     "GET /api/vulns/ HTTP/1.1" 200 347618
+2020-03-05 17:29:35,547 django.server INFO     "GET /static/debug_toolbar/img/ajax-loader.gif HTTP/1.1" 304 0
+2020-03-05 17:29:35,548 django.server INFO     "GET /static/debug_toolbar/css/toolbar.css HTTP/1.1" 304 0
+2020-03-05 17:29:35,548 django.server INFO     "GET /static/debug_toolbar/js/toolbar.js HTTP/1.1" 304 0
+2020-03-05 17:29:35,628 django.server INFO     "GET /static/debug_toolbar/css/print.css HTTP/1.1" 304 0
+2020-03-05 17:29:36,444 django.server INFO     "GET /static/debug_toolbar/img/indicator.png HTTP/1.1" 304 0
+2020-03-05 17:29:36,449 django.server INFO     "GET /static/debug_toolbar/img/close.png HTTP/1.1" 304 0
+2020-03-05 17:29:36,726 django.server INFO     "GET /__debug__/render_panel/?store_id=13af9f6c91ed4bf3bd6d77c13c1db840&panel_id=SQLPanel HTTP/1.1" 200 344071
+2020-03-06 08:57:13,013 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-06 08:58:15,978 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/backend_app/urls.py changed, reloading.
+2020-03-06 08:58:16,834 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-06 08:58:50,280 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/backend_app/urls.py changed, reloading.
+2020-03-06 08:58:51,075 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-06 08:59:05,372 django.request ERROR    Internal Server Error: /api/docs
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework_swagger/views.py", line 32, in get
+    schema = generator.get_schema(request=request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/schemas/coreapi.py", line 156, in get_schema
+    links = self.get_links(None if public else request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/schemas/coreapi.py", line 143, in get_links
+    link = view.schema.get_link(path, method, base_url=self.url)
+AttributeError: 'AutoSchema' object has no attribute 'get_link'
+2020-03-06 08:59:05,373 django.server ERROR    "GET /api/docs HTTP/1.1" 500 20842
+2020-03-06 09:00:24,844 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/backend_app/settings.py changed, reloading.
+2020-03-06 09:00:26,123 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-06 09:00:32,848 django.request ERROR    Internal Server Error: /api/docs
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/defaulttags.py", line 1021, in find_library
+    return parser.libraries[name]
+KeyError: 'staticfiles'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 145, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 143, in _get_response
+    response = response.render()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/response.py", line 105, in render
+    self.content = self.rendered_content
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/response.py", line 70, in rendered_content
+    ret = renderer.render(self.data, accepted_media_type, context)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework_swagger/renderers.py", line 58, in render
+    renderer_context
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/backends/django.py", line 34, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/engine.py", line 143, in get_template
+    template, origin = self.find_template(template_name)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/engine.py", line 125, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/loaders/base.py", line 30, in get_template
+    contents, origin, origin.template_name, self.engine,
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/base.py", line 156, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/base.py", line 194, in compile_nodelist
+    return parser.parse()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/base.py", line 477, in parse
+    raise self.error(token, e)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/base.py", line 475, in parse
+    compiled_result = compile_func(self, token)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/defaulttags.py", line 1078, in load
+    lib = find_library(parser, name)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/template/defaulttags.py", line 1025, in find_library
+    name, "\n".join(sorted(parser.libraries)),
+django.template.exceptions.TemplateSyntaxError: 'staticfiles' is not a registered tag library. Must be one of:
+admin_list
+admin_modify
+admin_urls
+cache
+getattributes
+i18n
+l10n
+log
+patrowl_tags
+rest_framework
+simple_history_admin_list
+simple_history_compat
+static
+tz
+2020-03-06 09:00:32,876 django.server ERROR    "GET /api/docs HTTP/1.1" 500 193122
+2020-03-06 09:03:13,293 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/backend_app/settings.py changed, reloading.
+2020-03-06 09:03:14,596 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-06 09:03:25,941 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/backend_app/settings.py changed, reloading.
+2020-03-06 09:03:26,770 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-06 09:14:00,445 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-06 09:14:05,628 django.request WARNING  Not Found: /api/docs
+2020-03-06 09:14:05,628 django.server WARNING  "GET /api/docs HTTP/1.1" 404 24673
+2020-03-06 09:14:11,009 django.server INFO     "GET /api/docs/redoc HTTP/1.1" 301 0
+2020-03-06 09:14:11,075 django.server INFO     "GET /api/docs/redoc/ HTTP/1.1" 200 10377
+2020-03-06 09:14:11,161 django.server INFO     "GET /static/drf-yasg/style.css HTTP/1.1" 200 1047
+2020-03-06 09:14:11,169 django.server INFO     "GET /static/drf-yasg/url-polyfill.min.js HTTP/1.1" 200 6092
+2020-03-06 09:14:11,169 django.server INFO     "GET /static/drf-yasg/insQ.min.js HTTP/1.1" 200 2093
+2020-03-06 09:14:11,172 django.server INFO     "GET /static/drf-yasg/redoc-init.js HTTP/1.1" 200 2322
+2020-03-06 09:14:11,178 django.server INFO     "GET /static/drf-yasg/redoc/redoc.min.js HTTP/1.1" 200 873895
+2020-03-06 09:14:11,425 django.server INFO     "GET /static/drf-yasg/redoc/redoc-logo.png HTTP/1.1" 200 4969
+2020-03-06 09:14:11,442 django.server INFO     "GET /api/docs/redoc/?format=openapi HTTP/1.1" 200 58505
+2020-03-06 09:14:13,633 django.server INFO     "GET /static/debug_toolbar/img/djdt_vertical.png HTTP/1.1" 200 882
+2020-03-06 09:14:24,767 django.request WARNING  Not Found: /api/docs
+2020-03-06 09:14:24,767 django.server WARNING  "GET /api/docs HTTP/1.1" 404 24673
+2020-03-06 09:14:25,513 django.server INFO     "GET /api/docs/redoc/ HTTP/1.1" 200 10377
+2020-03-06 09:14:25,803 django.server INFO     "GET /api/docs/redoc/?format=openapi HTTP/1.1" 200 58505
+2020-03-06 09:14:42,642 django.server INFO     "GET /api/docs/swagger HTTP/1.1" 301 0
+2020-03-06 09:14:42,700 django.server INFO     "GET /api/docs/swagger/ HTTP/1.1" 200 11624
+2020-03-06 09:14:42,833 django.server INFO     "GET /static/drf-yasg/swagger-ui-init.js HTTP/1.1" 200 14715
+2020-03-06 09:14:42,835 django.server INFO     "GET /static/drf-yasg/immutable.min.js HTTP/1.1" 200 56904
+2020-03-06 09:14:42,836 django.server INFO     "GET /static/drf-yasg/swagger-ui-dist/swagger-ui.css HTTP/1.1" 200 141820
+2020-03-06 09:14:42,840 django.server INFO     "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-standalone-preset.js HTTP/1.1" 200 295198
+2020-03-06 09:14:42,842 django.server INFO     "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-bundle.js HTTP/1.1" 200 957138
+2020-03-06 09:14:43,093 django.server INFO     "GET /static/drf-yasg/swagger-ui-dist/favicon-32x32.png HTTP/1.1" 200 628
+2020-03-06 09:14:43,142 django.server INFO     "GET /api/docs/swagger/?format=openapi HTTP/1.1" 200 58505
+2020-03-06 09:14:58,832 django.request WARNING  Not Found: /accounts/login/
+2020-03-06 09:14:58,832 django.server WARNING  "GET /accounts/login/?next=/api/docs/swagger/ HTTP/1.1" 404 24718
+2020-03-06 09:16:00,494 django.server INFO     "GET / HTTP/1.1" 200 10468
+2020-03-06 09:16:00,617 django.server INFO     "GET /static/css/app.f14d3633.css HTTP/1.1" 304 0
+2020-03-06 09:16:00,620 django.server INFO     "GET /static/js/app.0a73a7d8.js HTTP/1.1" 200 74952
+2020-03-06 09:16:00,624 django.server INFO     "GET /static/css/chunk-vendors.fadeb5fe.css HTTP/1.1" 200 411880
+2020-03-06 09:16:00,628 django.server INFO     "GET /static/js/chunk-vendors.4384b090.js HTTP/1.1" 200 915638
+2020-03-06 09:16:05,098 django.server INFO     "GET /admin/ HTTP/1.1" 302 0
+2020-03-06 09:16:05,152 django.server INFO     "GET /admin/login/?next=/admin/ HTTP/1.1" 200 11281
+2020-03-06 09:16:05,187 django.server INFO     "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+2020-03-06 09:16:05,188 django.server INFO     "GET /static/admin/css/base.css HTTP/1.1" 304 0
+2020-03-06 09:16:05,189 django.server INFO     "GET /static/admin/css/login.css HTTP/1.1" 304 0
+2020-03-06 09:16:05,554 django.server INFO     "GET /admin/ HTTP/1.1" 302 0
+2020-03-06 09:16:05,616 django.server INFO     "GET /admin/login/?next=/admin/ HTTP/1.1" 200 11281
+2020-03-06 09:16:05,727 django.server INFO     "GET /static/admin/css/fonts.css HTTP/1.1" 304 0
+2020-03-06 09:16:05,763 django.server INFO     "GET /static/admin/fonts/Roboto-Regular-webfont.woff HTTP/1.1" 200 85876
+2020-03-06 09:16:05,794 django.server INFO     "GET /static/admin/fonts/Roboto-Light-webfont.woff HTTP/1.1" 200 85692
+2020-03-06 09:17:12,978 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/backend_app/urls.py changed, reloading.
+2020-03-06 09:17:14,251 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-06 09:17:19,495 django.request WARNING  Unauthorized: /api/docs/swagger/
+2020-03-06 09:17:19,495 django.server WARNING  "GET /api/docs/swagger/ HTTP/1.1" 401 16
+2020-03-06 09:17:26,481 django.request WARNING  Not Found: /api/admin/
+2020-03-06 09:17:26,481 django.server WARNING  "GET /api/admin/ HTTP/1.1" 404 24679
+2020-03-06 09:17:30,244 django.server INFO     "GET /admin/ HTTP/1.1" 302 0
+2020-03-06 09:17:30,293 django.server INFO     "GET /admin/login/?next=/admin/ HTTP/1.1" 200 11281
+2020-03-06 09:17:30,382 django.server INFO     "GET /admin/ HTTP/1.1" 302 0
+2020-03-06 09:17:30,492 django.server INFO     "GET /admin/login/?next=/admin/ HTTP/1.1" 200 11281
+2020-03-06 09:17:32,213 django.server INFO     "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+2020-03-06 09:17:32,387 django.server INFO     "GET /admin/ HTTP/1.1" 200 25638
+2020-03-06 09:17:32,453 django.server INFO     "GET /static/admin/css/dashboard.css HTTP/1.1" 304 0
+2020-03-06 09:17:32,526 django.server INFO     "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+2020-03-06 09:17:32,527 django.server INFO     "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 304 0
+2020-03-06 09:17:32,545 django.server INFO     "GET /static/admin/fonts/Roboto-Bold-webfont.woff HTTP/1.1" 200 86184
+2020-03-06 09:17:37,189 django.request WARNING  Unauthorized: /api/docs/swagger/
+2020-03-06 09:17:37,190 django.server WARNING  "GET /api/docs/swagger/ HTTP/1.1" 401 16
+2020-03-06 09:17:41,282 django.request WARNING  Not Found: /api/docs
+2020-03-06 09:17:41,282 django.server WARNING  "GET /api/docs HTTP/1.1" 404 24673
+2020-03-06 09:17:45,819 django.request WARNING  Not Found: /api/docs/
+2020-03-06 09:17:45,819 django.server WARNING  "GET /api/docs/ HTTP/1.1" 404 24676
+2020-03-06 09:17:49,329 django.request WARNING  Unauthorized: /api/docs/redoc/
+2020-03-06 09:17:49,330 django.server WARNING  "GET /api/docs/redoc/ HTTP/1.1" 401 16
+2020-03-06 09:18:20,045 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/backend_app/urls.py changed, reloading.
+2020-03-06 09:18:21,343 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-06 09:18:30,182 django.request WARNING  Unauthorized: /api/docs/redoc/
+2020-03-06 09:18:30,182 django.server WARNING  "GET /api/docs/redoc/ HTTP/1.1" 401 16
+2020-03-06 09:18:30,994 django.request WARNING  Unauthorized: /api/docs/redoc/
+2020-03-06 09:18:30,995 django.server WARNING  "GET /api/docs/redoc/ HTTP/1.1" 401 16
+2020-03-06 09:18:31,832 django.request WARNING  Unauthorized: /api/docs/redoc/
+2020-03-06 09:18:31,832 django.server WARNING  "GET /api/docs/redoc/ HTTP/1.1" 401 16
+2020-03-06 09:18:31,990 django.request WARNING  Not Found: /favicon.ico
+2020-03-06 09:18:31,990 django.server WARNING  "GET /favicon.ico HTTP/1.1" 404 24682
+2020-03-06 09:19:39,159 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/backend_app/urls.py changed, reloading.
+2020-03-06 09:19:40,603 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-06 09:19:46,282 django.request WARNING  Unauthorized: /api/docs/redoc/
+2020-03-06 09:19:46,283 django.server WARNING  "GET /api/docs/redoc/ HTTP/1.1" 401 16
+2020-03-06 09:19:46,967 django.request WARNING  Unauthorized: /api/docs/redoc/
+2020-03-06 09:19:46,968 django.server WARNING  "GET /api/docs/redoc/ HTTP/1.1" 401 16
+2020-03-06 09:19:53,663 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-06 09:19:59,914 django.request WARNING  Unauthorized: /api/docs/redoc/
+2020-03-06 09:19:59,914 django.server WARNING  "GET /api/docs/redoc/ HTTP/1.1" 401 16
+2020-03-06 09:20:00,671 django.request WARNING  Unauthorized: /api/docs/redoc/
+2020-03-06 09:20:00,671 django.server WARNING  "GET /api/docs/redoc/ HTTP/1.1" 401 16
+2020-03-06 09:20:01,010 django.request WARNING  Unauthorized: /api/docs/redoc/
+2020-03-06 09:20:01,010 django.server WARNING  "GET /api/docs/redoc/ HTTP/1.1" 401 16
+2020-03-06 09:20:12,011 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/backend_app/urls.py changed, reloading.
+2020-03-06 09:20:12,854 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-06 09:20:33,199 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/backend_app/urls.py changed, reloading.
+2020-03-06 09:20:34,084 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-06 09:20:37,567 django.request WARNING  Not Found: /api/docs/
+2020-03-06 09:20:37,567 django.server WARNING  "GET /api/docs/ HTTP/1.1" 404 24676
+2020-03-06 09:20:37,648 django.server INFO     "GET /static/debug_toolbar/css/toolbar.css HTTP/1.1" 304 0
+2020-03-06 09:20:37,651 django.server INFO     "GET /static/debug_toolbar/img/ajax-loader.gif HTTP/1.1" 304 0
+2020-03-06 09:20:37,652 django.server INFO     "GET /static/debug_toolbar/js/toolbar.js HTTP/1.1" 304 0
+2020-03-06 09:20:37,679 django.server INFO     "GET /static/debug_toolbar/css/print.css HTTP/1.1" 304 0
+2020-03-06 09:20:41,244 django.server INFO     "GET /api/docs/redoc/ HTTP/1.1" 200 10377
+2020-03-06 09:20:41,325 django.server INFO     "GET /static/drf-yasg/style.css HTTP/1.1" 304 0
+2020-03-06 09:20:41,331 django.server INFO     "GET /static/drf-yasg/redoc-init.js HTTP/1.1" 304 0
+2020-03-06 09:20:41,332 django.server INFO     "GET /static/drf-yasg/insQ.min.js HTTP/1.1" 304 0
+2020-03-06 09:20:41,332 django.server INFO     "GET /static/drf-yasg/url-polyfill.min.js HTTP/1.1" 304 0
+2020-03-06 09:20:41,333 django.server INFO     "GET /static/drf-yasg/redoc/redoc.min.js HTTP/1.1" 304 0
+2020-03-06 09:20:41,594 django.server INFO     "GET /api/docs/redoc/?format=openapi HTTP/1.1" 200 58505
+2020-03-06 09:21:11,410 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/backend_app/urls.py changed, reloading.
+2020-03-06 09:21:12,712 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-06 09:21:13,373 django.server INFO     "GET /api/docs/redoc/ HTTP/1.1" 200 10377
+2020-03-06 09:21:13,640 django.server INFO     "GET /api/docs/redoc/?format=openapi HTTP/1.1" 200 2463
+2020-03-06 09:21:13,805 django.server INFO     "GET /static/drf-yasg/redoc/redoc-logo.png HTTP/1.1" 200 4969
+2020-03-06 09:21:22,298 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/backend_app/urls.py changed, reloading.
+2020-03-06 09:21:23,137 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-06 09:22:42,180 django.server INFO     "GET /admin/ HTTP/1.1" 302 0
+2020-03-06 09:22:42,243 django.server INFO     "GET /admin/login/?next=/admin/ HTTP/1.1" 200 11281
+2020-03-06 09:22:42,719 django.server INFO     "GET /admin/ HTTP/1.1" 302 0
+2020-03-06 09:22:42,785 django.server INFO     "GET /admin/login/?next=/admin/ HTTP/1.1" 200 11281
+2020-03-06 09:22:45,885 django.server INFO     "GET /admin/login/ HTTP/1.1" 200 11268
+2020-03-06 09:23:06,857 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/backend_app/settings.py changed, reloading.
+2020-03-06 09:23:07,702 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-06 09:23:11,015 django.server INFO     "GET /admin/login/?next=/admin/ HTTP/1.1" 200 11281
+2020-03-06 09:23:12,985 django.server INFO     "GET /api/docs/redoc/ HTTP/1.1" 200 10377
+2020-03-06 09:23:13,061 django.server INFO     "GET /static/drf-yasg/style.css HTTP/1.1" 304 0
+2020-03-06 09:23:13,070 django.server INFO     "GET /static/drf-yasg/insQ.min.js HTTP/1.1" 304 0
+2020-03-06 09:23:13,070 django.server INFO     "GET /static/drf-yasg/url-polyfill.min.js HTTP/1.1" 304 0
+2020-03-06 09:23:13,071 django.server INFO     "GET /static/drf-yasg/redoc/redoc.min.js HTTP/1.1" 304 0
+2020-03-06 09:23:13,072 django.server INFO     "GET /static/drf-yasg/redoc-init.js HTTP/1.1" 304 0
+2020-03-06 09:23:13,257 django.server INFO     "GET /static/drf-yasg/redoc/redoc-logo.png HTTP/1.1" 200 4969
+2020-03-06 09:23:13,289 django.server INFO     "GET /api/docs/redoc/?format=openapi HTTP/1.1" 200 58505
+2020-03-06 09:23:31,727 django.server INFO     "GET /api/docs/swagger/ HTTP/1.1" 200 11621
+2020-03-06 09:23:31,872 django.server INFO     "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-standalone-preset.js HTTP/1.1" 304 0
+2020-03-06 09:23:31,872 django.server INFO     "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-bundle.js HTTP/1.1" 304 0
+2020-03-06 09:23:31,873 django.server INFO     "GET /static/drf-yasg/swagger-ui-dist/swagger-ui.css HTTP/1.1" 304 0
+2020-03-06 09:23:31,873 django.server INFO     "GET /static/drf-yasg/immutable.min.js HTTP/1.1" 304 0
+2020-03-06 09:23:31,874 django.server INFO     "GET /static/drf-yasg/swagger-ui-init.js HTTP/1.1" 304 0
+2020-03-06 09:23:32,129 django.server INFO     "GET /static/drf-yasg/swagger-ui-dist/favicon-32x32.png HTTP/1.1" 304 0
+2020-03-06 09:23:32,197 django.server INFO     "GET /api/docs/swagger/?format=openapi HTTP/1.1" 200 58505
+2020-03-06 09:23:33,863 django.server INFO     "GET /admin/login/?next=/api/docs/swagger/ HTTP/1.1" 200 11303
+2020-03-06 09:23:51,068 django.server INFO     "GET /admin/login/?next=/api/docs/swagger/ HTTP/1.1" 200 11303
+2020-03-06 09:24:11,768 django.server INFO     "GET /api/alerts/ HTTP/1.1" 200 1238
