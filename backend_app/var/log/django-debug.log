@@ -16075,3 +16075,37 @@ tz
 2020-03-06 15:59:03,103 django.server INFO     "GET /api/vulns/12861/history HTTP/1.1" 200 16435
 2020-03-06 16:22:51,731 django.server INFO     "GET /api/search/ampache?limit=25&page=undefined HTTP/1.1" 200 20544
 2020-03-06 16:23:52,473 django.server INFO     "GET /api/search/drupal?limit=25&page=undefined HTTP/1.1" 200 3214257
+2020-03-09 10:49:01,283 django.server INFO     "GET / HTTP/1.1" 200 10468
+2020-03-09 10:49:01,342 django.server INFO     "GET /static/css/app.fdac7a2a.css HTTP/1.1" 200 391
+2020-03-09 10:49:01,360 django.server INFO     "GET /static/debug_toolbar/img/ajax-loader.gif HTTP/1.1" 304 0
+2020-03-09 10:49:01,365 django.server INFO     "GET /static/debug_toolbar/js/toolbar.js HTTP/1.1" 200 12791
+2020-03-09 10:49:01,366 django.server INFO     "GET /static/debug_toolbar/css/toolbar.css HTTP/1.1" 200 14984
+2020-03-09 10:49:01,368 django.server INFO     "GET /static/js/app.445b660d.js HTTP/1.1" 200 107929
+2020-03-09 10:49:01,369 django.server INFO     "GET /static/css/chunk-vendors.d20f8e25.css HTTP/1.1" 200 419912
+2020-03-09 10:49:01,372 django.server INFO     "GET /static/js/chunk-vendors.237e86ca.js HTTP/1.1" 200 946081
+2020-03-09 10:49:01,543 django.server INFO     "GET /static/debug_toolbar/css/print.css HTTP/1.1" 304 0
+2020-03-09 10:49:01,608 django.server INFO     "GET /static/debug_toolbar/img/djdt_vertical.png HTTP/1.1" 304 0
+2020-03-09 10:49:01,731 django.request WARNING  Not Found: /favicon.ico
+2020-03-09 10:49:01,732 django.server WARNING  "GET /favicon.ico HTTP/1.1" 404 24682
+2020-03-09 10:49:07,152 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 70
+2020-03-09 10:49:16,980 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 10746
+2020-03-09 10:51:07,280 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 70
+2020-03-09 10:51:13,143 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-09 HTTP/1.1" 200 52
+2020-03-09 10:51:17,868 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 10746
+2020-03-09 10:51:20,182 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-02 HTTP/1.1" 200 198208
+2020-03-09 10:51:25,120 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 70
+2020-03-09 10:51:26,224 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-02 HTTP/1.1" 200 198208
+2020-03-09 10:51:28,337 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 70
+2020-03-09 10:51:47,785 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 10746
+2020-03-09 10:51:59,784 django.server INFO     "GET /api/vulns/122590/exploits HTTP/1.1" 200 20463
+2020-03-09 10:51:59,791 django.server INFO     "GET /api/vulns/122590/threats HTTP/1.1" 200 2
+2020-03-09 10:51:59,794 django.server INFO     "GET /api/ratings/calc/122590 HTTP/1.1" 200 835
+2020-03-09 10:51:59,798 django.server INFO     "GET /api/vulns/122590/ HTTP/1.1" 200 4329
+2020-03-09 10:52:00,289 django.server INFO     "GET /api/vulns/122590/history HTTP/1.1" 200 2291
+2020-03-09 10:52:00,684 django.server INFO     "GET /api/ratings/metrics HTTP/1.1" 200 1606
+2020-03-09 10:53:09,206 django.server INFO     "GET /api/search/coucou?limit=25&page=undefined HTTP/1.1" 200 2
+2020-03-09 10:53:13,725 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 70
+2020-03-09 10:53:22,448 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 10746
+2020-03-09 10:59:11,255 django.request WARNING  Not Found: /0099c1c3688d88873e3a.hot-update.json
+2020-03-09 10:59:11,256 django.server WARNING  "GET /0099c1c3688d88873e3a.hot-update.json HTTP/1.1" 404 24757
+2020-03-09 10:59:12,815 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 70

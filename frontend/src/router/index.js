@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import Home from '../views/Home.vue'
 
 import AuthLayout from '@/components/layouts/AuthLayout.vue'
 import UserAuth from '@/components/pages/UserAuth'
@@ -32,6 +31,7 @@ const routes = [
   {
     path: '/',
     component: AppLayout,
+    redirect: '/homepage',
     children: [
       { path: 'homepage', name: 'Homepage', component: Homepage },
       { path: 'alerts', name: 'Alerts', component: Alerts },

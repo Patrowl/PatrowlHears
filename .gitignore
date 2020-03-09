@@ -8,8 +8,9 @@ db.sqlite3
 .scannerwork
 .vscode
 staticfiles
-
-backend_app/var/log
+*.log
+backend_app/var/log/*
+backend_app/var/log/django-debug.log
 backend_app/var/tmp/*.pid
 
 # Frontend_app
