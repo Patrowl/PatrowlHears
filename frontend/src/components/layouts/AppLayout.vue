@@ -86,7 +86,7 @@
 
    <v-footer>
      <v-spacer></v-spacer>
-    <div class="caption">&copy; {{ new Date().getFullYear() }} - Patrowl Hears</div>
+    <div class="caption">&copy; {{ new Date().getFullYear() }} - Patrowl Hears - v0.0.2 (BETA)</div>
    </v-footer>
   </v-app>
 </template>

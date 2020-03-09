@@ -171,7 +171,7 @@
                 :size="100"
                 :width="5"
                 color="deep-orange"
-              >{{parseInt(vuln_score*20)}} ({{vuln_score}})
+              >{{parseInt(vuln_score*20)}}
               </v-progress-circular>
             </v-card-text>
           </v-card>
