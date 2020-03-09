@@ -70,6 +70,17 @@ CVE-2019-9465: https://alexbakker.me/post/mysterious-google-titan-m-bug-cve-2019
 CVE-2020-0688: https://github.com/Yt1g3r/CVE-2020-0688_EXP/blob/master/CVE-2020-0688_EXP.py
 CVE-2020-0041: https://lore.kernel.org/lkml/20191213202531.55010-1-tkjos@google.com/
 CVE-2020-3843: https://bugs.chromium.org/p/project-zero/issues/detail?id=1982
+CVE-2020-0069: https://www.forbes.com/sites/daveywinder/2020/03/04/critical-android-security-risk-confirmed-millions-of-devices-can-be-rooted---update-now-if-you-can/
+CVE-2020-9364: https://www.ait.ac.at/themen/cyber-security/pentesting/security-advisories/ait-sa-20200301-01/
+CVE-2020-10110: https://www.syss.de/fileadmin/dokumente/Publikationen/Advisories/SYSS-2020-004.txt
+CVE-2020-10111: https://www.syss.de/fileadmin/dokumente/Publikationen/Advisories/SYSS-2020-006.txt
+CVE-2020-10112: https://www.syss.de/fileadmin/dokumente/Publikationen/Advisories/SYSS-2020-005.txt
+CVE-2020-2555: https://www.youtube.com/watch?v=uGhhbY50tQY
+CVE-2019-19363: https://www.pentagrid.ch/en/blog/local-privilege-escalation-in-ricoh-printer-drivers-for-windows-cve-2019-19363/
+CVE-2019-18567: https://airbus-cyber-security.com/dive-into-a-kernel-bromium-race-condition-cve-2019-18567/
+CVE-2020-0069: https://github.com/R0rt1z2/AutomatedRoot
+
+
 
 Sigma Detection
 https://github.com/Neo23x0/sigma/blob/master/rules/web/web_citrix_cve_2019_19781_exploit.yml
