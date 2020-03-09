@@ -16106,6 +16106,3 @@ tz
 2020-03-09 10:53:09,206 django.server INFO     "GET /api/search/coucou?limit=25&page=undefined HTTP/1.1" 200 2
 2020-03-09 10:53:13,725 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 70
 2020-03-09 10:53:22,448 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 10746
-2020-03-09 10:59:11,255 django.request WARNING  Not Found: /0099c1c3688d88873e3a.hot-update.json
-2020-03-09 10:59:11,256 django.server WARNING  "GET /0099c1c3688d88873e3a.hot-update.json HTTP/1.1" 404 24757
-2020-03-09 10:59:12,815 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 70
