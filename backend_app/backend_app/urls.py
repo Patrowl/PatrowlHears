@@ -12,7 +12,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView,
 )
-from monitored_assets import apis as ma_apis
+# from monitored_assets import apis as ma_apis
 from alerts import apis as alerts_apis
 from vulns import apis as vulns_apis
 from vpratings import apis as vpr_apis
@@ -34,8 +34,8 @@ schema_view = get_schema_view(
 )
 
 router = routers.DefaultRouter()
-router.register(r'api/monitored/products', ma_apis.MonitoredProductsSet)
-router.register(r'api/monitored/vulns', ma_apis.MonitoredVulnsSet)
+# router.register(r'api/monitored/products', ma_apis.MonitoredProductsSet)
+# router.register(r'api/monitored/vulns', ma_apis.MonitoredVulnsSet)
 router.register(r'api/alerts', alerts_apis.AlertingRuleSet)
 router.register(r'api/vulns', vulns_apis.VulnSet)
 router.register(r'api/exploits', vulns_apis.ExploitMetadataSet)

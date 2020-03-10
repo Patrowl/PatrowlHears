@@ -11,7 +11,7 @@ from .serializers import AlertingRuleSerializer
 from .tasks import send_email_message_task
 from vulns.models import Vuln
 from cves.models import Product
-from monitored_assets.models import MonitoredProduct
+# from monitored_assets.models import MonitoredProduct
 from datetime import datetime, timedelta
 
 

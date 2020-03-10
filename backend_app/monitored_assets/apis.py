@@ -5,22 +5,22 @@ from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from common.utils.pagination import StandardResultsSetPagination
 # from vulns.utils import _refresh_metadata_cve
-from .models import MonitoredProduct
-from .serializers import MonitoredProductsSerializer
+# from .models import MonitoredProduct
+# from .serializers import MonitoredProductsSerializer
 from vulns.models import Vuln
 from vulns.serializers import VulnSerializer
 from cves.models import CVE, CPE, Bulletin, Vendor, Product
 
-
-class MonitoredProductsSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows monitored products to be viewed or edited.
-    """
-    queryset = MonitoredProduct.objects.all().order_by('-updated_at')
-    serializer_class = MonitoredProductsSerializer
-    filter_backends = (filters.DjangoFilterBackend,)
-    filterset_fields = ('vendor', 'product', 'monitored')
-    pagination_class = StandardResultsSetPagination
+#
+# class MonitoredProductsSet(viewsets.ModelViewSet):
+#     """
+#     API endpoint that allows monitored products to be viewed or edited.
+#     """
+#     queryset = MonitoredProduct.objects.all().order_by('-updated_at')
+#     serializer_class = MonitoredProductsSerializer
+#     filter_backends = (filters.DjangoFilterBackend,)
+#     filterset_fields = ('vendor', 'product', 'monitored')
+#     pagination_class = StandardResultsSetPagination
 
 
 @api_view(['POST', 'PUT'])

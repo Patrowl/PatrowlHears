@@ -7,7 +7,7 @@ from common.utils.pagination import StandardResultsSetPagination
 from rest_framework import viewsets
 from django_filters import rest_framework as filters
 from rest_framework.decorators import api_view
-from monitored_assets.models import MonitoredProduct
+# from monitored_assets.models import MonitoredProduct
 from cves.models import Product
 from .models import Vuln, ExploitMetadata, ThreatMetadata
 from .serializers import (
@@ -239,8 +239,12 @@ def get_latest_vulns(self):
         .distinct()[:MAX_VULNS])
 
     # Get monitored vendor/product and concatenate data
-    mp = MonitoredProduct.objects.filter(monitored=True).annotate(
-        vendorproduct=Concat(Value(':'), F('vendor'), Value(':'), F('product'), Value(':'))
+    # mp = MonitoredProduct.objects.filter(monitored=True).annotate(
+    #     vendorproduct=Concat(Value(':'), F('vendor'), Value(':'), F('product'), Value(':'))
+    # ).values_list('vendorproduct', flat=True)
+
+    mp = Product.objects.filter(monitored=True).annotate(
+        vendorproduct=Concat(Value(':'), F('vendor__name'), Value(':'), F('name'), Value(':'))
     ).values_list('vendorproduct', flat=True)
 
     monitored_vulns = Vuln.objects.filter(monitored=True).annotate(
@@ -261,6 +265,6 @@ def get_latest_vulns(self):
         'vulns': vulns,
         'exploits': exploits,
         'monitored_vulns': monitored_vulns_list,
-        'monitored_products': list(MonitoredProduct.objects.filter(monitored=True).values('vendor', 'product'))
+        # 'monitored_products': list(MonitoredProduct.objects.filter(monitored=True).values('vendor', 'product'))
     }
     return JsonResponse(res, safe=False)
