@@ -81,7 +81,9 @@ def sync_cpes_fromdb(from_date=None):
     cpes = db.cpe
     my_cpes = list(CPE.objects.values_list('vector', flat=True))
 
-    for cpe in cpes.find():
+    cursor_cpes = cpes.find()
+    # for cpe in cpes.find():
+    for cpe in cursor_cpes:
         if cpe['cpe_2_2'] not in my_cpes:
             # It's a new CPE
             try:
@@ -124,6 +126,7 @@ def sync_cpes_fromdb(from_date=None):
                     old_cpe.save()
             except Exception as e:
                 logger.error(e)
+    cursor_cpes.close()
     return True
 
 
@@ -194,10 +197,13 @@ def sync_cves_fromdb(from_date=None):
     vias = db.via4
 
     via = None
-    for cve in cves.find():
+    cursor_cve = cves.find(no_cursor_timeout=True)
+    for cve in cursor_cve:
+    # for cve in cves.find():
         via = vias.find_one({'id': cve['id']})
         _sync_cve_fromdb(cve, via)
         via = None
+    cursor_cve.close()
     return True
 
 
@@ -278,7 +284,9 @@ def sync_via_fromdb(from_date=None):
 
     my_cves = CVE.objects.values_list('cve_id', flat=True)
 
-    for via in vias.find():
+    cursor_via = vias.find()
+    # for via in vias.find():
+    for via in cursor_via:
         if via['id'] in my_cves:
             cve = CVE.objects.get(cve_id=via['id'])
             cve.references = {
@@ -289,6 +297,7 @@ def sync_via_fromdb(from_date=None):
             # Create / Update Vuln
             # sync_exploits_fromvia(cve=cve)
             # break
+    cursor_via.close()
     return True
 
 

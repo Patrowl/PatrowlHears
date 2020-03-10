@@ -19372,3 +19372,32 @@ django.urls.exceptions.NoReverseMatch: 'djdt' is not a registered namespace
 2020-03-10 16:03:04,200 django.server INFO     "GET /api/vulns/88171/history HTTP/1.1" 200 1103
 2020-03-10 16:03:07,236 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 68
 2020-03-10 16:03:07,522 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 9400
+2020-03-10 16:05:16,552 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-10 16:48:50,807 django.server INFO     "GET / HTTP/1.1" 200 10469
+2020-03-10 16:48:50,880 django.server INFO     "GET /static/css/app.fdac7a2a.css HTTP/1.1" 304 0
+2020-03-10 16:48:50,883 django.server INFO     "GET /static/css/chunk-vendors.d20f8e25.css HTTP/1.1" 304 0
+2020-03-10 16:48:50,885 django.server INFO     "GET /static/js/chunk-vendors.237e86ca.js HTTP/1.1" 304 0
+2020-03-10 16:48:50,887 django.server INFO     "GET /static/debug_toolbar/css/toolbar.css HTTP/1.1" 304 0
+2020-03-10 16:48:50,888 django.server INFO     "GET /static/debug_toolbar/js/toolbar.js HTTP/1.1" 304 0
+2020-03-10 16:48:50,888 django.server INFO     "GET /static/debug_toolbar/img/ajax-loader.gif HTTP/1.1" 304 0
+2020-03-10 16:48:50,890 django.server INFO     "GET /static/js/app.32d08277.js HTTP/1.1" 200 107983
+2020-03-10 16:48:51,188 django.server INFO     "GET /static/debug_toolbar/css/print.css HTTP/1.1" 304 0
+2020-03-10 16:48:51,314 django.server INFO     "GET /static/debug_toolbar/img/djdt_vertical.png HTTP/1.1" 304 0
+2020-03-10 16:48:52,133 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-10 16:48:52,518 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 8484
+2020-03-10 16:48:53,684 django.server INFO     "GET /admin/ HTTP/1.1" 200 23203
+2020-03-10 16:48:54,336 django.server INFO     "GET /admin/ HTTP/1.1" 200 23203
+2020-03-10 16:48:58,224 django.server INFO     "GET /admin/django_celery_beat/periodictask/ HTTP/1.1" 200 21203
+2020-03-10 16:48:58,315 django.server INFO     "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+2020-03-10 16:48:58,331 django.server INFO     "GET /admin/jsi18n/ HTTP/1.1" 200 3223
+2020-03-10 16:48:58,331 django.server INFO     "GET /static/admin/img/icon-no.svg HTTP/1.1" 200 560
+2020-03-10 17:52:05,936 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/backend_app/urls.py changed, reloading.
+2020-03-10 17:52:07,354 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-10 17:52:17,869 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/backend_app/urls.py changed, reloading.
+2020-03-10 17:52:18,687 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-10 17:52:35,644 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/backend_app/urls.py changed, reloading.
+2020-03-10 17:52:36,470 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-10 17:55:14,945 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+2020-03-10 17:55:15,746 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-10 17:58:02,739 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+2020-03-10 17:58:03,562 django.utils.autoreload INFO     Watching for file changes with StatReloader

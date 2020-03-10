@@ -29,13 +29,10 @@ schema_view = get_schema_view(
       license=openapi.License(name="AGPLv3 License"),
    ),
    public=True,
-   # permission_classes=(permissions.IsAdminUser,),
    permission_classes=(permissions.AllowAny,),
 )
 
 router = routers.DefaultRouter()
-# router.register(r'api/monitored/products', ma_apis.MonitoredProductsSet)
-# router.register(r'api/monitored/vulns', ma_apis.MonitoredVulnsSet)
 router.register(r'api/alerts', alerts_apis.AlertingRuleSet)
 router.register(r'api/vulns', vulns_apis.VulnSet)
 router.register(r'api/exploits', vulns_apis.ExploitMetadataSet)
@@ -46,7 +43,6 @@ router.register(r'api/kb/cpe', cves_apis.CPESet)
 router.register(r'api/kb/cwe', cves_apis.CWESet)
 router.register(r'api/kb/vendors', cves_apis.VendorSet, 'vendors')
 router.register(r'api/kb/products', cves_apis.ProductSet, 'products')
-# router.register(r'api/kb/vendors/<vendor_name>/products', cves_apis.ProductSet, 'products')
 router.register(r'api/kb/bulletin', cves_apis.BulletinSet)
 
 urlpatterns = [
@@ -66,7 +62,6 @@ urlpatterns = [
     path('api/docs/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('api/docs/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('', include(router.urls)),
-    # path('', include('pages.urls')),
     path('favicon.ico', RedirectView.as_view(url='/static/favicon.ico')),
 ]
 
