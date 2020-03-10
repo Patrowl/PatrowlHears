@@ -24,7 +24,7 @@ from monitored_assets.models import MonitoredProduct
 class CVESet(viewsets.ModelViewSet):
     """API endpoint that allows CVE to be viewed or edited."""
 
-    queryset = CVE.objects.all().order_by('cve_id')
+    queryset = CVE.objects.all().prefetch_related('bulletins').order_by('cve_id')
     serializer_class = CVESerializer
     filterset_class = CVEFilter
     filter_backends = (filters.DjangoFilterBackend,)
@@ -77,14 +77,14 @@ class ProductSet(viewsets.ModelViewSet):
                 monitored=Value(True, output_field=BooleanField())
             ).distinct('vendor', 'product').order_by('vendor', 'product')
 
-        return CPE.objects.annotate(
-            monitored=Case(
-                When(product__in=Subquery(mp), then=True), default=False, output_field=BooleanField()
-            )
-        ).distinct('vendor', 'product').order_by('vendor', 'product')
         # return CPE.objects.annotate(
-        #     monitored=Case(When(product__in=mp, then=True), default=False, output_field=BooleanField())
+        #     monitored=Case(
+        #         When(product__in=Subquery(mp), then=True), default=False, output_field=BooleanField()
+        #     )
         # ).distinct('vendor', 'product').order_by('vendor', 'product')
+        return CPE.objects.annotate(
+            monitored=Case(When(product__in=mp, then=True), default=False, output_field=BooleanField())
+        ).distinct('vendor', 'product').order_by('vendor', 'product')
 
 
 class CWESet(viewsets.ModelViewSet):

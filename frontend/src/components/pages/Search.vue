@@ -132,6 +132,7 @@
 </template>
 
 <script>
+import swal from 'sweetalert2';
 import router from "../../router";
 import VClamp from 'vue-clamp';
 import Colors from "../../common/colors";

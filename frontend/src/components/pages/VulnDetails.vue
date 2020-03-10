@@ -47,7 +47,7 @@
                   <v-list-item>
                     <v-list-item-content>
                       <v-list-item-subtitle>CVE</v-list-item-subtitle>
-                      {{this.vuln.cve}}
+                      {{this.vuln.cveid}}
                     </v-list-item-content>
                   </v-list-item>
 

@@ -1,7 +1,7 @@
 """backend_app URL Configuration."""
 from django.conf import settings
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from rest_framework import routers, permissions
 from drf_yasg.views import get_schema_view
@@ -61,7 +61,7 @@ urlpatterns = [
     path('api/vulns/', include('vulns.urls')),
     path('api/ratings/', include('vpratings.urls')),
     path('api/kb/', include('cves.urls')),
-    path('api/docs/swagger(?P<format>\.json|\.yaml)', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    re_path('$api/docs/swagger(?P<format>\.json|\.yaml)', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('api/docs/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('api/docs/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('', include(router.urls)),

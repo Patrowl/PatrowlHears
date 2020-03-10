@@ -64,8 +64,6 @@
 <script>
 import axios from 'axios';
 import swal from 'sweetalert2';
-// import router from '../../router';
-// import api from '../../common/api';
 
 export default {
   name: 'AuthLayout',
@@ -100,7 +98,7 @@ export default {
             this.$store.commit("setAuthUser",
               {authUser: response.data, isAuthenticated: true}
             );
-            this.$router.push({name: 'Vulns'});
+            this.$router.push({name: 'Homepage'});
           });
 
         }).catch(e => {

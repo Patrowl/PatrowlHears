@@ -20,9 +20,12 @@ from datetime import datetime, timedelta
 class VulnSet(viewsets.ModelViewSet):
     """API endpoint that allows vuln to be viewed or edited."""
 
-    queryset = Vuln.objects.all().annotate(
-        cve=F('cve_id__cve_id')
-    ).annotate(
+    # queryset = Vuln.objects.all().annotate(
+    #     cve=F('cve_id__cve_id')
+    # ).annotate(
+    #     exploit_count=Count('exploitmetadata')
+    # ).order_by('-updated_at')
+    queryset = Vuln.objects.all().prefetch_related('exploitmetadata_set').annotate(
         exploit_count=Count('exploitmetadata')
     ).order_by('-updated_at')
     serializer_class = VulnSerializer
@@ -90,8 +93,6 @@ def get_history_diffs(item, scope):
         for change in delta.changes:
             hdiffs.append("'{}' changed from '{}' to '{}'".format(change.field, change.old, change.new))
         if len(hdiffs) > 0:
-            # print(record.__dict__)
-            # print(record.history_date.timestamp())
             diffs.update({
                 next.history_date.timestamp(): {
                     'date': next.history_date,
@@ -228,9 +229,8 @@ def get_latest_vulns(self):
         MAX_TIMEDELTA_DAYS = int(self.GET.get('timedelta'))
 
     vulns = list(Vuln.objects.all()
-        .annotate(cve=F('cve_id__cve_id'))
         .order_by('-updated_at')
-        .values('id', 'cve', 'summary', 'score')[:MAX_VULNS])
+        .values('id', 'cveid', 'summary', 'score')[:MAX_VULNS])
 
     exploits = list(ExploitMetadata.objects.all()
         .order_by('-updated_at')
@@ -243,7 +243,6 @@ def get_latest_vulns(self):
     ).values_list('vendorproduct', flat=True)
 
     monitored_vulns = Vuln.objects.filter(monitored=True).annotate(
-            cve=F('cve_id__cve_id'),
             exploit_count=Count('exploitmetadata')
         ).order_by('-updated_at').values('id', 'cve', 'summary', 'score', 'exploit_count', 'updated_at', 'is_confirmed')[:MAX_VULNS]
 

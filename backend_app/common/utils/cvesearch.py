@@ -293,7 +293,7 @@ def sync_exploits_fromvia(vuln_id=None, cve=None, from_date=None):
     if vuln_id is not None:
         vuln = Vuln.objects.filter(id=vuln_id).first()
     elif cve is not None:
-        vuln = Vuln.objects.filter(cve_id=cve).first()
+        vuln = Vuln.objects.filter(cve=cve).first()
     if vuln is None:
         return False
     logger.debug("Syncing vuln '{}' --> '{}'".format(vuln, vuln.cve_id))
@@ -301,7 +301,7 @@ def sync_exploits_fromvia(vuln_id=None, cve=None, from_date=None):
     reflinks = []
     reflinkids = {}
 
-    refs = vuln.cve_id.references
+    refs = vuln.cve.references
     ## Exploit-DB
     if 'exploit-db' in refs.keys():
         vuln.is_exploitable = True
@@ -705,7 +705,8 @@ def sync_exploits_fromvia(vuln_id=None, cve=None, from_date=None):
 
 def sync_vuln_fromcve(cve):
     _vuln_data = {
-        'cve_id': cve,
+        'cve': cve,
+        'cveid': cve.cve_id,
         'summary': cve.summary,
         'published': cve.published,
         'modified': cve.modified,
@@ -718,7 +719,7 @@ def sync_vuln_fromcve(cve):
         'access': cve.access,
         'impact': cve.impact
     }
-    vuln = Vuln.objects.filter(cve_id=cve).first()
+    vuln = Vuln.objects.filter(cve=cve).first()
     if vuln is None:
         vuln = Vuln(**_vuln_data)
         vuln.save()

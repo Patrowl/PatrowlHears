@@ -145,13 +145,13 @@ export default {
     vulns: [],
     vulns_headers: [
       { text: 'PHID', value: 'id', fixed: true },
-      { text: 'CVE', value: 'cve', fixed: true },
+      { text: 'CVE', value: 'cveid', fixed: true },
       { text: 'Summary', value: 'summary' },
     ],
     monitored_vulns: [],
     monitored_vulns_headers: [
       { text: 'PHID', value: 'id', fixed: true },
-      { text: 'CVE', value: 'cve', fixed: true },
+      { text: 'CVE', value: 'cveid', fixed: true },
       { text: 'Summary', value: 'summary' },
       { text: 'Score', value: 'score' },
       { text: 'Exploits', value: 'exploit_count', align: 'center' },

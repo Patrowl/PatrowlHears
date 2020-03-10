@@ -187,7 +187,7 @@ export default {
     selected: [],
     headers: [
       { text: 'PHID', value: 'id' },
-      { text: 'CVE', value: 'cve', width: '150px' },
+      { text: 'CVE', value: 'cveid', width: '150px' },
       { text: 'Summary', value: 'summary' },
       { text: 'CVSSv2', value: 'cvss', align: 'center' },
       { text: 'Score', value: 'score', align: 'center' },

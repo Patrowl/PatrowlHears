@@ -16,10 +16,10 @@ class MonitoredProduct(models.Model):
         db_table = "monitored_products"
 
     def __unicode__(self):
-        return self.name
+        return "{} - {}".format(self.vendor, self.product)
 
     def __str__(self):
-        return self.name
+        return "{} - {}".format(self.vendor, self.product)
 
     def save(self, *args, **kwargs):
         # Todo

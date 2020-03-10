@@ -13,7 +13,7 @@ def search_query(self, query):
     # Search in Vulns
     for vuln in Vuln.objects.filter(
         Q(summary__icontains=query) |
-        Q(cve_id__cve_id__icontains=query) |
+        Q(cveid__icontains=query) |
         Q(reflinks__icontains=query) |
         Q(reflinkids__icontains=query) |
         Q(vulnerable_products__icontains=query)

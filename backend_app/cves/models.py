@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.postgres.fields import JSONField, ArrayField
 from simple_history.models import HistoricalRecords
-from monitored_assets.models import MonitoredProduct
+# from monitored_assets.models import MonitoredProduct
 
 
 def access_default_dict():
@@ -41,22 +41,29 @@ class CPE(models.Model):
 
     def __str__(self):
         return self.vector
-    #
-    # def is_monitored(self):
-    #     monitored = False
-    #     if MonitoredProduct.objects.filter(vendor=self.vendor, product=self.product, monitored=True).count() > 0:
-    #         monitored = True
-    #     return monitored
-    #
-    # @property
-    # def monitored(self):
-    #     return self.is_monitored()
+
+
+class Vendor(models.Model):
+    name = models.TextField(max_length=250, default="-")
+    monitored = models.BooleanField(default=False)
+    created_at = models.DateTimeField(default=timezone.now, null=True)
+    updated_at = models.DateTimeField(default=timezone.now, null=True)
+    history = HistoricalRecords()
+
+    class Meta:
+        db_table = "kb_vendor"
+
+    def __unicode__(self):
+        return self.name
+
+    def __str__(self):
+        return self.name
 
     def save(self, *args, **kwargs):
         if not self.created_at:
             self.created_at = timezone.now()
         self.updated_at = timezone.now()
-        return super(CPE, self).save(*args, **kwargs)
+        return super(Vendor, self).save(*args, **kwargs)
 
 
 class CWE(models.Model):

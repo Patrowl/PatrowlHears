@@ -6,42 +6,33 @@ from .models import Vuln, ExploitMetadata, ThreatMetadata
 
 
 class VulnSerializer(serializers.HyperlinkedModelSerializer):
-    cve = serializers.SerializerMethodField()
+    # cve = serializers.SerializerMethodField()
     exploit_count = serializers.SerializerMethodField()
     # rating = serializers.SerializerMethodField()
     # vulnerable_products = serializers.SerializerMethodField()
 
-    def get_cve(self, instance):
-        # return instance.cve_id.cve_id
-        return instance.cve
-    
+    # def get_cve(self, instance):
+    #     # return instance.cve_id.cve_id
+    #     return instance.cve
+
     def get_exploit_count(self, instance):
         return instance.exploitmetadata_set.count()
-
-    # def get_rating(self, instance):
-    #     return _calc_vprating(instance).score
-
-    # def get_vulnerable_products(self, instance):
-    #     return instance.cve_id.vulnerable_products
 
     class Meta:
         model = Vuln
         fields = [
             'id',
-            'cve_id_id',
-            'cve',
+            'cveid',
+            'cve_id',
             'summary', 'published', 'modified', 'assigner',
             'cvss', 'cvss_time', 'cvss_vector',
             'cwe_id', 'access', 'impact',
             'is_exploitable',
             'exploit_count',
-            # 'rating',
             'score',
             'is_confirmed',
             'is_in_the_news',
             'is_in_the_wild',
-            # 'exploitmetadata_set',
-            # 'threatmetadata_set',
             'vulnerable_products',
             'monitored',
             'reflinks',
@@ -54,14 +45,14 @@ class VulnFilter(FilterSet):
 
     def filter_search(self,  queryset, name, value):
         return queryset.filter(
-            Q(cve_id__cve_id__icontains=value) |
+            Q(cveid__icontains=value) |
             Q(summary__icontains=value)
         )
 
     sorted_by = OrderingFilter(
         choices=(
             ('id', _('PHID')), ('-id', _('PHID (Desc)')),
-            ('cve', _('CVE')), ('-cve', _('CVE (Desc)')),
+            ('cveid', _('CVE')), ('-cveid', _('CVE (Desc)')),
             ('cvss', _('CVSS')), ('-cvss', _('CVSS (Desc)')),
             ('score', _('Score')), ('-score', _('Score (Desc)')),
             ('exploit_count', _('NB Exploits')), ('-exploit_count', _('NB Exploits (Desc)')),

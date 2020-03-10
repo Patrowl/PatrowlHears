@@ -30,7 +30,8 @@ def impact_default_dict():
 
 
 class Vuln(models.Model):
-    cve_id = models.ForeignKey(CVE, on_delete=models.CASCADE, null=True)
+    cve = models.ForeignKey(CVE, on_delete=models.CASCADE, null=True, blank=True)
+    cveid = models.CharField(max_length=50, null=True, blank=True, default="")
     summary = models.TextField(default="")
     published = models.DateTimeField(null=True)
     modified = models.DateTimeField(null=True)
@@ -88,8 +89,8 @@ class Vuln(models.Model):
         # from vpratings.utils import _calc_vprating
         j = {
             'id': self.id,
-            'cve_id': self.cve_id.cve_id,
-            'cve': self.cve_id.cve_id,
+            'cveid': self.cveid,
+            'cve': getattr(self.cve, 'cve_id', None),
             'summary': self.summary,
             'published': self.published,
             'modified': self.modified,

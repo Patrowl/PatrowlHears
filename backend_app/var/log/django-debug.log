@@ -16106,3 +16106,826 @@ tz
 2020-03-09 10:53:09,206 django.server INFO     "GET /api/search/coucou?limit=25&page=undefined HTTP/1.1" 200 2
 2020-03-09 10:53:13,725 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 70
 2020-03-09 10:53:22,448 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 10746
+2020-03-09 11:28:57,046 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-09 11:29:14,700 django.request WARNING  Bad Request: /auth-jwt/obtain_jwt_token/
+2020-03-09 11:29:14,700 django.server WARNING  "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 400 40
+2020-03-09 11:29:16,751 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 438
+2020-03-09 11:29:16,779 django.server INFO     "GET /users/api/current HTTP/1.1" 200 105
+2020-03-09 11:29:17,869 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 70
+2020-03-09 11:29:26,083 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 10746
+2020-03-09 12:11:55,694 django.server INFO     "GET / HTTP/1.1" 200 10468
+2020-03-09 12:11:55,764 django.server INFO     "GET /static/css/app.fdac7a2a.css HTTP/1.1" 200 391
+2020-03-09 12:11:55,777 django.server INFO     "GET /static/css/chunk-vendors.d20f8e25.css HTTP/1.1" 200 419912
+2020-03-09 12:11:55,780 django.server INFO     "GET /static/js/chunk-vendors.237e86ca.js HTTP/1.1" 200 946081
+2020-03-09 12:11:55,804 django.server INFO     "GET /static/js/app.68b35d20.js HTTP/1.1" 200 107941
+2020-03-09 12:11:57,218 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 70
+2020-03-09 12:12:00,895 django.request WARNING  Unauthorized: /api/vulns/
+2020-03-09 12:12:00,895 django.server WARNING  "GET /api/vulns/ HTTP/1.1" 401 14495
+2020-03-09 12:12:00,945 django.server INFO     "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 200 121457
+2020-03-09 12:12:00,948 django.server INFO     "GET /static/rest_framework/js/jquery-3.4.1.min.js HTTP/1.1" 200 88145
+2020-03-09 12:12:00,948 django.server INFO     "GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 200 13632
+2020-03-09 12:12:00,949 django.server INFO     "GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 200 39680
+2020-03-09 12:12:05,216 django.server INFO     "GET /admin/ HTTP/1.1" 302 0
+2020-03-09 12:12:05,270 django.server INFO     "GET /admin/login/?next=/admin/ HTTP/1.1" 200 11281
+2020-03-09 12:12:05,292 django.server INFO     "GET /static/admin/css/base.css HTTP/1.1" 200 16378
+2020-03-09 12:12:05,293 django.server INFO     "GET /static/admin/css/responsive.css HTTP/1.1" 200 18052
+2020-03-09 12:12:05,713 django.server INFO     "GET /admin/ HTTP/1.1" 302 0
+2020-03-09 12:12:05,752 django.server INFO     "GET /admin/login/?next=/admin/ HTTP/1.1" 200 11281
+2020-03-09 12:12:05,844 django.server INFO     "GET /static/admin/fonts/Roboto-Regular-webfont.woff HTTP/1.1" 200 85876
+2020-03-09 12:12:05,845 django.server INFO     "GET /static/admin/fonts/Roboto-Light-webfont.woff HTTP/1.1" 200 85692
+2020-03-09 12:12:07,241 django.server INFO     "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+2020-03-09 12:12:07,419 django.server INFO     "GET /admin/ HTTP/1.1" 200 25638
+2020-03-09 12:12:07,511 django.server INFO     "GET /static/admin/fonts/Roboto-Bold-webfont.woff HTTP/1.1" 200 86184
+2020-03-09 12:12:08,139 django.server INFO     "GET /admin/login/?next=/admin/ HTTP/1.1" 302 0
+2020-03-09 12:12:08,289 django.server INFO     "GET /admin/ HTTP/1.1" 200 25637
+2020-03-09 12:12:10,026 django.server INFO     "GET / HTTP/1.1" 200 10466
+2020-03-09 12:12:19,522 django.server INFO     "GET /api/vulns/ HTTP/1.1" 200 347615
+2020-03-09 12:12:19,585 django.server INFO     "GET /static/rest_framework/fonts/glyphicons-halflings-regular.woff2 HTTP/1.1" 200 18028
+2020-03-09 12:12:35,747 django.server INFO     "GET /static/debug_toolbar/img/close.png HTTP/1.1" 304 0
+2020-03-09 12:12:35,747 django.server INFO     "GET /static/debug_toolbar/img/indicator.png HTTP/1.1" 304 0
+2020-03-09 12:12:36,059 django.server INFO     "GET /__debug__/render_panel/?store_id=297e1689b35c4829a04345aa656f002d&panel_id=SQLPanel HTTP/1.1" 200 344080
+2020-03-09 12:37:16,500 django.server INFO     "GET /api/vulns/ HTTP/1.1" 200 347618
+2020-03-09 14:15:39,438 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 70
+2020-03-09 14:15:47,833 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 10746
+2020-03-09 14:15:53,912 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 70
+2020-03-09 14:16:01,390 django.request WARNING  Not Found: /api/vulns/latests/
+2020-03-09 14:16:01,390 django.server WARNING  "GET /api/vulns/latests/ HTTP/1.1" 404 24740
+2020-03-09 14:16:12,570 django.server INFO     "GET /api/vulns/latest HTTP/1.1" 200 10746
+2020-03-09 14:16:46,257 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 70
+2020-03-09 14:16:53,946 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 10746
+2020-03-09 14:18:38,576 django.server INFO     "GET /api/vulns/latest HTTP/1.1" 200 10746
+2020-03-09 14:19:05,721 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/models.py changed, reloading.
+2020-03-09 14:19:07,191 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-09 14:31:27,252 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/serializers.py changed, reloading.
+2020-03-09 14:31:28,499 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-09 14:32:24,909 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/apis.py changed, reloading.
+2020-03-09 14:32:25,701 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-09 14:32:40,481 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/apis.py changed, reloading.
+2020-03-09 14:32:41,298 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-09 14:33:58,225 django.request ERROR    Internal Server Error: /api/vulns/
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/viewsets.py", line 114, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/mixins.py", line 43, in list
+    return self.get_paginated_response(serializer.data)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 760, in data
+    ret = super().data
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 678, in to_representation
+    self.child.to_representation(item) for item in iterable
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 678, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 514, in to_representation
+    for field in fields:
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 375, in _readable_fields
+    for field in self.fields.values():
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/utils/functional.py", line 48, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 363, in fields
+    for key, value in self.get_fields().items():
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 1063, in get_fields
+    source, info, model, depth
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 1208, in build_field
+    return self.build_unknown_field(field_name, model_class)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 1325, in build_unknown_field
+    (field_name, model_class.__name__)
+django.core.exceptions.ImproperlyConfigured: Field name `cve` is not valid for model `Vuln`.
+2020-03-09 14:33:58,768 django.server ERROR    "GET /api/vulns/ HTTP/1.1" 500 170321
+2020-03-09 14:37:45,413 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-09 14:37:54,933 django.server INFO     "GET /api/vulns/ HTTP/1.1" 200 473204
+2020-03-09 14:38:01,736 django.server INFO     "GET /api/vulns/ HTTP/1.1" 200 473183
+2020-03-09 14:38:06,061 django.server INFO     "GET /__debug__/render_panel/?store_id=5438782a765d418aa0cdf0b7ee3a0be9&panel_id=TimerPanel HTTP/1.1" 200 1308
+2020-03-09 14:38:06,070 django.server INFO     "GET /static/debug_toolbar/js/toolbar.timer.js HTTP/1.1" 304 0
+2020-03-09 14:38:07,531 django.server INFO     "GET /static/debug_toolbar/img/close_hover.png HTTP/1.1" 200 706
+2020-03-09 14:38:09,244 django.server INFO     "GET /__debug__/render_panel/?store_id=5438782a765d418aa0cdf0b7ee3a0be9&panel_id=SQLPanel HTTP/1.1" 200 359549
+2020-03-09 14:39:31,186 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/serializers.py changed, reloading.
+2020-03-09 14:39:32,036 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-09 14:39:54,469 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/serializers.py changed, reloading.
+2020-03-09 14:39:55,477 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-09 14:41:11,486 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/serializers.py changed, reloading.
+2020-03-09 14:41:12,265 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-09 14:41:20,963 django.request ERROR    Internal Server Error: /api/vulns/
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/viewsets.py", line 114, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/mixins.py", line 43, in list
+    return self.get_paginated_response(serializer.data)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 760, in data
+    ret = super().data
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 678, in to_representation
+    self.child.to_representation(item) for item in iterable
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 678, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 514, in to_representation
+    for field in fields:
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 375, in _readable_fields
+    for field in self.fields.values():
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/utils/functional.py", line 48, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 363, in fields
+    for key, value in self.get_fields().items():
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 1063, in get_fields
+    source, info, model, depth
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 1208, in build_field
+    return self.build_unknown_field(field_name, model_class)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 1325, in build_unknown_field
+    (field_name, model_class.__name__)
+django.core.exceptions.ImproperlyConfigured: Field name `cveid` is not valid for model `Vuln`.
+2020-03-09 14:41:21,525 django.server ERROR    "GET /api/vulns/ HTTP/1.1" 500 170222
+2020-03-09 14:41:23,877 django.server INFO     "GET /__debug__/render_panel/?store_id=de4d246c40564ccfacfccb34422fd35b&panel_id=TimerPanel HTTP/1.1" 200 1310
+2020-03-09 14:41:31,071 django.server INFO     "GET /__debug__/render_panel/?store_id=de4d246c40564ccfacfccb34422fd35b&panel_id=SQLPanel HTTP/1.1" 200 416284
+2020-03-09 14:42:35,531 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/serializers.py changed, reloading.
+2020-03-09 14:42:36,340 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-09 14:42:41,286 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/serializers.py changed, reloading.
+2020-03-09 14:42:42,068 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-09 14:43:13,324 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/serializers.py changed, reloading.
+2020-03-09 14:43:14,129 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-09 14:43:36,533 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/serializers.py changed, reloading.
+2020-03-09 14:43:37,356 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-09 14:44:06,362 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/models.py changed, reloading.
+2020-03-09 14:44:07,213 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-09 14:44:23,117 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/models.py changed, reloading.
+2020-03-09 14:44:23,945 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-09 14:49:28,339 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-09 15:38:16,466 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-09 15:38:22,110 django.request WARNING  Unauthorized: /api/vulns/
+2020-03-09 15:38:22,110 django.server WARNING  "GET /api/vulns/ HTTP/1.1" 401 14493
+2020-03-09 15:38:26,308 django.server INFO     "GET / HTTP/1.1" 200 10466
+2020-03-09 15:38:26,338 django.server INFO     "GET /static/css/app.fdac7a2a.css HTTP/1.1" 304 0
+2020-03-09 15:38:26,343 django.server INFO     "GET /static/js/app.68b35d20.js HTTP/1.1" 304 0
+2020-03-09 15:38:26,346 django.server INFO     "GET /static/js/chunk-vendors.237e86ca.js HTTP/1.1" 304 0
+2020-03-09 15:38:26,347 django.server INFO     "GET /static/css/chunk-vendors.d20f8e25.css HTTP/1.1" 304 0
+2020-03-09 15:38:26,740 django.request ERROR    Internal Server Error: /api/vulns/latest
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/apis.py", line 232, in get_latest_vulns
+    .annotate(cve=F('cve_id__cve_id'))
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/query.py", line 1067, in annotate
+    "the model." % alias)
+ValueError: The annotation 'cve' conflicts with a field on the model.
+2020-03-09 15:38:26,742 django.server ERROR    "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 500 20848
+2020-03-09 15:38:26,762 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 57
+2020-03-09 15:38:31,514 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 438
+2020-03-09 15:38:31,551 django.server INFO     "GET /users/api/current HTTP/1.1" 200 81
+2020-03-09 15:38:31,672 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-09 HTTP/1.1" 200 52
+2020-03-09 15:38:35,143 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-02 HTTP/1.1" 200 52
+2020-03-09 15:38:35,177 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-02 HTTP/1.1" 200 52
+2020-03-09 15:38:35,875 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-09 HTTP/1.1" 200 52
+2020-03-09 15:38:35,909 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-09 HTTP/1.1" 200 52
+2020-03-09 15:38:41,719 django.request WARNING  Unauthorized: /api/vulns/
+2020-03-09 15:38:41,720 django.server WARNING  "GET /api/vulns/ HTTP/1.1" 401 14495
+2020-03-09 15:38:45,203 django.server INFO     "GET /admin/ HTTP/1.1" 302 0
+2020-03-09 15:38:45,243 django.server INFO     "GET /admin/login/?next=/admin/ HTTP/1.1" 200 11281
+2020-03-09 15:38:46,186 django.server INFO     "GET /admin/ HTTP/1.1" 302 0
+2020-03-09 15:38:46,221 django.server INFO     "GET /admin/login/?next=/admin/ HTTP/1.1" 200 11281
+2020-03-09 15:38:47,645 django.server INFO     "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+2020-03-09 15:38:47,789 django.server INFO     "GET /admin/ HTTP/1.1" 200 22354
+2020-03-09 15:38:48,718 django.server INFO     "GET /admin/login/?next=/admin/ HTTP/1.1" 302 0
+2020-03-09 15:38:48,846 django.server INFO     "GET /admin/ HTTP/1.1" 200 22354
+2020-03-09 15:38:49,636 django.server INFO     "GET /api/vulns/ HTTP/1.1" 200 26341
+2020-03-09 15:38:51,387 django.server INFO     "GET /api/vulns/ HTTP/1.1" 200 26341
+2020-03-09 17:39:50,512 django.server INFO     "GET /api/vulns/ HTTP/1.1" 200 26342
+2020-03-09 17:40:31,849 django.server INFO     "GET /api/vulns/ HTTP/1.1" 200 26341
+2020-03-09 17:44:00,985 django.server INFO     "GET /api/vulns/ HTTP/1.1" 200 26341
+2020-03-09 17:46:50,069 django.server INFO     "GET /api/vulns/ HTTP/1.1" 200 26341
+2020-03-09 17:47:06,355 django.request ERROR    Internal Server Error: /api/kb/cves/sync
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/apis.py", line 135, in sync_cves
+    cvesearch.sync_cves_fromdb()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py", line 192, in sync_cves_fromdb
+    _sync_cve_fromdb(cve, via)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py", line 262, in _sync_cve_fromdb
+    sync_vuln_fromcve(cve=cur_cve)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py", line 738, in sync_vuln_fromcve
+    sync_exploits_fromvia(vuln.id)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py", line 304, in sync_exploits_fromvia
+    refs = vuln.cve_id.references
+AttributeError: 'int' object has no attribute 'references'
+2020-03-09 17:47:06,545 django.server ERROR    "GET /api/kb/cves/sync HTTP/1.1" 500 147721
+2020-03-09 17:47:50,317 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+2020-03-09 17:47:52,211 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-09 17:48:56,918 django.request ERROR    Internal Server Error: /api/vulns/latest
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/apis.py", line 232, in get_latest_vulns
+    .annotate(cve=F('cve_id__cve_id'))
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/query.py", line 1067, in annotate
+    "the model." % alias)
+ValueError: The annotation 'cve' conflicts with a field on the model.
+2020-03-09 17:48:56,920 django.server ERROR    "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 500 21073
+2020-03-09 17:48:57,009 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 59
+2020-03-09 17:49:01,504 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-09 HTTP/1.1" 200 22135
+2020-03-09 17:49:06,433 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-09 HTTP/1.1" 200 22528
+2020-03-09 17:49:55,346 django.server INFO     "GET /api/vulns/ HTTP/1.1" 200 71117
+2020-03-09 17:52:00,048 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-09 17:52:09,224 django.server INFO     "GET /api/kb/cve/ HTTP/1.1" 200 175709
+2020-03-09 17:53:18,676 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+2020-03-09 17:53:19,577 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-09 17:55:10,150 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-09 17:55:16,644 django.server INFO     "GET /api/kb/cve/ HTTP/1.1" 200 175709
+2020-03-09 17:55:20,177 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/common/utils/cvesearch.py changed, reloading.
+2020-03-09 17:55:21,040 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-09 17:55:28,558 django.server INFO     "GET /api/kb/cve/ HTTP/1.1" 200 175709
+2020-03-09 17:55:33,597 django.server INFO     "GET /__debug__/render_panel/?store_id=7009e3bf64044510947238e3756b3acd&panel_id=SQLPanel HTTP/1.1" 200 246392
+2020-03-09 17:56:10,775 django.server INFO     "GET /api/vulns/ HTTP/1.1" 200 81192
+2020-03-09 17:56:14,869 django.server INFO     "GET /api/vulns/ HTTP/1.1" 200 76076
+2020-03-09 17:56:16,887 django.server INFO     "GET /__debug__/render_panel/?store_id=9b27e95f173c454dbccb9ed5f91a2570&panel_id=SQLPanel HTTP/1.1" 200 172610
+2020-03-09 17:56:22,867 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-09 HTTP/1.1" 200 21629
+2020-03-09 17:56:38,711 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-09 HTTP/1.1" 200 19347
+2020-03-09 17:57:10,713 django.server INFO     "GET /api/vulns/272 HTTP/1.1" 301 0
+2020-03-09 17:57:10,975 django.server INFO     "GET /api/vulns/272/exploits HTTP/1.1" 200 2
+2020-03-09 17:57:10,977 django.server INFO     "GET /api/vulns/272/threats HTTP/1.1" 200 2
+2020-03-09 17:57:10,983 django.server INFO     "GET /api/vulns/272/ HTTP/1.1" 200 821
+2020-03-09 17:57:10,985 django.server INFO     "GET /api/ratings/calc/272 HTTP/1.1" 200 817
+2020-03-09 17:57:11,412 django.server INFO     "GET /api/vulns/272/history HTTP/1.1" 200 940
+2020-03-09 17:57:16,830 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-09 HTTP/1.1" 200 21954
+2020-03-09 17:57:20,868 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=& HTTP/1.1" 200 19618
+2020-03-09 17:57:21,528 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=& HTTP/1.1" 200 19803
+2020-03-09 17:57:24,454 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&sorted_by=cveid HTTP/1.1" 200 35632
+2020-03-09 17:57:26,155 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&sorted_by=-cveid HTTP/1.1" 200 20933
+2020-03-09 17:58:06,023 django.request ERROR    Internal Server Error: /api/search/cve-1999-0494
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/search/apis.py", line 23, in search_query
+    'value': vuln.to_dict()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/models.py", line 92, in to_dict
+    'cve_id': self.cve_id.cve_id,
+AttributeError: 'int' object has no attribute 'cve_id'
+2020-03-09 17:58:06,025 django.server ERROR    "GET /api/search/cve-1999-0494?limit=25&page=undefined HTTP/1.1" 500 21060
+2020-03-09 17:58:38,482 django.request ERROR    Internal Server Error: /api/search/cve-1999-0494
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/search/apis.py", line 23, in search_query
+    'value': vuln.to_dict()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/models.py", line 92, in to_dict
+    'cve_id': self.cve_id.cve_id,
+AttributeError: 'int' object has no attribute 'cve_id'
+2020-03-09 17:58:38,484 django.server ERROR    "GET /api/search/cve-1999-0494?limit=25&page=undefined HTTP/1.1" 500 21060
+2020-03-09 17:59:08,420 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/search/apis.py changed, reloading.
+2020-03-09 17:59:09,752 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-09 17:59:28,405 django.request ERROR    Internal Server Error: /api/search/cve-1999-0494
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/search/apis.py", line 23, in search_query
+    'value': vuln.to_dict()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/models.py", line 92, in to_dict
+    'cve_id': self.cve_id.cve_id,
+AttributeError: 'int' object has no attribute 'cve_id'
+2020-03-09 17:59:28,406 django.server ERROR    "GET /api/search/cve-1999-0494?limit=25&page=undefined HTTP/1.1" 500 21060
+2020-03-09 18:00:33,616 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/models.py changed, reloading.
+2020-03-09 18:00:34,510 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-09 18:00:41,055 django.server INFO     "GET /api/search/cve-1999-0494?limit=25&page=undefined HTTP/1.1" 200 884
+2020-03-09 18:00:45,924 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-09 HTTP/1.1" 200 23049
+2020-03-09 18:00:49,030 django.server INFO     "GET /api/vulns/815 HTTP/1.1" 301 0
+2020-03-09 18:00:49,257 django.server INFO     "GET /api/vulns/815/threats HTTP/1.1" 200 2
+2020-03-09 18:00:49,263 django.server INFO     "GET /api/vulns/815/exploits HTTP/1.1" 200 2
+2020-03-09 18:00:49,266 django.server INFO     "GET /api/ratings/calc/815 HTTP/1.1" 200 833
+2020-03-09 18:00:49,272 django.server INFO     "GET /api/vulns/815/ HTTP/1.1" 200 953
+2020-03-09 18:00:49,372 django.server INFO     "GET /api/vulns/815/history HTTP/1.1" 200 495
+2020-03-09 18:00:50,891 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-09 HTTP/1.1" 200 23049
+2020-03-09 18:00:54,150 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-02 HTTP/1.1" 200 23049
+2020-03-09 18:00:54,434 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-02 HTTP/1.1" 200 23049
+2020-03-09 18:00:56,532 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&sorted_by=id&updated_at__gte=2020-03-02 HTTP/1.1" 200 35656
+2020-03-09 18:00:58,053 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&sorted_by=-id&updated_at__gte=2020-03-02 HTTP/1.1" 200 23063
+2020-03-09 18:01:00,462 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&sorted_by=-id HTTP/1.1" 200 23036
+2020-03-09 18:01:00,736 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&sorted_by=-id HTTP/1.1" 200 23036
+2020-03-09 18:01:06,565 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 6917
+2020-03-09 18:01:09,722 django.server INFO     "GET /api/vulns/814 HTTP/1.1" 301 0
+2020-03-09 18:01:09,939 django.server INFO     "GET /api/ratings/calc/814 HTTP/1.1" 200 835
+2020-03-09 18:01:09,944 django.server INFO     "GET /api/vulns/814/threats HTTP/1.1" 200 2
+2020-03-09 18:01:09,945 django.server INFO     "GET /api/vulns/814/exploits HTTP/1.1" 200 5265
+2020-03-09 18:01:09,951 django.server INFO     "GET /api/vulns/814/ HTTP/1.1" 200 1185
+2020-03-09 18:01:10,247 django.server INFO     "GET /api/vulns/814/history HTTP/1.1" 200 2206
+2020-03-09 18:03:06,194 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-09 HTTP/1.1" 200 23049
+2020-03-09 18:03:20,077 django.server INFO     "GET /api/vulns/ HTTP/1.1" 200 80942
+2020-03-09 18:03:23,838 django.server INFO     "GET /__debug__/render_panel/?store_id=8917b20ac3774ceabbfb5b52124d98ca&panel_id=SQLPanel HTTP/1.1" 200 172708
+2020-03-09 18:03:42,200 django.server INFO     "GET /api/ratings/metrics HTTP/1.1" 200 1606
+2020-03-09 18:03:45,841 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 6917
+2020-03-09 18:03:47,868 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-09 HTTP/1.1" 200 23049
+2020-03-09 18:03:49,910 django.server INFO     "GET /api/vulns/814/threats HTTP/1.1" 200 2
+2020-03-09 18:03:49,915 django.server INFO     "GET /api/vulns/814/exploits HTTP/1.1" 200 5265
+2020-03-09 18:03:49,919 django.server INFO     "GET /api/ratings/calc/814 HTTP/1.1" 200 835
+2020-03-09 18:03:49,926 django.server INFO     "GET /api/vulns/814/ HTTP/1.1" 200 1185
+2020-03-09 18:03:50,193 django.server INFO     "GET /api/vulns/814/history HTTP/1.1" 200 2206
+2020-03-09 18:03:51,519 django.server INFO     "GET /api/ratings/metrics HTTP/1.1" 200 1606
+2020-03-09 18:03:58,826 django.server INFO     "GET /api/ratings/metrics HTTP/1.1" 200 1606
+2020-03-09 18:04:00,931 django.server INFO     "GET /api/exploits/?limit=10&page=1&search= HTTP/1.1" 200 6917
+2020-03-09 18:04:04,453 django.request ERROR    Internal Server Error: /api/vulns/latest
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/apis.py", line 232, in get_latest_vulns
+    .annotate(cve=F('cve_id__cve_id'))
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/query.py", line 1067, in annotate
+    "the model." % alias)
+ValueError: The annotation 'cve' conflicts with a field on the model.
+2020-03-09 18:04:04,454 django.server ERROR    "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 500 21073
+2020-03-09 18:04:04,475 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 61
+2020-03-09 18:04:06,186 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search= HTTP/1.1" 200 52
+2020-03-09 18:04:13,124 django.server INFO     "GET /api/kb/cpes/async HTTP/1.1" 200 11
+2020-03-09 18:04:15,157 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search= HTTP/1.1" 200 762
+2020-03-09 18:04:18,186 django.server INFO     "GET /api/kb/cve/?limit=20&page=1&search= HTTP/1.1" 200 90831
+2020-03-09 18:04:25,345 django.server INFO     "GET /api/kb/cve?limit=20&page=2&search= HTTP/1.1" 301 0
+2020-03-09 18:04:25,591 django.server INFO     "GET /api/kb/cve?limit=20&page=3&search= HTTP/1.1" 301 0
+2020-03-09 18:04:25,741 django.server INFO     "GET /api/kb/cve/?limit=20&page=2&search= HTTP/1.1" 200 49601
+2020-03-09 18:04:26,070 django.server INFO     "GET /api/kb/cve?limit=20&page=4&search= HTTP/1.1" 301 0
+2020-03-09 18:04:26,092 django.server INFO     "GET /api/kb/cve?limit=20&page=5&search= HTTP/1.1" 301 0
+2020-03-09 18:04:26,102 django.server INFO     "GET /api/kb/cve/?limit=20&page=3&search= HTTP/1.1" 200 52739
+2020-03-09 18:04:26,884 django.server INFO     "GET /api/kb/cve/?limit=20&page=4&search= HTTP/1.1" 200 68133
+2020-03-09 18:04:26,887 django.server INFO     "GET /api/kb/cve/?limit=20&page=5&search= HTTP/1.1" 200 40428
+2020-03-09 18:04:27,378 django.server INFO     "GET /api/kb/cve?limit=20&page=6&search= HTTP/1.1" 301 0
+2020-03-09 18:04:27,697 django.server INFO     "GET /api/kb/cve/?limit=20&page=6&search= HTTP/1.1" 200 58944
+2020-03-09 18:04:35,334 django.server INFO     "GET /api/kb/cve/ HTTP/1.1" 200 175707
+2020-03-09 18:04:37,257 django.server INFO     "GET /__debug__/render_panel/?store_id=577d5754e1f5491995b24366894dcaf4&panel_id=SQLPanel HTTP/1.1" 200 246397
+2020-03-09 18:06:19,767 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/apis.py changed, reloading.
+2020-03-09 18:06:21,208 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-09 18:06:27,535 django.server INFO     "GET /api/vulns/ HTTP/1.1" 200 80942
+2020-03-09 18:06:30,758 django.server INFO     "GET /api/kb/cve/ HTTP/1.1" 200 175705
+2020-03-09 18:06:33,721 django.server INFO     "GET /__debug__/render_panel/?store_id=64e4718994b84e1f9823ac9da92eb2bb&panel_id=SQLPanel HTTP/1.1" 200 75667
+2020-03-09 18:06:41,084 django.server INFO     "GET /api/kb/cve/ HTTP/1.1" 200 175705
+2020-03-09 18:06:54,050 django.server INFO     "GET /api/vulns/ HTTP/1.1" 200 80942
+2020-03-09 18:06:55,781 django.server INFO     "GET /__debug__/render_panel/?store_id=bd7d1d8ffb9a49809542f144fc4cbce5&panel_id=SQLPanel HTTP/1.1" 200 172699
+2020-03-09 18:07:35,756 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/apis.py changed, reloading.
+2020-03-09 18:07:36,999 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-09 18:07:43,554 django.request ERROR    Internal Server Error: /api/vulns/
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/viewsets.py", line 114, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/pagination.py", line 218, in paginate_queryset
+    return list(self.page)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/paginator.py", line 150, in __len__
+    return len(self.object_list)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/query.py", line 258, in __len__
+    self._fetch_all()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/query.py", line 1263, in _fetch_all
+    self._prefetch_related_objects()
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/query.py", line 782, in _prefetch_related_objects
+    prefetch_related_objects(self._result_cache, *self._prefetch_related_lookups)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/query.py", line 1640, in prefetch_related_objects
+    (through_attr, first_obj.__class__.__name__, lookup.prefetch_through))
+AttributeError: Cannot find 'exploitmetadata' on Vuln object, 'exploitmetadata' is an invalid parameter to prefetch_related()
+2020-03-09 18:07:43,691 django.server ERROR    "GET /api/vulns/ HTTP/1.1" 500 144614
+2020-03-09 18:07:53,077 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/apis.py changed, reloading.
+2020-03-09 18:07:54,314 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-09 18:08:00,372 django.server INFO     "GET /api/vulns/ HTTP/1.1" 200 80941
+2020-03-09 18:08:12,056 django.server INFO     "GET /__debug__/render_panel/?store_id=fe3430556ec848b8930f51ec029fe5e9&panel_id=SQLPanel HTTP/1.1" 200 45803
+2020-03-09 18:08:31,890 django.server INFO     "GET /api/kb/cpe/ HTTP/1.1" 200 36723
+2020-03-09 18:08:39,296 django.server INFO     "GET /api/kb/bulletin/ HTTP/1.1" 200 21584
+2020-03-09 18:08:44,694 django.request WARNING  Not Found: /api/kb/
+2020-03-09 18:08:44,694 django.server WARNING  "GET /api/kb/ HTTP/1.1" 404 27038
+2020-03-09 18:10:08,316 django.server INFO     "GET /api/kb/cve/?limit=20&page=1&search= HTTP/1.1" 200 90831
+2020-03-09 18:10:09,312 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-09 HTTP/1.1" 200 23049
+2020-03-09 18:10:11,503 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&sorted_by=id&updated_at__gte=2020-03-09 HTTP/1.1" 200 35656
+2020-03-09 18:10:12,587 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&sorted_by=-id&updated_at__gte=2020-03-09 HTTP/1.1" 200 23063
+2020-03-09 18:10:13,612 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-09 HTTP/1.1" 200 23049
+2020-03-09 18:10:22,351 django.request ERROR    Internal Server Error: /api/vulns/latest
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/apis.py", line 232, in get_latest_vulns
+    .annotate(cve=F('cve_id__cve_id'))
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/db/models/query.py", line 1067, in annotate
+    "the model." % alias)
+ValueError: The annotation 'cve' conflicts with a field on the model.
+2020-03-09 18:10:22,352 django.server ERROR    "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 500 21073
+2020-03-09 18:10:22,418 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 61
+2020-03-09 18:10:36,884 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/apis.py changed, reloading.
+2020-03-09 18:10:40,212 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-09 18:10:47,382 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/apis.py changed, reloading.
+2020-03-09 18:10:48,203 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-09 18:11:05,151 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/vulns/apis.py changed, reloading.
+2020-03-09 18:11:05,994 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-09 18:11:17,142 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 61
+2020-03-09 18:11:17,158 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 5620
+2020-03-09 18:11:33,218 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 61
+2020-03-09 18:11:33,238 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 5620
+2020-03-09 18:11:40,059 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 61
+2020-03-09 18:11:40,074 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 5620
+2020-03-10 09:10:12,006 django.request WARNING  Not Found: /api/kb/
+2020-03-10 09:10:12,008 django.server WARNING  "GET /api/kb/ HTTP/1.1" 404 27038
+2020-03-10 09:10:12,056 django.server INFO     "GET /static/debug_toolbar/img/ajax-loader.gif HTTP/1.1" 304 0
+2020-03-10 09:10:12,059 django.server INFO     "GET /static/debug_toolbar/css/toolbar.css HTTP/1.1" 304 0
+2020-03-10 09:10:12,060 django.server INFO     "GET /static/debug_toolbar/js/toolbar.js HTTP/1.1" 304 0
+2020-03-10 09:10:12,069 django.server INFO     "GET /static/debug_toolbar/css/print.css HTTP/1.1" 304 0
+2020-03-10 09:10:17,955 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 61
+2020-03-10 09:10:18,075 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 5620
+2020-03-10 09:10:32,018 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search= HTTP/1.1" 200 765
+2020-03-10 09:10:41,804 django.server INFO     "GET /api/kb/products HTTP/1.1" 301 0
+2020-03-10 09:10:46,087 django.server INFO     "GET /api/kb/products/ HTTP/1.1" 200 25087
+2020-03-10 09:10:50,991 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search= HTTP/1.1" 200 765
+2020-03-10 09:11:00,358 django.server INFO     "GET /static/debug_toolbar/img/indicator.png HTTP/1.1" 304 0
+2020-03-10 09:11:00,358 django.server INFO     "GET /static/debug_toolbar/img/close.png HTTP/1.1" 304 0
+2020-03-10 09:11:00,399 django.server INFO     "GET /__debug__/render_panel/?store_id=4d87f981f5b14db195b67cb3d5acab29&panel_id=SQLPanel HTTP/1.1" 200 41445
+2020-03-10 09:14:32,852 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/apis.py changed, reloading.
+2020-03-10 09:14:36,539 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-10 09:14:42,631 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/apis.py changed, reloading.
+2020-03-10 09:14:43,432 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-10 09:14:49,166 django.request ERROR    Internal Server Error: /api/kb/products/
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/viewsets.py", line 114, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/mixins.py", line 38, in list
+    queryset = self.filter_queryset(self.get_queryset())
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/generics.py", line 150, in filter_queryset
+    queryset = backend().filter_queryset(self.request, queryset, self)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django_filters/rest_framework/backends.py", line 90, in filter_queryset
+    filterset = self.get_filterset(request, queryset, view)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django_filters/rest_framework/backends.py", line 31, in get_filterset
+    filterset_class = self.get_filterset_class(view, queryset)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django_filters/rest_framework/backends.py", line 66, in get_filterset_class
+    (filterset_model, queryset.model)
+AssertionError: FilterSet model <class 'cves.models.CPE'> does not match queryset model <class 'monitored_assets.models.MonitoredProduct'>
+2020-03-10 09:14:49,237 django.server ERROR    "GET /api/kb/products/ HTTP/1.1" 500 128970
+2020-03-10 09:14:52,232 django.server INFO     "GET /__debug__/render_panel/?store_id=16e708a097c34836b08b951b531c6c05&panel_id=SQLPanel HTTP/1.1" 200 45346
+2020-03-10 09:17:33,873 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/monitored_assets/models.py changed, reloading.
+2020-03-10 09:17:34,706 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-10 09:17:48,597 django.request ERROR    Internal Server Error: /api/kb/products/
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/viewsets.py", line 114, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/mixins.py", line 38, in list
+    queryset = self.filter_queryset(self.get_queryset())
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/generics.py", line 150, in filter_queryset
+    queryset = backend().filter_queryset(self.request, queryset, self)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django_filters/rest_framework/backends.py", line 90, in filter_queryset
+    filterset = self.get_filterset(request, queryset, view)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django_filters/rest_framework/backends.py", line 31, in get_filterset
+    filterset_class = self.get_filterset_class(view, queryset)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django_filters/rest_framework/backends.py", line 66, in get_filterset_class
+    (filterset_model, queryset.model)
+AssertionError: FilterSet model <class 'cves.models.CPE'> does not match queryset model <class 'monitored_assets.models.MonitoredProduct'>
+2020-03-10 09:17:48,701 django.server ERROR    "GET /api/kb/products/ HTTP/1.1" 500 128970
+2020-03-10 09:17:50,377 django.request ERROR    Internal Server Error: /api/kb/products/
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/viewsets.py", line 114, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/mixins.py", line 38, in list
+    queryset = self.filter_queryset(self.get_queryset())
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/generics.py", line 150, in filter_queryset
+    queryset = backend().filter_queryset(self.request, queryset, self)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django_filters/rest_framework/backends.py", line 90, in filter_queryset
+    filterset = self.get_filterset(request, queryset, view)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django_filters/rest_framework/backends.py", line 31, in get_filterset
+    filterset_class = self.get_filterset_class(view, queryset)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django_filters/rest_framework/backends.py", line 66, in get_filterset_class
+    (filterset_model, queryset.model)
+AssertionError: FilterSet model <class 'cves.models.CPE'> does not match queryset model <class 'monitored_assets.models.MonitoredProduct'>
+2020-03-10 09:17:50,421 django.server ERROR    "GET /api/kb/products/ HTTP/1.1" 500 128970
+2020-03-10 09:17:52,346 django.server INFO     "GET /__debug__/render_panel/?store_id=faaa0d43b4a24eb4b51fdfed74185b6f&panel_id=SQLPanel HTTP/1.1" 200 45343
+2020-03-10 09:18:01,023 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/apis.py changed, reloading.
+2020-03-10 09:18:01,855 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-10 09:18:09,779 django.request ERROR    Internal Server Error: /api/kb/products/
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/viewsets.py", line 114, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/mixins.py", line 43, in list
+    return self.get_paginated_response(serializer.data)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 760, in data
+    ret = super().data
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 678, in to_representation
+    self.child.to_representation(item) for item in iterable
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 678, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 529, in to_representation
+    ret[field.field_name] = field.to_representation(attribute)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/fields.py", line 1905, in to_representation
+    return method(value)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/serializers.py", line 166, in get_monitored
+    return instance.monitored   # Set by ProductSet.get_queryset annotation
+AttributeError: 'CPE' object has no attribute 'monitored'
+2020-03-10 09:18:09,853 django.server ERROR    "GET /api/kb/products/ HTTP/1.1" 500 158857
+2020-03-10 09:18:11,682 django.server INFO     "GET /__debug__/render_panel/?store_id=17c77da0c07f486a9fb612e5bab848a6&panel_id=SQLPanel HTTP/1.1" 200 38133
+2020-03-10 09:18:34,198 django.request WARNING  Not Found: /BasicDeviceDescription.xml
+2020-03-10 09:18:34,199 django.server WARNING  "GET /BasicDeviceDescription.xml HTTP/1.1" 404 24728
+2020-03-10 09:19:02,397 django.request ERROR    Internal Server Error: /api/kb/products/
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/viewsets.py", line 114, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/mixins.py", line 43, in list
+    return self.get_paginated_response(serializer.data)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 760, in data
+    ret = super().data
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 678, in to_representation
+    self.child.to_representation(item) for item in iterable
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 678, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/serializers.py", line 529, in to_representation
+    ret[field.field_name] = field.to_representation(attribute)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/fields.py", line 1905, in to_representation
+    return method(value)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/serializers.py", line 166, in get_monitored
+    return instance.monitored   # Set by ProductSet.get_queryset annotation
+AttributeError: 'CPE' object has no attribute 'monitored'
+2020-03-10 09:19:02,466 django.server ERROR    "GET /api/kb/products/ HTTP/1.1" 500 158857
+2020-03-10 09:19:07,946 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/apis.py changed, reloading.
+2020-03-10 09:19:08,784 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-10 09:19:19,876 django.server INFO     "GET /api/kb/products/ HTTP/1.1" 200 25086
+2020-03-10 09:19:21,872 django.server INFO     "GET /__debug__/render_panel/?store_id=8161c70895c34f2289a0e0484c6be760&panel_id=SQLPanel HTTP/1.1" 200 41436
+2020-03-10 09:19:55,548 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/apis.py changed, reloading.
+2020-03-10 09:19:56,329 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-10 09:20:24,032 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/apis.py changed, reloading.
+2020-03-10 09:20:24,964 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-10 09:20:35,667 django.server INFO     "GET /api/kb/products/ HTTP/1.1" 200 25086
+2020-03-10 09:20:40,875 django.server INFO     "GET /api/kb/products/ HTTP/1.1" 200 25086
+2020-03-10 09:20:41,921 django.server INFO     "GET /__debug__/render_panel/?store_id=302580ea7c3f4befaa2f65846e306732&panel_id=SQLPanel HTTP/1.1" 200 46162
+2020-03-10 09:20:59,730 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/apis.py changed, reloading.
+2020-03-10 09:21:00,567 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-10 09:23:03,686 django.server INFO     "GET /__debug__/render_panel/?store_id=302580ea7c3f4befaa2f65846e306732&panel_id=VersionsPanel HTTP/1.1" 200 90
+2020-03-10 09:23:04,509 django.server INFO     "GET /static/debug_toolbar/img/djdt_vertical.png HTTP/1.1" 304 0
+2020-03-10 09:23:14,000 django.server INFO     "GET /api/kb/products/?page=2 HTTP/1.1" 200 25307
+2020-03-10 09:25:33,787 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/models.py changed, reloading.
+2020-03-10 09:25:34,630 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-10 09:25:59,153 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/models.py changed, reloading.
+2020-03-10 09:25:59,990 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-10 09:26:19,187 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/cves/admin.py changed, reloading.
+2020-03-10 09:26:20,011 django.utils.autoreload INFO     Watching for file changes with StatReloader
