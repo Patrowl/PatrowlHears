@@ -8,7 +8,6 @@ urlpatterns = [
     path('cwes/async', apis.sync_cwes_async, name='sync_cwes_async'),
     path('cpes/sync', apis.sync_cpes, name='sync_cpes'),
     path('cpes/async', apis.sync_cpes_async, name='sync_cpes_async'),
-    # path('vendors', apis.get_vendors, name='get_vendors'),
     path('vendors/<vendor_name>/products', apis.ProductSet.as_view({'get': 'list'}), name='products'),
     path('cves/sync', apis.sync_cves, name='sync_cves'),
     path('cves/async', apis.sync_cves_async, name='sync_cves_async'),

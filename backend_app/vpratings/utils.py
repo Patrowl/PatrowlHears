@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 
 
 def _calc_vprating(vuln, asset_metadata={}, save=False):
-    print("_calc_vprating():", vuln)
+    # print("_calc_vprating():", vuln)
     vpr = VPRating(vuln=vuln)
 
     v = vuln.__dict__

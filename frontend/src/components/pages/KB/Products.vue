@@ -89,7 +89,7 @@ export default {
     selected: [],
     headers: [
       { text: 'Vendor', value: 'vendor' },
-      { text: 'Product', value: 'product' },
+      { text: 'Product', value: 'name' },
       { text: 'Monitored', value: 'monitored', align: 'center', sortable: false },
       { text: 'Last update', value: 'updated_at' },
     ],
@@ -153,7 +153,7 @@ export default {
           sorted_by = '&sorted_by=' + sortBy;
         }
       }
-      let monitored = this.only_monitored ? "&monitored=yes" : "";
+      let monitored = this.only_monitored ? "&is_monitored=true" : "";
 
       this.$api.get('/api/kb/products/?limit='+itemsPerPage+'&page='+page+'&search='+this.search+sorted_by+monitored).then(res => {
         this.loading = false;
@@ -173,8 +173,8 @@ export default {
     toggleMonitored(item) {
       // save in backend
       let data = {
-        'vendor': item.vendor,
-        'product': item.product,
+        'vendor_name': item.vendor,
+        'product_name': item.name,
         'monitored': !item.monitored
       };
       this.$api.post('/api/monitor/product/toggle', data).then(res => {

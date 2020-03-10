@@ -131,23 +131,19 @@ VPR_METRICS = {
     'asset': {
         'max_score': 4,
         'criticality': {
-            'default': 0,
-            # 'default': 1,
-            # 'default': 0.3,
+            'default': 0.3,
             'low': 0.1,
             'medium': 0.3,
             'high': 1
         },
         'exposure': {
-            'default': 0,
-            # 'default': 1,
+            'default': 1,
             'restricted': 0.5,
             'internal': 1,
             'external': 2
         },
         'distribution': {
-            'default': 0,
-            # 'default': 0.5,
+            'default': 0.5,
             'low': 0.2,
             'medium': 0.5,
             'high': 1
@@ -158,7 +154,7 @@ VPR_METRICS = {
 VPR_DEFAULT_SCORES = {
     'vuln': 0,
     'threat': 0,
-    'asset': 0
+    'asset': 1.7
 }
 
 

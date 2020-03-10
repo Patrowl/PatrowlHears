@@ -1,10 +1,10 @@
 # from django.contrib.auth.models import User
 # from django_filters import rest_framework as filters
 from django.db.models import Q
-from django_filters import FilterSet, OrderingFilter, CharFilter
+from django_filters import FilterSet, OrderingFilter, CharFilter, BooleanFilter
 from rest_framework import serializers
 from django.utils.translation import gettext_lazy as _
-from .models import CVE, CPE, CWE, Bulletin
+from .models import CVE, CPE, CWE, Bulletin, Vendor, Product
 
 
 class CVESerializer(serializers.HyperlinkedModelSerializer):
@@ -68,7 +68,9 @@ class CPESerializer(serializers.HyperlinkedModelSerializer):
         model = CPE
         fields = [
             'id', 'title', 'vector',
-            'vendor', 'product', 'vulnerable_products',
+            'vendor',
+            'product',
+            'vulnerable_products',
             # 'monitored',
             'updated_at'
         ]
@@ -77,10 +79,10 @@ class CPESerializer(serializers.HyperlinkedModelSerializer):
 class CPEFilter(FilterSet):
     sorted_by = OrderingFilter(
         choices=(
-            ('vendor', _('Vendor')),
-            ('-vendor', _('Vendor (Desc)')),
-            ('product', _('Product')),
-            ('-product', _('Product (Desc)')),
+            # ('vendor', _('Vendor')),
+            # ('-vendor', _('Vendor (Desc)')),
+            # ('product', _('Product')),
+            # ('-product', _('Product (Desc)')),
             ('title', _('Title')),
             ('-title', _('Title (Desc)')),
             ('vector', _('Vector')),
@@ -93,81 +95,82 @@ class CPEFilter(FilterSet):
     class Meta:
         model = CPE
         fields = {
-            'vendor': ['icontains', 'exact'],
-            'product': ['icontains', 'exact'],
+            # 'vendor': ['icontains', 'exact'],
+            # 'product': ['icontains', 'exact'],
             'title': ['icontains', 'exact'],
+            'vector': ['icontains', 'exact'],
             # 'monitored': [''],
         }
 
 
 class VendorSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = CPE
+        model = Vendor
         # fields = ['vendor', 'id', 'monitored']
-        fields = ['vendor', 'id']
+        fields = ['name', 'id']
 
 
 class VendorFilter(FilterSet):
     sorted_by = OrderingFilter(
         # tuple-mapping retains order
         choices=(
-            ('vendor', _('Vendor')),
-            ('-vendor', _('Vendor (Desc)')),
+            ('name', _('Name')),
+            ('-name', _('Name (Desc)')),
             # ('monitored', _('Monitored')),
             # ('-monitored', _('Monitored (desc)')),
         )
     )
 
     class Meta:
-        model = CPE
+        model = Vendor
         fields = {
-            'vendor': ['icontains']
+            'name': ['icontains']
         }
 
 
 class ProductFilter(FilterSet):
     search = CharFilter(method='filter_search')
+    is_monitored = BooleanFilter(method='filter_monitored')
 
     def filter_search(self,  queryset, name, value):
         return queryset.filter(
-            Q(vendor__icontains=value) |
-            Q(product__icontains=value)
+            Q(vendor__name__icontains=value) |
+            Q(name__icontains=value)
         )
+
+    def filter_monitored(self,  queryset, name, value):
+        return queryset.filter(monitored=value)
 
     sorted_by = OrderingFilter(
         # tuple-mapping retains order
         choices=(
-            ('vendor', _('Vendor')),
-            ('-vendor', _('Vendor (Desc)')),
-            ('product', _('Product')),
-            ('-product', _('Product (Desc)')),
-            ('title', _('Title')),
-            ('-title', _('Title (Desc)')),
-            ('vector', _('Vector')),
-            ('-vector', _('Vector (desc)')),
-            # ('monitored', _('Monitored')),
-            # ('-monitored', _('Monitored (desc)')),
+            ('vendor__name', _('Vendor')),
+            ('-vendor__name', _('Vendor (Desc)')),
+            ('name', _('Product Name')),
+            ('-name', _('Product Name (Desc)')),
+            ('monitored', _('Monitored')),
+            ('-monitored', _('Monitored (desc)')),
         )
     )
 
     class Meta:
-        model = CPE
+        model = Product
         fields = {
-            'vendor': ['icontains'],
-            'product': ['icontains'],
-            'title': ['icontains'],
+            'name': ['icontains'],
+            'vendor__name': ['icontains'],
+            'monitored': [],
         }
 
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
-    monitored = serializers.SerializerMethodField()
+    vendor = serializers.SerializerMethodField()
 
-    def get_monitored(self, instance):
-        return instance.monitored   # Set by ProductSet.get_queryset annotation
+    def get_vendor(self, instance):
+        return instance.vendor.name
 
     class Meta:
-        model = CPE
-        fields = ['vendor', 'product', 'monitored']
+        model = Product
+        fields = ['name', 'vendor', 'monitored']
 
 
 class CWESerializer(serializers.HyperlinkedModelSerializer):

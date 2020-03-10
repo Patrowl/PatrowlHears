@@ -21,28 +21,6 @@ def impact_default_dict():
     }
 
 
-class CPE(models.Model):
-    title = models.TextField(default="")
-    vendor = models.CharField(max_length=250, default="", null=True)
-    product = models.CharField(max_length=250, default="", null=True)
-    vector = models.CharField(max_length=250, default="", null=True)
-    vulnerable_products = ArrayField(
-        models.CharField(max_length=250, blank=True), null=True)
-    # monitored = models.BooleanField(default=False)
-    created_at = models.DateTimeField(default=timezone.now, null=True)
-    updated_at = models.DateTimeField(default=timezone.now, null=True)
-    history = HistoricalRecords(excluded_fields=['updated_at'], cascade_delete_history=True)
-
-    class Meta:
-        db_table = "kb_cpe"
-
-    def __unicode__(self):
-        return self.vector
-
-    def __str__(self):
-        return self.vector
-
-
 class Vendor(models.Model):
     name = models.TextField(max_length=250, default="-")
     monitored = models.BooleanField(default=False)
@@ -64,6 +42,78 @@ class Vendor(models.Model):
             self.created_at = timezone.now()
         self.updated_at = timezone.now()
         return super(Vendor, self).save(*args, **kwargs)
+
+
+class Product(models.Model):
+    name = models.TextField(max_length=250, default="-")
+    vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
+    monitored = models.BooleanField(default=False)
+    created_at = models.DateTimeField(default=timezone.now, null=True)
+    updated_at = models.DateTimeField(default=timezone.now, null=True)
+    history = HistoricalRecords()
+
+    class Meta:
+        db_table = "kb_product"
+
+    def __unicode__(self):
+        return self.name
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.created_at:
+            self.created_at = timezone.now()
+        self.updated_at = timezone.now()
+        return super(Product, self).save(*args, **kwargs)
+
+
+class ProductVersion(models.Model):
+    version = models.TextField(max_length=250, default="*")
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    monitored = models.BooleanField(default=False)
+    created_at = models.DateTimeField(default=timezone.now, null=True)
+    updated_at = models.DateTimeField(default=timezone.now, null=True)
+    history = HistoricalRecords()
+
+    class Meta:
+        db_table = "kb_product_version"
+
+    def __unicode__(self):
+        return self.version
+
+    def __str__(self):
+        return self.version
+
+    def save(self, *args, **kwargs):
+        if not self.created_at:
+            self.created_at = timezone.now()
+        self.updated_at = timezone.now()
+        return super(ProductVersion, self).save(*args, **kwargs)
+
+
+class CPE(models.Model):
+    title = models.TextField(default="")
+    vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
+    # vendor = models.CharField(max_length=250, default="", null=True)
+    # product = models.CharField(max_length=250, default="", null=True)
+    vector = models.CharField(max_length=250, default="", null=True)
+    vulnerable_products = ArrayField(
+        models.CharField(max_length=250, blank=True), null=True)
+    # monitored = models.BooleanField(default=False)
+    created_at = models.DateTimeField(default=timezone.now, null=True)
+    updated_at = models.DateTimeField(default=timezone.now, null=True)
+    history = HistoricalRecords(excluded_fields=['updated_at'], cascade_delete_history=True)
+
+    class Meta:
+        db_table = "kb_cpe"
+
+    def __unicode__(self):
+        return self.vector
+
+    def __str__(self):
+        return self.vector
 
 
 class CWE(models.Model):

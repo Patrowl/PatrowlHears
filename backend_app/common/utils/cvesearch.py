@@ -1,5 +1,5 @@
 from django.conf import settings
-from cves.models import CWE, CPE, CVE, Bulletin
+from cves.models import CWE, CPE, CVE, Bulletin, Vendor, Product, ProductVersion
 from vulns.models import Vuln, ExploitMetadata, ThreatMetadata
 from .cvesearch_bulletins import sync_bulletin_redhat, sync_bulletin_msbulletin
 from pymongo import MongoClient
@@ -86,11 +86,17 @@ def sync_cpes_fromdb(from_date=None):
             # It's a new CPE
             try:
                 c = _CPE(cpe['cpe_2_2'])
+                vendor, is_new_vendor = Vendor.objects.get_or_create(name=c.get_vendor()[0])
+                product, is_new_product = Product.objects.get_or_create(name=c.get_product()[0], vendor=vendor)
+                productversion, is_new_productversion = ProductVersion.objects.get_or_create(version=c.get_version()[0], product=product)
+
                 new_cpe = CPE(
                     vector=cpe['cpe_2_2'],
                     title=cpe['title'],
-                    vendor=c.get_vendor()[0],
-                    product=c.get_product()[0],
+                    vendor=vendor,
+                    product=product,
+                    # vendor=c.get_vendor()[0],
+                    # product=c.get_product()[0],
                     vulnerable_products=[]
                 )
                 new_cpe.save()
@@ -103,6 +109,7 @@ def sync_cpes_fromdb(from_date=None):
                 # Add the currect CPE to inner list
                 my_cpes.append(cpe['cpe_2_2'])
             except Exception as e:
+                # print(e)
                 logger.error(e)
         else:
             # Update existing CPE and check for new vulnerable products

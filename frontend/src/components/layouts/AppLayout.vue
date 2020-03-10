@@ -86,7 +86,7 @@
 
    <v-footer>
      <v-spacer></v-spacer>
-    <div class="caption">&copy; {{ new Date().getFullYear() }} - Patrowl Hears - v0.0.2 (BETA)</div>
+    <div class="caption">&copy; {{ new Date().getFullYear() }} - Patrowl Hears - v0.0.3 (BETA)</div>
    </v-footer>
   </v-app>
 </template>
@@ -120,7 +120,7 @@ export default {
       // { icon: 'mdi-file-chart', text: 'Reports' },
       { divider: true },
       // { heading: 'Labels' },
-      { icon: 'mdi-settings', text: 'Settings', to: '/settings' },
+      { icon: 'mdi-toggle-switch', text: 'Settings', to: '/settings' },
       { icon: 'mdi-help-circle', text: 'Help' },
     ],
     username: '',

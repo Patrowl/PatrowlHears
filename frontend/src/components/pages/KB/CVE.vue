@@ -94,7 +94,7 @@ export default {
       { text: 'Summary', value: 'summary', sortable: false },
       { text: 'CVSS', value: 'cvss', align: 'center' },
       { text: 'CVSS Vector', value: 'cvss_vector', align: 'center', sortable: false },
-      { text: 'Monitored', value: 'monitored', align: 'center' },
+      // { text: 'Monitored', value: 'monitored', align: 'center' },
       { text: 'Modified', value: 'modified', align: 'center' },
     ],
     rowsPerPageItems: [5, 10, 20, 50, 100],

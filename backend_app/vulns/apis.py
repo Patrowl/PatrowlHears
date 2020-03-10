@@ -8,6 +8,7 @@ from rest_framework import viewsets
 from django_filters import rest_framework as filters
 from rest_framework.decorators import api_view
 from monitored_assets.models import MonitoredProduct
+from cves.models import Product
 from .models import Vuln, ExploitMetadata, ThreatMetadata
 from .serializers import (
     VulnSerializer, ExploitMetadataSerializer, ThreatMetadataSerializer,
@@ -216,7 +217,7 @@ def get_vuln_stats(self):
         'vulns': Vuln.objects.count(),
         'exploits': ExploitMetadata.objects.count(),
         'threats': ThreatMetadata.objects.count(),
-        'monitored': MonitoredProduct.objects.count()
+        'monitored': Product.objects.filter(monitored=True).count() + Vuln.objects.filter(monitored=True).count()
     }
     return JsonResponse(res, safe=False)
 
@@ -244,7 +245,7 @@ def get_latest_vulns(self):
 
     monitored_vulns = Vuln.objects.filter(monitored=True).annotate(
             exploit_count=Count('exploitmetadata')
-        ).order_by('-updated_at').values('id', 'cve', 'summary', 'score', 'exploit_count', 'updated_at', 'is_confirmed')[:MAX_VULNS]
+        ).order_by('-updated_at').values('id', 'cveid', 'summary', 'score', 'exploit_count', 'updated_at', 'is_confirmed')[:MAX_VULNS]
 
     monitored_vulns_list = list(monitored_vulns)
     for lv in Vuln.objects.exclude(id__in=[o['id'] for o in monitored_vulns]).filter(monitored=False, modified__gte=datetime.now() - timedelta(days=MAX_TIMEDELTA_DAYS)).order_by('-updated_at')[:10000]:

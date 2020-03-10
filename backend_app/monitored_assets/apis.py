@@ -9,7 +9,7 @@ from .models import MonitoredProduct
 from .serializers import MonitoredProductsSerializer
 from vulns.models import Vuln
 from vulns.serializers import VulnSerializer
-from cves.models import CVE, CPE, Bulletin
+from cves.models import CVE, CPE, Bulletin, Vendor, Product
 
 
 class MonitoredProductsSet(viewsets.ModelViewSet):
@@ -25,18 +25,25 @@ class MonitoredProductsSet(viewsets.ModelViewSet):
 
 @api_view(['POST', 'PUT'])
 def toggle_monitor_product(self):
-    if set(['vendor', 'product', 'monitored']).issubset(self.data.keys()) is False:
+    if set(['vendor_name', 'product_name', 'monitored']).issubset(self.data.keys()) is False:
         return JsonResponse("error.", safe=False, status=500)
+    #
+    # product = MonitoredProduct.objects.filter(
+    #     vendor=self.data['vendor'], product=self.data['product']).first()
+    # if product is None:
+    #     data = {
+    #         'vendor': self.data['vendor'],
+    #         'product': self.data['product'],
+    #         'monitored': self.data['monitored']
+    #     }
+    #     product = MonitoredProduct(**data)
+    # else:
+    #     product.monitored = self.data['monitored']
 
-    product = MonitoredProduct.objects.filter(
-        vendor=self.data['vendor'], product=self.data['product']).first()
+    product = Product.objects.filter(
+        vendor__name=self.data['vendor_name'], name=self.data['product_name']).first()
     if product is None:
-        data = {
-            'vendor': self.data['vendor'],
-            'product': self.data['product'],
-            'monitored': self.data['monitored']
-        }
-        product = MonitoredProduct(**data)
+        return JsonResponse("error.", safe=False, status=500)
     else:
         product.monitored = self.data['monitored']
     product.save()

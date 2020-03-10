@@ -41,7 +41,7 @@
           <dd><v-chip small label :color="getRatingColor(result.value.score)" class="pa-2">
             {{result.value.score}}
           </v-chip></dd>
-          <dt>CVE</dt><dd>{{result.value.cve_id}}</dd>
+          <dt>CVE</dt><dd>{{result.value.cveid}}</dd>
           <dt>CVSSv2</dt>
           <!-- <dd><v-chip small label :color="getCVSSColor(result.value.cvss)" class="pa-2">
             {{result.value.cvss}}

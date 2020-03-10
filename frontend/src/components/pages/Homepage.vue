@@ -13,7 +13,7 @@
         <v-flex md4>
           <v-card color="lime">
             <v-card-title primary>Metadata</v-card-title>
-            <v-card-subtitle primary>Exploits & Threats activities</v-card-subtitle>
+            <v-card-subtitle primary>Exploits, Threats activities, News, Blog posts</v-card-subtitle>
             <v-card-text class="display-3 text-center">
               {{stats.exploits + stats.threats}}
             </v-card-text>
@@ -21,8 +21,8 @@
         </v-flex>
         <v-flex md4>
           <v-card color="teal">
-            <v-card-title primary>Monitored</v-card-title>
-            <v-card-subtitle primary>Vendor / Products</v-card-subtitle>
+            <v-card-title primary>Monitored assets</v-card-title>
+            <v-card-subtitle primary>Vendors, Products, Vulnerabilites, Bulletins</v-card-subtitle>
             <v-card-text class="display-3 text-center">
               {{stats.monitored}}
             </v-card-text>
@@ -98,7 +98,7 @@
         </v-flex>
         <v-flex md6>
           <v-card outlined>
-            <v-card-title primary>Latest exploits</v-card-title>
+            <v-card-title primary>Latest exploits metadata</v-card-title>
             <v-card-text class="text-center">
               <v-data-table
                 :headers="exploits_headers"

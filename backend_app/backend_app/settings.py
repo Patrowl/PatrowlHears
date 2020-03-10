@@ -9,6 +9,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', '&-e9z@w=gerd+_k1)rj2#ri2_cswyp_cg5zj-
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', True)
+# DEBUG = os.environ.get('DEBUG', False)
 
 ALLOWED_HOSTS = ['*']
 
@@ -29,7 +30,7 @@ INSTALLED_APPS = [
     'django_filters',
     'simple_history',
     'django_celery_beat',
-    'debug_toolbar',
+    # 'debug_toolbar',
 
     'users',
     'cves',
@@ -50,12 +51,16 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
-DEBUG_TOOLBAR_CONFIG = {
-    "SHOW_TOOLBAR_CALLBACK": lambda request: True,
-}
+if DEBUG is True:
+    INSTALLED_APPS += ['debug_toolbar']
+    MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']
+    DEBUG_TOOLBAR_CONFIG = {
+        "SHOW_TOOLBAR_CALLBACK": lambda request: True,
+    }
+
 
 LOGGING = {
     'version': 1,

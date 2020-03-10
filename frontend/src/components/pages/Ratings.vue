@@ -1,7 +1,4 @@
 <template>
-    <!-- <div>
-        Ratings Page - TODO
-    </div> -->
     <v-container fluid grid-list-md>
       <v-layout row wrap>
         <v-flex md8 d-flex align-stretch>
@@ -385,9 +382,9 @@ export default {
       in_the_wild: false
     },
     asset: {
-      criticality: 'X',
-      exposure: 'X',
-      distribution: 'X'
+      criticality: 'M',
+      exposure: 'I',
+      distribution: 'M'
     },
     metrics_values: {},
     base_vector: '',

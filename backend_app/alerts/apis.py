@@ -10,6 +10,7 @@ from .models import AlertingRule
 from .serializers import AlertingRuleSerializer
 from .tasks import send_email_message_task
 from vulns.models import Vuln
+from cves.models import Product
 from monitored_assets.models import MonitoredProduct
 from datetime import datetime, timedelta
 
@@ -40,12 +41,9 @@ def get_dailymail_report_vendors(self):
     last_vulns_monitored = {}
 
     # Get monitored vendor/product and concatenate data
-    mp = MonitoredProduct.objects.filter(monitored=True).annotate(
-        vendorproduct=Concat(Value(':'), F('vendor'), Value(':'), F('product'), Value(':'))
-    ).values_list('vendorproduct', flat=True)
+    mp = Product.objects.filter(monitored=True).annotate(vendorproduct=Concat(Value(':'), F('vendor__name'), Value(':'), F('name'), Value(':'))).values_list('vendorproduct', flat=True)
 
     # Get last created/updated vulns
-    # last_vulns = Vuln.objects.filter(updated_at__gte=datetime(2020, 2, 14))
     last_vulns = Vuln.objects.filter(updated_at__gte=datetime.now() - timedelta(days=1)).order_by('-updated_at')
 
     for lv in last_vulns[:1000]:
@@ -85,7 +83,7 @@ def get_dailymail_report_vendors(self):
                 'vuln_id': vuln['id'],
                 'status': 'New',
                 'product_name': product,
-                'cve': vuln['cve_id'],
+                'cve': vuln['cveid'],
                 'summary': vuln['summary'],
                 'cvss': vuln['cvss'],
                 'score': vuln['score'],

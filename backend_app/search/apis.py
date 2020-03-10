@@ -17,7 +17,7 @@ def search_query(self, query):
         Q(reflinks__icontains=query) |
         Q(reflinkids__icontains=query) |
         Q(vulnerable_products__icontains=query)
-    ).order_by('updated_at', 'score'):
+    ).order_by('-score', '-cveid', '-updated_at', 'summary')[:100]:
         results.append({
             'type': 'vuln',
             'value': vuln.to_dict()
@@ -29,7 +29,7 @@ def search_query(self, query):
         Q(publicid__icontains=query) |
         Q(link__icontains=query) |
         Q(notes__icontains=query)
-    ):
+    ).order_by('-updated_at')[:100]:
         results.append({
             'type': 'exploit',
             'value': model_to_dict(exploit)
@@ -39,7 +39,7 @@ def search_query(self, query):
     for threat in ThreatMetadata.objects.filter(
         Q(link__icontains=query) |
         Q(notes__icontains=query)
-    ):
+    ).order_by('-updated_at')[:100]:
         results.append({
             'type': 'threat',
             'value': model_to_dict(threat)

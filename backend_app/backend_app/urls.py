@@ -2,6 +2,7 @@
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include, re_path
+from django.views.generic import RedirectView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from rest_framework import routers, permissions
 from drf_yasg.views import get_schema_view
@@ -66,10 +67,10 @@ urlpatterns = [
     path('api/docs/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('', include(router.urls)),
     # path('', include('pages.urls')),
-    # path('favicon.ico', RedirectView.as_view(url='/static/images/favicon.ico')),
+    path('favicon.ico', RedirectView.as_view(url='/static/favicon.ico')),
 ]
 
-if settings.DEBUG:
+if settings.DEBUG is True:
     import debug_toolbar
     urlpatterns = [
         path('__debug__/', include(debug_toolbar.urls)),
