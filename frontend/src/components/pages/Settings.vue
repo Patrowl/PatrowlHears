@@ -7,7 +7,7 @@
           class="mx-auto"
           >
             <v-list dense>
-              <v-subheader>Synchronize data</v-subheader>
+              <v-subheader>Synchronize data (admin only)</v-subheader>
               <v-list-item-group v-model="async_item" color="primary">
                 <v-list-item
                   v-for="(async_item, i) in async_items"

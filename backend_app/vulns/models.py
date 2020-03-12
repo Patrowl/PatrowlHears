@@ -5,7 +5,7 @@ from simple_history.models import HistoricalRecords
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from alerts.models import AlertingRule
-from cves.models import CVE, CWE
+from cves.models import CVE, CWE, Product, ProductVersion
 from common.utils.constants import (
     EXPLOIT_AVAILABILITY, EXPLOIT_TYPES, EXPLOIT_MATURITY_LEVELS,
     TRUST_LEVELS, TLP_LEVELS)
@@ -33,6 +33,8 @@ class Vuln(models.Model):
     cve = models.ForeignKey(CVE, on_delete=models.CASCADE, null=True, blank=True)
     cveid = models.CharField(max_length=50, null=True, blank=True, default="")
     summary = models.TextField(default="")
+    products = models.ManyToManyField(Product, related_name='vulns')
+    productversions = models.ManyToManyField(ProductVersion, related_name='vulns')
     published = models.DateTimeField(null=True)
     modified = models.DateTimeField(null=True)
     assigner = models.CharField(max_length=50, null=True)
@@ -86,8 +88,7 @@ class Vuln(models.Model):
         return "PH-{}".format(self.id)
 
     def to_dict(self):
-        # from vpratings.utils import _calc_vprating
-        j = {
+        return {
             'id': self.id,
             'cveid': self.cveid,
             'cve': getattr(self.cve, 'cve_id', None),
@@ -95,7 +96,6 @@ class Vuln(models.Model):
             'published': self.published,
             'modified': self.modified,
             'assigner': self.assigner,
-            # 'cwe': self.cwe.cwe_id,
             'cwe': getattr(self.cwe, 'cwe_id', None),
             'vulnerable_products': self.vulnerable_products,
             'cvss': self.cvss,
@@ -107,7 +107,6 @@ class Vuln(models.Model):
             'is_confirmed': self.is_confirmed,
             'is_in_the_news': self.is_in_the_news,
             'is_in_the_wild': self.is_in_the_wild,
-            # 'rating': _calc_vprating(self).score,
             'score': self.score,
             'reflinks': self.reflinks,
             'monitored': self.monitored,
@@ -118,7 +117,6 @@ class Vuln(models.Model):
             # 'exploits': self.exploitmetadata_set,
             # 'threats': self.threatmetadata_set,
         }
-        return j
 
     def to_json(self):
         return json.dumps(self.to_dict(), sort_keys=True, default=_json_serial)

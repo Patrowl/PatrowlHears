@@ -11,12 +11,9 @@ class VulnSerializer(serializers.HyperlinkedModelSerializer):
     # rating = serializers.SerializerMethodField()
     # vulnerable_products = serializers.SerializerMethodField()
 
-    # def get_cve(self, instance):
-    #     # return instance.cve_id.cve_id
-    #     return instance.cve
-
     def get_exploit_count(self, instance):
-        return instance.exploitmetadata_set.count()
+        return instance.exploit_count
+        # return instance.exploitmetadata_set.count()
 
     class Meta:
         model = Vuln
@@ -42,12 +39,21 @@ class VulnSerializer(serializers.HyperlinkedModelSerializer):
 
 class VulnFilter(FilterSet):
     search = CharFilter(method='filter_search', field_name='search')
+    product = CharFilter(method='filter_product', field_name='product')
+    productversion = CharFilter(method='filter_productversion', field_name='productversion')
+    # have_product = Filter(name="products", lookup_type='in')
 
     def filter_search(self,  queryset, name, value):
         return queryset.filter(
             Q(cveid__icontains=value) |
             Q(summary__icontains=value)
         )
+
+    def filter_product(self,  queryset, name, value):
+        return queryset.filter(products__in=[value])
+
+    def filter_productversion(self,  queryset, name, value):
+        return queryset.filter(productversions__in=[value])
 
     sorted_by = OrderingFilter(
         choices=(
@@ -56,6 +62,7 @@ class VulnFilter(FilterSet):
             ('cvss', _('CVSS')), ('-cvss', _('CVSS (Desc)')),
             ('score', _('Score')), ('-score', _('Score (Desc)')),
             ('exploit_count', _('NB Exploits')), ('-exploit_count', _('NB Exploits (Desc)')),
+            # ('exploitmetadata', _('NB Exploits')), ('-exploitmetadata', _('NB Exploits (Desc)')),
             ('monitored', _('Monitored')), ('-monitored', _('Monitored (Desc)')),
             ('published', _('Published')), ('-published', _('Published (Desc)')),
             ('updated_at', _('Updated at')), ('-updated_at', _('Updated_at (Desc)')),
@@ -70,6 +77,7 @@ class VulnFilter(FilterSet):
             'summary': ['icontains'],
             'search': ['icontains'],
             'updated_at': ['gte', 'lte'],
+            # 'exploitmetadata': [],
             # 'rating': [''],
         }
 

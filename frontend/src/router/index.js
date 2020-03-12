@@ -15,6 +15,7 @@ import VulnDetails from '@/components/pages/VulnDetails'
 import Exploits from '@/components/pages/Exploits'
 import KBVendors from '@/components/pages/KB/Vendors'
 import KBProducts from '@/components/pages/KB/Products'
+import ProductDetails from '@/components/pages/ProductDetails'
 import KBProductVersions from '@/components/pages/KB/ProductVersions'
 import KBCVE from '@/components/pages/KB/CVE'
 import KBBulletins from '@/components/pages/KB/Bulletins'
@@ -39,7 +40,9 @@ const routes = [
       { path: 'settings', name: 'Settings', component: Settings },
       { path: 'search', name: 'Search', component: Search },
       { path: 'search/:appsearch', name: 'SearchData', component: Search, props: true },
-      { path: '/kb/products', name: 'KBProducts', component: KBProducts },
+      { path: 'product', name: 'ProductDetails', component: ProductDetails },
+      { path: 'product/:product_id', name: 'ProductDetailsData', component: ProductDetails },
+      { path: '/products', name: 'KBProducts', component: KBProducts },
       { path: '/kb/vendors', name: 'KBVendors', component: KBVendors },
       { path: '/kb/vendors/:vendor_name', name: 'KBProductVersions', component: KBProductVersions },
       { path: '/kb/cves', name: 'KBCVE', component: KBCVE },

@@ -86,13 +86,14 @@
 
    <v-footer>
      <v-spacer></v-spacer>
-    <div class="caption">&copy; {{ new Date().getFullYear() }} - Patrowl Hears - v0.0.3 (BETA)</div>
+    <div class="caption">&copy; {{ new Date().getFullYear() }} - Patrowl Hears - v0.0.4 (BETA)</div>
    </v-footer>
   </v-app>
 </template>
 
 <script>
 export default {
+
   name: 'AppLayout',
   // props: {
   //   source: String,
@@ -103,21 +104,14 @@ export default {
     menu_items: [
       { icon: 'mdi-home', text: 'Home', to: '/homepage' },
       { divider: true },
-      // { icon: 'mdi-bookmark', text: 'Vendors & Products', to: '/kb/vendors' },
-      // { icon: 'mdi-bookmark', text: 'CVE', to: '/kb/cves' },
-      // { icon: 'mdi-bookmark', text: 'Bulletins', to: '/kb/bulletins' },
       { icon: 'mdi-bookmark', text: 'KB', to: '', submenu: [
-        { icon: 'mdi-bookmark', text: 'Vendors & Products', to: '/kb/products' },
-        // { icon: 'mdi-bookmark', text: 'Product Versions', to: '/kb/vendors' },
         { icon: 'mdi-bookmark', text: 'CVE', to: '/kb/cves' },
         { icon: 'mdi-bookmark', text: 'Bulletins', to: '/kb/bulletins' }
       ]},
-      // { divider: true },
+      { icon: 'mdi-apps', text: 'Vendors & Products', to: '/products' },
       { icon: 'mdi-file-find', text: 'Vulnerabilities', to: '/vulns' },
       { icon: 'mdi-knife-military', text: 'Exploits', to: '/exploits' },
       { icon: 'mdi-security', text: 'Ratings', to: '/ratings' },
-      // { icon: 'mdi-alert', text: 'Alerts', to: '/alerts' },
-      // { icon: 'mdi-file-chart', text: 'Reports' },
       { divider: true },
       // { heading: 'Labels' },
       { icon: 'mdi-toggle-switch', text: 'Settings', to: '/settings' },

@@ -142,7 +142,7 @@
           @click="viewVuln(item.id)"
         >
         </v-icon>
-        <v-icon
+        <!-- <v-icon
           small
           class="mdi mdi-pencil"
           color="orange"
@@ -155,7 +155,7 @@
           color="red"
           @click="deleteVuln(item)"
         >
-        </v-icon>
+        </v-icon> -->
       </template>
       </v-data-table>
     </v-card>
@@ -194,7 +194,7 @@ export default {
       { text: 'Exploits', value: 'exploit_count', align: 'center' },
       { text: 'Confirm ?', value: 'is_confirmed', align: 'center' },
       { text: 'Last update', value: 'updated_at', align: 'center' },
-      { text: 'Actions', value: 'action', sortable: false },
+      { text: 'Actions', value: 'action', align: 'center', sortable: false },
     ],
     rowsPerPageItems: [5, 10, 20, 50, 100],
   }),

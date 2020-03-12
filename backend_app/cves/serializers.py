@@ -1,6 +1,7 @@
 # from django.contrib.auth.models import User
 # from django_filters import rest_framework as filters
 from django.db.models import Q
+from django.forms import widgets
 from django_filters import FilterSet, OrderingFilter, CharFilter, BooleanFilter
 from rest_framework import serializers
 from django.utils.translation import gettext_lazy as _
@@ -170,7 +171,67 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Product
-        fields = ['name', 'vendor', 'monitored']
+        fields = ['id', 'name', 'vendor', 'monitored']
+
+
+class ProductDetailFilter(FilterSet):
+    search = CharFilter(method='filter_search')
+    is_monitored = BooleanFilter(method='filter_monitored')
+
+    def filter_search(self,  queryset, name, value):
+        return queryset.filter(
+            Q(vendor__name__icontains=value) |
+            Q(name__icontains=value)
+        )
+
+    def filter_monitored(self,  queryset, name, value):
+        return queryset.filter(monitored=value)
+
+    sorted_by = OrderingFilter(
+        # tuple-mapping retains order
+        choices=(
+            ('vendor__name', _('Vendor')),
+            ('-vendor__name', _('Vendor (Desc)')),
+            ('name', _('Product Name')),
+            ('-name', _('Product Name (Desc)')),
+            ('monitored', _('Monitored')),
+            ('-monitored', _('Monitored (desc)')),
+        )
+    )
+
+    class Meta:
+        model = Product
+        fields = {
+            'name': ['icontains'],
+            'vendor__name': ['icontains'],
+            'monitored': [],
+        }
+
+
+class ProductDetailSerializer(serializers.HyperlinkedModelSerializer):
+    vendor = serializers.SerializerMethodField()
+    # vulnerabilities = serializers.SerializerMethodField()
+    versions = serializers.SerializerMethodField()
+
+    def get_vendor(self, instance):
+        return instance.vendor.name
+    #
+    # def get_vulnerabilities(self, instance):
+    #     vulns = []
+    #     for v in instance.vulns.all():
+    #         vulns.append(v.to_dict())
+    #     return vulns
+
+    def get_versions(self, instance):
+        versions = []
+        for v in instance.productversion_set.all().order_by('-version').distinct('version'):
+            versions.append(v.to_dict())
+        return versions
+
+    class Meta:
+        model = Product
+        fields = ['id', 'name', 'vendor', 'monitored', 'versions']
+        # fields = ['id', 'name', 'vendor', 'monitored', 'vulnerabilities']
 
 
 class CWESerializer(serializers.HyperlinkedModelSerializer):
@@ -186,7 +247,8 @@ class BulletinSerializer(serializers.HyperlinkedModelSerializer):
         model = Bulletin
         fields = [
             'id',
-            'publicid', 'vendor', 'title', 'severity', 'impact', 'published',
+            'publicid', 'vendor', 'title',
+            'severity', 'impact', 'published',
             'monitored'
         ]
 

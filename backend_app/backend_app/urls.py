@@ -43,6 +43,7 @@ router.register(r'api/kb/cpe', cves_apis.CPESet)
 router.register(r'api/kb/cwe', cves_apis.CWESet)
 router.register(r'api/kb/vendors', cves_apis.VendorSet, 'vendors')
 router.register(r'api/kb/products', cves_apis.ProductSet, 'products')
+router.register(r'api/kb/detailed-products', cves_apis.ProductDetailSet, 'detailed-products')
 router.register(r'api/kb/bulletin', cves_apis.BulletinSet)
 
 urlpatterns = [

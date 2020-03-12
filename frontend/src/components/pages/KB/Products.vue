@@ -41,6 +41,7 @@
           'items-per-page-options': rowsPerPageItems
         }"
         :loading="loading"
+        :items-per-page="rowsPerPage"
         class="elevation-4"
         item-key="item"
         show-select
@@ -61,6 +62,16 @@
         <!-- Updated at -->
         <template v-slot:item.updated_at="{ item }">
           <span>{{moment(item.updated_at).format('YYYY-MM-DD')}}</span>
+        </template>
+
+        <template v-slot:item.action="{ item }">
+          <v-icon
+            small
+            class="mdi mdi-eye"
+            color="blue"
+            @click="viewProduct(item.id)"
+          >
+          </v-icon>
         </template>
       </v-data-table>
 
@@ -92,8 +103,10 @@ export default {
       { text: 'Product', value: 'name' },
       { text: 'Monitored', value: 'monitored', align: 'center', sortable: false },
       { text: 'Last update', value: 'updated_at' },
+      { text: 'Actions', value: 'action', sortable: false },
     ],
     rowsPerPageItems: [5, 10, 20, 50, 100],
+    rowsPerPage: 10,
     snack: false,
     snackColor: '',
     snackText: '',
@@ -204,7 +217,11 @@ export default {
     },
     toggleProductMonitored() {
       this.only_monitored = !this.only_monitored;
-    }
+    },
+    viewProduct(product_id) {
+      // this.$router.push({ 'name': 'ProductDetails', 'params': { 'product_id': product_id } });
+      this.$router.push({ 'path': '/product/'+product_id });
+    },
   }
 };
 </script>

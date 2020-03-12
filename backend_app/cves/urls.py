@@ -17,6 +17,7 @@ urlpatterns = [
     path('vias/async', apis.sync_vias_async, name='sync_vias_async'),
     path('bulletins/sync', apis.sync_bulletins, name='sync_bulletins'),
     path('bulletins/async', apis.sync_bulletins_async, name='sync_bulletins_async'),
+    path('products/<product_id>/vulns', apis.get_product_vulnerabilities, name='get_product_vulnerabilities'),
     # path('via_exploits/sync', apis.sync_exploits, name='sync_exploits'),
     # path('via_exploits/async', apis.sync_exploits_async, name='sync_exploits_async'),
 ]

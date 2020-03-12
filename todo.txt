@@ -70,6 +70,7 @@ CVE-2020-5401: https://nathandavison.com/blog/cache-poisoning-dos-in-cloudfoundr
 CVE-2019-9465: https://alexbakker.me/post/mysterious-google-titan-m-bug-cve-2019-9465.html
 CVE-2020-0688: https://github.com/Yt1g3r/CVE-2020-0688_EXP/blob/master/CVE-2020-0688_EXP.py
 CVE-2020-0041: https://lore.kernel.org/lkml/20191213202531.55010-1-tkjos@google.com/
+CVE-2020-0041: https://www.synacktiv.com/posts/exploit/binder-analysis-and-exploitation-of-cve-2020-0041.html
 CVE-2020-3843: https://bugs.chromium.org/p/project-zero/issues/detail?id=1982
 CVE-2020-0069: https://www.forbes.com/sites/daveywinder/2020/03/04/critical-android-security-risk-confirmed-millions-of-devices-can-be-rooted---update-now-if-you-can/
 CVE-2020-9364: https://www.ait.ac.at/themen/cyber-security/pentesting/security-advisories/ait-sa-20200301-01/
@@ -87,6 +88,11 @@ CVE-2019-1040: https://github.com/preempt/ntlm-scanner
 CVE-2019-1040: https://www.preempt.com/blog/drop-the-mic-cve-2019-1040/
 CVE-2019-1166: https://github.com/preempt/ntlm-scanner
 CVE-2019-1338: https://github.com/preempt/ntlm-scanner
+CVE-2019-19363: https://www.pentagrid.ch/en/blog/local-privilege-escalation-in-ricoh-printer-drivers-for-windows-cve-2019-19363/
+CVE-2019-17658: https://github.com/Ibonok/CVE-2019-17658
+CVE-2019-12765: https://github.com/i4bdullah/Exploits/blob/master/CVE-2019-12765/CVE-2019-12765.py
+CVE-2020-1947: https://github.com/Imanfeng/CVE-2020-1947
+
 
 Sigma Detection
 https://github.com/Neo23x0/sigma/blob/master/rules/web/web_citrix_cve_2019_19781_exploit.yml

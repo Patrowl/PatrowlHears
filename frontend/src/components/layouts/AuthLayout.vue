@@ -49,7 +49,7 @@
                 />
 
               </v-container>
-              <v-btn class="pink white--text" :disabled="!valid" @click="login">Login</v-btn>
+              <v-btn class="deep-orange white--text" :disabled="!valid" @click="login">Login</v-btn>
 
             </v-form>
 

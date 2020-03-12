@@ -9,8 +9,9 @@ from common.utils.pagination import StandardResultsSetPagination
 from .models import CVE, CPE, CWE, Bulletin, Vendor, Product
 from .serializers import (
     CVESerializer, CPESerializer, CWESerializer, BulletinSerializer,
-    VendorSerializer, ProductSerializer,
-    CVEFilter, CPEFilter, VendorFilter, ProductFilter, BulletinFilter
+    VendorSerializer, ProductSerializer, ProductDetailSerializer,
+    CVEFilter, CPEFilter, VendorFilter, ProductFilter, ProductDetailFilter,
+    BulletinFilter
 )
 from .tasks import (
     sync_cwes_task, sync_cpes_task, sync_cves_task, sync_vias_task,
@@ -65,6 +66,17 @@ class ProductSet(viewsets.ModelViewSet):
     filterset_class = ProductFilter
     pagination_class = StandardResultsSetPagination
 
+
+class ProductDetailSet(viewsets.ModelViewSet):
+    """API endpoint that allows ProductDetails to be viewed or edited."""
+
+    queryset = Product.objects.all().prefetch_related('vendor').order_by('-name').distinct()
+    serializer_class = ProductDetailSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    # filterset_fields = ('product', 'title', 'vector',)
+    filterset_fields = ('name')
+    filterset_class = ProductDetailFilter
+    pagination_class = StandardResultsSetPagination
 
 
 class CWESet(viewsets.ModelViewSet):
@@ -162,3 +174,24 @@ def sync_bulletins_async(self):
 # def sync_exploits(self):
 #     cvesearch.sync_exploits_fromvia()
 #     return JsonResponse("done.", safe=False)
+
+
+@api_view(['GET'])
+def get_product_vulnerabilities(self, product_id):
+    from vulns.models import Vuln
+    product = get_object_or_404(Product, id=product_id)
+    p = ":{}:{}:".format(product.vendor.name, product.name)
+    res = []
+    for vuln in Vuln.objects.all().only('id', 'vulnerable_products'):
+        # is_related = False
+        # for vvp in vuln.vulnerable_products:
+        #     if p in vvp:
+        #         res.append(vuln.to_dict())
+        #         is_related = True
+        #         break
+        #     if is_related:
+        #         break
+        if p in vuln.vulnerable_products:
+            res.append(vuln.to_dict())
+
+    return JsonResponse(res, safe=False)

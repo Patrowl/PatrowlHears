@@ -71,6 +71,7 @@ class Product(models.Model):
 class ProductVersion(models.Model):
     version = models.TextField(max_length=250, default="*")
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    vector = models.CharField(max_length=250, default="", null=True)
     monitored = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now, null=True)
     updated_at = models.DateTimeField(default=timezone.now, null=True)
@@ -80,10 +81,19 @@ class ProductVersion(models.Model):
         db_table = "kb_product_version"
 
     def __unicode__(self):
-        return self.version
+        return "{} - {}".format(self.product.name, self.version)
 
     def __str__(self):
-        return self.version
+        return "{} - {}".format(self.product.name, self.version)
+
+    def to_dict(self):
+        return {
+            'version': self.version,
+            'product': self.product.name,
+            'vendor': self.product.vendor.name,
+            'vector': self.vector,
+            'monitored': self.monitored
+        }
 
     def save(self, *args, **kwargs):
         if not self.created_at:
@@ -96,12 +106,9 @@ class CPE(models.Model):
     title = models.TextField(default="")
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE, null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
-    # vendor = models.CharField(max_length=250, default="", null=True)
-    # product = models.CharField(max_length=250, default="", null=True)
     vector = models.CharField(max_length=250, default="", null=True)
     vulnerable_products = ArrayField(
         models.CharField(max_length=250, blank=True), null=True)
-    # monitored = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now, null=True)
     updated_at = models.DateTimeField(default=timezone.now, null=True)
     history = HistoricalRecords(excluded_fields=['updated_at'], cascade_delete_history=True)
@@ -165,6 +172,8 @@ class Bulletin(models.Model):
 class CVE(models.Model):
     cve_id = models.CharField(max_length=20, null=True, unique=True)
     summary = models.TextField(default="")
+    products = models.ManyToManyField(Product, related_name='cves')
+    productversions = models.ManyToManyField(ProductVersion, related_name='cves')
     published = models.DateTimeField(null=True)
     modified = models.DateTimeField(null=True)
     assigner = models.CharField(max_length=50, null=True)

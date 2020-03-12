@@ -90,7 +90,7 @@ def sync_cpes_fromdb(from_date=None):
                 c = _CPE(cpe['cpe_2_2'])
                 vendor, is_new_vendor = Vendor.objects.get_or_create(name=c.get_vendor()[0])
                 product, is_new_product = Product.objects.get_or_create(name=c.get_product()[0], vendor=vendor)
-                productversion, is_new_productversion = ProductVersion.objects.get_or_create(version=c.get_version()[0], product=product)
+                productversion, is_new_productversion = ProductVersion.objects.get_or_create(version=c.get_version()[0], product=product, vector=cpe['cpe_2_2'])
 
                 new_cpe = CPE(
                     vector=cpe['cpe_2_2'],
@@ -233,7 +233,8 @@ def _sync_cve_fromdb(cve, via):
         'cvss_vector': cve.get('cvss-vector', None),
         'access': cve.get('access', None),
         'impact': cve.get('impact', None),
-        'vulnerable_products': []
+        'vulnerable_products': [],
+        'references': {},
     }
     # Set CWE
     cwe_id = cve.get('cwe', None)
@@ -244,8 +245,12 @@ def _sync_cve_fromdb(cve, via):
     # Set vulnerable products (CPE vectors)
     for vp in cve['vulnerable_product']:
         _new_cve['vulnerable_products'].append(vp)
-        # if CPE.objects.filter(vector=vp):
-        #     print("found!")
+
+    # Set reference links
+    refs = []
+    for ref in cve['references']:
+        refs.append(ref)
+    _new_cve['references'].update({'others': refs})
 
     cur_cve = CVE.objects.filter(cve_id=cve['id']).first()
     if cur_cve is None:
@@ -264,6 +269,17 @@ def _sync_cve_fromdb(cve, via):
                 setattr(cur_cve, v, _new_cve[v])
         if has_update is True:
             cur_cve.save()
+
+    # Update Products
+    for vp in cur_cve.vulnerable_products:
+        c = _CPE(vp)
+        vendor, inv = Vendor.objects.get_or_create(name=c.get_vendor()[0])
+        product, inp = Product.objects.get_or_create(name=c.get_product()[0], vendor=vendor)
+        productversion, inpv = ProductVersion.objects.get_or_create(version=c.get_version()[0], product=product, vector=vp)
+        if product not in cur_cve.products.all():
+            cur_cve.products.add(product)
+        if productversion not in cur_cve.productversions.all():
+            cur_cve.productversions.add(productversion)
 
     # Update VIA references (if any)
     if via and bool(deepdiff.DeepDiff(without_keys(via, ['id', '_id']), cur_cve.references, ignore_order=True)):
@@ -318,6 +334,10 @@ def sync_exploits_fromvia(vuln_id=None, cve=None, from_date=None):
     reflinkids = {}
 
     refs = vuln.cve.references
+    ## Others (from the CVE bulletin)
+    if 'others' in refs.keys():
+        reflinks = refs['others']
+
     ## Exploit-DB
     if 'exploit-db' in refs.keys():
         vuln.is_exploitable = True
@@ -749,7 +769,15 @@ def sync_vuln_fromcve(cve):
                 setattr(vuln, v, _vuln_data[v])
         if has_update is True:
             vuln.save()
-    # vuln.save()
+
+    # Sync Products & Product versions
+    for cp in cve.products.all():
+        if cp not in vuln.products.all():
+            vuln.products.add(cp)
+    for cpv in cve.productversions.all():
+        if cpv not in vuln.productversions.all():
+            vuln.productversions.add(cpv)
+    vuln.save()
 
     sync_exploits_fromvia(vuln.id)
     return vuln

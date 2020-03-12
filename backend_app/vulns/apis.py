@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
 from django.shortcuts import get_object_or_404
-from django.db.models import F, Count, Value
+from django.db.models import F, Count, Value, Prefetch
 from django.db.models.functions import Concat
 from common.utils.pagination import StandardResultsSetPagination
 from rest_framework import viewsets
@@ -21,14 +21,14 @@ from datetime import datetime, timedelta
 class VulnSet(viewsets.ModelViewSet):
     """API endpoint that allows vuln to be viewed or edited."""
 
-    # queryset = Vuln.objects.all().annotate(
-    #     cve=F('cve_id__cve_id')
-    # ).annotate(
-    #     exploit_count=Count('exploitmetadata')
-    # ).order_by('-updated_at')
     queryset = Vuln.objects.all().prefetch_related('exploitmetadata_set').annotate(
+    # queryset = Vuln.objects.all().annotate(
         exploit_count=Count('exploitmetadata')
     ).order_by('-updated_at')
+    # queryset = Vuln.objects.all().prefetch_related(Prefetch('exploitmetadata_set', queryset=ExploitMetadata.objects.only('id').all())).annotate(
+    #     exploit_count=Count('exploitmetadata')
+    # ).order_by('-updated_at')
+    # queryset = Vuln.objects.all().prefetch_related('exploitmetadata_set').order_by('-updated_at')
     serializer_class = VulnSerializer
     filterset_class = VulnFilter
     filter_backends = (filters.DjangoFilterBackend,)
