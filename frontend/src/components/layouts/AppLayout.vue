@@ -115,7 +115,7 @@ export default {
       { divider: true },
       // { heading: 'Labels' },
       { icon: 'mdi-toggle-switch', text: 'Settings', to: '/settings' },
-      { icon: 'mdi-help-circle', text: 'Help' },
+      // { icon: 'mdi-help-circle', text: 'Help' },
     ],
     username: '',
   }),
@@ -131,10 +131,12 @@ export default {
     logout() {
       localStorage.removeItem('authToken');
       localStorage.removeItem('username');
+      localStorage.removeItem('is_admin');
       this.$router.push('/auth');
     },
     getUsername() {
-      this.username = this.$store.state.authUser.username;
+      // this.username = this.$store.state.authUser.username;
+      this.username = localStorage.getItem('username');
     },
     search() {
       // this.$router.go()

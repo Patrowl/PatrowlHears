@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import AuthLayout from '@/components/layouts/AuthLayout.vue'
-import UserAuth from '@/components/pages/UserAuth'
+// import UserAuth from '@/components/pages/UserAuth'
 
 import AppLayout from '@/components/layouts/AppLayout.vue'
 import Homepage from '@/components/pages/Homepage'

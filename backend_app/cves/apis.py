@@ -3,7 +3,8 @@ from django.shortcuts import get_object_or_404
 from django.forms.models import model_to_dict
 from django_filters import rest_framework as filters
 from rest_framework import viewsets
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAdminUser
 from common.utils import cvesearch
 from common.utils.pagination import StandardResultsSetPagination
 from .models import CVE, CPE, CWE, Bulletin, Vendor, Product
@@ -99,72 +100,84 @@ class BulletinSet(viewsets.ModelViewSet):
 
 
 @api_view(['GET'])
+@permission_classes([IsAdminUser])
 def sync_cwes(self):
     cvesearch.sync_cwes_fromdb()
     return JsonResponse("done.", safe=False)
 
 
 @api_view(['GET'])
+@permission_classes([IsAdminUser])
 def sync_cwes_async(self):
     sync_cwes_task.apply_async(args=[], queue='default', retry=False)
     return JsonResponse("enqueued.", safe=False)
 
 
 @api_view(['GET'])
+@permission_classes([IsAdminUser])
 def sync_cpes(self):
     cvesearch.sync_cpes_fromdb()
     return JsonResponse("done.", safe=False)
 
 
 @api_view(['GET'])
+@permission_classes([IsAdminUser])
 def sync_cpes_async(self):
     sync_cpes_task.apply_async(args=[], queue='default', retry=False)
     return JsonResponse("enqueued.", safe=False)
 
 
 @api_view(['GET'])
+@permission_classes([IsAdminUser])
 def sync_cves(self):
     cvesearch.sync_cves_fromdb()
     return JsonResponse("done.", safe=False)
 
 
 @api_view(['GET'])
+@permission_classes([IsAdminUser])
 def sync_cve(self, cve_id):
     cvesearch.sync_cve_fromdb(cve_id)
     return JsonResponse("done.", safe=False)
 
 
 @api_view(['GET'])
+@permission_classes([IsAdminUser])
 def get_cve_info(self, cve_id):
     cve = get_object_or_404(CVE, cve_id=cve_id)
     return JsonResponse(model_to_dict(cve), safe=False)
 
 
 @api_view(['GET'])
+@permission_classes([IsAdminUser])
 def sync_cves_async(self):
     sync_cves_task.apply_async(args=[], queue='default', retry=False)
     return JsonResponse("enqueued.", safe=False)
 
 
 @api_view(['GET'])
+@permission_classes([IsAdminUser])
 def sync_vias(self):
     cvesearch.sync_via_fromdb()
     return JsonResponse("done.", safe=False)
 
 
 @api_view(['GET'])
+@permission_classes([IsAdminUser])
 def sync_vias_async(self):
     sync_vias_task.apply_async(args=[], queue='default', retry=False)
     return JsonResponse("enqueued.", safe=False)
 
 
 @api_view(['GET'])
+@permission_classes([IsAdminUser])
 def sync_bulletins(self):
     cvesearch.sync_bulletins_fromdb()
     return JsonResponse("done.", safe=False)
 
 
 @api_view(['GET'])
+@permission_classes([IsAdminUser])
 def sync_bulletins_async(self):
     sync_bulletins_task.apply_async(args=[], queue='default', retry=False)
     return JsonResponse("enqueued.", safe=False)

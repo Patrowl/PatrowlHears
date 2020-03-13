@@ -38,7 +38,8 @@ class VulnSet(viewsets.ModelViewSet):
 class ExploitMetadataSet(viewsets.ModelViewSet):
     """API endpoint that allows exploit metadata to be viewed or edited."""
 
-    queryset = ExploitMetadata.objects.all().annotate(
+    # queryset = ExploitMetadata.objects.all().annotate(
+    queryset = ExploitMetadata.objects.prefetch_related('vuln').annotate(
         vp=F('vuln__vulnerable_products')
     ).order_by('-updated_at')
     serializer_class = ExploitMetadataSerializer

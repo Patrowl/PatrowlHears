@@ -4,7 +4,7 @@
 [ ] Extract CVSSv2 Temporal vector from Nessus plugins
 [ ] Extract CVSSv3 Base and Temporal vectors from Nessus plugins
 [ ] Collect vuln categories: Deny of service, Remote code exec, ...
-[ ] Collect data from MISP
+[ ] Collect and share data from MISP
 [ ] Collect data on Yara and Sigma detection rules
 [ ] Share data with OpenCTI
 [ ] Scrap data from Github, Twitter, Reddit and Google --> NLP analysis for suggestions
@@ -24,7 +24,8 @@ CVE-2019-19781: https://github.com/Neo23x0/signature-base/blob/master/yara/explo
 CVE-2020-8438: https://sku11army.blogspot.com/2020/01/ruckus-rce-ruckus-m500-via-injection-on.html
 CVE-2020-8772: https://www.wordfence.com/blog/2020/01/critical-authentication-bypass-vulnerability-in-infinitewp-client-plugin/
 CVE-2020-8772: https://www.webarxsecurity.com/vulnerability-infinitewp-client-wp-time-capsule/
-CVE-2019-7482-CVE-2019-7486: https://blog.scrt.ch/2020/02/11/sonicwall-sra-and-sma-vulnerabilties/
+CVE-2019-7482: https://blog.scrt.ch/2020/02/11/sonicwall-sra-and-sma-vulnerabilties/
+CVE-2019-7486: https://blog.scrt.ch/2020/02/11/sonicwall-sra-and-sma-vulnerabilties/
 https://research.securitum.com/css-data-exfiltration-in-firefox-via-single-injection-point/
 cve-2020-0601: https://blog.trendmicro.com/trendlabs-security-intelligence/an-in-depth-technical-analysis-of-curveball-cve-2020-0601/
 https://www.secjuice.com/modsecurity-vulnerability-cve-2019-19886/
@@ -55,6 +56,7 @@ CVE-2020-5187: https://packetstormsecurity.com/files/156489/dnn944zipslip-traver
 CVE-2020-5188: https://packetstormsecurity.com/files/156484/dnn950-bypass.txt
 CVE-2020-7471: https://github.com/advisories/GHSA-hmr4-m2h5-33qx, https://github.com/django/django/commit/eb31d845323618d688ad429479c6dda973056136, https://ryu22e.org/en/posts/2020/02/06/django-cve-2020-7471/
 CVE-2020-6418: https://chromereleases.googleblog.com/2020/02/stable-channel-update-for-desktop_24.html?m=1
+CVE-2020-6418: https://github.com/ChoKyuWon/CVE-2020-6418/blob/master/poc.html
 CVE-2020-3837: https://github.com/jakeajames/time_waste
 CVE-2020-0688: https://www.thezdi.com/blog/2020/2/24/cve-2020-0688-remote-code-execution-on-microsoft-exchange-server-through-fixed-cryptographic-keys
 https://www.wordfence.com/blog/2020/02/zero-day-vulnerability-in-themerex-addons-plugin-exploited-in-the-wild/
@@ -69,6 +71,7 @@ CVE-2020–7246: https://medium.com/@tobinmshields/qdpm-v9-1-authenticated-rce-e
 CVE-2020-5401: https://nathandavison.com/blog/cache-poisoning-dos-in-cloudfoundry-gorouter
 CVE-2019-9465: https://alexbakker.me/post/mysterious-google-titan-m-bug-cve-2019-9465.html
 CVE-2020-0688: https://github.com/Yt1g3r/CVE-2020-0688_EXP/blob/master/CVE-2020-0688_EXP.py
+CVE-2020-0688: https://github.com/justin-p/PSForgot2kEyXCHANGE
 CVE-2020-0041: https://lore.kernel.org/lkml/20191213202531.55010-1-tkjos@google.com/
 CVE-2020-0041: https://www.synacktiv.com/posts/exploit/binder-analysis-and-exploitation-of-cve-2020-0041.html
 CVE-2020-3843: https://bugs.chromium.org/p/project-zero/issues/detail?id=1982
@@ -92,7 +95,18 @@ CVE-2019-19363: https://www.pentagrid.ch/en/blog/local-privilege-escalation-in-r
 CVE-2019-17658: https://github.com/Ibonok/CVE-2019-17658
 CVE-2019-12765: https://github.com/i4bdullah/Exploits/blob/master/CVE-2019-12765/CVE-2019-12765.py
 CVE-2020-1947: https://github.com/Imanfeng/CVE-2020-1947
-
+cve-2020-0796: https://github.com/cve-2020-0796/cve-2020-0796
+cve-2020-0796: https://github.com/ollypwn/SMBGhost
+CVE-2020-8518: https://cardaci.xyz/advisories/2020/03/10/horde-groupware-webmail-edition-5.2.22-rce-in-csv-data-import/
+CVE-2020-0796: https://www.synacktiv.com/posts/exploit/im-smbghost-daba-dee-daba-da.html
+CVE-2019-8805: https://github.com/knightsc/CVE/tree/master/CVE-2019-8805
+CVE-2018-10562: https://github.com/f3d0x0/GPON/blob/master/gpon_rce.py
+CVE-2018-10562: http://wins21.co.kr/blog/blog-sub-01.html?t=31&num=1638
+CVE-2017-17215: http://wins21.co.kr/blog/blog-sub-01.html?t=31&num=1638
+CVE-2014-8361: http://wins21.co.kr/blog/blog-sub-01.html?t=31&num=1638
+CVE-2020-0551: https://github.com/bitdefender/lvi-lfb-attack-poc
+CVE-2020-2551: https://y4er.com/post/weblogic-cve-2020-2551/
+CVE-2020-2551: https://github.com/Y4er/CVE-2020-2551/
 
 Sigma Detection
 https://github.com/Neo23x0/sigma/blob/master/rules/web/web_citrix_cve_2019_19781_exploit.yml

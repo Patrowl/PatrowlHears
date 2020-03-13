@@ -15,7 +15,21 @@
             <!-- Product: {{product}} -->
             <v-flex md3 d-flex align-stretch>
               <v-card color="grey lighten-5" class="flex-grow-1">
-                <v-card-title>Product information</v-card-title>
+                <v-card-title>
+                  <v-col class="pa-2" md="auto">
+                    Product
+                  </v-col>
+                  <v-col class="pa-2">
+                    <v-chip
+                      small label outlined color="deep-orange"
+                      @click="toggleMonitored"
+                      v-if="product.monitored">Monitored</v-chip>
+                    <v-chip
+                      small label outlined color="grey"
+                      @click="toggleMonitored"
+                      v-if="!product.monitored">Not monitored</v-chip>
+                  </v-col>
+                </v-card-title>
                 <v-card-text>
                   <span class="font-weight-bold">Name:</span> {{product.name}}<br/>
                   <span class="font-weight-bold">Vendor:</span> {{product.vendor}}
@@ -257,6 +271,38 @@ export default {
         });
       });
       this.loading = false;
+    },
+    toggleMonitored() {
+      // save in backend
+      let data = {
+        'vendor_name': this.product.vendor,
+        'product_name': this.product.name,
+        'monitored': !this.product.monitored
+      };
+      this.$api.post('/api/monitor/product/toggle', data).then(res => {
+        this.loading = false;
+        if (res){
+          this.product.monitored = !this.product.monitored;
+          // Snack notifications
+          this.snack = true;
+          this.snackColor = 'success';
+          this.snackText = 'Monitoring status successfuly updated.';
+        } else {
+          this.snack = true;
+          this.snackColor = 'error';
+          this.snackText = 'Unable to change the monitoring status';
+        }
+      }).catch(e => {
+        this.loading = false;
+        swal.fire({
+          title: 'Error',
+          text: 'Unable to change the monitoring status',
+          showConfirmButton: false,
+          showCloseButton: false,
+          timer: 2000
+        });
+        return;
+      });
     },
   }
 };

@@ -95,6 +95,8 @@ export default {
 
           // get and set auth user
           this.$api.get("/users/api/current").then((response) => {
+            localStorage.setItem('username', response.data.username);
+            localStorage.setItem('is_admin', response.data.is_superuser);
             this.$store.commit("setAuthUser",
               {authUser: response.data, isAuthenticated: true}
             );

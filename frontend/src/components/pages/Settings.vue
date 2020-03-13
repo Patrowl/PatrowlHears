@@ -1,7 +1,7 @@
 <template>
     <div>
-      Settings Page
-      <v-row>
+      Settings Page (Admin only)
+      <v-row v-if="isAdmin() == 'true'">
         <v-col cols="3">
           <v-card
           class="mx-auto"
@@ -40,8 +40,11 @@
 
 <script>
 import router from "../../router";
+import Users from "../../common/users";
+
 export default {
   name: "Settings",
+  mixins: [Users],
   data: () => ({
     // sync_item: 1,
     // sync_items: [
@@ -64,7 +67,6 @@ export default {
     snackText: ''
   }),
   mounted() {
-    // this.checkLoggedIn();
   },
   methods: {
     callAction(item) {
