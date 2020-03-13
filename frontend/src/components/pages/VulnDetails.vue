@@ -119,13 +119,13 @@
                 <v-card-title class="title">Rating Scores</v-card-title>
                 <v-card-text>
                   <v-row align="center">
-                    <v-col class="display-3 font-weight-bold" cols="4" align="center">
+                    <v-col class="display-3 font-weight-bold" cols="4" align="center" justify="center">
                       {{vprating}}
                     </v-col>
-                    <v-col cols="6">
+                    <!-- <v-col cols="6">
                       CVSSv2 Base: <span class="font-weight-bold">{{cvssv2adj[0]}}</span><br/>
                       CVSSv2 Temporal: <span class="font-weight-bold">{{cvssv2adj[1]}}</span>
-                    </v-col>
+                    </v-col> -->
                   </v-row>
                 </v-card-text>
               </v-card>
