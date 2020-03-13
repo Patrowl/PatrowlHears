@@ -22606,3 +22606,5 @@ ValueError: 'vuln__vulnerable_products' does not resolve to an item that support
 2020-03-12 17:20:27,384 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search= HTTP/1.1" 200 835
 2020-03-12 17:20:28,899 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search=&is_monitored=true HTTP/1.1" 200 628
 2020-03-12 17:20:32,157 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-12 HTTP/1.1" 200 52
+2020-03-13 15:29:58,507 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/backend_app/settings.py changed, reloading.
+2020-03-13 15:29:59,912 django.utils.autoreload INFO     Watching for file changes with StatReloader

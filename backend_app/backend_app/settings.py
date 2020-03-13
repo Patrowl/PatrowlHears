@@ -289,6 +289,10 @@ CELERY_BEAT_SCHEDULE = {
         'task': 'cves.tasks.sync_cpes_task',
         'schedule': timedelta(days=1)
     },
+    'refresh_cves': {
+        'task': 'cves.tasks.sync_cves_task',
+        'schedule': timedelta(days=1)
+    },
     'refresh_vias': {
         'task': 'cves.tasks.sync_vias_task',
         'schedule': timedelta(days=1)
