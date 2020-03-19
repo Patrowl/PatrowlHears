@@ -1,3 +1,9 @@
+[ ] RBAC: Monitored assets per user / group
+[ ] Alerting: email format
+[ ] Events: Security Events, Vuln create/change, monitor status, sync
+[ ] Peer Sync: Public / private feeds for Import Export
+
+[ ] Extract exploit or PoC from refmap
 [ ] Extract exploit or PoC from refmap
 [ ] Sync and monitor Vendor bulletins (MS, RH, Suse, debian, gentoo, Amazon, ...)
 [ ] Patch info: availability (unknown, partial, official), date
@@ -16,6 +22,7 @@
 
 https://nvd.nist.gov/vuln/data-feeds
 https://security.paloaltonetworks.com/CVE-2020-1976
+https://blog.nicolasmesa.co/posts/2018/10/saas-like-isolation-in-django-rest-framework/
 
 YaraRules
 CVE-2017–11882: https://medium.com/@Sebdraven/a-quick-analysis-malicious-rtf-to-write-yara-rule-part-1-234fa34db551
@@ -107,6 +114,20 @@ CVE-2014-8361: http://wins21.co.kr/blog/blog-sub-01.html?t=31&num=1638
 CVE-2020-0551: https://github.com/bitdefender/lvi-lfb-attack-poc
 CVE-2020-2551: https://y4er.com/post/weblogic-cve-2020-2551/
 CVE-2020-2551: https://github.com/Y4er/CVE-2020-2551/
+CVE-2020-3837: https://github.com/TrungNguyen1909/ExtremeVulnerableDriver_XNU
+CVE-2020-0787: https://itm4n.github.io/cve-2020-0787-windows-bits-eop/
+CVE-2020-0787: https://github.com/itm4n/BitsArbitraryFileMove
+CVE-2020-2551: https://github.com/hktalent/CVE-2020-2551
+CVE-2019-18683: http://blog.ptsecurity.com/2020/03/cve-2019-18683-exploiting-linux-kernel.html
+CVE-2019-18683: https://www.youtube.com/watch?v=mb4YHyLy0Zc
+CVE-2020-3950: https://github.com/mirchr/security-research/blob/master/vulnerabilities/CVE-2020-3950.sh
+CVE-2018-19788: https://github.com/mirchr/security-research/blob/master/vulnerabilities/CVE-2018-19788.sh
+CVE-2018-19788: https://twitter.com/paragonsec/status/1071152249529884674
+CVE-2019-6724: https://github.com/mirchr/security-research/blob/master/vulnerabilities/CVE-2019-6724.sh
+CVE-2018-18629: https://github.com/mirchr/security-research/blob/master/vulnerabilities/CVE-2018-18629.sh
+
+
+
 
 Sigma Detection
 https://github.com/Neo23x0/sigma/blob/master/rules/web/web_citrix_cve_2019_19781_exploit.yml

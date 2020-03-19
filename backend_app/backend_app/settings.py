@@ -30,7 +30,7 @@ INSTALLED_APPS = [
     'django_filters',
     'simple_history',
     'django_celery_beat',
-    # 'debug_toolbar',
+    'organizations',
 
     'users',
     'cves',
@@ -98,6 +98,13 @@ LOGGING = {
 # APPEND_SLASH = False
 
 AUTH_USER_MODEL = 'users.User'
+INVITATION_BACKEND = 'users.backends.CustomInvitations'
+REGISTRATION_BACKEND = 'users.backends.CustomRegistrations'
+
+AUTHENTICATION_BACKENDS = [
+    'users.backends.EmailOrUsernameModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 LOGIN_URL = '/admin/login/'
 
@@ -319,6 +326,7 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'alerts@greenlockadvisory.fr
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '7g9F5CVuatTX_YX')
 EMAIL_PORT = os.environ.get('EMAIL_PORT', 587)
 EMAIL_RCPT_USER = os.environ.get('EMAIL_RCPT_USER', 'nicolas.mattiocco+feeds@gmail.com')
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'hears@patrowl.io')
 
 # Others
 CVESEARCH_URL = 'http://localhost:5000'

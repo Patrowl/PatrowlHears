@@ -132,10 +132,10 @@ export default {
       localStorage.removeItem('authToken');
       localStorage.removeItem('username');
       localStorage.removeItem('is_admin');
+      localStorage.removeItem('is_org_admin');
       this.$router.push('/auth');
     },
     getUsername() {
-      // this.username = this.$store.state.authUser.username;
       this.username = localStorage.getItem('username');
     },
     search() {

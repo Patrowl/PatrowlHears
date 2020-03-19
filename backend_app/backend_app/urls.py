@@ -4,6 +4,8 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from django.views.generic import RedirectView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+# from organizations.backends import invitation_backend
+from users.backends import CustomRegistrations as invitation_backend
 from rest_framework import routers, permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
@@ -17,6 +19,7 @@ from alerts import apis as alerts_apis
 from vulns import apis as vulns_apis
 from vpratings import apis as vpr_apis
 from cves import apis as cves_apis
+from users import apis as users_apis
 from .views import index
 
 schema_view = get_schema_view(
@@ -33,6 +36,8 @@ schema_view = get_schema_view(
 )
 
 router = routers.DefaultRouter()
+router.register(r'api/users', users_apis.OrganizationUserSet, 'users')
+router.register(r'api/orgs', users_apis.OrganizationSet, 'orgs')
 router.register(r'api/alerts', alerts_apis.AlertingRuleSet)
 router.register(r'api/vulns', vulns_apis.VulnSet)
 router.register(r'api/exploits', vulns_apis.ExploitMetadataSet)
@@ -48,11 +53,14 @@ router.register(r'api/kb/bulletin', cves_apis.BulletinSet)
 
 urlpatterns = [
     path('', index, name='index'),
+    path('accounts/', include('organizations.urls')),
+    path('invitations/', include(invitation_backend().get_urls())),
     path('auth-jwt/obtain_jwt_token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('auth-jwt/refresh_jwt_token/', TokenRefreshView.as_view(), name='token_refresh'),
     path('auth-jwt/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
+    path('api/users/', include('users.urls')),
     path('api/search/', include('search.urls')),
     path('api/monitor/', include('monitored_assets.urls')),
     path('api/alerts/', include('alerts.urls')),

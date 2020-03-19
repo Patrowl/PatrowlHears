@@ -97,6 +97,11 @@ export default {
           this.$api.get("/users/api/current").then((response) => {
             localStorage.setItem('username', response.data.username);
             localStorage.setItem('is_admin', response.data.is_superuser);
+            localStorage.setItem('is_org_admin', response.data.is_org_admin);
+            if (response.data.is_superuser == true) {
+              console.log("eeee")
+              localStorage.setItem('is_org_admin', true);
+            }
             this.$store.commit("setAuthUser",
               {authUser: response.data, isAuthenticated: true}
             );

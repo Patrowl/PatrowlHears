@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import AuthLayout from '@/components/layouts/AuthLayout.vue'
+import UserRegistrationLayout from '@/components/layouts/UserRegistrationLayout.vue'
 // import UserAuth from '@/components/pages/UserAuth'
 
 import AppLayout from '@/components/layouts/AppLayout.vue'
@@ -28,6 +29,11 @@ const routes = [
     path: '/auth',
     name: 'AuthLayout',
     component: AuthLayout
+  },
+  {
+    path: '/registration',
+    name: 'UserRegistrationLayout',
+    component: UserRegistrationLayout
   },
   {
     path: '/',
@@ -65,10 +71,10 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (localStorage.getItem('authToken') !== null || to.path === '/auth') {
-    next()
+  if (localStorage.getItem('authToken') !== null || to.path === '/auth' || to.path === '/registration') {
+    next();
   } else {
-    next('/auth')
+    next('/auth');
   }
 })
 

@@ -16,7 +16,7 @@ axios.interceptors.response.use(
   error => {
     const status = error.response;
   }
-)
+);
 
 axios.interceptors.request.use(
   config => {
@@ -29,6 +29,9 @@ axios.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+
 Vue.prototype.$api = axios
 Vue.prototype.moment = moment
 Vue.config.productionTip = false
