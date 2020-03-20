@@ -46,6 +46,8 @@ def toggle_monitor_product(self):
         return JsonResponse("error.", safe=False, status=500)
     else:
         product.monitored = self.data['monitored']
+        # if self.data['monitored'] and product not in self.user.monitored_products.all():
+        #     self.user.monitored_products.add(product)
     product.save()
     return JsonResponse("toggled.", safe=False)
 

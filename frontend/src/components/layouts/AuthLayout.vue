@@ -35,6 +35,7 @@
                   :counter="70"
                   label="username"
                   maxlength="70"
+                  autocomplete="username"
                   required
                 />
 
@@ -45,7 +46,14 @@
                   label="password"
                   :rules="rules.password"
                   maxlength="20"
+                  autocomplete="current-password"
                   required
+                />
+
+                <v-checkbox
+                  v-model="credentials.use_default_organization"
+                  label="Use default Organization"
+                  disabled
                 />
 
               </v-container>
@@ -68,7 +76,11 @@ import swal from 'sweetalert2';
 export default {
   name: 'AuthLayout',
   data: () => ({
-      credentials: {},
+      credentials: {
+        'username': '',
+        'password': '',
+        'use_default_organization': true
+      },
       valid:true,
       loading:false,
       rules: {
@@ -92,6 +104,16 @@ export default {
         this.$store.commit("removeToken");
         this.$api.post(this.$store.state.endpoints.obtainJWT, this.credentials).then(res => {
           this.$store.commit('updateToken', res.data.access);
+
+          // set default organization
+          this.$api.get('/users/set-org').then(res => {
+            if (res && res.status === 200 && res.data.status === "set") {
+              // this.$session.set('org_id', res.data.org_id);
+              // this.$session.set('org_name', res.data.org_name);
+              localStorage.setItem('org_id', res.data.org_id);
+              localStorage.setItem('org_name', res.data.org_name);
+            }
+          });
 
           // get and set auth user
           this.$api.get("/users/api/current").then((response) => {

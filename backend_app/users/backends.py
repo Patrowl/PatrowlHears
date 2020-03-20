@@ -31,14 +31,12 @@ class CustomInvitations(InvitationBackend):
 
 class EmailOrUsernameModelBackend(ModelBackend):
     """
-    Authentication backend which allows users to authenticate using either their
-    username or email address
+    Authentication backend which allows users to authenticate using either
+    their username or email address.
 
-    Source: https://stackoverflow.com/a/35836674/59984
     """
 
     def authenticate(self, request, username=None, password=None, **kwargs):
-        # n.b. Django <2.1 does not pass the `request`
 
         user_model = get_user_model()
 

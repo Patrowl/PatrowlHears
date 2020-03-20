@@ -82,15 +82,19 @@ def activate_user(self, token):
         raise Http404(_("Your URL may have expired."))
     if not RegistrationTokenGenerator().check_token(user, user_token):
         raise Http404(_("Your URL may have expired."))
-    form = InvitationBackend().get_form(data=self.data or None, files=self.FILES or None, instance=user)
+    form = InvitationBackend().get_form(
+        data=self.data or None,
+        files=self.FILES or None,
+        instance=user)
     if form.is_valid():
         form.instance.is_active = True
         user = form.save()
         user.set_password(form.cleaned_data['password'])
         user.save()
         InvitationBackend().activate_organizations(user)
-        user = authenticate(username=form.cleaned_data['username'],
-                password=form.cleaned_data['password'])
+        user = authenticate(
+            username=form.cleaned_data['username'],
+            password=form.cleaned_data['password'])
         login(self, user)
         return JsonResponse({'status': 'success'}, safe=False)
     return JsonResponse({'status': 'valid', 'email': user.email}, safe=False)
@@ -104,6 +108,38 @@ def remove_user_from_org(self, org_id, user_id):
     user = get_object_or_404(OrganizationUser, organization_id=org_id, user_id=user_id)
     user.delete()
     return JsonResponse({'status': 'removed'}, safe=False)
+
+
+@api_view(['GET'])
+def set_org(self, org_id):
+    user = None
+    if self.user.is_superuser:
+        user = OrganizationUser.objects.all().first()
+    else:
+        user = get_object_or_404(OrganizationUser, organization_id=org_id, user_id=self.user.id)
+    self.session['org_id'] = user.organization.id
+    self.session['org_name'] = user.organization.name
+    return JsonResponse({
+        'status': 'set',
+        'org_id': user.organization.id,
+        'org_name': user.organization.name
+        }, safe=False)
+
+
+@api_view(['GET'])
+def set_default_org(self):
+    user = None
+    if self.user.is_superuser:
+        user = OrganizationUser.objects.all().first()
+    else:
+        user = OrganizationUser.objects.filter(user_id=self.user.id).first()
+    self.session['org_id'] = user.organization.id
+    self.session['org_name'] = user.organization.name
+    return JsonResponse({
+        'status': 'set',
+        'org_id': user.organization.id,
+        'org_name': user.organization.name
+        }, safe=False)
 
 
 class CustOrganizationUserCreate(OrganizationAdminOnly, BaseOrganizationUserCreate):

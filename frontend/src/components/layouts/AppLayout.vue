@@ -72,7 +72,7 @@
       <v-btn icon>
         <v-icon>mdi-bell</v-icon>
       </v-btn>
-      {{username}}
+      {{username}} ({{user_organization}})
       <v-btn icon @click="logout"><v-icon>mdi-logout</v-icon></v-btn>
     </v-app-bar>
 
@@ -93,18 +93,15 @@
 
 <script>
 export default {
-
   name: 'AppLayout',
-  // props: {
-  //   source: String,
-  // },
   data: () => ({
     drawer: null,
     appsearch: '',
     menu_items: [
       { icon: 'mdi-home', text: 'Home', to: '/homepage' },
+      // { icon: 'mdi-file-multiple', text: 'Monitored lists', to: '/monitoring' },
       { divider: true },
-      { icon: 'mdi-bookmark', text: 'KB', to: '', submenu: [
+      { icon: 'mdi-bookmark', text: 'Public feeds', to: '', submenu: [
         { icon: 'mdi-bookmark', text: 'CVE', to: '/kb/cves' },
         { icon: 'mdi-bookmark', text: 'Bulletins', to: '/kb/bulletins' }
       ]},
@@ -118,6 +115,7 @@ export default {
       // { icon: 'mdi-help-circle', text: 'Help' },
     ],
     username: '',
+    user_organization: '',
   }),
   computed: {
     isAuthenticated() {
@@ -126,6 +124,7 @@ export default {
   },
   mounted() {
     this.getUsername();
+    this.getOrganization();
   },
   methods: {
     logout() {
@@ -133,10 +132,16 @@ export default {
       localStorage.removeItem('username');
       localStorage.removeItem('is_admin');
       localStorage.removeItem('is_org_admin');
+      localStorage.removeItem('org_id');
+      localStorage.removeItem('org_name');
+      this.$session.destroy();
       this.$router.push('/auth');
     },
     getUsername() {
       this.username = localStorage.getItem('username');
+    },
+    getOrganization() {
+      this.user_organization = localStorage.getItem('org_name');
     },
     search() {
       // this.$router.go()

@@ -1,17 +1,19 @@
-import Vue from 'vue'
-import App from './App.vue'
-import VueSession from 'vue-session'
+import Vue from 'vue';
+import App from './App.vue';
+import VueSession from 'vue-session';
 import VueDragDrop from 'vue-drag-drop';
 import vuetify from './plugins/vuetify';
-import router from './router'
-import store from './store'
-import moment from 'moment'
-import axios from 'axios'
-import './common/filters'
-import './common/scores'
+import router from './router';
+import store from './store';
+import moment from 'moment';
+import axios from 'axios';
+import './common/filters';
+import './common/scores';
 
-import VuetifyConfirm from 'vuetify-confirm'
-Vue.use(VuetifyConfirm, { vuetify })
+import VuetifyConfirm from 'vuetify-confirm';
+Vue.use(VuetifyConfirm, { vuetify });
+
+Vue.use(VueSession);
 
 // Axios
 axios.interceptors.response.use(
@@ -62,4 +64,4 @@ Vue.filter('capitalize', function (value) {
   return value.charAt(0).toUpperCase() + value.slice(1)
 });
 
-Vue.use(VueDragDrop);
+// Vue.use(VueDragDrop);

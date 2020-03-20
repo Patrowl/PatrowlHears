@@ -27955,3 +27955,422 @@ TypeError: activate_user() got an unexpected keyword argument 'org_id'
 2020-03-19 19:11:20,817 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
 2020-03-19 19:11:21,075 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
 2020-03-20 10:40:31,483 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 11:34:30,134 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 11:34:30,417 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 11:34:31,301 django.server INFO     "GET /api/orgs/?limit=5&page=1 HTTP/1.1" 200 111
+2020-03-20 11:34:31,466 django.server INFO     "GET /api/users/?limit=20&page=1& HTTP/1.1" 200 1224
+2020-03-20 11:34:36,275 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search= HTTP/1.1" 200 835
+2020-03-20 11:34:37,596 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search=&is_monitored=true HTTP/1.1" 200 628
+2020-03-20 11:34:40,673 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-20 11:34:40,835 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-20 11:34:41,637 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-20 11:34:42,019 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-20 11:34:42,458 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-20 11:34:43,393 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-20 11:34:43,773 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-20 11:34:44,218 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-20 11:34:44,850 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-20 11:34:46,607 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search= HTTP/1.1" 200 835
+2020-03-20 11:34:46,865 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search=&is_monitored=true HTTP/1.1" 200 122
+2020-03-20 11:34:50,009 django.server INFO     "GET /api/kb/detailed-products/11821 HTTP/1.1" 301 0
+2020-03-20 11:34:50,073 django.server INFO     "GET /api/vulns/?product=11821 HTTP/1.1" 200 52
+2020-03-20 11:34:50,105 django.server INFO     "GET /api/kb/detailed-products/11821/ HTTP/1.1" 200 1681
+2020-03-20 11:34:52,426 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-20 11:34:53,657 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-20 11:34:55,392 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-20 11:37:02,517 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search= HTTP/1.1" 200 835
+2020-03-20 11:37:04,192 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-20 HTTP/1.1" 200 52
+2020-03-20 11:37:05,061 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search= HTTP/1.1" 200 835
+2020-03-20 11:37:12,440 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search=c HTTP/1.1" 200 913
+2020-03-20 11:37:13,675 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search=ckedi HTTP/1.1" 200 662
+2020-03-20 11:37:16,969 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-20 11:37:19,708 django.server INFO     "GET /api/kb/detailed-products/16185/ HTTP/1.1" 200 2019
+2020-03-20 11:37:19,712 django.server INFO     "GET /api/vulns/?product=16185 HTTP/1.1" 200 1898
+2020-03-20 11:37:24,406 django.server INFO     "GET /api/vulns/122973/exploits HTTP/1.1" 200 2
+2020-03-20 11:37:24,414 django.server INFO     "GET /api/ratings/calc/122973 HTTP/1.1" 200 824
+2020-03-20 11:37:24,421 django.server INFO     "GET /api/vulns/122973/threats HTTP/1.1" 200 2
+2020-03-20 11:37:24,425 django.server INFO     "GET /api/vulns/122973/ HTTP/1.1" 200 1846
+2020-03-20 11:37:25,280 django.server INFO     "GET /api/vulns/122973/history HTTP/1.1" 200 1457
+2020-03-20 11:37:30,935 django.server INFO     "GET /api/kb/detailed-products/16185/ HTTP/1.1" 200 2019
+2020-03-20 11:37:30,939 django.server INFO     "GET /api/vulns/?product=16185 HTTP/1.1" 200 1898
+2020-03-20 11:37:37,606 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-20 11:37:40,544 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-20 13:30:20,423 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/users/backends.py changed, reloading.
+2020-03-20 13:30:21,752 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 13:30:27,916 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/users/backends.py changed, reloading.
+2020-03-20 13:30:29,006 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 13:30:37,292 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/users/backends.py changed, reloading.
+2020-03-20 13:30:38,409 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 13:30:54,333 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/users/backends.py changed, reloading.
+2020-03-20 13:30:55,425 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 13:31:02,676 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/users/backends.py changed, reloading.
+2020-03-20 13:31:03,751 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 13:33:26,740 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/users/apis.py changed, reloading.
+2020-03-20 13:33:27,966 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 13:36:45,084 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/users/apis.py changed, reloading.
+2020-03-20 13:36:46,291 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 13:36:54,597 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/users/apis.py changed, reloading.
+2020-03-20 13:36:55,419 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 13:37:48,440 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/users/apis.py changed, reloading.
+2020-03-20 13:37:49,270 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 13:40:14,054 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/backend_app/settings.py changed, reloading.
+2020-03-20 13:40:15,224 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 13:40:33,443 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/backend_app/settings.py changed, reloading.
+2020-03-20 13:40:34,599 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 13:40:43,406 django.server INFO     "GET /api/kb/detailed-products/16185/ HTTP/1.1" 200 2019
+2020-03-20 13:40:43,411 django.server INFO     "GET /api/vulns/?product=16185 HTTP/1.1" 200 1898
+2020-03-20 13:42:19,280 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/users/apis.py changed, reloading.
+2020-03-20 13:42:20,429 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 13:42:36,464 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/users/urls.py changed, reloading.
+2020-03-20 13:42:37,624 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 13:42:41,561 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/users/urls.py changed, reloading.
+2020-03-20 13:42:42,397 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 13:44:41,266 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/users/apis.py changed, reloading.
+2020-03-20 13:44:42,618 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 13:44:57,647 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/users/apis.py changed, reloading.
+2020-03-20 13:44:58,811 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 13:46:26,807 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/users/apis.py changed, reloading.
+2020-03-20 13:46:27,597 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 13:47:54,505 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/users/urls.py changed, reloading.
+2020-03-20 13:47:55,311 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 13:51:27,500 django.server INFO     "GET /api/kb/detailed-products/16185/ HTTP/1.1" 200 2019
+2020-03-20 13:51:27,505 django.server INFO     "GET /api/vulns/?product=16185 HTTP/1.1" 200 1898
+2020-03-20 13:52:51,878 django.request WARNING  Not Found: /52aab95691bac9d3f6b4.hot-update.json
+2020-03-20 13:52:51,879 django.server WARNING  "GET /52aab95691bac9d3f6b4.hot-update.json HTTP/1.1" 404 25986
+2020-03-20 13:52:52,703 django.server INFO     "GET /api/vulns/?product=16185 HTTP/1.1" 200 1898
+2020-03-20 13:52:52,751 django.server INFO     "GET /api/kb/detailed-products/16185/ HTTP/1.1" 200 2019
+2020-03-20 13:54:16,665 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 441
+2020-03-20 13:54:16,712 django.server INFO     "GET /users/api/current HTTP/1.1" 200 128
+2020-03-20 13:54:39,890 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 441
+2020-03-20 13:54:39,934 django.server INFO     "GET /users/api/current HTTP/1.1" 200 128
+2020-03-20 13:54:50,730 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 441
+2020-03-20 13:54:50,783 django.server INFO     "GET /users/api/current HTTP/1.1" 200 123
+2020-03-20 13:54:57,414 django.server INFO     "GET / HTTP/1.1" 200 10468
+2020-03-20 13:54:57,475 django.server INFO     "GET /static/css/app.fdac7a2a.css HTTP/1.1" 304 0
+2020-03-20 13:54:57,480 django.server INFO     "GET /static/debug_toolbar/css/toolbar.css HTTP/1.1" 304 0
+2020-03-20 13:54:57,480 django.server INFO     "GET /static/debug_toolbar/img/ajax-loader.gif HTTP/1.1" 304 0
+2020-03-20 13:54:57,481 django.server INFO     "GET /static/debug_toolbar/js/toolbar.js HTTP/1.1" 304 0
+2020-03-20 13:54:57,483 django.server INFO     "GET /static/js/app.e92a2aeb.js HTTP/1.1" 200 112383
+2020-03-20 13:54:57,489 django.server INFO     "GET /static/css/chunk-vendors.5a83c54f.css HTTP/1.1" 200 420301
+2020-03-20 13:54:57,491 django.server INFO     "GET /static/js/chunk-vendors.ed98f8be.js HTTP/1.1" 200 947605
+2020-03-20 13:54:57,741 django.server INFO     "GET /static/debug_toolbar/css/print.css HTTP/1.1" 304 0
+2020-03-20 13:54:57,824 django.server INFO     "GET /static/debug_toolbar/img/djdt_vertical.png HTTP/1.1" 304 0
+2020-03-20 13:54:59,224 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 13:54:59,467 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 13:55:02,391 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 438
+2020-03-20 13:55:02,437 django.server INFO     "GET /users/api/current HTTP/1.1" 200 126
+2020-03-20 13:55:20,671 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 441
+2020-03-20 13:55:20,742 django.server INFO     "GET /users/api/current HTTP/1.1" 200 128
+2020-03-20 13:55:20,763 django.server INFO     "GET /users/set-org HTTP/1.1" 200 17
+2020-03-20 13:55:21,907 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 13:55:22,199 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 13:55:51,364 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 441
+2020-03-20 13:55:51,414 django.server INFO     "GET /users/api/current HTTP/1.1" 200 128
+2020-03-20 13:56:48,215 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 441
+2020-03-20 13:56:48,254 django.server INFO     "GET /users/api/current HTTP/1.1" 200 128
+2020-03-20 13:57:07,189 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 441
+2020-03-20 13:57:07,231 django.server INFO     "GET /users/api/current HTTP/1.1" 200 128
+2020-03-20 13:57:53,692 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 438
+2020-03-20 13:57:53,766 django.server INFO     "GET /users/api/current HTTP/1.1" 200 126
+2020-03-20 13:57:53,817 django.request ERROR    Internal Server Error: /users/set-org
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/users/apis.py", line 126, in set_default_org
+    self.session['org_id'] = user.organization.id
+AttributeError: 'NoneType' object has no attribute 'organization'
+2020-03-20 13:57:53,819 django.server ERROR    "GET /users/set-org HTTP/1.1" 500 21400
+2020-03-20 13:57:55,328 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 13:57:55,571 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 13:58:42,742 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/users/apis.py changed, reloading.
+2020-03-20 13:58:44,025 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 13:58:51,381 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 438
+2020-03-20 13:58:51,484 django.server INFO     "GET /users/api/current HTTP/1.1" 200 126
+2020-03-20 13:58:51,531 django.request ERROR    Internal Server Error: /users/set-org
+Traceback (most recent call last):
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/env/lib/python3.7/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/users/apis.py", line 126, in set_default_org
+    print(user.__dict__)
+AttributeError: 'NoneType' object has no attribute '__dict__'
+2020-03-20 13:58:51,534 django.server ERROR    "GET /users/set-org HTTP/1.1" 500 21367
+2020-03-20 13:58:52,643 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 13:58:53,023 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:01:08,661 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/users/apis.py changed, reloading.
+2020-03-20 14:01:09,851 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 14:01:17,670 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 438
+2020-03-20 14:01:17,747 django.server INFO     "GET /users/api/current HTTP/1.1" 200 126
+2020-03-20 14:01:17,764 django.server INFO     "GET /users/set-org HTTP/1.1" 200 17
+2020-03-20 14:01:19,257 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:01:19,501 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:01:22,118 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 441
+2020-03-20 14:01:22,181 django.server INFO     "GET /users/api/current HTTP/1.1" 200 128
+2020-03-20 14:01:22,198 django.server INFO     "GET /users/set-org HTTP/1.1" 200 17
+2020-03-20 14:01:22,626 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:01:23,224 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:01:31,645 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/users/apis.py changed, reloading.
+2020-03-20 14:01:32,892 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 14:01:45,599 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:01:45,857 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:01:47,902 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 438
+2020-03-20 14:01:47,978 django.server INFO     "GET /users/api/current HTTP/1.1" 200 126
+2020-03-20 14:01:47,994 django.server INFO     "GET /users/set-org HTTP/1.1" 200 17
+2020-03-20 14:01:48,447 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:01:49,064 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:04:06,413 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/users/apis.py changed, reloading.
+2020-03-20 14:04:07,641 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 14:04:20,464 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 438
+2020-03-20 14:04:20,566 django.server INFO     "GET /users/api/current HTTP/1.1" 200 126
+2020-03-20 14:04:20,605 django.server INFO     "GET /users/set-org HTTP/1.1" 200 53
+2020-03-20 14:04:21,947 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:04:22,211 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:04:33,731 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 441
+2020-03-20 14:04:33,797 django.server INFO     "GET /users/api/current HTTP/1.1" 200 128
+2020-03-20 14:04:33,813 django.server INFO     "GET /users/set-org HTTP/1.1" 200 53
+2020-03-20 14:04:34,781 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:04:35,104 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:04:39,404 django.server INFO     "GET /api/orgs/?limit=5&page=1 HTTP/1.1" 200 111
+2020-03-20 14:04:39,647 django.server INFO     "GET /api/users/?limit=20&page=1& HTTP/1.1" 200 1224
+2020-03-20 14:04:44,789 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 441
+2020-03-20 14:04:44,856 django.server INFO     "GET /users/api/current HTTP/1.1" 200 123
+2020-03-20 14:04:44,872 django.server INFO     "GET /users/set-org HTTP/1.1" 200 50
+2020-03-20 14:04:45,317 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:04:45,895 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:18:37,413 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 438
+2020-03-20 14:18:37,482 django.server INFO     "GET /users/api/current HTTP/1.1" 200 126
+2020-03-20 14:18:37,499 django.server INFO     "GET /users/set-org HTTP/1.1" 200 53
+2020-03-20 14:18:39,509 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:18:39,770 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:18:49,409 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 441
+2020-03-20 14:18:49,481 django.server INFO     "GET /users/api/current HTTP/1.1" 200 128
+2020-03-20 14:18:49,499 django.server INFO     "GET /users/set-org HTTP/1.1" 200 53
+2020-03-20 14:18:50,036 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:18:50,752 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:18:56,566 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:18:57,296 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:19:03,106 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 438
+2020-03-20 14:19:03,170 django.server INFO     "GET /users/api/current HTTP/1.1" 200 126
+2020-03-20 14:19:03,191 django.server INFO     "GET /users/set-org HTTP/1.1" 200 53
+2020-03-20 14:19:03,740 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:19:04,393 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:21:12,587 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 438
+2020-03-20 14:21:12,656 django.server INFO     "GET /users/api/current HTTP/1.1" 200 126
+2020-03-20 14:21:12,672 django.server INFO     "GET /users/set-org HTTP/1.1" 200 53
+2020-03-20 14:21:14,364 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:21:14,650 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:21:51,346 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:21:51,729 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:22:01,448 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:22:01,901 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:22:05,065 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 438
+2020-03-20 14:22:05,141 django.server INFO     "GET /users/api/current HTTP/1.1" 200 126
+2020-03-20 14:22:05,158 django.server INFO     "GET /users/set-org HTTP/1.1" 200 53
+2020-03-20 14:22:05,607 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:22:06,493 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:23:12,315 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:23:12,547 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:23:14,166 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 438
+2020-03-20 14:23:14,237 django.server INFO     "GET /users/api/current HTTP/1.1" 200 126
+2020-03-20 14:23:14,250 django.server INFO     "GET /users/set-org HTTP/1.1" 200 53
+2020-03-20 14:23:14,771 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:23:15,593 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:23:30,447 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:23:31,172 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:26:05,057 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:26:05,372 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:27:39,569 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:27:39,895 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:28:13,676 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:28:14,002 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:28:16,166 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 438
+2020-03-20 14:28:16,263 django.server INFO     "GET /users/api/current HTTP/1.1" 200 126
+2020-03-20 14:28:16,293 django.server INFO     "GET /users/set-org HTTP/1.1" 200 53
+2020-03-20 14:28:16,855 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:28:17,652 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:30:00,083 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:30:00,335 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:30:03,401 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:30:04,027 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:30:07,793 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:30:08,382 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:30:14,801 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 438
+2020-03-20 14:30:14,867 django.server INFO     "GET /users/api/current HTTP/1.1" 200 126
+2020-03-20 14:30:14,880 django.server INFO     "GET /users/set-org HTTP/1.1" 200 53
+2020-03-20 14:30:15,364 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:30:15,947 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:30:18,671 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 438
+2020-03-20 14:30:18,738 django.server INFO     "GET /users/api/current HTTP/1.1" 200 126
+2020-03-20 14:30:18,753 django.server INFO     "GET /users/set-org HTTP/1.1" 200 53
+2020-03-20 14:30:19,255 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:30:19,838 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:30:23,848 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:30:24,678 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:30:26,639 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 438
+2020-03-20 14:30:26,703 django.server INFO     "GET /users/api/current HTTP/1.1" 200 126
+2020-03-20 14:30:26,721 django.server INFO     "GET /users/set-org HTTP/1.1" 200 53
+2020-03-20 14:30:27,221 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:30:28,058 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:30:30,486 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 441
+2020-03-20 14:30:30,593 django.server INFO     "GET /users/api/current HTTP/1.1" 200 128
+2020-03-20 14:30:30,608 django.server INFO     "GET /users/set-org HTTP/1.1" 200 53
+2020-03-20 14:30:31,341 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:30:32,227 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:30:35,522 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 441
+2020-03-20 14:30:35,590 django.server INFO     "GET /users/api/current HTTP/1.1" 200 123
+2020-03-20 14:30:35,605 django.server INFO     "GET /users/set-org HTTP/1.1" 200 50
+2020-03-20 14:30:36,174 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:30:36,990 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:30:44,296 django.server INFO     "POST /auth-jwt/obtain_jwt_token/ HTTP/1.1" 200 441
+2020-03-20 14:30:44,369 django.server INFO     "GET /users/api/current HTTP/1.1" 200 128
+2020-03-20 14:30:44,383 django.server INFO     "GET /users/set-org HTTP/1.1" 200 53
+2020-03-20 14:30:44,903 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:30:45,717 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:39:15,517 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:39:15,797 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:39:53,516 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:39:54,109 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:40:16,377 django.server INFO     "GET /api/vulns/stats HTTP/1.1" 200 69
+2020-03-20 14:40:16,986 django.server INFO     "GET /api/vulns/latest?timedelta=30 HTTP/1.1" 200 11428
+2020-03-20 14:40:22,079 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search= HTTP/1.1" 200 835
+2020-03-20 14:40:24,558 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search=&is_monitored=true HTTP/1.1" 200 119
+2020-03-20 14:40:26,150 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search= HTTP/1.1" 200 835
+2020-03-20 14:41:51,282 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search= HTTP/1.1" 200 835
+2020-03-20 14:41:52,857 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search=&is_monitored=true HTTP/1.1" 200 119
+2020-03-20 14:42:56,499 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-20 HTTP/1.1" 200 52
+2020-03-20 14:42:58,216 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-13 HTTP/1.1" 200 1898
+2020-03-20 14:42:58,586 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-13 HTTP/1.1" 200 1898
+2020-03-20 14:43:02,969 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=& HTTP/1.1" 200 17148
+2020-03-20 14:43:04,395 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=& HTTP/1.1" 200 17148
+2020-03-20 14:43:11,349 django.server INFO     "GET /api/vulns/122973/exploits HTTP/1.1" 200 2
+2020-03-20 14:43:11,355 django.server INFO     "GET /api/ratings/calc/122973 HTTP/1.1" 200 824
+2020-03-20 14:43:11,361 django.server INFO     "GET /api/vulns/122973/threats HTTP/1.1" 200 2
+2020-03-20 14:43:11,367 django.server INFO     "GET /api/vulns/122973/ HTTP/1.1" 200 1846
+2020-03-20 14:43:12,175 django.server INFO     "GET /api/vulns/122973/history HTTP/1.1" 200 1457
+2020-03-20 14:43:14,195 django.server INFO     "PUT /api/vulns/122973/ HTTP/1.1" 200 1845
+2020-03-20 14:43:19,391 django.server INFO     "PUT /api/vulns/122973/ HTTP/1.1" 200 1846
+2020-03-20 14:43:21,576 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=&&updated_at__gte=2020-03-20 HTTP/1.1" 200 1898
+2020-03-20 14:43:24,690 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=& HTTP/1.1" 200 17148
+2020-03-20 14:43:26,277 django.server INFO     "GET /api/vulns/?limit=20&page=1&search=& HTTP/1.1" 200 17148
+2020-03-20 14:43:27,026 django.server INFO     "GET /api/vulns/122974 HTTP/1.1" 301 0
+2020-03-20 14:43:27,232 django.server INFO     "GET /api/ratings/calc/122974 HTTP/1.1" 200 614
+2020-03-20 14:43:27,235 django.server INFO     "GET /api/vulns/122974/exploits HTTP/1.1" 200 2
+2020-03-20 14:43:27,237 django.server INFO     "GET /api/vulns/122974/threats HTTP/1.1" 200 2
+2020-03-20 14:43:27,246 django.server INFO     "GET /api/vulns/122974/ HTTP/1.1" 200 1576
+2020-03-20 14:43:27,397 django.server INFO     "GET /api/vulns/122974/history HTTP/1.1" 200 1605
+2020-03-20 14:43:28,319 django.server INFO     "PUT /api/vulns/122974/ HTTP/1.1" 200 1575
+2020-03-20 14:43:32,386 django.server INFO     "GET / HTTP/1.1" 200 10468
+2020-03-20 14:43:32,737 django.server INFO     "GET /favicon.ico HTTP/1.1" 302 0
+2020-03-20 14:43:32,750 django.server INFO     "GET /static/favicon.ico HTTP/1.1" 200 85772
+2020-03-20 14:43:32,889 django.server INFO     "GET /api/vulns/122974/threats HTTP/1.1" 200 2
+2020-03-20 14:43:32,891 django.server INFO     "GET /api/vulns/122974/exploits HTTP/1.1" 200 2
+2020-03-20 14:43:32,891 django.server INFO     "GET /api/ratings/calc/122974 HTTP/1.1" 200 614
+2020-03-20 14:43:32,908 django.server INFO     "GET /api/vulns/122974/ HTTP/1.1" 200 1575
+2020-03-20 14:43:33,132 django.server INFO     "GET /api/vulns/122974/history HTTP/1.1" 200 1746
+2020-03-20 14:44:44,536 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/users/models.py changed, reloading.
+2020-03-20 14:44:45,757 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 14:49:07,391 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 14:49:14,990 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search= HTTP/1.1" 200 835
+2020-03-20 14:49:21,503 django.server INFO     "GET /api/kb/products/?limit=10&page=1&search= HTTP/1.1" 200 835
+2020-03-20 14:49:34,923 django.server INFO     "GET /api/vulns/?product=41477 HTTP/1.1" 200 52
+2020-03-20 14:49:34,959 django.server INFO     "GET /api/kb/detailed-products/41477/ HTTP/1.1" 200 162
+2020-03-20 14:49:36,944 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-20 14:51:30,367 django.server INFO     "GET /api/vulns/?product=41477 HTTP/1.1" 200 52
+2020-03-20 14:51:30,414 django.server INFO     "GET /api/kb/detailed-products/41477/ HTTP/1.1" 200 161
+2020-03-20 14:51:43,918 django.server INFO     "GET /api/vulns/?product=41477 HTTP/1.1" 200 52
+2020-03-20 14:51:43,966 django.server INFO     "GET /api/kb/detailed-products/41477/ HTTP/1.1" 200 161
+2020-03-20 14:52:57,740 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-20 14:53:00,779 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-20 14:58:07,070 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/monitored_assets/apis.py changed, reloading.
+2020-03-20 14:58:08,246 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 14:58:14,121 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-20 14:58:16,677 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-20 14:59:27,843 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/monitored_assets/apis.py changed, reloading.
+2020-03-20 14:59:29,048 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 14:59:34,737 django.server INFO     "GET /api/vulns/?product=41477 HTTP/1.1" 200 52
+2020-03-20 14:59:34,768 django.server INFO     "GET /api/kb/detailed-products/41477/ HTTP/1.1" 200 161
+2020-03-20 14:59:36,659 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-20 14:59:40,240 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-20 14:59:44,345 django.server INFO     "GET /api/vulns/?product=41477 HTTP/1.1" 200 52
+2020-03-20 14:59:44,575 django.server INFO     "GET /api/kb/detailed-products/41477/ HTTP/1.1" 200 161
+2020-03-20 14:59:48,989 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-20 14:59:51,254 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-20 14:59:53,290 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-20 14:59:55,037 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-20 14:59:56,677 django.server INFO     "GET /api/vulns/?product=41477 HTTP/1.1" 200 52
+2020-03-20 14:59:56,922 django.server INFO     "GET /api/kb/detailed-products/41477/ HTTP/1.1" 200 161
+2020-03-20 15:00:03,888 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/monitored_assets/apis.py changed, reloading.
+2020-03-20 15:00:04,725 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 15:00:22,837 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/monitored_assets/apis.py changed, reloading.
+2020-03-20 15:00:23,629 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 15:01:57,177 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/monitored_assets/apis.py changed, reloading.
+2020-03-20 15:01:58,262 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 15:02:04,838 django.server INFO     "GET /api/vulns/?product=41477 HTTP/1.1" 200 52
+2020-03-20 15:02:04,874 django.server INFO     "GET /api/kb/detailed-products/41477/ HTTP/1.1" 200 161
+2020-03-20 15:02:07,126 django.server INFO     "GET /api/vulns/?product=41477 HTTP/1.1" 200 52
+2020-03-20 15:02:07,372 django.server INFO     "GET /api/kb/detailed-products/41477/ HTTP/1.1" 200 161
+2020-03-20 15:02:11,038 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-20 15:02:13,315 django.server INFO     "GET /api/vulns/?product=41477 HTTP/1.1" 200 52
+2020-03-20 15:02:13,530 django.server INFO     "GET /api/kb/detailed-products/41477/ HTTP/1.1" 200 161
+2020-03-20 15:02:21,443 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/monitored_assets/apis.py changed, reloading.
+2020-03-20 15:02:22,711 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 15:02:29,505 django.server INFO     "GET /api/vulns/?product=41477 HTTP/1.1" 200 52
+2020-03-20 15:02:29,528 django.server INFO     "GET /api/kb/detailed-products/41477/ HTTP/1.1" 200 161
+2020-03-20 15:02:30,688 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-20 15:02:33,034 django.server INFO     "GET /api/vulns/?product=41477 HTTP/1.1" 200 52
+2020-03-20 15:02:33,335 django.server INFO     "GET /api/kb/detailed-products/41477/ HTTP/1.1" 200 162
+2020-03-20 15:02:35,851 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/monitored_assets/apis.py changed, reloading.
+2020-03-20 15:02:37,001 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 15:02:42,719 django.request ERROR    Internal Server Error: /api/monitor/product/toggle
+2020-03-20 15:02:42,721 django.server ERROR    "POST /api/monitor/product/toggle HTTP/1.1" 500 8
+2020-03-20 15:02:42,724 django.request ERROR    Internal Server Error: /api/monitor/product/toggle
+2020-03-20 15:02:42,724 django.server ERROR    "POST /api/monitor/product/toggle HTTP/1.1" 500 8
+2020-03-20 15:02:43,152 django.server INFO     "GET /api/vulns/?product=41477 HTTP/1.1" 200 52
+2020-03-20 15:02:43,399 django.server INFO     "GET /api/kb/detailed-products/41477/ HTTP/1.1" 200 162
+2020-03-20 15:02:45,770 django.server INFO     "GET /api/vulns/?product=41477 HTTP/1.1" 200 52
+2020-03-20 15:02:46,057 django.server INFO     "GET /api/kb/detailed-products/41477/ HTTP/1.1" 200 162
+2020-03-20 15:02:46,867 django.server INFO     "POST /api/monitor/product/toggle HTTP/1.1" 200 10
+2020-03-20 15:02:49,243 django.server INFO     "GET /api/vulns/?product=41477 HTTP/1.1" 200 52
+2020-03-20 15:02:49,451 django.server INFO     "GET /api/kb/detailed-products/41477/ HTTP/1.1" 200 162
+2020-03-20 15:23:30,145 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/monitored_assets/apis.py changed, reloading.
+2020-03-20 15:23:31,365 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 15:25:02,883 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/users/models.py changed, reloading.
+2020-03-20 15:25:04,008 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 15:25:05,743 django.utils.autoreload INFO     /Users/nicolas/Documents/Projets/Patrowl/PatrowlHears/backend_app/users/models.py changed, reloading.
+2020-03-20 15:25:06,593 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2020-03-20 15:25:18,968 django.utils.autoreload INFO     Watching for file changes with StatReloader
