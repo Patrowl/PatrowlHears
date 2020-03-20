@@ -1,9 +1,0 @@
-You've been invited to join the user organization '{{ organization|safe }}' by PatrowlHears Admin.
-
-Follow this link to create your user account.
-
-http://{{ domain.domain }}{% url "invitations_register" user.id token %}
-
-If you are unsure about this link please contact the sender.
-
--- PatrowlHears

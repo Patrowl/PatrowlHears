@@ -62,6 +62,7 @@ class OrganizationUserSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     username = serializers.SerializerMethodField()
     email = serializers.SerializerMethodField()
+    org_id = serializers.SerializerMethodField()
     org_name = serializers.SerializerMethodField()
 
     def get_username(self, instance):
@@ -70,6 +71,9 @@ class OrganizationUserSerializer(serializers.ModelSerializer):
     def get_email(self, instance):
         return instance.user.email
 
+    def get_org_id(self, instance):
+        return instance.organization.id
+
     def get_org_name(self, instance):
         return instance.organization.name
 
@@ -77,7 +81,7 @@ class OrganizationUserSerializer(serializers.ModelSerializer):
         model = OrganizationUser
         fields = [
             'id', 'organization', 'user', 'username', 'email', 'is_admin',
-            'org_name'
+            'org_id', 'org_name'
         ]
         datatables_always_serialize = ['id']
 

@@ -10,6 +10,9 @@ import axios from 'axios'
 import './common/filters'
 import './common/scores'
 
+import VuetifyConfirm from 'vuetify-confirm'
+Vue.use(VuetifyConfirm, { vuetify })
+
 // Axios
 axios.interceptors.response.use(
   response => response,

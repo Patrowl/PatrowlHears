@@ -51,7 +51,6 @@ export default new Vuex.Store({
         username: username,
         password: password
       }
-      // axios.post(this.state.endpoints.obtainJWT, payload)
       this.$api.post(this.state.endpoints.obtainJWT, payload)
         .then((response)=>{
             this.commit('updateToken', response.data.access);
@@ -64,7 +63,6 @@ export default new Vuex.Store({
       const payload = {
         token: this.state.jwt_refresh_token
       }
-      // axios.post(this.state.endpoints.refreshJWT, payload)
       this.$api.post(this.state.endpoints.refreshJWT, payload)
         .then((response)=>{
             this.commit('updateToken', response.data.access)

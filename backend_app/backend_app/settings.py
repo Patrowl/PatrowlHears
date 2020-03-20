@@ -13,7 +13,7 @@ DEBUG = os.environ.get('DEBUG', True)
 
 ALLOWED_HOSTS = ['*']
 
-BASE_URL = "http://localhost:8080"
+BASE_URL = os.environ.get('BASE_URL', "http://localhost:8080")
 
 # Application definition
 INSTALLED_APPS = [
@@ -138,6 +138,10 @@ TEMPLATES = [
         },
     },
 ]
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "common.context_processors.site",
+ )
 
 WSGI_APPLICATION = 'backend_app.wsgi.application'
 

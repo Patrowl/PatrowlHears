@@ -1,7 +1,8 @@
-from organizations.backends.defaults import InvitationBackend, RegistrationBackend
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
+from django.conf import settings
 from django.db.models import Q
+from organizations.backends.defaults import InvitationBackend, RegistrationBackend
 
 
 class CustomRegistrations(RegistrationBackend):
@@ -23,6 +24,7 @@ class CustomInvitations(InvitationBackend):
                 password=self.user_model.objects.make_random_password())
             user.is_active = False
             user.save()
+        kwargs.update({'BASE_URL': settings.BASE_URL})
         self.send_invitation(user, sender, **kwargs)
         return user
 

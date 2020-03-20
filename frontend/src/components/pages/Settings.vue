@@ -47,113 +47,122 @@
         <v-tab-item>
 
           <!-- Organizations -->
-          <v-data-table
-            :headers="orgs_headers"
-            :items="orgs.results"
-            :options.sync="orgs_options"
-            :server-items-length="orgs.count"
-            :items-per-page="5"
-            :footer-props="{
-              'items-per-page-options': rowsPerPageItems
-            }"
-            :loading="loading"
-            class="elevation-4"
-            item-key="id"
-            show-select
-            multi-sort
-          >
-            <template v-slot:item.action="{ item }">
-              <v-icon
-                small
-                class="mdi mdi-account-plus"
-                color="green"
-                @click="openInvitationDialog(item.id, item.name)"
-              >
-              </v-icon>
-            </template>
-          </v-data-table>
+          <v-card>
+            <v-card-title>
+              Organizations
+            </v-card-title>
+            <v-data-table
+              :headers="orgs_headers"
+              :items="orgs.results"
+              :options.sync="orgs_options"
+              :server-items-length="orgs.count"
+              :items-per-page="5"
+              :footer-props="{
+                'items-per-page-options': rowsPerPageItems
+              }"
+              :loading="loading"
+              class="elevation-4"
+              item-key="id"
+              show-select
+              multi-sort
+            >
+              <template v-slot:item.action="{ item }">
+                <v-icon
+                  small
+                  class="mdi mdi-account-plus"
+                  color="green"
+                  @click="openInvitationDialog(item.id, item.name)"
+                >
+                </v-icon>
+              </template>
+            </v-data-table>
 
-          <v-dialog v-model="dialog_invitation" max-width="500px">
-            <!-- <template v-slot:activator="{ on }">
-              <v-btn absolute dark fab bottom left color="deep-orange" v-on="on">
-                <v-icon>mdi-plus</v-icon>
-              </v-btn>
-            </template> -->
-            <v-card>
-              <v-card-title>
-                Invite people to organzation '{{invitation.org_name}}'
-                <!-- <span class="headline">{{ formExploitTitle }}</span> -->
-              </v-card-title>
-              <v-card-text>
-                <v-container>
-                  <v-form ref="form-user-invitation">
-                    <v-text-field
-                      v-model="invitation.email"
-                      label="Email"
-                      :rules="emailRules"
-                      required></v-text-field>
-                    <v-checkbox
-                      v-model="invitation.is_admin"
-                      label="Is admin ?"></v-checkbox>
+            <v-dialog v-model="dialog_invitation" max-width="500px">
+              <!-- <template v-slot:activator="{ on }">
+                <v-btn absolute dark fab bottom left color="deep-orange" v-on="on">
+                  <v-icon>mdi-plus</v-icon>
+                </v-btn>
+              </template> -->
+              <v-card>
+                <v-card-title>
+                  Invite people to organzation '{{invitation.org_name}}'
+                  <!-- <span class="headline">{{ formExploitTitle }}</span> -->
+                </v-card-title>
+                <v-card-text>
+                  <v-container>
+                    <v-form ref="form-user-invitation">
+                      <v-text-field
+                        v-model="invitation.email"
+                        label="Email"
+                        :rules="emailRules"
+                        required></v-text-field>
+                      <v-checkbox
+                        v-model="invitation.is_admin"
+                        label="Is admin ?"></v-checkbox>
 
-                    <v-btn color="success" @click="addUserToOrg" small>Invite</v-btn>
-                    <v-btn color="warning" type="reset" small>Reset</v-btn>
-                    <!-- <v-btn color="primary" small>Cancel</v-btn> -->
-                  </v-form>
-                </v-container>
-              </v-card-text>
+                      <v-btn color="success" @click="addUserToOrg" small>Invite</v-btn>
+                      <v-btn color="warning" type="reset" small>Reset</v-btn>
+                      <!-- <v-btn color="primary" small>Cancel</v-btn> -->
+                    </v-form>
+                  </v-container>
+                </v-card-text>
 
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <!-- <v-btn color="blue darken-1" text @click="close">Cancel</v-btn> -->
-                <!-- <v-btn color="blue darken-1" text @click="save">Save</v-btn> -->
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <!-- <v-btn color="blue darken-1" text @click="close">Cancel</v-btn> -->
+                  <!-- <v-btn color="blue darken-1" text @click="save">Save</v-btn> -->
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </v-card>
+          <br/>
           <!-- Users -->
-          Users
-          <v-data-table
-            :headers="users_headers"
-            :items="users.results"
-            :options.sync="users_options"
-            :server-items-length="users.count"
-            :items-per-page="20"
-            :footer-props="{
-              'items-per-page-options': rowsPerPageItems
-            }"
-            :loading="loading"
-            class="elevation-4"
-            item-key="id"
-            show-select
-            multi-sort
-          >
-            <template v-slot:item.is_admin="{ item }">
-              <v-icon
-                small
-                class="mdi mdi-shield-check"
-                color="deep-orange"
-                v-if="item.is_admin == true"
-              >
-              </v-icon>
-            </template>
-            <template v-slot:item.action="{ item }">
-              <v-icon
-                small
-                class="mdi mdi-account-cancel"
-                color="orange"
-                @click="disableUserFromOrg(item.id)"
-              >
-              </v-icon>
-              <v-icon
-                small
-                class="mdi mdi-account-remove"
-                color="red"
-                @click="delUserFromOrg(item.id)"
-              >
-              </v-icon>
-            </template>
-          </v-data-table>
+          <v-card>
+            <v-card-title>
+              Users
+            </v-card-title>
+            <v-data-table
+              :headers="users_headers"
+              :items="users.results"
+              :options.sync="users_options"
+              :server-items-length="users.count"
+              :items-per-page="20"
+              :footer-props="{
+                'items-per-page-options': rowsPerPageItems
+              }"
+              :loading="loading"
+              class="elevation-4"
+              item-key="id"
+              show-select
+              multi-sort
+            >
+              <template v-slot:item.is_admin="{ item }">
+                <v-icon
+                  small
+                  class="mdi mdi-shield-check"
+                  color="deep-orange"
+                  v-if="item.is_admin == true"
+                >
+                </v-icon>
+              </template>
+              <template v-slot:item.action="{ item }">
+                <!-- <v-icon
+                  small
+                  class="mdi mdi-account-cancel"
+                  color="orange"
+                  @click="disableUserFromOrg(item.id)"
+                >
+                </v-icon> -->
+                <v-icon
+                  small
+                  class="mdi mdi-account-remove"
+                  color="red"
+                  @click="delUserFromOrg(item.org_id, item.user, item)"
+                >
+                </v-icon>
+              </template>
+            </v-data-table>
+          </v-card>
         </v-tab-item>
       </v-tabs>
       <v-snackbar v-model="snack" :timeout="3000" :color="snackColor">
@@ -217,14 +226,6 @@ export default {
   mounted() {
   },
   watch: {
-    // search_orgs: {
-    //   handler(filter) {
-    //     // this.search_orgs = filter;
-    //     this.orgs_options.page = 1;  // reset page count
-    //     this.getDataFromApi();
-    //   },
-    //   deep: true
-    // },
     orgs_options: {
       handler() {
         this.getDataFromApiOrgs().then(data => {
@@ -252,15 +253,11 @@ export default {
           itemsPerPage
         } = this.orgs_options;
 
-        // let search = this.search.trim().toLowerCase();
-
         this.limit = itemsPerPage;
-        // let users = this.getUsers(page, this.limit, sortBy, sortDesc);
         let orgs = this.getOrgs(page, this.limit, sortBy, sortDesc);
 
         setTimeout(() => {
           resolve({
-            // users,
             orgs
           });
         }, 300);
@@ -279,16 +276,12 @@ export default {
           itemsPerPage
         } = this.users_options;
 
-        // let search = this.search.trim().toLowerCase();
-
         this.limit = itemsPerPage;
         let users = this.getUsers(page, this.limit, sortBy, sortDesc);
-        // let orgs = this.getOrgs(page, this.limit, sortBy, sortDesc);
 
         setTimeout(() => {
           resolve({
-            users,
-            // orgs
+            users
           });
         }, 300);
         this.loading = false;
@@ -307,7 +300,6 @@ export default {
           this.snackColor = 'error';
           this.snackText = 'Unable to sync :/';
         }
-        //this.vuln = res.data;
       }).catch(e => {
         swal.fire({
           title: 'Error',
@@ -373,12 +365,10 @@ export default {
     },
     addUserToOrg(org_id) {
       this.dialog_invitation = false;
-      console.log(this.invitation);
       var bodyFormData = new FormData();
       bodyFormData.set('email', this.invitation.email);
       bodyFormData.set('is_admin', this.invitation.is_admin);
-      // this.$api.post('/accounts/'+this.invitation.org_id+'/people/add/', this.invitation).then(res => {
-      this.$api.post('/accounts/'+this.invitation.org_id+'/people/add/', bodyFormData).then(res => {
+      this.$api.post('/users/'+this.invitation.org_id+'/add', bodyFormData).then(res => {
         if (res && res.status === 200) {
           // Snack notifications
           this.snack = true;
@@ -401,9 +391,16 @@ export default {
         });
       });
     },
-    disableUserFromOrg(user_id) {
-    },
-    delUserFromOrg(user_id) {
+    async delUserFromOrg(org_id, user_id, item) {
+      let confirm = await this.$confirm('Do you really want to delete user ?', { title: 'Warning' });
+      if (confirm) {
+        this.$api.get('/users/'+org_id+'/delete/'+user_id).then(res => {
+          if (res && res.status === 200) {
+            let idx = this.users.results.indexOf(item);
+            this.users.results.splice(idx, 1);
+          }
+        });
+      }
     },
   }
 };

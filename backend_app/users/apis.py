@@ -2,15 +2,20 @@ from django.http import JsonResponse, Http404
 from django.utils.translation import ugettext as _
 from django.contrib.auth import get_user_model, authenticate, login
 from django.db.models import F
+from django.shortcuts import get_object_or_404
+from django.core.exceptions import PermissionDenied
+from django.utils.translation import ugettext_lazy as _
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from django_filters import rest_framework as filters
 from organizations.models import Organization, OrganizationUser
+from organizations.views import BaseOrganizationUserCreate
 from organizations.backends.tokens import RegistrationTokenGenerator
 from common.utils.pagination import StandardResultsSetPagination
 from .serializers import OrganizationSerializer, OrganizationUserSerializer
 from .serializers import OrganizationFilter, OrganizationUserFilter
 from .backends import InvitationBackend
+from .mixins import OrganizationAdminOnly
 
 
 class OrganizationUserSet(viewsets.ModelViewSet):
@@ -33,7 +38,7 @@ class OrganizationUserSet(viewsets.ModelViewSet):
 
         org_admins = []
         for org in Organization.objects.all():
-            if org.is_owner(current_user):
+            if org.is_owner(current_user) or org.is_admin(current_user):
                 org_admins.append(org)
         return OrganizationUser.objects.filter(organization__in=org_admins).order_by('id')
 
@@ -52,12 +57,18 @@ class OrganizationSet(viewsets.ModelViewSet):
         if current_user.is_superuser:
             return Organization.objects.all().order_by('name')
 
-        return current_user.organizations_organization.filter(is_active=True).order_by('name')
+        # List organization which current_user is admin of
+        org_admin = []
+        for org in Organization.objects.all():
+            if org.is_owner(current_user) or org.is_admin(current_user):
+                org_admin.append(org.id)
+
+        return current_user.organizations_organization.filter(id__in=org_admin, is_active=True).order_by('name')
 
 
 @api_view(['GET', 'POST'])
 def activate_user(self, token):
-    # token: 24-5ev-90e516079f1b118c410bh
+    # token format: <user_id>-<user_token> (ex: 24-5ev-90e516079f1b118c410bh)
     #   user_id: 24
     #   user_token: 5ev-90e516079f1b118c410bh
     try:
@@ -83,3 +94,18 @@ def activate_user(self, token):
         login(self, user)
         return JsonResponse({'status': 'success'}, safe=False)
     return JsonResponse({'status': 'valid', 'email': user.email}, safe=False)
+
+
+@api_view(['GET'])
+def remove_user_from_org(self, org_id, user_id):
+    org = get_object_or_404(Organization, id=org_id)
+    if not self.user.is_superuser and not org.is_admin(self.user):
+        raise PermissionDenied(_("Sorry, (org) admins only"))
+    user = get_object_or_404(OrganizationUser, organization_id=org_id, user_id=user_id)
+    user.delete()
+    return JsonResponse({'status': 'removed'}, safe=False)
+
+
+class CustOrganizationUserCreate(OrganizationAdminOnly, BaseOrganizationUserCreate):
+    """Override OrganizationUserCreate class using custom OrganizationAdminOnly."""
+    pass

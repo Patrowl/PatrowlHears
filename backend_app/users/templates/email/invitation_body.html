@@ -2,7 +2,7 @@ You've been invited to join the user organization '{{ organization|safe }}' by P
 
 Follow this link to create your user account.
 
-http://{{ domain.domain }}/invitations/{{user.id}}-{{token}}
+{{ BASE_URL }}/#/registration?token={{user.id}}-{{token}}
 
 If you are unsure about this link please contact the sender.
 

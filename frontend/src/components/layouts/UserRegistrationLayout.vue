@@ -147,7 +147,6 @@ export default {
 
     },
     register() {
-      // console.log(this.registration);
       this.$api.post('/users/activate/'+this.invitation_token, this.registration).then(res => {
         if (res && res.status === 200 && res.data.status === "success") {
           this.$router.push('/auth');

@@ -39,6 +39,7 @@ https://www.secjuice.com/modsecurity-vulnerability-cve-2019-19886/
 CVE-2020-8547: https://tech.michaelaltfield.net/2020/02/14/phplist-hardening-security/
 CVE-2019-15605: https://snyk.io/blog/node-js-release-fixes-a-critical-http-security-vulnerability/
 CVE-2020-0618: https://www.mdsec.co.uk/2020/02/cve-2020-0618-rce-in-sql-server-reporting-services-ssrs/
+CVE-2020-0618: https://github.com/euphrat1ca/CVE-2020-0618
 CVE-2019-18683: https://a13xp0p0v.github.io/2020/02/15/CVE-2019-18683.html
 CVE-2020-0668: https://itm4n.github.io/cve-2020-0668-windows-service-tracing-eop/
 CVE-2020-0668: https://www.webarxsecurity.com/critical-issue-in-themegrill-demo-importer/
@@ -88,6 +89,7 @@ CVE-2020-10110: https://www.syss.de/fileadmin/dokumente/Publikationen/Advisories
 CVE-2020-10111: https://www.syss.de/fileadmin/dokumente/Publikationen/Advisories/SYSS-2020-006.txt
 CVE-2020-10112: https://www.syss.de/fileadmin/dokumente/Publikationen/Advisories/SYSS-2020-005.txt
 CVE-2020-2555: https://www.youtube.com/watch?v=uGhhbY50tQY
+CVE-2020-2555: https://github.com/wsfengfan/CVE-2020-2555
 CVE-2019-19363: https://www.pentagrid.ch/en/blog/local-privilege-escalation-in-ricoh-printer-drivers-for-windows-cve-2019-19363/
 CVE-2019-18567: https://airbus-cyber-security.com/dive-into-a-kernel-bromium-race-condition-cve-2019-18567/
 CVE-2020-0069: https://github.com/R0rt1z2/AutomatedRoot
@@ -125,9 +127,54 @@ CVE-2018-19788: https://github.com/mirchr/security-research/blob/master/vulnerab
 CVE-2018-19788: https://twitter.com/paragonsec/status/1071152249529884674
 CVE-2019-6724: https://github.com/mirchr/security-research/blob/master/vulnerabilities/CVE-2019-6724.sh
 CVE-2018-18629: https://github.com/mirchr/security-research/blob/master/vulnerabilities/CVE-2018-18629.sh
+CVE-2019-15126: https://github.com/akabe1/kr00ker
+CVE-2019-13567: https://gist.github.com/wbowling/13f9f90365c171806b9ffba2c841026b
+CVE-2019-13567: https://www.youtube.com/watch?v=zGSLBDo3N7s&feature=youtu.be
+CVE-2020-3950: https://github.com/hackerhouse-opensource/exploits/blob/master/CVE-2020-3950.tgz
+CVE-2020-3830: https://theevilbit.github.io/posts/exploiting_directory_permissions_on_macos/
+CVE-2020-3835: https://theevilbit.github.io/posts/exploiting_directory_permissions_on_macos/
+CVE-2019-8837: https://theevilbit.github.io/posts/exploiting_directory_permissions_on_macos/
+CVE-2020-3855: https://theevilbit.github.io/posts/exploiting_directory_permissions_on_macos/
+CVE-2019-8802: https://theevilbit.github.io/posts/exploiting_directory_permissions_on_macos/
+CVE-2020-3762: https://theevilbit.github.io/posts/exploiting_directory_permissions_on_macos/
+CVE-2020-3763: https://theevilbit.github.io/posts/exploiting_directory_permissions_on_macos/
+CVE-2020-10243: https://twitter.com/wugeej/status/1240784474264104961
+CVE-2018-8453: http://blogs.360.cn/post/sodinokibi_ransomware_attacks_with_CVE-2018-8453.html
+CVE-2014-4210: https://github.com/0xn0ne/weblogicScanner
+CVE-2016-0638: https://github.com/0xn0ne/weblogicScanner
+CVE-2016-3510: https://github.com/0xn0ne/weblogicScanner
+CVE-2017-3248: https://github.com/0xn0ne/weblogicScanner
+CVE-2017-3506: https://github.com/0xn0ne/weblogicScanner
+CVE-2017-10271: https://github.com/0xn0ne/weblogicScanner
+CVE-2018-2628: https://github.com/0xn0ne/weblogicScanner
+CVE-2018-2893: https://github.com/0xn0ne/weblogicScanner
+CVE-2018-2894: https://github.com/0xn0ne/weblogicScanner
+CVE-2018-3191: https://github.com/0xn0ne/weblogicScanner
+CVE-2018-3245: https://github.com/0xn0ne/weblogicScanner
+CVE-2018-3252: https://github.com/0xn0ne/weblogicScanner
+CVE-2019-2618: https://github.com/0xn0ne/weblogicScanner
+CVE-2019-2725: https://github.com/0xn0ne/weblogicScanner
+CVE-2019-2729: https://github.com/0xn0ne/weblogicScanner
+CVE-2019-2890: https://github.com/0xn0ne/weblogicScanner
+CVE-2020-2551: https://github.com/0xn0ne/weblogicScanner
+CVE-2020-7471: https://github.com/Saferman/CVE-2020-7471
+CVE-2020-5236: https://github.com/motikan2010/CVE-2020-5236
+CVE-2019-8997: https://github.com/nxkennedy/CVE-2019-8997
+CVE-2019-0808: https://github.com/exodusintel/CVE-2019-0808
+CVE-2019-0808: https://www.anquanke.com/post/id/197892
+CVE-2020-8417: https://blog.wpsec.com/csrf-to-rce-wordpress/
+CVE-2020-1611: https://github.com/Ibonok/CVE-2020-1611
+CVE-2020-3833: https://github.com/c0d3G33k/Safari-Address-Bar-Spoof-CVE-2020-3833-
+CVE-2019–19484: https://medium.com/@mucomplex/undisclosed-cve-2019-19484-cve-2019-19486-cve-2019-19487-b46b97c930cd
+CVE-2019–19486: https://medium.com/@mucomplex/undisclosed-cve-2019-19484-cve-2019-19486-cve-2019-19487-b46b97c930cd
+CVE-2019–19487: https://medium.com/@mucomplex/undisclosed-cve-2019-19484-cve-2019-19486-cve-2019-19487-b46b97c930cd
 
 
-
+https://twitter.com/wugeej
+https://twitter.com/jas502n
+https://github.com/mirchr/security-research/
+https://github.com/hackerhouse-opensource/exploits
+https://github.com/sailay1996/awesome_windows_logical_bugs/blob/master/learning_note_bookmarks.txt
 
 Sigma Detection
 https://github.com/Neo23x0/sigma/blob/master/rules/web/web_citrix_cve_2019_19781_exploit.yml
