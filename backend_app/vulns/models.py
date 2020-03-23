@@ -59,7 +59,7 @@ class Vuln(models.Model):
     reflinks = JSONField(default=dict)
     reflinkids = JSONField(default=dict)
 
-    monitored = models.BooleanField(default=False)
+    # monitored = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now, null=True)
     updated_at = models.DateTimeField(default=timezone.now, null=True)
     history = HistoricalRecords(excluded_fields=['updated_at'], cascade_delete_history=True)
@@ -71,13 +71,12 @@ class Vuln(models.Model):
         super(Vuln, self).__init__(*args, **kwargs)
         self.__important_fields = [
             'cve_id', 'summary', 'published', 'modified', 'assigner',
-            # 'vulnerable_products',
             'cvss', 'cvss_time', 'cvss_vector',
             'access', 'impact',
             'is_exploitable', 'is_confirmed',
             'is_in_the_news', 'is_in_the_wild',
-            'score',
-            'monitored']
+            'score'
+            ]
         for field in self.__important_fields:
             setattr(self, '__original_%s' % field, getattr(self, field))
 
@@ -109,7 +108,7 @@ class Vuln(models.Model):
             'is_in_the_wild': self.is_in_the_wild,
             'score': self.score,
             'reflinks': self.reflinks,
-            'monitored': self.monitored,
+            # 'monitored': self.monitored,
             'created_at': self.created_at,
             'updated_at': self.updated_at,
             'exploit_cnt': self.exploitmetadata_set.count(),

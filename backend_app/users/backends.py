@@ -8,13 +8,19 @@ from organizations.backends.defaults import InvitationBackend, RegistrationBacke
 class CustomRegistrations(RegistrationBackend):
     registration_form_template = 'aregister_form.html'
     activation_success_template = 'organizations/register_success.html'
+    notifitation_subject = 'email/notifitation_subject.txt'
+    notifitation_body = 'email/notifitation_body.html'
 
 
 class CustomInvitations(InvitationBackend):
     invitation_subject = 'email/invitation_subject.txt'
     invitation_body = 'email/invitation_body.html'
+    notification_subject = 'email/notification_subject.txt'
+    notification_body = 'email/notification_body.html'
 
     def invite_by_email(self, email, sender=None, request=None, **kwargs):
+
+        # Create User if not exists
         try:
             user = self.user_model.objects.get(email=email)
         except self.user_model.DoesNotExist:
@@ -24,6 +30,10 @@ class CustomInvitations(InvitationBackend):
                 password=self.user_model.objects.make_random_password())
             user.is_active = False
             user.save()
+
+        # Create a personal organization if not exists
+        # Todo
+
         kwargs.update({'BASE_URL': settings.BASE_URL})
         self.send_invitation(user, sender, **kwargs)
         return user

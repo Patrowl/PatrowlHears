@@ -168,6 +168,13 @@ CVE-2020-3833: https://github.com/c0d3G33k/Safari-Address-Bar-Spoof-CVE-2020-383
 CVE-2019–19484: https://medium.com/@mucomplex/undisclosed-cve-2019-19484-cve-2019-19486-cve-2019-19487-b46b97c930cd
 CVE-2019–19486: https://medium.com/@mucomplex/undisclosed-cve-2019-19484-cve-2019-19486-cve-2019-19487-b46b97c930cd
 CVE-2019–19487: https://medium.com/@mucomplex/undisclosed-cve-2019-19484-cve-2019-19486-cve-2019-19487-b46b97c930cd
+CVE-2019-1169: https://versprite.com/blog/security-research/cve-2019-1169-vulnerability-windows/
+CVE-2018-8653: https://blog.tetrane.com/Analysis_of_CVE_2018_8653_Memory_Management.html
+CVE-2020-9054: https://unit42.paloaltonetworks.jp/new-mirai-variant-mukashi/
+CVE-2020-8597: https://github.com/CERTCC/PoC-Exploits/tree/master/cve-2020-8597-pptpd
+CVE-2017-9841: https://www.imperva.com/blog/the-resurrection-of-phpunit-rce-vulnerability/
+
+
 
 
 https://twitter.com/wugeej

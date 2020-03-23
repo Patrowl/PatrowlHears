@@ -1,7 +1,4 @@
-# from django.contrib.auth.models import User
-# from django_filters import rest_framework as filters
 from django.db.models import Q
-from django.forms import widgets
 from django_filters import FilterSet, OrderingFilter, CharFilter, BooleanFilter
 from rest_framework import serializers
 from django.utils.translation import gettext_lazy as _
@@ -131,7 +128,8 @@ class VendorFilter(FilterSet):
 
 class ProductFilter(FilterSet):
     search = CharFilter(method='filter_search')
-    is_monitored = BooleanFilter(method='filter_monitored')
+    monitored = BooleanFilter(method='filter_monitored')
+    # is_monitored = BooleanFilter(method='filter_monitored')
 
     def filter_search(self,  queryset, name, value):
         return queryset.filter(
@@ -159,15 +157,19 @@ class ProductFilter(FilterSet):
         fields = {
             'name': ['icontains'],
             'vendor__name': ['icontains'],
-            'monitored': [],
+            'monitored': ['exact'],
         }
 
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
     vendor = serializers.SerializerMethodField()
+    monitored = serializers.SerializerMethodField()
 
     def get_vendor(self, instance):
         return instance.vendor.name
+
+    def get_monitored(self, instance):
+        return instance.monitored
 
     class Meta:
         model = Product
@@ -176,7 +178,8 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
 
 class ProductDetailFilter(FilterSet):
     search = CharFilter(method='filter_search')
-    is_monitored = BooleanFilter(method='filter_monitored')
+    # is_monitored = BooleanFilter(method='filter_monitored')
+    monitored = BooleanFilter(method='filter_monitored')
 
     def filter_search(self,  queryset, name, value):
         return queryset.filter(
@@ -204,7 +207,7 @@ class ProductDetailFilter(FilterSet):
         fields = {
             'name': ['icontains'],
             'vendor__name': ['icontains'],
-            'monitored': [],
+            'monitored': ['exact'],
         }
 
 
@@ -212,6 +215,7 @@ class ProductDetailSerializer(serializers.HyperlinkedModelSerializer):
     vendor = serializers.SerializerMethodField()
     # vulnerabilities = serializers.SerializerMethodField()
     versions = serializers.SerializerMethodField()
+    monitored = serializers.SerializerMethodField()
 
     def get_vendor(self, instance):
         return instance.vendor.name
@@ -228,9 +232,12 @@ class ProductDetailSerializer(serializers.HyperlinkedModelSerializer):
             versions.append(v.to_dict())
         return versions
 
+    def get_monitored(self, instance):
+        return instance.monitored
+
     class Meta:
         model = Product
-        fields = ['id', 'name', 'vendor', 'monitored', 'versions']
+        fields = ['id', 'name', 'vendor', 'monitored', 'versions', 'monitored']
         # fields = ['id', 'name', 'vendor', 'monitored', 'vulnerabilities']
 
 

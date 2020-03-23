@@ -1,19 +1,18 @@
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
 from django.shortcuts import get_object_or_404
-from django.db.models import F, Count, Value, Prefetch
+from django.db.models import F, Count, Value, Case, BooleanField, When
 from django.db.models.functions import Concat
 from common.utils.pagination import StandardResultsSetPagination
+from common.utils import organization
 from rest_framework import viewsets
 from django_filters import rest_framework as filters
 from rest_framework.decorators import api_view
-# from monitored_assets.models import MonitoredProduct
 from cves.models import Product
 from .models import Vuln, ExploitMetadata, ThreatMetadata
 from .serializers import (
     VulnSerializer, ExploitMetadataSerializer, ThreatMetadataSerializer,
     VulnFilter, ExploitMetadataFilter)
-# from .utils import _refresh_metadata_cve
 from .tasks import refresh_vulns_score_task
 from datetime import datetime, timedelta
 
@@ -21,18 +20,23 @@ from datetime import datetime, timedelta
 class VulnSet(viewsets.ModelViewSet):
     """API endpoint that allows vuln to be viewed or edited."""
 
-    queryset = Vuln.objects.all().prefetch_related('exploitmetadata_set').annotate(
-    # queryset = Vuln.objects.all().annotate(
-        exploit_count=Count('exploitmetadata')
-    ).order_by('-updated_at')
-    # queryset = Vuln.objects.all().prefetch_related(Prefetch('exploitmetadata_set', queryset=ExploitMetadata.objects.only('id').all())).annotate(
-    #     exploit_count=Count('exploitmetadata')
-    # ).order_by('-updated_at')
-    # queryset = Vuln.objects.all().prefetch_related('exploitmetadata_set').order_by('-updated_at')
     serializer_class = VulnSerializer
     filterset_class = VulnFilter
     filter_backends = (filters.DjangoFilterBackend,)
     pagination_class = StandardResultsSetPagination
+
+    def get_queryset(self):
+        org_id = self.request.session.get('org_id', None)
+        org = organization.get_current_organization(user=self.request.user, org_id=org_id)
+        monitored_vulns = org.org_monitoring_list.vulns.all()
+        return Vuln.objects.all().prefetch_related('exploitmetadata_set').annotate(
+                exploit_count=Count('exploitmetadata'),
+                monitored=Case(
+                    When(id__in=monitored_vulns, then=True),
+                    default=False,
+                    output_field=BooleanField()
+                )
+            ).order_by('-updated_at')
 
 
 class ExploitMetadataSet(viewsets.ModelViewSet):
@@ -61,7 +65,7 @@ class ThreatMetadataSet(viewsets.ModelViewSet):
 HISTORY_IMPORTANT_FIELDS = {
     'vuln': [
         'cvss', 'cvss_vector', 'summary', 'is_exploitable', 'is_confirmed',
-        'is_in_the_news', 'is_in_the_wild', 'monitored'
+        'is_in_the_news', 'is_in_the_wild'
     ],
     'exploit': [
         'link', 'trust_level', 'tlp_level', 'source', 'availability',
@@ -212,13 +216,53 @@ def refresh_vulns_score_async(self):
     return JsonResponse("enqueued", safe=False)
 
 
+@api_view(['POST', 'PUT'])
+def toggle_monitor_vuln(self, vuln_id):
+    if set(['vuln_id', 'monitored', 'organization_id']).issubset(self.data.keys()) is False:
+        return JsonResponse("error.", safe=False, status=500)
+
+    vuln = get_object_or_404(Vuln, id=self.data['vuln_id'])
+    if vuln is None or vuln_id != str(self.data['vuln_id']):
+        return JsonResponse("error.", safe=False, status=500)
+    else:
+        organization_id = self.data['organization_id']
+        org = organization.get_current_organization(user=self.user, org_id=organization_id)
+
+        if self.data['monitored'] is True and vuln not in org.org_monitoring_list.vulns.all():
+            org.org_monitoring_list.vulns.add(vuln)
+        if self.data['monitored'] is False and vuln in org.org_monitoring_list.vulns.all():
+            org.org_monitoring_list.vulns.remove(vuln)
+
+    vuln.save()
+    return JsonResponse("toggled.", safe=False)
+
+
 @api_view(['GET'])
 def get_vuln_stats(self):
+    current_user = self.user
+    org_id = self.session.get('org_id', None)
+    org = organization.get_current_organization(user=current_user, org_id=org_id)
+
+    monitored_products = Product.objects.annotate(
+        monitored=Case(
+            When(id__in=org.org_monitoring_list.products.all(), then=True),
+            default=False,
+            output_field=BooleanField()
+        )
+    )
+    monitored_vulns = Vuln.objects.annotate(
+        monitored=Case(
+            When(id__in=org.org_monitoring_list.vulns.all(), then=True),
+            default=False,
+            output_field=BooleanField()
+        )
+    )
+
     res = {
         'vulns': Vuln.objects.count(),
         'exploits': ExploitMetadata.objects.count(),
         'threats': ThreatMetadata.objects.count(),
-        'monitored': Product.objects.filter(monitored=True).count() + Vuln.objects.filter(monitored=True).count()
+        'monitored': monitored_products.filter(monitored=True).count() + monitored_vulns.filter(monitored=True).count()
     }
     return JsonResponse(res, safe=False)
 
@@ -239,21 +283,36 @@ def get_latest_vulns(self):
         .values('source', 'link', 'trust_level')
         .distinct()[:MAX_VULNS])
 
-    # Get monitored vendor/product and concatenate data
-    # mp = MonitoredProduct.objects.filter(monitored=True).annotate(
-    #     vendorproduct=Concat(Value(':'), F('vendor'), Value(':'), F('product'), Value(':'))
-    # ).values_list('vendorproduct', flat=True)
+    current_user = self.user
+    org_id = self.session.get('org_id', None)
+    org = organization.get_current_organization(user=current_user, org_id=org_id)
+    monitored_products = org.org_monitoring_list.products.all()
+    monitored_vulns = org.org_monitoring_list.vulns.all()
+    #
+    # mp = Product.objects.annotate(
+    #     vendorproduct=Concat(Value(':'), F('vendor__name'), Value(':'), F('name'), Value(':')),
+    #     monitored=Case(
+    #         When(id__in=monitored_products, then=True),
+    #         default=False,
+    #         output_field=BooleanField()
+    #     )
+    # ).filter(monitored=True).values_list('vendorproduct', flat=True)
+    mp = monitored_products.annotate(
+        vendorproduct=Concat(
+            Value(':'), F('vendor__name'), Value(':'), F('name'), Value(':'))
+        ).values_list('vendorproduct', flat=True)
 
-    mp = Product.objects.filter(monitored=True).annotate(
-        vendorproduct=Concat(Value(':'), F('vendor__name'), Value(':'), F('name'), Value(':'))
-    ).values_list('vendorproduct', flat=True)
-
-    monitored_vulns = Vuln.objects.filter(monitored=True).annotate(
-            exploit_count=Count('exploitmetadata')
-        ).order_by('-updated_at').values('id', 'cveid', 'summary', 'score', 'exploit_count', 'updated_at', 'is_confirmed')[:MAX_VULNS]
+    monitored_vulns = Vuln.objects.annotate(
+            exploit_count=Count('exploitmetadata'),
+            monitored=Case(
+                When(id__in=monitored_vulns, then=True),
+                default=False,
+                output_field=BooleanField()
+            )
+        ).filter(monitored=True).order_by('-updated_at').values('id', 'cveid', 'summary', 'score', 'exploit_count', 'updated_at', 'is_confirmed')[:MAX_VULNS]
 
     monitored_vulns_list = list(monitored_vulns)
-    for lv in Vuln.objects.exclude(id__in=[o['id'] for o in monitored_vulns]).filter(monitored=False, modified__gte=datetime.now() - timedelta(days=MAX_TIMEDELTA_DAYS)).order_by('-updated_at')[:10000]:
+    for lv in Vuln.objects.exclude(id__in=[o['id'] for o in monitored_vulns]).filter(modified__gte=datetime.now() - timedelta(days=MAX_TIMEDELTA_DAYS)).order_by('-updated_at')[:10000]:
         # Check if vulnerable products are monitored
         if lv.vulnerable_products is not None and len(lv.vulnerable_products) > 0:
             for lvvp in lv.vulnerable_products:

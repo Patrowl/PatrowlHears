@@ -54,7 +54,7 @@
                 <v-card-text>
                   <v-chip-group
                     v-model="select_pv"
-                    active-class="deep-orange--text grey"
+                    active-class="deep-orange--text "
                     multiple
                   >
                     <v-chip
@@ -185,7 +185,7 @@ export default {
     loading: true,
     product_id: "",
     product: {},
-    select_pv: "",
+    select_pv: [],
     vulns: {'results': []},
     cpes: [],
     limit: 20,
@@ -208,11 +208,20 @@ export default {
     snackColor: '',
     snackText: '',
   }),
+  watch: {
+    options: {
+      handler() {
+        this.getDataFromApi(this.product_id);
+      },
+      deep: true
+    },
+  },
   beforeRouteUpdate(to) {
     this.product_id = to.params.product_id
   },
   mounted() {
     this.product_id = this.$router.currentRoute.params.product_id;
+    this.options.page = 1;  // reset page count
     this.getDataFromApi(this.product_id);
   },
   methods: {
@@ -220,8 +229,16 @@ export default {
       this.loading = true;
       return new Promise((resolve, reject) => {
 
+        const {
+          sortBy,
+          sortDesc,
+          page,
+          itemsPerPage
+        } = this.options;
+        this.limit = itemsPerPage;
+
         let product = this.getProduct(product_id);
-        let vulns = this.getVulns(product_id);
+        let vulns = this.getVulns(product_id, page, this.limit, sortBy, sortDesc);
 
         setTimeout(() => {
           resolve({
@@ -254,9 +271,18 @@ export default {
     viewVuln(vuln_id) {
       this.$router.push({ 'name': 'VulnDetails', 'params': { 'vuln_id': vuln_id } });
     },
-    getVulns(product_id) {
+    getVulns(product_id, page, itemsPerPage, sortBy="", sortDesc) {
       this.loading = true;
-      this.$api.get('/api/vulns/?product='+product_id).then(res => {
+      let sorted_by = '';
+      if (sortBy.length > 0) {
+        if (sortDesc[0] === true) {
+          sorted_by = 'sorted_by=-' + sortBy;
+        } else {
+          sorted_by = 'sorted_by=' + sortBy;
+        }
+      }
+      // this.$api.get('/api/vulns/?product='+product_id).then(res => {
+      this.$api.get('/api/vulns/?product='+product_id+'&limit='+itemsPerPage+'&page='+page+'&'+sorted_by).then(res => {
         this.vulns = res.data;
         return this.vulns;
       }).catch(e => {
@@ -277,7 +303,8 @@ export default {
       let data = {
         'vendor_name': this.product.vendor,
         'product_name': this.product.name,
-        'monitored': !this.product.monitored
+        'monitored': !this.product.monitored,
+        'organization_id': localStorage.getItem('org_id')
       };
       this.$api.post('/api/monitor/product/toggle', data).then(res => {
         this.loading = false;

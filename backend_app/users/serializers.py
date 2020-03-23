@@ -1,15 +1,17 @@
 # -*- coding: utf-8 -*-
 
-from rest_framework import serializers, generics, views, response, permissions
+from rest_framework import serializers, views, response
 # from django_filters import rest_framework as filters
 from django_filters import FilterSet, OrderingFilter, CharFilter
 from django.utils.translation import gettext_lazy as _
-from organizations.models import OrganizationUser, Organization, OrganizationOwner
-from .models import User
+from organizations.models import OrganizationUser, Organization
+from common.utils import organization
+from .models import User, UserMonitoringList
 
 
 class UserSerializer(serializers.ModelSerializer):
     is_org_admin = serializers.SerializerMethodField()
+    current_org = serializers.SerializerMethodField()
 
     def get_is_org_admin(self, instance):
         is_org_admin = False
@@ -17,9 +19,18 @@ class UserSerializer(serializers.ModelSerializer):
             is_org_admin = True
         return is_org_admin
 
+    def get_current_org(self, instance):
+        org_id = self.context.get('request').session.get('org_id', None)
+        org = organization.get_current_organization(user=instance, org_id=org_id)
+        return {
+            'org_id': org.id,
+            'org_name': org.name
+        }
+
     class Meta:
         model = User
-        fields = ('id', 'username', 'last_login', 'is_superuser', 'is_staff', 'is_org_admin')
+        fields = ('id', 'username', 'last_login', 'is_superuser', 'is_staff',
+            'is_org_admin', 'current_org')
         extra_kwargs = {
             'password': {'write_only': True},
         }
@@ -50,13 +61,6 @@ class OrganizationFilter(FilterSet):
         )
     )
 
-    # class Meta:
-    #     model = OrganizationUser
-    #     fields = {
-    #         'name': ['icontains'],
-    #         # 'vuln_id': ['exact'],
-    #     }
-
 
 class OrganizationUserSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
@@ -64,6 +68,7 @@ class OrganizationUserSerializer(serializers.ModelSerializer):
     email = serializers.SerializerMethodField()
     org_id = serializers.SerializerMethodField()
     org_name = serializers.SerializerMethodField()
+    monitored_user_products = serializers.SerializerMethodField()
 
     def get_username(self, instance):
         return instance.user.username
@@ -77,11 +82,15 @@ class OrganizationUserSerializer(serializers.ModelSerializer):
     def get_org_name(self, instance):
         return instance.organization.name
 
+    def get_monitored_user_products(self, instance):
+        return instance.user_monitoring_list.products.values_list('id', 'name', 'vendor__name')
+
     class Meta:
         model = OrganizationUser
         fields = [
             'id', 'organization', 'user', 'username', 'email', 'is_admin',
-            'org_id', 'org_name'
+            'org_id', 'org_name',
+            'monitored_user_products'
         ]
         datatables_always_serialize = ['id']
 
@@ -108,3 +117,37 @@ class OrganizationUserFilter(FilterSet):
             'organization': ['exact'],
             # 'vuln_id': ['exact'],
         }
+
+#
+# class UserMonitoringListSerializer(serializers.ModelSerializer):
+#
+#     class Meta:
+#         model = UserMonitoringList
+#         fields = [
+#             'id', 'user', 'vulns', 'products'
+#         ]
+#         datatables_always_serialize = ['id']
+#
+#
+# class UserMonitoringListFilter(FilterSet):
+#     # username = CharFilter(method='filter_username', field_name='product')
+#     #
+#     # def filter_username(self,  queryset, name, value):
+#     #     return queryset
+#
+#     sorted_by = OrderingFilter(
+#         choices=(
+#             ('id', _('ID')), ('-id', _('ID (Desc)')),
+#             # ('username', _('Username')), ('-username', _('Username (Desc)')),
+#             # ('email', _('Email')), ('-email', _('Email (Desc)')),
+#             # ('org_name', _('Organization Name')), ('-org_name', _('Organization Name (Desc)')),
+#             # ('is_admin', _('Is Admin')), ('-is_admin', _('Is Admin (Desc)')),
+#         )
+#     )
+#
+#     class Meta:
+#         model = UserMonitoringList
+#         fields = {
+#             'user': ['exact'],
+#             # 'vuln_id': ['exact'],
+#         }

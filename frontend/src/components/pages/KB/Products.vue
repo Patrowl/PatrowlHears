@@ -166,7 +166,7 @@ export default {
           sorted_by = '&sorted_by=' + sortBy;
         }
       }
-      let monitored = this.only_monitored ? "&is_monitored=true" : "";
+      let monitored = this.only_monitored ? "&monitored=true" : "";
 
       this.$api.get('/api/kb/products/?limit='+itemsPerPage+'&page='+page+'&search='+this.search+sorted_by+monitored).then(res => {
         this.loading = false;
@@ -188,7 +188,8 @@ export default {
       let data = {
         'vendor_name': item.vendor,
         'product_name': item.name,
-        'monitored': !item.monitored
+        'monitored': !item.monitored,
+        'organization_id': localStorage.getItem('org_id')
       };
       this.$api.post('/api/monitor/product/toggle', data).then(res => {
         this.loading = false;

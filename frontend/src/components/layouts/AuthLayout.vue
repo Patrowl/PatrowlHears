@@ -106,28 +106,35 @@ export default {
           this.$store.commit('updateToken', res.data.access);
 
           // set default organization
+          let org_name = "";
           this.$api.get('/users/set-org').then(res => {
             if (res && res.status === 200 && res.data.status === "set") {
               // this.$session.set('org_id', res.data.org_id);
               // this.$session.set('org_name', res.data.org_name);
               localStorage.setItem('org_id', res.data.org_id);
               localStorage.setItem('org_name', res.data.org_name);
+
+              // get and set auth user
+              this.$api.get("/users/api/current").then((response) => {
+                localStorage.setItem('username', response.data.username);
+                localStorage.setItem('is_admin', response.data.is_superuser);
+                localStorage.setItem('is_org_admin', response.data.is_org_admin);
+                // localStorage.setItem('org_id', response.data.current_org.org_id);
+                localStorage.setItem('org_name', response.data.current_org.org_name);
+                // response.data['org_name'] = org_name;
+                if (response.data.is_superuser == true) {
+                  localStorage.setItem('is_org_admin', true);
+                }
+                this.$store.commit("setAuthUser",
+                  {authUser: response.data, isAuthenticated: true}
+                );
+                this.$router.push({name: 'Homepage'});
+              });
+            } else {
+              console.log("ERROR: Unable to set organization");
             }
           });
 
-          // get and set auth user
-          this.$api.get("/users/api/current").then((response) => {
-            localStorage.setItem('username', response.data.username);
-            localStorage.setItem('is_admin', response.data.is_superuser);
-            localStorage.setItem('is_org_admin', response.data.is_org_admin);
-            if (response.data.is_superuser == true) {
-              localStorage.setItem('is_org_admin', true);
-            }
-            this.$store.commit("setAuthUser",
-              {authUser: response.data, isAuthenticated: true}
-            );
-            this.$router.push({name: 'Homepage'});
-          });
 
         }).catch(e => {
           this.$store.commit("removeToken");

@@ -1,11 +1,13 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.forms.models import model_to_dict
+from django.db.models import Case, BooleanField, When
 from django_filters import rest_framework as filters
 from rest_framework import viewsets
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAdminUser
-from common.utils import cvesearch
+from organizations.models import OrganizationUser, Organization
+from common.utils import cvesearch, organization
 from common.utils.pagination import StandardResultsSetPagination
 from .models import CVE, CPE, CWE, Bulletin, Vendor, Product
 from .serializers import (
@@ -59,7 +61,6 @@ class VendorSet(viewsets.ModelViewSet):
 class ProductSet(viewsets.ModelViewSet):
     """API endpoint that allows Products to be viewed or edited."""
 
-    queryset = Product.objects.all().prefetch_related('vendor').order_by('-name').distinct()
     serializer_class = ProductSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     # filterset_fields = ('product', 'title', 'vector',)
@@ -67,17 +68,47 @@ class ProductSet(viewsets.ModelViewSet):
     filterset_class = ProductFilter
     pagination_class = StandardResultsSetPagination
 
+    def get_queryset(self):
+        current_user = self.request.user
+        org_id = self.request.session.get('org_id', None)
+        org = organization.get_current_organization(user=current_user, org_id=org_id)
+        monitored_products = org.org_monitoring_list.products.all()
+        return Product.objects.all().prefetch_related(
+            'vendor', 'org_monitoring_list__products', 'org_monitoring_list'
+            ).annotate(
+                monitored=Case(
+                    When(id__in=monitored_products, then=True),
+                    default=False,
+                    output_field=BooleanField()
+                )
+            ).order_by('-name').distinct()
+
 
 class ProductDetailSet(viewsets.ModelViewSet):
     """API endpoint that allows ProductDetails to be viewed or edited."""
 
-    queryset = Product.objects.all().prefetch_related('vendor').order_by('-name').distinct()
     serializer_class = ProductDetailSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     # filterset_fields = ('product', 'title', 'vector',)
     filterset_fields = ('name')
     filterset_class = ProductDetailFilter
     pagination_class = StandardResultsSetPagination
+
+    def get_queryset(self):
+        current_user = self.request.user
+        org_id = self.request.session.get('org_id', None)
+        org = organization.get_current_organization(user=current_user, org_id=org_id)
+
+        monitored_products = org.org_monitoring_list.products.all()
+        return Product.objects.all().prefetch_related(
+            'vendor', 'org_monitoring_list__products', 'org_monitoring_list', 'productversion_set'
+            ).annotate(
+                monitored=Case(
+                    When(id__in=monitored_products, then=True),
+                    default=False,
+                    output_field=BooleanField()
+                )
+            ).order_by('-name').distinct()
 
 
 class CWESet(viewsets.ModelViewSet):

@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'simple_history',
     'django_celery_beat',
     'organizations',
+    'annoying',
 
     'users',
     'cves',

@@ -117,11 +117,11 @@ export default {
     username: '',
     user_organization: '',
   }),
-  computed: {
-    isAuthenticated() {
-      return this.$store.getters.isAuthenticated;
-    },
-  },
+  // computed: {
+  //   isAuthenticated() {
+  //     return this.$store.getters.isAuthenticated;
+  //   },
+  // },
   mounted() {
     this.getUsername();
     this.getOrganization();

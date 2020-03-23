@@ -1,28 +1,30 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-# from organizations.models import Organization
+from organizations.models import OrganizationUser, Organization
 from vulns.models import Vuln
-from cves.models import Product
+from cves.models import Vendor, Product, ProductVersion
+from annoying.fields import AutoOneToOneField
 
 
 class User(AbstractUser):
-    # monitored_vulns = models.ManyToManyField(Vuln, related_name='monitoring_users')
-    # monitored_products = models.ManyToManyField(Product, related_name='monitoring_users')
     pass
 
-#
-# class ServiceProvider(Organization):
-#     """Now this model has a name field and a slug field."""
-#
-#     email = models.EmailField()
-#
-#
-# class Client(Organization):
-#     """Now this model has a name field and a slug field."""
-#
-#     description = models.TextField()
-#     email = models.EmailField()
-#     service_provider = models.ForeignKey(
-#         ServiceProvider, related_name="clients", on_delete=models.CASCADE)
-#
-#     objects = models.Manager()
+
+class UserMonitoringList(models.Model):
+    user = AutoOneToOneField(OrganizationUser, primary_key=True, on_delete=models.CASCADE, related_name='user_monitoring_list')
+    vulns = models.ManyToManyField(Vuln, related_name='user_monitoring_list')
+    products = models.ManyToManyField(Product, related_name='user_monitoring_list')
+
+    class Meta:
+        db_table = "user_monitoring_list"
+
+
+class OrgMonitoringList(models.Model):
+    organization = AutoOneToOneField(Organization, primary_key=True, on_delete=models.CASCADE, related_name='org_monitoring_list')
+    vulns = models.ManyToManyField(Vuln, related_name='org_monitoring_list')
+    vendors = models.ManyToManyField(Vendor, related_name='org_monitoring_list')
+    products = models.ManyToManyField(Product, related_name='org_monitoring_list')
+    productversions = models.ManyToManyField(ProductVersion, related_name='org_monitoring_list')
+
+    class Meta:
+        db_table = "org_monitoring_list"

@@ -1,19 +1,19 @@
 from django.db.models import Q
 from rest_framework import serializers
-from django_filters import FilterSet, OrderingFilter, CharFilter
+from django_filters import FilterSet, OrderingFilter, CharFilter, BooleanFilter
 from django.utils.translation import gettext_lazy as _
 from .models import Vuln, ExploitMetadata, ThreatMetadata
 
 
 class VulnSerializer(serializers.HyperlinkedModelSerializer):
-    # cve = serializers.SerializerMethodField()
     exploit_count = serializers.SerializerMethodField()
-    # rating = serializers.SerializerMethodField()
-    # vulnerable_products = serializers.SerializerMethodField()
+    monitored = serializers.SerializerMethodField()
 
     def get_exploit_count(self, instance):
         return instance.exploit_count
-        # return instance.exploitmetadata_set.count()
+
+    def get_monitored(self, instance):
+        return instance.monitored
 
     class Meta:
         model = Vuln
@@ -41,7 +41,7 @@ class VulnFilter(FilterSet):
     search = CharFilter(method='filter_search', field_name='search')
     product = CharFilter(method='filter_product', field_name='product')
     productversion = CharFilter(method='filter_productversion', field_name='productversion')
-    # have_product = Filter(name="products", lookup_type='in')
+    monitored = BooleanFilter(method='filter_monitored')
 
     def filter_search(self,  queryset, name, value):
         return queryset.filter(
@@ -54,6 +54,9 @@ class VulnFilter(FilterSet):
 
     def filter_productversion(self,  queryset, name, value):
         return queryset.filter(productversions__in=[value])
+
+    def filter_monitored(self,  queryset, name, value):
+        return queryset.filter(monitored=value)
 
     sorted_by = OrderingFilter(
         choices=(
@@ -77,8 +80,7 @@ class VulnFilter(FilterSet):
             'summary': ['icontains'],
             'search': ['icontains'],
             'updated_at': ['gte', 'lte'],
-            # 'exploitmetadata': [],
-            # 'rating': [''],
+            'monitored': ['exact'],
         }
 
 

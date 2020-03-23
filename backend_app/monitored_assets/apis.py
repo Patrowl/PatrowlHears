@@ -4,50 +4,40 @@ from django_filters import rest_framework as filters
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from common.utils.pagination import StandardResultsSetPagination
+from common.utils import organization
 # from vulns.utils import _refresh_metadata_cve
 # from .models import MonitoredProduct
 # from .serializers import MonitoredProductsSerializer
 from vulns.models import Vuln
 from vulns.serializers import VulnSerializer
 from cves.models import CVE, CPE, Bulletin, Vendor, Product
-
-#
-# class MonitoredProductsSet(viewsets.ModelViewSet):
-#     """
-#     API endpoint that allows monitored products to be viewed or edited.
-#     """
-#     queryset = MonitoredProduct.objects.all().order_by('-updated_at')
-#     serializer_class = MonitoredProductsSerializer
-#     filter_backends = (filters.DjangoFilterBackend,)
-#     filterset_fields = ('vendor', 'product', 'monitored')
-#     pagination_class = StandardResultsSetPagination
+from organizations.models import OrganizationUser, Organization
 
 
 @api_view(['POST', 'PUT'])
 def toggle_monitor_product(self):
-    if set(['vendor_name', 'product_name', 'monitored']).issubset(self.data.keys()) is False:
+    if set(['vendor_name', 'product_name', 'monitored', 'organization_id']).issubset(self.data.keys()) is False:
         return JsonResponse("error.", safe=False, status=500)
-    #
-    # product = MonitoredProduct.objects.filter(
-    #     vendor=self.data['vendor'], product=self.data['product']).first()
-    # if product is None:
-    #     data = {
-    #         'vendor': self.data['vendor'],
-    #         'product': self.data['product'],
-    #         'monitored': self.data['monitored']
-    #     }
-    #     product = MonitoredProduct(**data)
-    # else:
-    #     product.monitored = self.data['monitored']
 
     product = Product.objects.filter(
         vendor__name=self.data['vendor_name'], name=self.data['product_name']).first()
     if product is None:
         return JsonResponse("error.", safe=False, status=500)
     else:
-        product.monitored = self.data['monitored']
-        # if self.data['monitored'] and product not in self.user.monitored_products.all():
-        #     self.user.monitored_products.add(product)
+        # product.monitored = self.data['monitored']
+
+        organization_id = self.data['organization_id']
+        org = organization.get_current_organization(user=self.user, org_id=organization_id)
+
+        if self.data['monitored'] is True and product not in org.org_monitoring_list.products.all():
+            org.org_monitoring_list.products.add(product)
+        if self.data['monitored'] is False and product in org.org_monitoring_list.products.all():
+            org.org_monitoring_list.products.remove(product)
+        # if self.data['monitored'] is True and product not in org_user.user_monitoring_list.products.all():
+        #     org_user.user_monitoring_list.products.add(product)
+        # if self.data['monitored'] is False and product in org_user.user_monitoring_list.products.all():
+        #     org_user.user_monitoring_list.products.remove(product)
+
     product.save()
     return JsonResponse("toggled.", safe=False)
 
@@ -56,8 +46,8 @@ class MonitoredVulnsSet(viewsets.ModelViewSet):
     """
     API endpoint that allows monitored vulns to be viewed or edited.
     """
-    # queryset = MonitoredAsset.objects.all().order_by('-updated_at')
-    queryset = Vuln.objects.filter(monitored=True).order_by('-updated_at')
+    queryset = Vuln.objects.order_by('-updated_at')
+    # queryset = Vuln.objects.filter(monitored=True).order_by('-updated_at')
     serializer_class = VulnSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_fields = ('cve_id', 'cvss', 'is_exploitable')

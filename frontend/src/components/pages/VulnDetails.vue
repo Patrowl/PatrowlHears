@@ -811,8 +811,13 @@ export default {
     },
     toggleMonitored(item) {
       // save in backend
-      let data = {'monitored': !this.vuln.monitored};
-      this.$api.put('/api/vulns/'+this.vuln_id+'/', data).then(res => {
+      let data = {
+        'monitored': !this.vuln.monitored,
+        'vuln_id': this.vuln.id,
+        'organization_id': localStorage.getItem('org_id')
+      };
+      
+      this.$api.put('/api/vulns/'+this.vuln_id+'/toggle', data).then(res => {
         if (res){
           this.vuln.monitored = !this.vuln.monitored;
           // Snack notifications

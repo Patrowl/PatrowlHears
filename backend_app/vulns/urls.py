@@ -11,6 +11,7 @@ urlpatterns = [
     path('<vuln_id>/threats', apis.get_threats, name='get_threats'),
     path('<vuln_id>/threats/add', apis.add_threat, name='add_threat'),
     path('<vuln_id>/threats/<threat_id>/del', apis.del_threat, name='del_threat'),
+    path('<vuln_id>/toggle', apis.toggle_monitor_vuln, name='toggle_monitor_vuln'),
     path('stats', apis.get_vuln_stats, name='get_vuln_stats'),
     path('latest', apis.get_latest_vulns, name='get_latest_vulns'),
     # path('cve/<cve_id>/info', apis.get_metadata_cve, name='get_metadata_cve'),

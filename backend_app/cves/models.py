@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.postgres.fields import JSONField, ArrayField
 from simple_history.models import HistoricalRecords
-# from monitored_assets.models import MonitoredProduct
+from organizations.models import OrganizationUser, Organization
 
 
 def access_default_dict():
@@ -47,7 +47,7 @@ class Vendor(models.Model):
 class Product(models.Model):
     name = models.TextField(max_length=250, default="-")
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
-    monitored = models.BooleanField(default=False)
+    # monitored = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now, null=True)
     updated_at = models.DateTimeField(default=timezone.now, null=True)
     history = HistoricalRecords()
@@ -61,6 +61,9 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+    def is_monitored(self, org):
+        return self in org.org_monitoring_list.products.all()
+
     def save(self, *args, **kwargs):
         if not self.created_at:
             self.created_at = timezone.now()
@@ -72,7 +75,7 @@ class ProductVersion(models.Model):
     version = models.TextField(max_length=250, default="*")
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     vector = models.CharField(max_length=250, default="", null=True)
-    monitored = models.BooleanField(default=False)
+    # monitored = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now, null=True)
     updated_at = models.DateTimeField(default=timezone.now, null=True)
     history = HistoricalRecords()
@@ -92,7 +95,7 @@ class ProductVersion(models.Model):
             'product': self.product.name,
             'vendor': self.product.vendor.name,
             'vector': self.vector,
-            'monitored': self.monitored
+            # 'monitored': self.monitored
         }
 
     def save(self, *args, **kwargs):
