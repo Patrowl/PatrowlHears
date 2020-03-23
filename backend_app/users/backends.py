@@ -10,6 +10,8 @@ class CustomRegistrations(RegistrationBackend):
     activation_success_template = 'organizations/register_success.html'
     notifitation_subject = 'email/notifitation_subject.txt'
     notifitation_body = 'email/notifitation_body.html'
+    reminder_subject = 'email/reminder_subject.txt'
+    reminder_body = 'email/reminder_body.html'
 
 
 class CustomInvitations(InvitationBackend):
@@ -17,6 +19,8 @@ class CustomInvitations(InvitationBackend):
     invitation_body = 'email/invitation_body.html'
     notification_subject = 'email/notification_subject.txt'
     notification_body = 'email/notification_body.html'
+    reminder_subject = 'email/reminder_subject.txt'
+    reminder_body = 'email/reminder_body.html'
 
     def invite_by_email(self, email, sender=None, request=None, **kwargs):
 
@@ -37,6 +41,18 @@ class CustomInvitations(InvitationBackend):
         kwargs.update({'BASE_URL': settings.BASE_URL})
         self.send_invitation(user, sender, **kwargs)
         return user
+
+    def send_notification(self, user, sender=None, **kwargs):
+        """
+        An intermediary function for sending an notification email informing
+        a pre-existing, active user that they have been added to a new
+        organization.
+        """
+        if not user.is_active:
+            return False
+        kwargs.update({'BASE_URL': settings.BASE_URL})
+        self.email_message(user, self.notification_subject, self.notification_body, sender, **kwargs).send()
+        return True
 
 
 class EmailOrUsernameModelBackend(ModelBackend):

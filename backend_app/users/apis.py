@@ -3,6 +3,7 @@ from django.utils.translation import ugettext as _
 from django.contrib.auth import get_user_model, authenticate, login
 from django.db.models import F
 from django.shortcuts import get_object_or_404
+from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import PermissionDenied
 # from django.utils.translation import ugettext_lazy as _
 from rest_framework import viewsets
@@ -10,11 +11,12 @@ from rest_framework.decorators import api_view
 from django_filters import rest_framework as filters
 from organizations.models import Organization, OrganizationUser
 from organizations.views import BaseOrganizationUserCreate
+from organizations.forms import OrganizationUserAddForm
 from organizations.backends.tokens import RegistrationTokenGenerator
 from common.utils.pagination import StandardResultsSetPagination
 from .serializers import OrganizationSerializer, OrganizationUserSerializer
 from .serializers import OrganizationFilter, OrganizationUserFilter
-from .backends import InvitationBackend
+from .backends import InvitationBackend, CustomInvitations
 from .mixins import OrganizationAdminOnly
 from .models import UserMonitoringList
 
@@ -97,7 +99,7 @@ def activate_user(self, token):
     #   user_id: 24
     #   user_token: 5ev-90e516079f1b118c410bh
 
-    print(self.data)
+    # print(self.data)
     # Check token format
     try:
         user_id = token.split('-')[0]
@@ -125,12 +127,46 @@ def activate_user(self, token):
         user.save()
         InvitationBackend().activate_organizations(user)
 
-        user = authenticate(
-            username=form.cleaned_data['username'],
-            password=form.cleaned_data['password'])
-        login(self, user)
+        # user = authenticate(
+        #     username=form.cleaned_data['username'],
+        #     password=form.cleaned_data['password'])
+        # login(self, user)
         return JsonResponse({'status': 'success'}, safe=False)
     return JsonResponse({'status': 'valid', 'email': user.email}, safe=False)
+
+
+@api_view(['POST'])
+def invite_user(self, organization_id):
+    org = get_object_or_404(Organization, id=organization_id)
+    email = self.data.getlist('email', None)[0]
+    is_admin = self.data.getlist('is_admin', False)[0] == "true"
+    if email is not None:
+        try:
+            user = get_user_model().objects.get(email__iexact=email)
+        except get_user_model().MultipleObjectsReturned:
+            raise Http404(_("This email address has been used multiple times."))
+        except get_user_model().DoesNotExist:
+            user = CustomInvitations().invite_by_email(
+                    email,
+                    **{
+                        # 'domain': get_current_site(self),
+                        'organization': org,
+                        'sender': self.user
+                    })
+        # Send a notification email to this user to inform them that they
+        # have been added to a new organization.
+        InvitationBackend().send_notification(user, **{
+            # 'domain': get_current_site(self),
+            'organization': org,
+            'sender': self.user,
+        })
+        org_user = OrganizationUser.objects.create(
+            user=user,
+            organization=org,
+            is_admin=is_admin)
+        org_user.save()
+        return JsonResponse({'status': 'success'}, safe=False)
+    return JsonResponse({'status': 'not valid'}, status=500, safe=False)
 
 
 @api_view(['GET'])
@@ -148,14 +184,16 @@ def set_org(self, org_id):
     user = None
     if self.user.is_superuser:
         user = OrganizationUser.objects.all().first()
+        org = get_object_or_404(Organization, id=org_id)
     else:
         user = get_object_or_404(OrganizationUser, organization_id=org_id, user_id=self.user.id)
-    self.session['org_id'] = user.organization.id
-    self.session['org_name'] = user.organization.name
+        org = user.organization
+    self.session['org_id'] = org.id
+    self.session['org_name'] = org.name
     return JsonResponse({
         'status': 'set',
-        'org_id': user.organization.id,
-        'org_name': user.organization.name
+        'org_id': org.id,
+        'org_name': org.name
         }, safe=False)
 
 
@@ -175,6 +213,7 @@ def set_default_org(self):
         }, safe=False)
 
 
+# @api_view(['GET', 'POST', 'PUT'])
 class CustOrganizationUserCreate(OrganizationAdminOnly, BaseOrganizationUserCreate):
     """Override OrganizationUserCreate class using custom OrganizationAdminOnly."""
     pass

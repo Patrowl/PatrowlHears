@@ -368,7 +368,8 @@ export default {
       var bodyFormData = new FormData();
       bodyFormData.set('email', this.invitation.email);
       bodyFormData.set('is_admin', this.invitation.is_admin);
-      this.$api.post('/users/'+this.invitation.org_id+'/add', bodyFormData).then(res => {
+      // this.$api.post('/users/'+this.invitation.org_id+'/add', bodyFormData).then(res => {
+      this.$api.post('/users/'+this.invitation.org_id+'/adduser', bodyFormData).then(res => {
         if (res && res.status === 200) {
           // Snack notifications
           this.snack = true;

@@ -69,10 +69,28 @@
       />
 
       <v-spacer />
-      <v-btn icon>
+      <!-- <v-btn icon>
         <v-icon>mdi-bell</v-icon>
-      </v-btn>
-      {{username}} ({{user_organization}})
+      </v-btn> -->
+      <v-menu offset-y>
+        <template v-slot:activator="{ on }">
+          <v-btn
+            tile
+            v-on="on"
+          >
+            {{username}}@{{user_organization}}
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item
+            v-for="(item, index) in orgs"
+            :key="index"
+            @click="setOrganization(item)"
+          >
+            <v-list-item-title>{{ item.name }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
       <v-btn icon @click="logout"><v-icon>mdi-logout</v-icon></v-btn>
     </v-app-bar>
 
@@ -86,7 +104,7 @@
 
    <v-footer>
      <v-spacer></v-spacer>
-    <div class="caption">&copy; {{ new Date().getFullYear() }} - Patrowl Hears - v0.0.4 (BETA)</div>
+    <div class="caption">&copy; {{ new Date().getFullYear() }} - Patrowl Hears - v0.0.5 (BETA)</div>
    </v-footer>
   </v-app>
 </template>
@@ -116,6 +134,7 @@ export default {
     ],
     username: '',
     user_organization: '',
+    orgs: []
   }),
   // computed: {
   //   isAuthenticated() {
@@ -125,13 +144,16 @@ export default {
   mounted() {
     this.getUsername();
     this.getOrganization();
+    this.getOrganizations();
   },
   methods: {
     logout() {
+      this.$store.commit("removeToken");
       localStorage.removeItem('authToken');
       localStorage.removeItem('username');
       localStorage.removeItem('is_admin');
       localStorage.removeItem('is_org_admin');
+      localStorage.removeItem('orgs');
       localStorage.removeItem('org_id');
       localStorage.removeItem('org_name');
       this.$session.destroy();
@@ -143,6 +165,9 @@ export default {
     getOrganization() {
       this.user_organization = localStorage.getItem('org_name');
     },
+    getOrganizations() {
+      this.orgs = JSON.parse(localStorage.getItem('orgs'));
+    },
     search() {
       // this.$router.go()
       if(this.$route.path === '/search/'+this.appsearch) {
@@ -150,6 +175,18 @@ export default {
       } else {
         this.$router.push({ 'path': '/search/'+this.appsearch });
       }
+    },
+    setOrganization(org){
+      this.$api.get('/users/set-org/'+org.id).then(res => {
+        if (res && res.status === 200 && res.data.status === "set") {
+          // this.$session.set('org_id', res.data.org_id);
+          // this.$session.set('org_name', res.data.org_name);
+          localStorage.setItem('org_id', org.id);
+          localStorage.setItem('org_name', org.name);
+          this.user_organization = org.name;
+          this.$router.go();
+        }
+      });
     }
   }
 }

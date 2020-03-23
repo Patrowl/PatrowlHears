@@ -12,6 +12,7 @@ from .models import User, UserMonitoringList
 class UserSerializer(serializers.ModelSerializer):
     is_org_admin = serializers.SerializerMethodField()
     current_org = serializers.SerializerMethodField()
+    orgs = serializers.SerializerMethodField()
 
     def get_is_org_admin(self, instance):
         is_org_admin = False
@@ -27,10 +28,16 @@ class UserSerializer(serializers.ModelSerializer):
             'org_name': org.name
         }
 
+    def get_orgs(self, instance):
+        if instance.is_superuser:
+            return Organization.objects.all().values('id', 'name', 'slug')
+        else:
+            return instance.organizations_organization.values('id', 'name', 'slug')
+
     class Meta:
         model = User
         fields = ('id', 'username', 'last_login', 'is_superuser', 'is_staff',
-            'is_org_admin', 'current_org')
+            'is_org_admin', 'current_org', 'orgs')
         extra_kwargs = {
             'password': {'write_only': True},
         }

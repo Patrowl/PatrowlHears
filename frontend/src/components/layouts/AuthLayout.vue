@@ -120,6 +120,7 @@ export default {
                 localStorage.setItem('is_admin', response.data.is_superuser);
                 localStorage.setItem('is_org_admin', response.data.is_org_admin);
                 // localStorage.setItem('org_id', response.data.current_org.org_id);
+                localStorage.setItem('orgs', JSON.stringify(response.data.orgs));
                 localStorage.setItem('org_name', response.data.current_org.org_name);
                 // response.data['org_name'] = org_name;
                 if (response.data.is_superuser == true) {
