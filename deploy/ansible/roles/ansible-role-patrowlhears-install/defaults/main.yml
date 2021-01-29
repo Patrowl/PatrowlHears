@@ -1,0 +1,70 @@
+---
+apps_volume: '/apps'
+patrowlhears_dependencies:
+  - build-essential
+  - python3-dev
+  - git
+  - curl
+  - rabbitmq-server
+  - postgresql-10
+  # - postgresql-12
+  - libpq-dev
+  - python3-psycopg2
+  - nginx
+  - python-setuptools
+  - nodejs
+  - npm
+  - certbot
+  - python3-certbot-nginx
+  - python3-pip
+patrowlhears_git_repo: https://{{gituser}}:{{gitpass}}@github.com/Patrowl/PatrowlHears.git
+patrowlhears_path: "{{apps_volume}}/PatrowlHears/backend_app"
+patrowlhears_dbhost: localhost
+patrowlhears_dbport: 5432
+patrowlhears_dbname: patrowlhears_db
+patrowlhears_dbuser: PATROWLHEARS_DB_USER
+patrowlhears_dbuser_pw: PATROWLHEARS_DB_PASSWD_TO_CHANGE
+patrowlhears_admin_user: admin
+patrowlhears_admin_email: admin@local.local
+patrowlhears_admin_pass: Bonjour1!
+# patrowlhears_allowed_hosts: ['*']
+patrowlhears_rabbit_env_user: guest
+patrowlhears_rabbit_env_pass: guest
+patrowlhears_rabbit_hostname: localhost:5672
+patrowlhears_rabbit_env_vhost: ""
+patrowlhears_gunicorn_port: 8303
+patrowlhears_datasync_mode: master
+patrowlhears_datasync_url: http://172.16.153.1:3333
+patrowlhears_datasync_login: admin
+patrowlhears_datasync_password: Bonjour1!
+patrowlhears_datasync_frequency: hourly
+patrowlhears_datasync_enabled: true
+# patrowlhears_nginx_ssl: false
+patrowlhears_nginx_ssl: true
+
+patrowlhears_envvars:
+  LOGGING_LEVEL: "INFO,WARNING,ERROR,DEBUG"
+  PATROWL_PROXY_HTTP: ""
+  PATROWL_PROXY_HTTPS: ""
+  SECRET_KEY: "*** omg this is the secret !***"
+  DB_ENV_DB: "{{ patrowlhears_dbname }}"
+  DB_ENV_POSTGRES_USER: "{{ patrowlhears_dbuser }}"
+  DB_ENV_POSTGRES_PASSWORD: "{{ patrowlhears_dbuser_pw }}"
+  DB_PORT_5432_TCP_HOST: "{{patrowlhears_dbhost}}"
+  DB_PORT_5432_TCP_PORT: "{{patrowlhears_dbport}}"
+  RABBIT_PORT_5672_TCP: "{{ patrowlhears_rabbit_hostname }}"
+  BROKER_URL: "amqp://{{ patrowlhears_rabbit_env_user }}:{{ patrowlhears_rabbit_env_pass }}@{{ patrowlhears_rabbit_hostname }}/{{ patrowlhears_rabbit_env_vhost }}/"
+  EMAIL_USE_TLS: True
+  EMAIL_HOST: "{{patrowlhears_email_host}}"
+  EMAIL_HOST_USER: "{{patrowlhears_email_host_user}}"
+  EMAIL_HOST_PASSWORD: "{{patrowlhears_email_host_passwd}}"
+  EMAIL_PORT: "{{patrowlhears_email_port}}"
+  EMAIL_RCPT_USER: "{{patrowlhears_default_from_email}}"
+  GUNICORN_CMD_ARGS: "-b 0.0.0.0:{{patrowlhears_gunicorn_port}}"
+  APP_DEBUG: False
+  HEARS_DATASYNC_MODE: "{{patrowlhears_datasync_mode}}"
+  HEARS_DATASYNC_URL: "{{patrowlhears_datasync_url}}"
+  HEARS_DATASYNC_LOGIN: "{{patrowlhears_datasync_login}}"
+  HEARS_DATASYNC_PASSWORD: "{{patrowlhears_datasync_password}}"
+  HEARS_DATASYNC_FREQUENCY: "{{patrowlhears_datasync_frequency}}"
+  HEARS_DATASYNC_ENABLED: "{{patrowlhears_datasync_enabled}}"

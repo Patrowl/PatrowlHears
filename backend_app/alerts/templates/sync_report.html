@@ -1,0 +1,295 @@
+{% load patrowl_tags %}
+
+<div class="report">
+  <h3>Summary per Products</h3>
+  <table cellpadding="5">
+    <tr>
+      <th>Status</th>
+      <th>Product</th>
+      <th>Summary</th>
+      <th>CVSS BS</th>
+      <th>Score</th>
+      <th># exploits</th>
+    </tr>
+  {% for product in products_summary %}
+    <tr>
+      <td>{{product.status}}</td>
+      <td>{{product.product_name}}</td>
+      <td style="text-align: justify;">
+        <a href="{{baseurl}}/vulns/{{product.vuln_id}}">{{product.cve}}<a> - {{product.summary |truncatechars:64}}
+      </td>
+      <td>
+        <span
+        class="score"
+        style="background-color: {{product.cvss|cvss_color}}"
+        >{{product.cvss}}</span>
+      </td>
+      <td>
+        <span
+        class="score"
+        style="background-color: {{product.score|rating_color}}"
+        >{{product.score}}</span>
+      </td>
+      <td>{{product.exploit_cnt}}</td>
+    </tr>
+  {% endfor %}
+  </table>
+
+  <hr>
+
+  <h3>Detailed vulnerabilities</h3>
+  {% for product_key, product_value in products_details.items %}
+    {% for vuln in product_value %}
+    <div class="grid-container">
+      <div class="gd-header">
+        <h4>{{product_key}}</h4>
+      </div>
+      <div class="gd-side">
+        Threat analysis
+        <div class="vuln-content">
+          <div class="vuln-content-subtitle">Scores</div>
+            <dl>
+              <dt>Threat Score</dt>
+              <dd>
+                <span
+                class="score"
+                style="background-color: {{vuln.score|rating_color}}"
+                >{{vuln.score}}</span>
+              </dd>
+
+              <dt>CVSSv2 Base Score</dt>
+              <dd>
+                <span
+                class="score"
+                style="background-color: {{vuln.cvss|cvss_color}}"
+                >{{vuln.cvss}}</span>
+              </dd>
+
+              <dt>CVSSv2 Vector</dt>
+              <dd>{{vuln.cvss_vector}}</dd>
+            </dl>
+        </div>
+        <div class="vuln-content">
+          <div class="vuln-content-subtitle">Metrics</div>
+            <dl>
+              <dt>Exploitable?</dt>
+              {% if vuln.is_exploitable == True %}
+              <dd style="color: red">Yes</dd>
+              {% else %}
+              <dd>-</dd>
+              {% endif %}
+
+              <dt>Confirmed?</dt>
+              {% if vuln.is_confirmed == True %}
+              <dd style="color: red">Yes</dd>
+              {% else %}
+              <dd>-</dd>
+              {% endif %}
+
+              <dt>In the news?</dt>
+              {% if vuln.is_in_the_news == True %}
+              <dd style="color: red">Yes</dd>
+              {% else %}
+              <dd>-</dd>
+              {% endif %}
+
+              <dt>Exploited in the wild?</dt>
+              {% if vuln.is_in_the_wild == True %}
+              <dd style="color: red">Yes</dd>
+              {% else %}
+              <dd>-</dd>
+              {% endif %}
+            </dl>
+        </div>
+      </div>
+      <div class="gd-body">
+        Vulnerability details for <a href="{{baseurl}}/vulns/{{vuln.id}}">PHID-{{vuln.id}}</a>
+
+        <div class="vuln-content">
+          <div class="vuln-content-subtitle">CVE</div>
+          <span>
+            {{vuln.cve_id}}
+            - See: <a href="https://nvd.nist.gov/vuln/detail/{{vuln.cve_id}}">nvd</a>,
+            <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name={{vuln.cve_id}}">mitre</a>
+          </span>
+        </div>
+
+        <div class="vuln-content">
+          <div class="vuln-content-subtitle">Summary</div>
+          {{vuln.summary}}
+        </div>
+
+        <div class="grid-container-sub">
+          <div class="gd-subbody">
+            <div class="vuln-content">
+              <div class="vuln-content-subtitle">Access (Attack)</div>
+              <dl class="subarea">
+                <dt>Vector:</dt><dd>{{vuln.access.vector}}</dd>
+                <dt>Complexity:</dt><dd>{{vuln.access.complexity}}</dd>
+                <dt>Authentication:</dt><dd>{{vuln.access.authentication}}</dd>
+              </dl>
+            </div>
+          </div>
+          <div class="gd-subbody">
+            <div class="vuln-content">
+              <div class="vuln-content-subtitle">Impact</div>
+              <dl class="subarea">
+                <dt>Confidentiality:</dt><dd>{{vuln.impact.confidentiality}}</dd>
+                <dt>Integrity:</dt><dd>{{vuln.impact.integrity}}</dd>
+                <dt>Availability:</dt><dd>{{vuln.impact.availability}}</dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+
+        <div class="vuln-content">
+          <div class="vuln-content-subtitle">Related products</div>
+            {% for vp in vuln.vulnerable_products %}
+            <ul>
+              {% with cpe=vp|parse_cpe %}
+                <li>{{cpe.get_vendor.0}}-{{cpe.get_product.0}}-{{cpe.get_version.0}}</li>
+              {% endwith %}
+            </ul>
+            {% endfor %}
+        </div>
+
+        <div class="vuln-content">
+          <div class="vuln-content-subtitle">Links</div>
+            {% for link in vuln.reflinks %}
+            <ul>
+              <li><a href="{{link}}">{{link}}</a></li>
+            </ul>
+            {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  {% endfor %}
+</div>
+
+<!-- Style section -->
+<style>
+table {
+  border-radius: 3px;
+  border-spacing: 0px;
+  border-color: lightgrey;
+  border-width: thin;
+  text-align: center;
+}
+
+table tr th {
+  background-color: lightgrey;
+}
+
+td, th {
+  border: 1px solid lightgrey;
+}
+
+dl {
+  margin: unset;
+}
+
+dt, dd {
+  float: left;
+  margin-inline-start: 5px;
+}
+
+dt {
+  clear: both;
+  float: left;
+  clear: left;
+  width: 150px;
+  text-align: left;
+  font-weight: bold;
+  font-size: 0.875rem;
+}
+
+dl.subarea > dt {
+  clear: both;
+  float: left;
+  clear: left;
+  width: 110px;
+  text-align: left;
+  font-weight: bold;
+  font-size: 0.875rem;
+}
+
+ul {
+  list-style: square outside none;
+  margin: unset;
+  padding-inline-start: 25px;
+}
+
+span.score {
+  height: 24px;
+  border-radius: 4px !important;
+  padding: 1px 6px;
+  vertical-align: middle;
+}
+
+.report {
+  font-family: "Roboto", sans-serif;
+}
+
+.product-title {
+  background-color: gray;
+}
+
+.gd-side {
+  grid-area: side;
+  width: 200px;
+}
+.gd-body { grid-area: body; }
+.gd-header {
+  grid-area: header;
+  padding: 0 0;
+}
+
+.gd-header > h4 {
+  margin-block-end: 1px;
+  margin-block-start: 8px;
+  padding-block-start: 10px;
+  padding-block-end: 10px;
+  background-color: gray;
+}
+
+.grid-container {
+  width: 800px;
+  display: grid;
+  grid-template-areas:
+    'header header header header header header'
+    'side body body body body body';
+  grid-gap: 10px;
+  background-color: #d3d3d34a;
+  /*padding: 10px;*/
+}
+
+.grid-container-sub {
+  width: auto;
+  display: grid;
+  grid-template-areas: 'subbody subbody';
+  grid-gap: 10px;
+}
+
+.grid-container > div {
+  text-align: center;
+  /*padding: 20px 0;*/
+}
+
+.grid-container-sub > div {
+  text-align: center;
+}
+
+.vuln-content {
+  padding: 6px 0;
+  text-align: justify;
+  display: grid;
+}
+
+.vuln-content-subtitle {
+  font-size: 0.875rem;
+  color: rgba(0, 0, 0, 0.7);
+  background-color: #d3d3d3;
+}
+
+</style>

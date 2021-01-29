@@ -1,0 +1,12 @@
+---
+cvesearch_os_dependencies:
+  - build-essential
+  - python3-dev
+  - git
+  - libpq-dev
+  - python-setuptools
+  - mongodb
+  - redis-server
+
+apps_volume: '/apps'
+via4cve_filepath: 'file:///apps/VIA4CVE/VIA4CVE-feed.json'

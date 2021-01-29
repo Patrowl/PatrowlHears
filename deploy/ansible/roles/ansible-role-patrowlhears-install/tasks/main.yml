@@ -1,0 +1,266 @@
+---
+- name: PatrowlHears - Init - Load in project specific vars
+  include_vars: "secrets.yml"
+  ignore_errors: yes
+
+# Create/Update persistent data on shared volume
+- name: PatrowlHears - Init - Create global dir
+  file:
+    path: "{{ apps_volume }}/PatrowlHears"
+    state: directory
+    mode: 0755
+
+# Install PatrowlHears dependencies
+- name: PatrowlHears - OS - Wait for the instance is completely booted
+  wait_for:
+    path: /var/lib/cloud/instance/boot-finished
+    timeout: 300
+
+- name: PatrowlHears - OS - Wait for automatic system updates
+  become: yes
+  shell: while sudo fuser /var/lib/dpkg/{{ item }} >/dev/null 2>&1; do sleep 1; done;
+  with_items:
+    - lock
+    - lock-frontend
+
+- name: PatrowlHears - OS - Install dependencies
+  become: yes
+  apt:
+    name: "{{ patrowlhears_dependencies }}"
+    update_cache: yes
+    state: present
+    force_apt_get: yes
+
+- name: PatrowlHears - PIP - Upgrade PIP
+  pip:
+    name: pip
+    state: latest
+
+- name: PatrowlHears - PIP - Installing python VirtualEnv
+  pip:
+    name: virtualenv
+    state: present
+
+- name: PatrowlHears - GIT - Clone repo
+  git:
+    repo: "{{ patrowlhears_git_repo }}"
+    dest: "{{ apps_volume }}/PatrowlHears/"
+    force: yes
+
+- name: PatrowlHears - Config - Save env variables to file
+  template:
+    src: patrowlhears_env.j2
+    dest: "{{ apps_volume }}/PatrowlHears/.env"
+    force: yes
+
+- name: PatrowlHears - PIP - Installing python libraries using requirements file in Ansible
+  pip:
+    requirements: requirements.txt
+    chdir: "{{ patrowlhears_path }}"
+    virtualenv: env3
+
+## Database configuration
+- name: PatrowlHears - PostgreSQL - Start Service
+  service:
+    name: postgresql
+    state: started
+    enabled: true
+
+- name: PatrowlHears - PIP - Installing python psycopg2 for managing PG
+  pip:
+    name: psycopg2
+    state: present
+
+- name: PatrowlHears - PostgreSQL - Create user
+  become_user: postgres
+  postgresql_user:
+    name: "{{patrowlhears_dbuser}}"
+    password: "{{patrowlhears_dbuser_pw}}"
+    state: present
+    expires: infinity
+
+- name: PatrowlHears - PostgreSQL - Create database
+  become_user: postgres
+  postgresql_db:
+    name: "{{patrowlhears_dbname}}"
+    owner: "{{patrowlhears_dbuser}}"
+    encoding: UTF-8
+
+- name: PatrowlHears - PostgreSQL - Grant ALL privileges on database to user
+  become_user: postgres
+  postgresql_user:
+    db: "{{patrowlhears_dbname}}"
+    name: "{{patrowlhears_dbuser}}"
+    priv: ALL
+    state: present
+
+- name: PatrowlHears - PostgreSQL - Modify client_encoding to UTF8
+  become_user: postgres
+  postgresql_query:
+    db: "{{patrowlhears_dbname}}"
+    query: ALTER ROLE "{{patrowlhears_dbuser}}" SET client_encoding TO 'utf8'
+
+- name: PatrowlHears - PostgreSQL - Modify default_transaction_isolation to 'read committed'
+  become_user: postgres
+  postgresql_query:
+    db: "{{patrowlhears_dbname}}"
+    query: ALTER ROLE "{{patrowlhears_dbuser}}" SET default_transaction_isolation TO 'read committed'
+
+## Django app configuration
+- name: PatrowlHears - settings.py - Stat existing file
+  stat: path="{{ patrowlhears_path }}/backend_app/settings.py"
+  register: patrowlhears_settings_py
+
+- name: PatrowlHears - settings.py - Create from sample if missing
+  copy:
+    src: "{{ patrowlhears_path }}/backend_app/settings.py.sample"
+    dest: "{{ patrowlhears_path }}/backend_app/settings.py"
+    remote_src: yes
+  when: not patrowlhears_settings_py.stat.exists
+
+- name: PatrowlHears - manage.py - Create the db schema - makemigrations
+  django_manage:
+    command: makemigrations --merge --noinput
+    app_path: "{{ patrowlhears_path }}"
+    virtualenv: "{{ patrowlhears_path }}/env3/"
+  environment: "{{patrowlhears_envvars}}"
+
+- name: PatrowlHears - manage.py - Create the db schema - migrate
+  django_manage:
+    command: migrate
+    app_path: "{{ patrowlhears_path }}"
+    virtualenv: "{{ patrowlhears_path }}/env3/"
+  environment: "{{patrowlhears_envvars}}"
+
+- name: PatrowlHears - manage.py - Collect static files (production mode)
+  django_manage:
+    command: collectstatic
+    app_path: "{{ patrowlhears_path }}"
+    virtualenv: "{{ patrowlhears_path }}/env3/"
+  environment: "{{patrowlhears_envvars}}"
+
+- name: PatrowlHears - manage.py - Check if superuser user exists, if not, create user
+  django_manage:
+    command: shell -c "from django.contrib.auth.hashers import make_password; from django.contrib.auth import get_user_model; MyUser = get_user_model(); MyUser.objects.filter( username__exact = '{{ patrowlhears_admin_user }}' ).count() == 0 or exit(); new_super_user = MyUser( username = '{{ patrowlhears_admin_user }}', email='{{ patrowlhears_admin_email }}', is_superuser = True, is_staff = True ); new_super_user.password = make_password('{{ patrowlhears_admin_pass }}'); new_super_user.save();"
+    app_path: "{{ patrowlhears_path }}"
+    virtualenv: "{{ patrowlhears_path }}/env3/"
+  environment: "{{patrowlhears_envvars}}"
+
+- name: PatrowlHears - manage.py - Check if superuser default organization exists, if not, create user
+  django_manage:
+    command: |
+      shell -c "
+      from organizations.models import Organization, OrganizationUser, OrganizationOwner
+      from django.contrib.auth import get_user_model
+      admin_user = get_user_model().objects.filter(username='admin').first()
+      if admin_user.organizations_organization.count() != 0: exit()
+      admin_org = Organization.objects.create(name='Private', is_active=True)
+      admin_org.save()
+      org_user = OrganizationUser.objects.create(user=admin_user, organization=admin_org, is_admin=True)
+      org_user.save()
+      org_owner = OrganizationOwner.objects.create(organization=admin_org, organization_user=org_user)
+      org_owner.save()"
+    app_path: "{{ patrowlhears_path }}"
+    virtualenv: "{{ patrowlhears_path }}/env3/"
+  environment: "{{patrowlhears_envvars}}"
+
+- name: PatrowlHears - supervisord - Prepare supervisord configuration file
+  template:
+    src: supervisord.conf.j2
+    dest: "{{ patrowlhears_path }}/var/etc/supervisord.conf"
+    force: yes
+
+- name: PatrowlHears - supervisord - Shutdown (if any)
+  command: "{{ patrowlhears_path }}/env3/bin/supervisorctl shutdown"
+  ignore_errors: yes
+
+- name: PatrowlHears - supervisord - Getting process ID of the process
+  shell: "ps -ef | grep -v grep | grep -w supervisord | awk '{print $2}'"
+  register: running_supervisord_proc
+
+- name: PatrowlHears - supervisord - Kill running processes
+  shell: "kill {{ item }}"
+  with_items: "{{ running_supervisord.stdout_lines }}"
+  ignore_errors: yes
+
+- wait_for:
+    path: "/proc/{{ item }}/status"
+    state: absent
+  with_items: "{{ running_supervisord_proc.stdout_lines }}"
+  ignore_errors: yes
+  register: killed_supervisord_processes
+
+- name: PatrowlHears - supervisord - Force kill stuck processes
+  shell: "kill -9 {{ item }}"
+  with_items: "{{ killed_supervisord_processes.results | select('failed') | map(attribute='item') | list }}"
+  ignore_errors: yes
+
+- name: PatrowlHears - supervisord - Start Celery workers
+  command: "{{ patrowlhears_path }}/env3/bin/supervisord -c {{ patrowlhears_path }}/var/etc/supervisord.conf"
+  environment: "{{patrowlhears_envvars}}"
+
+## Gunicorn
+- name: PatrowlHears - Django/Gunicorn - Getting process ID of the process
+  shell: "ps -ef | grep -v grep | grep -w gunicorn | awk '{print $2}'"
+  register: running_gunicorn_proc
+
+- name: PatrowlHears - Django/Gunicorn - Kill running processes
+  shell: "kill {{ item }}"
+  with_items: "{{ running_gunicorn_proc.stdout_lines }}"
+  ignore_errors: yes
+
+- wait_for:
+    path: "/proc/{{ item }}/status"
+    state: absent
+  with_items: "{{ running_gunicorn_proc.stdout_lines }}"
+  ignore_errors: yes
+  register: killed_processes
+
+- name: PatrowlHears - Django/Gunicorn - Force kill stuck processes
+  shell: "kill -9 {{ item }}"
+  with_items: "{{ killed_processes.results | select('failed') | map(attribute='item') | list }}"
+  ignore_errors: yes
+
+- name: PatrowlHears - Django/Gunicorn - Prepare Gunicorn configuration file
+  template:
+    src: gunicorn.cfg.py.j2
+    dest: "{{ patrowlhears_path }}/var/etc/gunicorn.cfg.py"
+    force: yes
+
+- name: PatrowlHears - Django/Gunicorn - start Django app
+  gunicorn:
+    app: 'backend_app.wsgi:application'
+    chdir: "{{ patrowlhears_path }}"
+    config: "{{ patrowlhears_path }}/var/etc/gunicorn.cfg.py"
+    venv: "{{ patrowlhears_path }}/env3"
+
+## Nginx
+- name: PatrowlHears - Nginx - Copy configuration file to shared volume
+  template:
+    src: nginx.conf.j2
+    dest: "{{ patrowlhears_path }}/nginx.conf"
+    force: yes
+  when: patrowlhears_nginx_ssl == false
+
+- name: PatrowlHears - Nginx/SSL - Copy configuration file to shared volume
+  template:
+    src: nginx-ssl.conf.j2
+    dest: "{{ patrowlhears_path }}/nginx.conf"
+    force: yes
+  when: patrowlhears_nginx_ssl == true
+
+- name: PatrowlHears - Nginx - Ensure 'nginx' default file is removed
+  file:
+    path: /etc/nginx/conf.d/patrowl-hears.conf
+    state: absent
+
+- name: PatrowlHears - Nginx - Create a symlink on nginx config file
+  file:
+    src: "{{ patrowlhears_path }}/nginx.conf"
+    dest: /etc/nginx/conf.d/patrowl-hears.conf
+    state: link
+
+- name: PatrowlHears - Nginx - Restart nginx
+  service:
+    name: nginx
+    state: restarted

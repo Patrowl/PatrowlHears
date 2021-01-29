@@ -1,0 +1,86 @@
+server {
+    listen 8383;
+    autoindex on;
+    server_name localhost patrowl-hears-{{ patrowlhears_env }} {{patrowlhears_base_domain}};
+
+    access_log /var/log/nginx.patrowlhears-access.log;
+    error_log  /var/log/nginx.patrowlhears-error.log;
+
+    location / {
+        proxy_pass http://localhost:8303;
+
+        proxy_set_header X-Real-IP              $remote_addr;
+        proxy_set_header X-Forwarded-For        $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Host       $host;
+        proxy_set_header Proxy                  "";
+
+        add_header 'Cache-Control' 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
+        expires off;
+
+        proxy_ignore_client_abort               on;
+
+        # Custom headers
+        proxy_connect_timeout                   75s;
+        proxy_read_timeout                      300s;
+
+        proxy_redirect                          off;
+        proxy_buffering                         off;
+        proxy_buffer_size                       "4k";
+    }
+
+    location /static {
+        alias {{patrowlhears_path}}/staticfiles;
+    }
+    # location /media {
+    #     alias {{patrowlhears_path}}/media;
+    # }
+}
+
+# server {
+# 	listen 80 default_server;
+# 	listen [::]:80 default_server;
+# 	server_name _;
+# 	return 301 https://$host$request_uri;
+# }
+
+server {
+  listen 443 ssl;
+  autoindex on;
+
+  server_name localhost patrowl-hears-{{patrowlhears_env}} {{patrowlhears_base_domain}};
+  ssl_certificate /etc/letsencrypt/live/{{patrowlhears_base_domain}}/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/{{patrowlhears_base_domain}}/privkey.pem;
+  ssl_trusted_certificate /etc/letsencrypt/live/{{patrowlhears_base_domain}}/chain.pem;
+  include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+  ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+  access_log /var/log/nginx.patrowlhears-access.ssl.log;
+  error_log  /var/log/nginx.patrowlhears-error.ssl.log;
+
+  location / {
+      proxy_pass http://localhost:8303;
+
+      proxy_set_header X-Real-IP              $remote_addr;
+      proxy_set_header X-Forwarded-For        $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Host       $host;
+      proxy_set_header Proxy                  "";
+
+      add_header 'Cache-Control' 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
+      expires off;
+
+      proxy_ignore_client_abort               on;
+
+      # Custom headers
+      proxy_connect_timeout                   75s;
+      proxy_read_timeout                      300s;
+
+      proxy_redirect                          off;
+      proxy_buffering                         off;
+      proxy_buffer_size                       "4k";
+  }
+
+  location /static {
+      alias {{patrowlhears_path}}/staticfiles;
+  }
+
+}

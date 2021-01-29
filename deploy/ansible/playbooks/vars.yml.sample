@@ -1,0 +1,15 @@
+ansible_ssh_user: ubuntu
+ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+ansible_python_interpreter: /usr/bin/python3
+
+patrowlhears_env: prod
+apps_volume: '/apps'
+
+patrowlhears_base_url: "http://hears.example.com"
+patrowlhears_base_domain: "hears.example.com"
+patrowlhears_email_use_tls: "True"
+patrowlhears_email_host: "auth.smtp.1and1.fr"
+patrowlhears_email_host_user: "alerts@example.com"
+patrowlhears_email_host_passwd: "mypassword"
+patrowlhears_email_port: "587"
+patrowlhears_default_from_email: alerts@example.com"

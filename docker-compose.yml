@@ -1,0 +1,66 @@
+version: '3'
+services:
+
+  rabbitmq:
+    image: rabbitmq:3-alpine
+    container_name: patrowlhears-rabbitmq
+    environment:
+      - RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-rabbit log_levels [{connection,error}]
+    expose:
+      - '5672'
+
+  db:
+    image: postgres:11-alpine
+    restart: always
+    container_name: patrowlhears-postgres
+    environment:
+      - POSTGRES_DB=patrowlhears_db
+      - POSTGRES_USER=patrowlhears
+      - POSTGRES_PASSWORD=patrowlhears_pw
+    expose:
+      - '5432'
+    volumes:
+      - ./backend_app/var/db/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+      - ./backend_app/var/db:/mnt
+    #   - ./pg_data:/var/lib/postgresql/data/
+
+  patrowlhears:
+    container_name: patrowlhears-django
+    build: .
+    image: patrowl/patrowl-hears-community-edition:${PATROWL_HEARS_VERSION}
+    environment:
+      - DEBUG=False
+      - DB_PORT_5432_TCP_HOST=db
+      - DB_ENV_POSTGRES_USER=patrowlhears
+      - DB_ENV_POSTGRES_PASSWORD=patrowlhears_pw
+      - RABBIT_PORT_5672_TCP=rabbitmq:5672
+      # - EMAIL_HOST=auth.smtp.1and1.fr
+      # - EMAIL_HOST_USER=alerts@xx_patrowl_xx.fr
+      # - EMAIL_HOST_PASSWORD=xx_patrowl_xx
+      # - EMAIL_PORT=587
+      # - EMAIL_RCPT_USER=myemail@corp.com
+      # - DEFAULT_FROM_EMAIL=patrowlhears.notifications@corp.com
+    depends_on:
+      - db
+      - rabbitmq
+    expose:
+      - "8303"
+    volumes:
+      - ./backend_app/staticfiles:/opt/patrowl-hears/backend_app/staticfiles
+      - ./docker-entrypoint.sh:/opt/patrowl-hears/docker-entrypoint.sh
+    links:
+      - db
+      - rabbitmq
+
+  nginx:
+    image: nginx:latest
+    container_name: patrowlhears-nginx
+    ports:
+      - "8383:8383"
+    volumes:
+      - ./backend_app/staticfiles:/opt/patrowl-hears/backend_app/staticfiles
+      - ./backend_app/media:/opt/patrowl-hears/backend_app/media
+      - ./backend_app/var/log:/opt/patrowl-hears/backend_app/var/log
+      - ./backend_app/var/docker/nginx_docker.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - patrowlhears

@@ -1,0 +1,4 @@
+*.retry
+playbooks/vars.yml
+playbooks/clients/*.yml
+secrets.yml

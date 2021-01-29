@@ -1,0 +1,13 @@
+---
+- name: Install PatrowlHears and CVE-Search side-kick
+  hosts: all
+  become: yes
+  gather_facts: no
+  vars_files:
+    - ./vars.yml
+
+  roles:
+    # - { role: ansible-role-cvesearch-install, tags: cvesearch-install }
+    # - { role: ansible-role-cvesearch-initdb, tags: cvesearch-initdb }
+    # - { role: ansible-role-cvesearch-updatedb, tags: cvesearch-updatedb }
+    - { role: ansible-role-patrowlhears-install, tags: patrowlhears-install }

@@ -1,0 +1,76 @@
+---
+
+# Create/Update persistent data on shared volume
+- name: CVE-SEARCH - Init - Create global dir
+  file:
+    path: "{{ apps_volume }}/CVE-SEARCH"
+    state: directory
+    mode: 0755
+
+- name: CVE-SEARCH - OS - Wait for the instance is completely booted
+  wait_for:
+    path: /var/lib/cloud/instance/boot-finished
+    timeout: 300
+
+- name: CVE-SEARCH - OS - Wait for automatic system updates ends
+  # become: yes
+  shell: while sudo fuser /var/lib/dpkg/{{ item }} >/dev/null 2>&1; do sleep 1; done;
+  with_items:
+    - lock
+    - lock-frontend
+
+- name: CVE-SEARCH - OS - Install dependencies
+  # become: yes
+  apt:
+    name: "{{ cvesearch_os_dependencies }}"
+    update_cache: yes
+    state: present
+    force_apt_get: yes
+
+- name: CVE-SEARCH - OS - Start Mongodb and Redis
+  service: name={{ item }} state=started enabled=yes
+  with_items:
+    - mongodb
+    - redis-server
+
+- name: CVE-SEARCH - OS - Install PIP
+  # become: yes
+  apt:
+    name: python3-pip
+    state: present
+    force_apt_get: yes
+
+- name: CVE-SEARCH - PIP - Upgrade PIP
+  pip:
+    name: pip
+    state: latest
+
+- name: CVE-SEARCH - PIP - Installing python VirtualEnv
+  pip:
+    name: virtualenv
+    state: present
+
+- name: CVE-SEARCH - GIT - Clone repo
+  git:
+    repo: 'https://github.com/cve-search/cve-search.git'
+    dest: "{{ apps_volume }}/CVE-SEARCH"
+    force: yes
+
+- name: CVE-SEARCH - APP - Update sources
+  template:
+    src: sources.ini.j2
+    dest: "{{ apps_volume }}/CVE-SEARCH/etc/sources.ini"
+    force: yes
+
+- name: CVE-SEARCH  - APP - Installing python requirements
+  pip:
+    requirements: requirements.txt
+    chdir: "{{ apps_volume }}/CVE-SEARCH"
+    virtualenv: env
+
+- name: CVE-SEARCH - CRON - Create CRON task for updating DBs
+  cron:
+    name: "CVE-SEARCH update DB"
+    # special_time: hourly
+    special_time: daily
+    job: "{{ apps_volume }}/CVE-SEARCH/env/bin/python {{ apps_volume }}/CVE-SEARCH/sbin/db_updater.py -v"

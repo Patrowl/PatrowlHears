@@ -1,0 +1,29 @@
+.idea
+*.pyc
+*.swp
+__pycache__
+env
+db.sqlite3
+nohup.out
+nohup.*.out
+.DS_Store
+# **/migrations/[0-9]*.py
+**/migrations.old
+.scannerwork
+.vscode
+staticfiles
+*.log
+backend_app/backend_app/settings.py
+backend_app/backend_app/settings_*.py
+backend_app/backend_app/settings-*.py
+backend_app/var/log/*.log
+backend_app/var/log/*.log.[0-9]*
+backend_app/var/tmp/*.pid
+backend_app/var/tmp/*.json
+backend_app/var/db/patrowlhears_db_dump*
+backend_app/media/data/export/*.json
+backend_app/media/data/import/*.json
+scripts
+
+# Frontend_app
+package-lock.json

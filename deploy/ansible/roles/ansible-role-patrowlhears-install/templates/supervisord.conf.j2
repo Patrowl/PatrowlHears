@@ -1,0 +1,123 @@
+[inet_http_server]
+port=127.0.0.1:9001
+
+[supervisord]
+logfile={{ patrowlhears_path }}/var/log/supervisord.log
+logfile_maxbytes=10MB
+pidfile={{ patrowlhears_path }}/var/tmp/supervisord.pid
+environment=
+  LOGGING_LEVEL="INFO,WARNING,ERROR,DEBUG",
+  PATROWL_PROXY_HTTP="",
+  PATROWL_PROXY_HTTPS="",
+  SECRET_KEY="*** omg this is the secret !***",
+  DB_ENV_DB="{{ patrowlhears_dbname }}",
+  DB_ENV_POSTGRES_USER="{{ patrowlhears_dbuser }}",
+  DB_ENV_POSTGRES_PASSWORD="{{ patrowlhears_dbuser_pw }}",
+  DB_PORT_5432_TCP_HOST="{{patrowlhears_dbhost}}",
+  DB_PORT_5432_TCP_PORT={{patrowlhears_dbport}},
+  RABBIT_PORT_5672_TCP="{{ patrowlhears_rabbit_hostname }}",
+  BROKER_URL="amqp://{{ patrowlhears_rabbit_env_user }}:{{ patrowlhears_rabbit_env_pass }}@{{ patrowlhears_rabbit_hostname }}/{{ patrowlhears_rabbit_env_vhost }}/",
+  EMAIL_USE_TLS={{patrowlhears_email_use_tls}},
+  EMAIL_HOST="{{patrowlhears_email_host}}",
+  EMAIL_HOST_USER="{{patrowlhears_email_host_user}}",
+  EMAIL_HOST_PASSWORD="{{patrowlhears_email_host_passwd}}",
+  EMAIL_PORT={{patrowlhears_email_port}},
+  DEFAULT_FROM_EMAIL="{{patrowlhears_default_from_email}}",
+  HEARS_DATASYNC_MODE="{{patrowlhears_datasync_mode}}",
+  HEARS_DATASYNC_URL="{{patrowlhears_datasync_url}}",
+  HEARS_DATASYNC_LOGIN="{{patrowlhears_datasync_login}}",
+  HEARS_DATASYNC_PASSWORD="{{patrowlhears_datasync_password}}",
+  HEARS_DATASYNC_FREQUENCY="{{patrowlhears_datasync_frequency}}",
+  HEARS_DATASYNC_ENABLED="{{patrowlhears_datasync_enabled}}",
+
+
+[supervisorctl]
+serverurl=http://localhost:9001
+logfile_backups=10
+loglevel=info
+
+[rpcinterface:supervisor]
+supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
+
+[program:celery-hears-default]
+command={{ patrowlhears_path }}/env3/bin/celery worker --hostname=default-node@%%n --app=backend_app -l info -Q default --purge --without-mingle --without-gossip --without-heartbeat -Ofair --concurrency=4
+directory={{ patrowlhears_path }}
+stdout_logfile={{ patrowlhears_path }}/var/log/celeryd.default.log
+stderr_logfile={{ patrowlhears_path }}/var/log/celeryderr.default.log
+autostart=true
+autorestart=true
+startsecs=5
+stopwaitsecs=10
+stopasgroup=true
+killasgroup=true
+priority=990
+
+[program:celery-hears-alerts]
+command={{ patrowlhears_path }}/env3/bin/celery worker --hostname=alerts-node@%%n --app=backend_app -l info -Q alerts --purge --without-mingle --without-gossip --without-heartbeat -Ofair --concurrency=4
+directory={{ patrowlhears_path }}
+stdout_logfile={{ patrowlhears_path }}/var/log/celeryd.alerts.log
+stderr_logfile={{ patrowlhears_path }}/var/log/celeryderr.alerts.log
+autostart=true
+autorestart=true
+startsecs=5
+stopwaitsecs=10
+stopasgroup=true
+killasgroup=true
+priority=990
+
+[program:celery-hears-beat]
+command={{ patrowlhears_path }}/env3/bin/celery beat --app=backend_app -l info -S django --pidfile="{{ patrowlhears_path }}/var/tmp/celerybeat.pid"
+directory={{ patrowlhears_path }}
+stdout_logfile={{ patrowlhears_path }}/var/log/celeryd.beat.log
+stderr_logfile={{ patrowlhears_path }}/var/log/celeryderr.beat.log
+autostart=true
+autorestart=true
+startsecs=5
+stopwaitsecs=60
+stopasgroup=true
+killasgroup=true
+priority=999
+pidfile={{ patrowlhears_path }}/var/tmp/celerybeat.pid
+
+[program:celery-hears-data1]
+command={{ patrowlhears_path }}/env3/bin/celery worker --hostname=data1-node@%%n --app=backend_app -l info -Q data --purge --without-mingle --without-gossip --without-heartbeat -Ofair
+directory={{ patrowlhears_path }}
+stdout_logfile={{ patrowlhears_path }}/var/log/celeryd.data1.log
+stderr_logfile={{ patrowlhears_path }}/var/log/celeryderr.data1.log
+autostart=true
+autorestart=true
+startsecs=5
+stopwaitsecs=10
+stopasgroup=true
+killasgroup=true
+priority=990
+
+[program:celery-hears-data2]
+command={{ patrowlhears_path }}/env3/bin/celery worker --hostname=data2-node@%%n --app=backend_app -l info -Q data --purge --without-mingle --without-gossip --without-heartbeat -Ofair
+directory={{ patrowlhears_path }}
+stdout_logfile={{ patrowlhears_path }}/var/log/celeryd.data2.log
+stderr_logfile={{ patrowlhears_path }}/var/log/celeryderr.data2.log
+autostart=true
+autorestart=true
+startsecs=5
+stopwaitsecs=10
+stopasgroup=true
+killasgroup=true
+priority=990
+
+[program:celery-hears-data3]
+command={{ patrowlhears_path }}/env3/bin/celery worker --hostname=data3-node@%%n --app=backend_app -l info -Q data --purge --without-mingle --without-gossip --without-heartbeat -Ofair
+directory={{ patrowlhears_path }}
+stdout_logfile={{ patrowlhears_path }}/var/log/celeryd.data3.log
+stderr_logfile={{ patrowlhears_path }}/var/log/celeryderr.data3.log
+autostart=true
+autorestart=true
+startsecs=5
+stopwaitsecs=10
+stopasgroup=true
+killasgroup=true
+priority=990
+
+[group:celery-hears-workers]
+programs=celery-hears-beat,celery-hears-default,celery-hears-alerts,celery-hears-data1,celery-hears-data2,celery-hears-data3
+priority=990

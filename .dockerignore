@@ -1,0 +1,19 @@
+.DS_Store
+backend_app/backend_app/settings.py
+backend_app/backend_app/settings_replica.py
+backend_app/var/log/*.log
+backend_app/var/log/*.log.[0-9]*
+backend_app/var/tmp/*.pid
+backend_app/var/tmp/*.json
+# backen_app/**/migrations/[0-9]*.py
+backend_app/**/migrations.old
+backend_app/var/db/patrowlhears_db_dump*
+backend_app/media/data/export/*.json
+backend_app/media/data/import/*.json
+*.pyc
+__pycache__
+backend_app/env
+backend_app/env3
+feeds
+
+*.swp

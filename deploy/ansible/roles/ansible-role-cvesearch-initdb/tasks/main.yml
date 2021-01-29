@@ -1,0 +1,25 @@
+---
+- name: CVE-SEARCH - Update CPE dictionary
+  shell: "{{ apps_volume }}/CVE-SEARCH/env/bin/python ./sbin/db_mgmt_cpe_dictionary.py -p"
+  args:
+    chdir: "{{ apps_volume }}/CVE-SEARCH"
+
+- name: CVE-SEARCH - Update Json
+  shell: "{{ apps_volume }}/CVE-SEARCH/env/bin/python ./sbin/db_mgmt_json.py -p"
+  args:
+    chdir: "{{ apps_volume }}/CVE-SEARCH"
+
+- name: CVE-SEARCH - Update DB from feeds
+  shell: "{{ apps_volume }}/CVE-SEARCH/env/bin/python ./sbin/db_updater.py -c"
+  args:
+    chdir: "{{ apps_volume }}/CVE-SEARCH"
+
+- name: CVE-SEARCH - Update VIA4 references
+  shell: "{{ apps_volume }}/CVE-SEARCH/env/bin/python ./sbin/db_mgmt_ref.py"
+  args:
+    chdir: "{{ apps_volume }}/CVE-SEARCH"
+
+- name: CVE-SEARCH - Create indexes
+  shell: "{{ apps_volume }}/CVE-SEARCH/env/bin/python ./sbin/db_mgmt_create_index.py"
+  args:
+    chdir: "{{ apps_volume }}/CVE-SEARCH"
