@@ -2,8 +2,8 @@
 
 [![Join the chat at https://gitter.im/Patrowl/Support](https://badges.gitter.im/Patrowl/Support.png)](https://gitter.im/Patrowl/Support)
 [![Known Vulnerabilities](https://snyk.io/test/github/Patrowl/PatrowlHears/badge.svg)](https://snyk.io/test/github/Patrowl/PatrowlHears)
-![SonarCloud](https://sonarcloud.io/api/project_badges/measure?project=patrowl-hears&metric=alert_status)
-[![Build Status](https://travis-ci.com/Patrowl/PatrowlHears.svg?branch=master)](https://travis-ci.com/Patrowl/PatrowlHears)
+[![SonarCloud](https://sonarcloud.io/api/project_badges/measure?project=Patrowl_PatrowlHears&metric=alert_status)](https://sonarcloud.io/dashboard?id=Patrowl_PatrowlHears)
+<!-- [![Build Status](https://travis-ci.com/Patrowl/PatrowlHears.svg?branch=master)](https://travis-ci.com/Patrowl/PatrowlHears) -->
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/0f99a22fad374c439ceeaa2801bc8a63)](https://www.codacy.com/gh/Patrowl/PatrowlHears/dashboard)
 
 

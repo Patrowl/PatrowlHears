@@ -279,16 +279,20 @@ export default {
     },
   },
   methods: {
-    getDataFromApi(extra_filters) {
+    getDataFromApi(extra_filters, page_id) {
       this.loading = true;
+      // console.log(page_id)
 
       return new Promise((resolve, reject) => {
-        const {
+        let {
           sortBy,
           sortDesc,
           page,
           itemsPerPage
         } = this.options;
+        if (page_id != null && page_id != '') {
+          page = page_id;
+        }
         let search = this.search.trim().toLowerCase();
 
         this.limit = itemsPerPage;
@@ -303,7 +307,7 @@ export default {
       this.loading = false;
     },
     updateAdvancedSearchFilters(filters){
-      this.getDataFromApi(filters);
+      this.getDataFromApi(filters, 1);
     },
     getVulns(page, itemsPerPage, sortBy, sortDesc, extra_filters) {
       let sorted_by = '';

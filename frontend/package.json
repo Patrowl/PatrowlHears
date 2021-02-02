@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "core-js": "^3.6.5",
+    "core-js": "^3.8.2",
     "json-data-convert-file": "^1.0.1",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.19",
@@ -19,7 +19,7 @@
     "vue-axios": "^2.1.5",
     "vue-clamp": "^0.3.1",
     "vue-moment": "^4.1.0",
-    "vue-router": "^3.4.0",
+    "vue-router": "^3.4.9",
     "vue-session": "^1.0.0",
     "vuetify": "^2.3.7",
     "vuetify-confirm": "^2.0.6",
