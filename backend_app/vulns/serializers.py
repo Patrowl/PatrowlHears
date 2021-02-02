@@ -264,17 +264,17 @@ class VulnFilter(FilterSet):
         model = Vuln
         fields = {
             'summary': ['exact', 'contains', 'icontains', 'startswith', 'istartswith', 'endswith', 'iendswith'],
-            'search': ['exact', 'contains', 'icontains'],
+            # 'search': ['exact', 'contains', 'icontains'],
             'score': ['exact', 'gt', 'gte', 'lt', 'lte'],
             'updated_at': ['exact', 'gt', 'gte', 'lt', 'lte'],
-            'monitored': ['exact'],
+            # 'monitored': ['exact'],
             'cveid': ['exact', 'contains', 'icontains'],
             'cvss_vector': ['exact', 'contains', 'icontains'],
             'cvss3_vector': ['exact', 'contains', 'icontains'],
-            'exploit_count__gt': '__all__',
-            'exploit_count__gte': '__all__',
-            'exploit_count__lt': '__all__',
-            'exploit_count__lte': '__all__',
+            # 'exploit_count__gt': '__all__',
+            # 'exploit_count__gte': '__all__',
+            # 'exploit_count__lt': '__all__',
+            # 'exploit_count__lte': '__all__',
         }
 
 
@@ -358,7 +358,7 @@ class ExploitMetadataFilter(FilterSet):
         fields = {
             'link': ['icontains'],
             'notes': ['icontains'],
-            'cveid': ['exact', 'contains', 'icontains'],
+            # 'cveid': ['exact', 'contains', 'icontains'],
         }
 
 
@@ -405,7 +405,7 @@ class OrgExploitMetadataFilter(ExploitMetadataFilter):
         fields = {
             'link': ['icontains'],
             'notes': ['icontains'],
-            'cveid': ['exact', 'contains', 'icontains'],
+            # 'cveid': ['exact', 'contains', 'icontains'],
         }
 
 
@@ -467,7 +467,7 @@ class ThreatMetadataFilter(FilterSet):
         fields = {
             'link': ['icontains'],
             'notes': ['icontains'],
-            'cveid': ['exact', 'contains', 'icontains'],
+            # 'cveid': ['exact', 'contains', 'icontains'],
         }
 
 
@@ -511,5 +511,5 @@ class OrgThreatMetadataFilter(ThreatMetadataFilter):
         fields = {
             'link': ['icontains'],
             'notes': ['icontains'],
-            'cveid': ['exact', 'contains', 'icontains'],
+            # 'cveid': ['exact', 'contains', 'icontains'],
         }
