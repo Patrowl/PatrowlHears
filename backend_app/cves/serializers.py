@@ -52,7 +52,7 @@ class CVEFilter(FilterSet):
             'cve_id': ['icontains', 'exact'],
             'cvss': ['icontains'],
             'summary': ['icontains'],
-            'search': ['icontains'],
+            # 'search': ['icontains'],
         }
 
 
@@ -189,7 +189,7 @@ class ProductFilter(FilterSet):
         fields = {
             'name': ['icontains'],
             'vendor__name': ['icontains'],
-            'monitored': ['exact'],
+            # 'monitored': ['exact'],
         }
 
 
@@ -243,7 +243,7 @@ class ProductDetailFilter(FilterSet):
         fields = {
             'name': ['icontains'],
             'vendor__name': ['icontains'],
-            'monitored': ['exact'],
+            # 'monitored': ['exact'],
         }
 
 
@@ -386,5 +386,5 @@ class PackageFilter(FilterSet):
         model = Package
         fields = {
             'name': ['icontains', 'exact'],
-            'monitored': ['exact'],
+            # 'monitored': ['exact'],
         }
