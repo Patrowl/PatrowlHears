@@ -17,7 +17,7 @@
     "typeface-roboto": "^1.1.13",
     "vue": "^2.6.10",
     "vue-axios": "^2.1.5",
-    "vue-clamp": "^0.2.2",
+    "vue-clamp": "^0.3.1",
     "vue-moment": "^4.1.0",
     "vue-router": "^3.4.0",
     "vue-session": "^1.0.0",

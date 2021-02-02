@@ -8217,11 +8217,12 @@ vue-axios@^2.1.5:
   resolved "https://registry.yarnpkg.com/vue-axios/-/vue-axios-2.1.5.tgz#1af4bf1218ed71309c76afb38d0f683e312c24a7"
   integrity sha512-th5xVbInVoyIoe+qY+9GCflEVezxAvztD4xpFF39SRQYqpoKD2qkmX8yv08jJG9a2SgNOCjirjJGSwg/wTrbmA==
 
-vue-clamp@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/vue-clamp/-/vue-clamp-0.2.2.tgz#66244d06b313d117ba0ea160641d89158368830e"
-  integrity sha512-WohCN3oTRz8PGWT2m1c1qsmb1oKKNA4A9MyGxUspfONkQJ7vrlk50R4NAG3H80F/CTdpkit6mxQh3eLtlpLccw==
+vue-clamp@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/vue-clamp/-/vue-clamp-0.3.1.tgz#f2ed2bea182256f6642af20b00cd6481be057728"
+  integrity sha512-03m9zpRfMN4Y5+2VWbCi6mBTNCMnNQ22ACEIegfluN2Sczd9A+/U69YQ5VRVIJ1WEziIogmQhdzZP+O7ikePMw==
   dependencies:
+    core-js "^3.6.5"
     resize-detector "^0.1.10"
 
 vue-cli-plugin-vuetify@^2.0.7:
