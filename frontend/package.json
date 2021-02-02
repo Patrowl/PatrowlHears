@@ -19,7 +19,7 @@
     "vue-axios": "^2.1.5",
     "vue-clamp": "^0.2.2",
     "vue-moment": "^4.1.0",
-    "vue-router": "^3.4.0",
+    "vue-router": "^3.4.9",
     "vue-session": "^1.0.0",
     "vuetify": "^2.3.7",
     "vuetify-confirm": "^2.0.6",
