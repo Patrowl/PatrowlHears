@@ -52,6 +52,7 @@ export default {
     new_password: '',
   }),
   mounted() {
+    this.user_profile = this.user_profile_default;
     this.loadUserProfile();
   },
   watch: {
@@ -63,6 +64,7 @@ export default {
   },
   methods: {
     loadUserProfile(){
+      this.new_password = '';
       this.$api.get('/api/users/'+this.user_id).then(res => {
         if (res && res.status === 200) {
           this.user_profile = res.data;
