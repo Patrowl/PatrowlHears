@@ -13,6 +13,8 @@ cd PatrowlHears
 docker-compose up
 ```
 - Open your browser on http://localhost:8383
+  * default username: admin
+  * default password: Bonjour1!
 - Load initial DB records and latest updates:
 ```
 docker-compose exec patrowlhears bash -c 'cd backend_app && ./load_init_data.sh'
@@ -32,6 +34,8 @@ cd PatrowlHears
 ./install.sh
 ```
 - Open your browser on http://localhost:8383
+  * default username: admin
+  * default password: Bonjour1!
 - Regularly update DB with command:
 ```
 cd backend_app && ./import_data_updates.sh
