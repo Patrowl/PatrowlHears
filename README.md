@@ -18,8 +18,8 @@ Fully-Developed in Python, PatrowlHears is composed of a backend application usi
 PatrowlHears features and data are reachable using the embedded WEB interface or using the REST-API.
 
 # Side projects
-- [PatrowlHearsData](https://github.com/Patrowl/PatrowlHearsData): Contains data-scrapper scripts collecting CVE, CPE, CWE and exploit references (cf. CVE-SEARCH project) + raw data as JSON files
-- [PatrowlHears4py](https://github.com/Patrowl/PatrowlHears4py): Python CLI and library for PatrowlHears API.
+  - [PatrowlHearsData](https://github.com/Patrowl/PatrowlHearsData): Contains data-scrapper scripts collecting CVE, CPE, CWE and exploit references (cf. CVE-SEARCH project) + raw data as JSON files
+  - [PatrowlHears4py](https://github.com/Patrowl/PatrowlHears4py): Python CLI and library for PatrowlHears API.
 
 # License
 PatrowlHears is an open source and free software released under the [AGPL](https://github.com/Patrowl/PatrowlHears/blob/master/LICENSE) (Affero General Public License). We are committed to ensure that PatrowlHears will remain a free and open source project on the long-run.
@@ -40,11 +40,11 @@ If you need to contact the project team, send an email to <getsupport@patrowl.io
 
 # Pro Edition available in SaaS and on-premise
 A commercial Pro Edition is available and officially supported by the PatrOwl company. It includes following extra and awesome engines:
-- [x] PatrOwl CSIRT feeds, managed by qualified Cyber-Threat Intelligence analysts
-- [x] Terraform+Ansible deployment scripts
-- [x] Official Pro Support
-- [ ] 3rd party authentication: Azure Active Directory, ADFS (Windows 2012 and 2016), LDAP (WIP)
-- [ ] Ticketing system integration, including JIRA, ServiceNow, ZenDesk and GLPI (WIP)
+  - [x] PatrOwl CSIRT feeds, managed by qualified Cyber-Threat Intelligence analysts
+  - [x] Terraform+Ansible deployment scripts
+  - [x] Official Pro Support
+  - [ ] 3rd party authentication: Azure Active Directory, ADFS (Windows 2012 and 2016), LDAP (WIP)
+  - [ ] Ticketing system integration, including JIRA, ServiceNow, ZenDesk and GLPI (WIP)
 
 **PatrowlHears** is available on the official PatrOwl SaaS platform or on-premise.
 See: https://patrowl.io/products/hears

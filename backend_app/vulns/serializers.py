@@ -18,14 +18,18 @@ class VulnSerializer(DynamicFieldsModelSerializer, serializers.HyperlinkedModelS
     cwe_name = serializers.SerializerMethodField()
     cwe_refs = serializers.SerializerMethodField()
     products = serializers.SerializerMethodField()
-    # productversions = serializers.SerializerMethodField()
 
     def get_exploit_count(self, instance):
         # return instance.exploitmetadata_set.count() + instance.orgexploitmetadata_set.filter(organization_id=instance.org).count()
         return instance.exploitmetadata_set.count()
 
     def get_monitored(self, instance):
-        return instance.monitored
+        # print(instance)
+        # print(dir(instance))
+        if hasattr(instance, 'monitored'):
+            return instance.monitored
+        else:
+            return False
 
     def get_cwe_id(self, instance):
         if instance.cwe is not None:
@@ -47,9 +51,6 @@ class VulnSerializer(DynamicFieldsModelSerializer, serializers.HyperlinkedModelS
 
     def get_products(self, instance):
         return [{'id': p.id, 'name': p.name, 'vendor': p.vendor.name} for p in instance.products.all()]
-
-    # def get_productversions(self, instance):
-    #     return [{'id': p.id, 'version': p.version} for p in instance.productversions.all()]
 
     class Meta:
         model = Vuln
@@ -73,7 +74,6 @@ class VulnSerializer(DynamicFieldsModelSerializer, serializers.HyperlinkedModelS
             'vulnerable_product_versions',
             'products',
             'vulnerable_packages_versions',
-            # 'productversions',
             'monitored',
             'reflinks',
             'reflinkids',

@@ -11,7 +11,6 @@
           <v-spacer/>
 
           <v-card-text>
-
             <v-layout
               row
               fill-height
@@ -26,7 +25,6 @@
               />
             </v-layout>
 
-
             <v-form v-else ref="form" v-model="valid" lazy-validation>
               <v-container>
 
@@ -38,7 +36,6 @@
                   autocomplete="username"
                   required
                 />
-
                 <v-text-field
                   type="password"
                   v-model="credentials.password"
@@ -50,11 +47,9 @@
                   required
                   @keyup.enter.native="login"
                 />
-
                 <v-checkbox
                   v-model="credentials.enable_firststeps"
                   label="First visit"
-
                 />
 
                 <!-- <v-checkbox
@@ -65,11 +60,24 @@
 
               </v-container>
               <v-btn class="deep-orange white--text" :disabled="!valid" @click="login">Login</v-btn>
-
             </v-form>
-
-
           </v-card-text>
+        </v-card>
+        <br/>
+        <v-card class="saas-card" color="deep-orange" center="center">
+          <v-card-actions>
+              <v-btn text block href="https://patrowl.io/login">
+                Login/Register online
+              </v-btn>
+            </v-card-actions>
+        </v-card>
+          <br/>
+        <v-card class="saas-card" color="deep-orange" center="center">
+          <v-card-actions>
+              <v-btn text block href="https://patrowl.io/login">
+                Get Pro Edition
+              </v-btn>
+            </v-card-actions>
         </v-card>
       </v-flex>
     </v-layout>
