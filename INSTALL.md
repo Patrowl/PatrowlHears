@@ -56,14 +56,14 @@ The following section contains a step-by-step guide to build PatrowlHears from i
 
 #### 1. Install system pre-requisites
 The following software are required to download and run PatrowlHears:
-+ [PostgreSQL DB](https://www.postgresql.org/download/)
-+ [Git client](http://www.git-scm.com/downloads)
-+ [NPM](https://nodejs.org/en/download/)
-+ [Python 3.7+](https://www.python.org/downloads)
-+ [Python pip3](https://pip.pypa.io/en/stable/installing/)
-+ [Python virtualenv](https://virtualenv.pypa.io/en/stable/installation/)
-+ [RabbitMQ](https://www.rabbitmq.com)
-+ [Nginx](http://nginx.org/en/docs/)
+- [PostgreSQL DB](https://www.postgresql.org/download/)
+- [Git client](http://www.git-scm.com/downloads)
+- [NPM](https://nodejs.org/en/download/)
+- [Python 3.7+](https://www.python.org/downloads)
+- [Python pip3](https://pip.pypa.io/en/stable/installing/)
+- [Python virtualenv](https://virtualenv.pypa.io/en/stable/installation/)
+- [RabbitMQ](https://www.rabbitmq.com)
+- [Nginx](http://nginx.org/en/docs/)
 
 We strongly recommend to use the system packages.
 To install the requirements and run PatrowlHears from sources, please follow the instructions below depending on your operating system.
@@ -120,11 +120,11 @@ If you opened another terminal, please ensure you use the virtualenv with the co
 > Note 3: for MacOs users, install pythons modules from `requirements.macos.txt` file.
 
 ##### 5. Create the PostgreSQL database
-+ Edit file the `var/db/create_user_and_db.sql` and update the user and password values (default values are: '`patrowlhears`' and '`patrowlhears`').
+- Edit file the `var/db/create_user_and_db.sql` and update the user and password values (default values are: '`patrowlhears`' and '`patrowlhears`').
 > Note: You should consider to set a strong password in Production.
 
 ###### 5.1. MacOS
-+ Execute the SQL script:
+- Execute the SQL script:
 ```
 psql < var/db/create_user_and_db.sql
 ```
@@ -137,43 +137,43 @@ sudo -u postgres psql < var/db/create_user_and_db.sql
 > Note: By default, the script create the database 'patrowlhears_db' with the user/role 'patrowlhears'. The default password is 'patrowlhears'. If you change these settings, do not forget to update the `backend_app/settings.py` configuration file with your updates, or pass it it using environment variables.
 
 ##### 6. Configure PatrowlHears (Django backend) application
-+ Copy `backend_app/settings.py.sample` to `backend_app/settings.py` and update at least following options:
+- Copy `backend_app/settings.py.sample` to `backend_app/settings.py` and update at least following options:
   * Application settings `ALLOWED_HOSTS`, `LOGGING_LEVEL`, `PROXIES`, `SECRET_KEY`
   * DB settings (service location and credentials): `DATABASES`,  
   * RabbitMQ settings (service location and credentials): `BROKER_URL` (default values are `guest/guest`),
   * Email settings (alerting): `EMAIL_HOST`, `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD`, `EMAIL_HOST_PORT`
-+ Create the db schema using the Django commands:
+- Create the db schema using the Django commands:
 ```
 python manage.py makemigrations
 python manage.py migrate
 ```
 
-+ Collect static files (production mode - all static files copied to /staticfiles/ and will be served by NGinx):
+- Collect static files (production mode - all static files copied to /staticfiles/ and will be served by NGinx):
 ```
 python manage.py collectstatic --noinput
 ```
 
-+ Create the Django superuser with all privileges, more than Batman but without a cape:
+- Create the Django superuser with all privileges, more than Batman but without a cape:
 ```
 python manage.py shell < var/bin/create_default_admin.py
 ```
 > Note 1: Default login is `admin` and password is `Bonjour1!`.\
 > Note 2: You are in charge to renew the password once the application started. Please keep these credentials in a safe place. This account will be used for the first login on the PatrowlHears application.
 
-+ Create the default organization:
+- Create the default organization:
 ```
 python manage.py shell < var/bin/create_default_organization.py
 ```
 
 ##### 7. Start the Django backend server
 ###### 7.1 Testing environment
-+ Start Supervisord (Celery workers consuming the tasks enqueued RabbitMQ - Yes, that's how asynchronus tasks work here):
+- Start Supervisord (Celery workers consuming the tasks enqueued RabbitMQ - Yes, that's how asynchronus tasks work here):
 ```
 supervisord -c var/etc/supervisord.conf
 ```
 > Note: The Supervisor daemon will be listening on port TCP/9002. Update this in the configuration file if you are not agree with that arbitrary choice. Who really cares ?
 
-+ Check every celery workers are in state `RUNNING`:
+- Check every celery workers are in state `RUNNING`:
 ```
 supervisorctl -s http://127.0.0.1:9002 status all
 ```
@@ -181,15 +181,15 @@ supervisorctl -s http://127.0.0.1:9002 status all
 ```
 python manage.py runserver 127.0.0.1:8000
 ```
-+ or, using Gunicorn (recommended in production):
+- or, using Gunicorn (recommended in production):
 ```
 gunicorn backend_app.wsgi:application -b 127.0.0.1:8000 --access-logfile -
 ```
 
 ###### 7.2 Production environment (Nginx serving static files)
-+ Open the `backend_app/settings.py` file and set the variable `DEBUG=False`.
-+ Follow the same steps for starting the development environment (see #7.1)
-+ Customize the `nginx.conf` file provided. Then start it:
+- Open the `backend_app/settings.py` file and set the variable `DEBUG=False`.
+- Follow the same steps for starting the development environment (see #7.1)
+- Customize the `nginx.conf` file provided. Then start it:
 ```
 [sudo] nginx -p .
 ```
@@ -204,8 +204,8 @@ gunicorn backend_app.wsgi:application -b 127.0.0.1:8000 --access-logfile -
 
 ###### Need help ? Stuck somewhere ?
 Don't panic! The community could help you as soon as you double-checked your issue and its undoubtedly related to PatrowlHears installation:
-+ Contact us at `getsupport@patrowl.io`, or
-+ Chat with us on [Gitter](https://gitter.im/PatrowlHears/Support)
+- Contact us at `getsupport@patrowl.io`, or
+- Chat with us on [Gitter](https://gitter.im/PatrowlHears/Support)
 
 
 Follow us [@patrowl_io](https://twitter.com/patrowl_io)

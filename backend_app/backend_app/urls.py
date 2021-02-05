@@ -17,6 +17,7 @@ from rest_framework_simplejwt.views import (
 # from monitored_assets import apis as ma_apis
 from alerts import apis as alerts_apis
 from vulns import apis as vulns_apis
+from vulns import apis_public as vulns_apis_public
 from vpratings import apis as vpr_apis
 from cves import apis as cves_apis
 from users import apis as users_apis
@@ -56,6 +57,9 @@ router.register(r'api/kb/detailed-products', cves_apis.ProductDetailSet, 'detail
 router.register(r'api/kb/bulletins', cves_apis.BulletinSet, 'bulletins')
 router.register(r'api/kb/packages', cves_apis.PackageSet, 'packages')
 
+# public routes
+router.register(r'api/public/vulns', vulns_apis_public.PublicVulnSet, 'vulns-public')
+
 urlpatterns = [
     path('', index, name='index'),
     path('accounts/', include('organizations.urls')),
@@ -70,6 +74,7 @@ urlpatterns = [
     path('api/monitor/', include('monitored_assets.urls')),
     path('api/alerts/', include('alerts.urls')),
     path('api/vulns/', include('vulns.urls')),
+    path('api/public/vulns/', include('vulns.urls_public')),
     path('api/data/', include('data.urls')),
     path('api/ratings/', include('vpratings.urls')),
     path('api/kb/', include('cves.urls')),
@@ -78,6 +83,7 @@ urlpatterns = [
     path('api/docs/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('', include(router.urls)),
     path('favicon.ico', RedirectView.as_view(url='/static/favicon.ico')),
+
 ]
 
 if settings.DEBUG is True:
