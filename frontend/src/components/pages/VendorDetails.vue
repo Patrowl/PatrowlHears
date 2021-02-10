@@ -94,7 +94,8 @@
                     label
 
                   >{{item.score}}/100</v-chip><br/>
-                  <span class="text-caption">CVSSv2: {{item.cvss}}</span>
+                  <span class="text-caption">CVSSv2: {{item.cvss}}</span><br/>
+                  <span class="text-caption">CVSSv3: {{item.cvss3}}</span>
                 </template>
 
                 <!-- Summary -->
