@@ -145,7 +145,9 @@ class OrgThreatMetadataSet(viewsets.ModelViewSet):
 
 HISTORY_IMPORTANT_FIELDS = {
     'vuln': [
-        'cvss', 'cvss_vector', 'summary', 'is_exploitable', 'is_confirmed',
+        'cvss', 'cvss_vector',
+        'cvss3', 'cvss3_vector', 
+        'summary', 'is_exploitable', 'is_confirmed',
         'is_in_the_news', 'is_in_the_wild'
     ],
     'exploit': [
