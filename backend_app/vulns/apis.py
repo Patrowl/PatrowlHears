@@ -146,7 +146,7 @@ class OrgThreatMetadataSet(viewsets.ModelViewSet):
 HISTORY_IMPORTANT_FIELDS = {
     'vuln': [
         'cvss', 'cvss_vector',
-        'cvss3', 'cvss3_vector', 
+        'cvss3', 'cvss3_vector',
         'summary', 'is_exploitable', 'is_confirmed',
         'is_in_the_news', 'is_in_the_wild'
     ],
@@ -236,6 +236,7 @@ def add_vuln(self):
         "cwe": CWE.objects.filter(cwe_id=self.data.get('cwe', '')).first(),
         "cvss_time": self.data.get('cvss_time', datetime.today()),
         "cvss_vector": self.data.get('cvss2_vector', ''),
+        "cvss3_vector": self.data.get('cvss3_vector', ''),
         "access": {
             "authentication": self.data.get('access_authentication', ''),
             "complexity": self.data.get('access_complexity', ''),
@@ -254,10 +255,9 @@ def add_vuln(self):
     }
     if CVE.objects.filter(cve_id=cve_data["cve_id"]).count() > 0:
         res = {"status": "error", "reason": "CVE already known."}
-        # print(res)
         return JsonResponse(res, safe=False)
 
-    # Check CVSS
+    # Check CVSSv2
     cvss2_data = self.data.get('cvss2', None)
     cvss2 = 0.0
     try:
@@ -266,6 +266,16 @@ def add_vuln(self):
     except Exception:
         pass
     cve_data.update({"cvss": cvss2})
+
+    # Check CVSSv3
+    cvss3_data = self.data.get('cvss3', None)
+    cvss3 = 0.0
+    try:
+        if cvss3_data is not None and cvss3_data != '':
+            cvss3 = float(cvss3_data)
+    except Exception:
+        pass
+    cve_data.update({"cvss3": cvss3})
 
     # Sanitize
     if type(cve_data['published']) != datetime:
@@ -386,7 +396,7 @@ def add_vuln(self):
 @api_view(['POST'])
 @permission_classes([AllowManageMetadata])
 def edit_vuln(self):
-    res = {"status": "success", "reason": "vulnerability successfully edited"}
+    res = {"status": "error", "reason": "not yet implemented"}
     # print(self.data)
     return JsonResponse(res, safe=False)
 
@@ -395,7 +405,6 @@ def edit_vuln(self):
 @permission_classes([IsAuthenticated])
 def get_vuln_cpes(self, vuln_id):
     vuln = get_object_or_404(Vuln, id=vuln_id)
-
     return JsonResponse({'cpes': vuln.vulnerable_products}, safe=False)
 
 
@@ -498,7 +507,7 @@ def add_exploit(self, vuln_id):
         org_id = self.session.get('org_id', None)
         org = organization.get_current_organization(user=self.user, org_id=org_id)
     except Exception:
-        return JsonResponse("error: unable to get the organization", safe=False, status=500)
+        return JsonResponse("Error: unable to get the organization", safe=False, status=500)
 
     data = {
         'vuln': vuln,
@@ -560,9 +569,7 @@ def del_exploit(self, vuln_id, exploit_id):
 
     exploit = org.org_exploits.filter(id=exploit_id)
     if len(exploit) > 0:
-        # print(exploit)
         exploit.delete()
-        # Update vuln score
         vuln.update_score()
         vuln.save()
         return JsonResponse("deleted", safe=False)
