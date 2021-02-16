@@ -6,7 +6,10 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from organizations.models import Organization
 from alerts.models import AlertingRule
-from alerts.tasks import slack_alert_vuln_task
+from alerts.tasks import slack_alert_vuln_task, email_instant_report_exploitable_task
+from alerts.tasks import email_instant_report_cvss_change_task
+from alerts.tasks import email_instant_report_cvss3_change_task
+from alerts.tasks import email_instant_report_score_change_task
 from cves.models import CVE, CWE, Product, ProductVersion, Package
 from common.utils.constants import (
     EXPLOIT_AVAILABILITY, EXPLOIT_TYPES, EXPLOIT_MATURITY_LEVELS,
@@ -14,6 +17,7 @@ from common.utils.constants import (
     EXPLOIT_RELEVANCY_RATES
 )
 from common.utils import _json_serial
+
 from cpe import CPE as _CPE
 import json
 import math
@@ -221,9 +225,18 @@ class VulnBase(models.Model):
         else:
             self.update_score()
 
-        if len(self.get_changes()) > 0 and touch:
+        changes = self.get_changes()
+        # print(self, changes)
+        # if 'is_exploitable' in changes and self.is_exploitable is True:
+        #     from .tasks import email_instant_report_exploitable_task
+        #     email_instant_report_exploitable_task.apply_async(args=[self.id], queue='alerts', retry=False)
+
+        if len(changes) > 0 and touch:
             self.updated_at = timezone.now()
         return super(VulnBase, self).save(*args, **kwargs)
+
+        for field in self.__important_fields:
+            setattr(self, '__original_%s' % field, getattr(self, field))
 
 
 class Vuln(VulnBase):
@@ -456,10 +469,28 @@ def alerts_vulnerability_save(sender, **kwargs):
         #     vuln_conditions.update({'id': kwargs['instance'].id})
         #     if Vuln.objects.filter(**vuln_conditions).first():
         #         alert.notify(short=alert.title, long=kwargs['instance'].to_dict(), template='vuln')
+        if kwargs['instance'].is_exploitable is True:
+            email_instant_report_exploitable_task.apply_async(args=[kwargs['instance'].id], queue='alerts', retry=False)
+        email_instant_report_cvss_change_task.apply_async(args=[kwargs['instance'].id], queue='alerts', retry=False)
+        email_instant_report_cvss3_change_task.apply_async(args=[kwargs['instance'].id], queue='alerts', retry=False)
+        email_instant_report_score_change_task.apply_async(args=[kwargs['instance'].id, kwargs['instance'].score], queue='alerts', retry=False)
     else:
         # Vulnerability change
         changes = kwargs['instance'].get_changes()
+
         if len(changes) > 0:
+            print(kwargs['instance'].__original_is_exploitable, "->", kwargs['instance'].is_exploitable)
+            if 'is_exploitable' in changes and kwargs['instance'].is_exploitable is True:
+                email_instant_report_exploitable_task.apply_async(args=[kwargs['instance'].id], queue='alerts', retry=False)
+            print('cvss changes', kwargs['instance'].__original_cvss, "->", kwargs['instance'].cvss)
+            if 'cvss' in changes and kwargs['instance'].cvss not in [None, 0.0]:
+                email_instant_report_cvss_change_task.apply_async(args=[kwargs['instance'].id], queue='alerts', retry=False)
+            if 'cvss3' in changes and kwargs['instance'].cvss3 not in [None, 0.0]:
+                email_instant_report_cvss3_change_task.apply_async(args=[kwargs['instance'].id], queue='alerts', retry=False)
+            if 'score' in changes and kwargs['instance'].score not in [None, 0]:
+                email_instant_report_score_change_task.apply_async(args=[kwargs['instance'].id, kwargs['instance'].score], queue='alerts', retry=False)
+
+            # Send Slack alert
             slack_alert_vuln_task.apply_async(
                 args=[kwargs['instance'].id, "update"], queue='alerts', retry=False)
             # Check alerting rules

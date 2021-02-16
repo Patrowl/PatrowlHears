@@ -2,8 +2,8 @@
 <dl class="inline">
     <dt>CVE-ID</dt><dd>{{ data.cve_id }}</dd>
     <dt>Summary</dt><dd>{{ data.summary }}</dd>
-    <dt>CVSSv2 Score</dt><dd>{{ data.cvss }}</dd>
-    <dt>CVSSv2 Vector</dt><dd>{{ data.cvss_vector }}</dd>
+    <dt>CVSSv2 Score</dt><dd>{{ data.cvss }} - {{ data.cvss_vector }}</dd>
+    <dt>CVSSv3 Score</dt><dd>{{ data.cvss3 }} - {{ data.cvss3_vector }}</dd>
     <dt>Is confirmed ?</dt><dd>{{ data.is_confirmed }}</dd>
     <dt>Has exploits ?</dt><dd>{{ data.is_exploitable }}</dd>
     <dt>Links</dt><dd>{{ data.reflinks }}</dd>

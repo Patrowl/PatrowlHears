@@ -248,6 +248,12 @@ class VPRating(models.Model):
             vpr_vuln_score += (self.data['vulnerability']['cvss'] * 80/100/2)
         else:
             vpr_vuln_score += VPR_METRICS['vulnerability']['cvss']['default']
+    
+        if 'cvss3' in self.data['vulnerability'].keys() and self.data['vulnerability']['cvss3'] is not None:
+            # vpr_vuln_score += (self.data['vulnerability']['cvss'] * 70/100/2)
+            vpr_vuln_score += (self.data['vulnerability']['cvss3'] * 80/100/2)
+        else:
+            vpr_vuln_score += VPR_METRICS['vulnerability']['cvss']['default']
         # print("vpr_vuln_score1:", vpr_vuln_score)
         # Confirmation
         if 'is_confirmed' in self.data['vulnerability'].keys() and self.data['vulnerability']['is_confirmed'] is True:

@@ -48,3 +48,20 @@ def _prepare_cve(data):
     data = {}
 
     return data, status_ok
+
+
+def _is_vuln_monitored(vuln, org):
+    try:
+        # Get monitored vulns
+        if vuln in org.org_monitoring_list.vulns.all():
+            return True
+
+        monitored_products = org.org_monitoring_list.products.all()
+        monitored_product_vulns = Vuln.objects.filter(products__in=monitored_products)
+        if vuln in monitored_product_vulns:
+            return True
+
+    except Exception:
+        pass
+
+    return False
