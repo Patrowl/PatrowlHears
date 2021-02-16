@@ -31,7 +31,7 @@
                 <v-list-item-content>
                   <v-list-item-title>Permissions</v-list-item-title>
                   <v-list-item-subtitle v-for='(k, v) in user_profile.profile' :key='v'>
-                    {{v}}: {{k}}
+                    {{v}}: <strong>{{k}}</strong>
                   </v-list-item-subtitle>
                 </v-list-item-content>
                 <!-- <v-list-item-content>
@@ -145,55 +145,106 @@
                 </v-card-title>
                 <v-card-text>
                   <!-- Contact Emails -->
-                  <v-combobox
-                    v-model="org_settings.alerts_emails"
-                    clearable
-                    label="Contact emails (press Enter to confirm)"
-                    multiple
-                    :rules="emailRules"
-                  >
-                    <template v-slot:selection="{ attrs, item, select, selected }">
-                      <v-chip
-                        v-bind="attrs"
-                        :input-value="selected"
-                        close
-                        @click="select"
-                        @click:close="removeContactEmail(item)"
+                  <v-layout row wrap class="mx-1">
+                    <v-flex xs12 sm12 md12>
+                      <v-combobox
+                        v-model="org_settings.alerts_emails"
+                        clearable
+                        label="Contact emails (press Enter to confirm)"
+                        multiple
+                        :rules="emailRules"
                       >
-                        <strong>{{ item }}</strong>&nbsp;
-                      </v-chip>
-                    </template>
-                  </v-combobox>
-
-                  <!-- <v-checkbox
-                    v-model="org_settings.enable_email_alert_new_vuln"
-                    label="Enable email notification on new vulnerability (monitored assets)"
-                    dense hide-details
-                  ></v-checkbox>
-                  <v-checkbox
-                    v-model="org_settings.enable_email_alert_update_vuln"
-                    label="Enable email notification on vulnerability updates (monitored assets)"
-                    dense hide-details
-                  ></v-checkbox> -->
-                  <v-checkbox
-                    v-model="org_settings.enable_daily_email_report"
-                    label="Enable daily report by email on monitored assets"
-                    dense hide-details
-                  ></v-checkbox>
-                  <v-checkbox
-                    v-model="org_settings.enable_weekly_email_report"
-                    label="Enable weekly report by email on monitored assets"
-                    dense hide-details
-                  ></v-checkbox>
-                  <v-checkbox
-                    v-model="org_settings.enable_monthly_email_report"
-                    label="Enable monthly report by email on monitored assets"
-                    dense hide-details
-                  ></v-checkbox>
+                        <template v-slot:selection="{ attrs, item, select, selected }">
+                          <v-chip
+                            v-bind="attrs"
+                            :input-value="selected"
+                            close
+                            @click="select"
+                            @click:close="removeContactEmail(item)"
+                          >
+                            <strong>{{ item }}</strong>&nbsp;
+                          </v-chip>
+                        </template>
+                      </v-combobox>
+                    </v-flex>
+                    <v-flex xs12 sm12 md12>
+                      <v-checkbox
+                        v-model="org_settings.enable_daily_email_report"
+                        label="Enable daily report by email on monitored assets"
+                        dense hide-details
+                      ></v-checkbox>
+                    </v-flex>
+                    <v-flex xs12 sm12 md12>
+                      <v-checkbox
+                        v-model="org_settings.enable_weekly_email_report"
+                        label="Enable weekly report by email on monitored assets"
+                        dense hide-details
+                      ></v-checkbox>
+                    </v-flex>
+                    <v-flex xs12 sm12 md12>
+                      <v-checkbox
+                        v-model="org_settings.enable_monthly_email_report"
+                        label="Enable monthly report by email on monitored assets"
+                        dense hide-details
+                      ></v-checkbox>
+                    </v-flex>
+                    <v-flex xs12 sm12 md12>
+                      <v-checkbox
+                        v-model="org_settings.enable_instant_email_report_exploitable"
+                        label="Enable instant report by email on monitored assets when become exploitable"
+                        dense hide-details
+                      ></v-checkbox>
+                    </v-flex>
+                    <v-flex xs10 sm10 md10>
+                      <v-checkbox
+                        v-model="org_settings.enable_instant_email_report_score"
+                        label="Enable instant report by email on monitored assets with Score >="
+                        dense hide-details
+                      ></v-checkbox>
+                    </v-flex>
+                    <v-flex xs2 sm2 md2>
+                      <v-text-field
+                        v-model="org_settings.enable_instant_email_report_score_value"
+                        type="number"
+                        label="Score max value"
+                        :rules="rules.score"
+                      ></v-text-field>
+                    </v-flex>
+                    <v-flex xs10 sm10 md10>
+                      <v-checkbox
+                        v-model="org_settings.enable_instant_email_report_cvss"
+                        label="Enable instant report by email on monitored assets with CVSSv2 score >="
+                        dense hide-details
+                      ></v-checkbox>
+                    </v-flex>
+                    <v-flex xs2 sm2 md2>
+                      <v-text-field
+                        v-model="org_settings.enable_instant_email_report_cvss_value"
+                        type="number"
+                        label="CVSSv2 max value"
+                        :rules="rules.cvss"
+                      ></v-text-field>
+                    </v-flex>
+                    <v-flex xs10 sm10 md10>
+                      <v-checkbox
+                        v-model="org_settings.enable_instant_email_report_cvss3"
+                        label="Enable instant report by email on monitored assets with CVSSv3 score >="
+                        dense hide-details
+                      ></v-checkbox>
+                    </v-flex>
+                    <v-flex xs2 sm2 md2>
+                      <v-text-field
+                        v-model="org_settings.enable_instant_email_report_cvss3_value"
+                        type="number"
+                        label="CVSSv3 max value"
+                        :rules="rules.cvss"
+                      ></v-text-field>
+                    </v-flex>
+                  </v-layout>
                 </v-card-text>
                 <v-card-actions>
                   <v-btn
-                    color="grey"
+                    color="deep-orange"
                     :loading="loading"
                     @click.native="updateOrgSettings"
                     >
@@ -229,7 +280,7 @@
                 </v-card-text>
                 <v-card-actions>
                   <v-btn
-                    color="grey"
+                    color="deep-orange"
                     :loading="loading"
                     @click.native="updateOrgSettings"
                     >
@@ -270,7 +321,7 @@
                 </v-card-text>
                 <v-card-actions>
                   <v-btn
-                    color="grey"
+                    color="deep-orange"
                     :loading="loading"
                     @click.native="updateOrgSettings"
                     >
@@ -311,7 +362,7 @@
                 </v-card-text>
                 <v-card-actions>
                   <v-btn
-                    color="grey"
+                    color="deep-orange"
                     :loading="loading"
                     @click.native="updateOrgSettings"
                     >
@@ -744,6 +795,12 @@ export default {
         v => !!v || 'E-mail is required',
         v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
       ],
+      cvss: [
+        v => (v && v >= 0 && v <= 10) || "CVSS score has to be between 0 and 10. Default is 8.0",
+      ],
+      score: [
+        v => (v && v >= 0 && v <= 100) || "Score has to be between 0 and 100. Default is 80",
+      ],
     },
     org_settings_default: {
       alerts_emails: [],
@@ -753,6 +810,13 @@ export default {
       enable_daily_email_report: false,
       enable_weekly_email_report: false,
       enable_monthly_email_report: false,
+      enable_instant_email_report_exploitable: false,
+      enable_instant_email_report_score: false,
+      enable_instant_email_report_score_value: 80,
+      enable_instant_email_report_cvss: false,
+      enable_instant_email_report_cvss_value: 8,
+      enable_instant_email_report_cvss3: false,
+      enable_instant_email_report_cvss3_value: 8,
       show_slack_settings: true,
       alerts_slack_url: '',
       // alerts_slack_apikey: '',
@@ -777,6 +841,13 @@ export default {
       enable_daily_email_report: false,
       enable_weekly_email_report: false,
       enable_monthly_email_report: false,
+      enable_instant_email_report_exploitable: false,
+      enable_instant_email_report_score: false,
+      enable_instant_email_report_score_value: 80,
+      enable_instant_email_report_cvss: false,
+      enable_instant_email_report_cvss_value: 8,
+      enable_instant_email_report_cvss3: false,
+      enable_instant_email_report_cvss3_value: 8,
       show_slack_settings: true,
       alerts_slack_url: '',
       // alerts_slack_apikey: '',
@@ -807,7 +878,7 @@ export default {
       '1999',
       '2000', '2001', '2002', '2003', '2004', '2005', '2006', '2007', '2008', '2009',
       '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019',
-      '2020'
+      '2020', '2021'
     ],
     orgs: [],
     orgs_options: {},
@@ -1147,6 +1218,13 @@ export default {
       bodyFormData.set('enable_daily_email_report', this.org_settings.enable_daily_email_report);
       bodyFormData.set('enable_weekly_email_report', this.org_settings.enable_weekly_email_report);
       bodyFormData.set('enable_monthly_email_report', this.org_settings.enable_monthly_email_report);
+      bodyFormData.set('enable_instant_email_report_exploitable', this.org_settings.enable_instant_email_report_exploitable);
+      bodyFormData.set('enable_instant_email_report_cvss', this.org_settings.enable_instant_email_report_cvss);
+      bodyFormData.set('enable_instant_email_report_cvss_value', this.org_settings.enable_instant_email_report_cvss_value);
+      bodyFormData.set('enable_instant_email_report_cvss3', this.org_settings.enable_instant_email_report_cvss3);
+      bodyFormData.set('enable_instant_email_report_cvss3_value', this.org_settings.enable_instant_email_report_cvss3_value);
+      bodyFormData.set('enable_instant_email_report_score', this.org_settings.enable_instant_email_report_score);
+      bodyFormData.set('enable_instant_email_report_score_value', this.org_settings.enable_instant_email_report_score_value);
       bodyFormData.set('alerts_slack_url', this.org_settings.alerts_slack_url);
       // bodyFormData.set('alerts_slack_apikey', this.org_settings.alerts_slack_apikey);
       bodyFormData.set('enable_slack_new_vuln', this.org_settings.enable_slack_new_vuln);

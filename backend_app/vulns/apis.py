@@ -458,7 +458,7 @@ def export_vuln_sendmail(self, vuln_id):
                     'vuln',
                     emails
                 ],
-                queue='default',
+                queue='alerts',
                 retry=False
             )
             return JsonResponse({"status": "success"}, safe=False)

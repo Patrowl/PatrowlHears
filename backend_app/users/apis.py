@@ -441,6 +441,12 @@ def create_organization(self):
     return JsonResponse({'status': 'success'}, safe=False)
 
 
+def check_float_in_range(value, min, max):
+    if min <= value <= max and round(value, 2) == value:
+        return True
+    return False
+
+
 @api_view(['POST'])
 def update_org_settings(self):
     organization_id = self.data.get('org_id', None)
@@ -480,6 +486,34 @@ def update_org_settings(self):
     enable_monthly_email_report = self.data.get('enable_monthly_email_report', None)
     if enable_monthly_email_report is not None and enable_monthly_email_report in ["true", "false"]:
         org.org_settings.enable_monthly_email_report = enable_monthly_email_report == "true"
+
+    enable_instant_email_report_exploitable = self.data.get('enable_instant_email_report_exploitable', None)
+    if enable_instant_email_report_exploitable is not None and enable_instant_email_report_exploitable in ["true", "false"]:
+        org.org_settings.enable_instant_email_report_exploitable = enable_instant_email_report_exploitable == "true"
+
+    enable_instant_email_report_cvss = self.data.get('enable_instant_email_report_cvss', None)
+    if enable_instant_email_report_cvss is not None and enable_instant_email_report_cvss in ["true", "false"]:
+        org.org_settings.enable_instant_email_report_cvss = enable_instant_email_report_cvss == "true"
+
+    enable_instant_email_report_cvss_value = self.data.get('enable_instant_email_report_cvss_value', None)
+    if enable_instant_email_report_cvss_value is not None and check_float_in_range(float(enable_instant_email_report_cvss_value), 0.0, 10):
+        org.org_settings.enable_instant_email_report_cvss_value = float(enable_instant_email_report_cvss_value)
+
+    enable_instant_email_report_cvss3 = self.data.get('enable_instant_email_report_cvss3', None)
+    if enable_instant_email_report_cvss3 is not None and enable_instant_email_report_cvss3 in ["true", "false"]:
+        org.org_settings.enable_instant_email_report_cvss3 = enable_instant_email_report_cvss3 == "true"
+
+    enable_instant_email_report_cvss3_value = self.data.get('enable_instant_email_report_cvss3_value', None)
+    if enable_instant_email_report_cvss3_value is not None and check_float_in_range(float(enable_instant_email_report_cvss3_value), 0.0, 10):
+        org.org_settings.enable_instant_email_report_cvss3_value = float(enable_instant_email_report_cvss3_value)
+
+    enable_instant_email_report_score = self.data.get('enable_instant_email_report_score', None)
+    if enable_instant_email_report_score is not None and enable_instant_email_report_score in ["true", "false"]:
+        org.org_settings.enable_instant_email_report_score = enable_instant_email_report_score == "true"
+
+    enable_instant_email_report_score_value = self.data.get('enable_instant_email_report_score_value', None)
+    if enable_instant_email_report_score_value is not None and str(enable_instant_email_report_score_value).isnumeric() and 0 <= int(enable_instant_email_report_score_value) <= 100:
+        org.org_settings.enable_instant_email_report_score_value = int(enable_instant_email_report_score_value)
 
     # Slack
     enable_slack_new_vuln = self.data.get('enable_slack_new_vuln', None)
@@ -537,6 +571,13 @@ def update_org_settings(self):
         'enable_daily_email_report': org.org_settings.enable_daily_email_report,
         'enable_weekly_email_report': org.org_settings.enable_weekly_email_report,
         'enable_monthly_email_report': org.org_settings.enable_monthly_email_report,
+        'enable_instant_email_report_exploitable': org.org_settings.enable_instant_email_report_exploitable,
+        'enable_instant_email_report_score': org.org_settings.enable_instant_email_report_score,
+        'enable_instant_email_report_score_value': org.org_settings.enable_instant_email_report_score_value,
+        'enable_instant_email_report_cvss': org.org_settings.enable_instant_email_report_cvss,
+        'enable_instant_email_report_cvss_value': org.org_settings.enable_instant_email_report_cvss_value,
+        'enable_instant_email_report_cvss3': org.org_settings.enable_instant_email_report_cvss3,
+        'enable_instant_email_report_cvss3_value': org.org_settings.enable_instant_email_report_cvss3_value,
         'enable_slack_new_vuln': org.org_settings.alerts_slack['new_vuln'],
         'enable_slack_update_vuln': org.org_settings.alerts_slack['update_vuln'],
         'alerts_slack_url': org.org_settings.alerts_slack['url'],
@@ -671,6 +712,11 @@ def get_org_settings(self, org_id):
         'enable_daily_email_report': org.org_settings.enable_daily_email_report,
         'enable_weekly_email_report': org.org_settings.enable_weekly_email_report,
         'enable_monthly_email_report': org.org_settings.enable_monthly_email_report,
+        'enable_instant_email_report_exploitable': org.org_settings.enable_instant_email_report_exploitable,
+        'enable_instant_email_report_score': org.org_settings.enable_instant_email_report_score,
+        'enable_instant_email_report_score_value': org.org_settings.enable_instant_email_report_score_value,
+        'enable_instant_email_report_cvss': org.org_settings.enable_instant_email_report_cvss,
+        'enable_instant_email_report_cvss_value': org.org_settings.enable_instant_email_report_cvss_value,
         'alerts_slack': org.org_settings.alerts_slack,
         'alerts_slack_enabled': org.org_settings.alerts_slack_enabled,
         'alerts_thehive': org.org_settings.alerts_thehive,
