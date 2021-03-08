@@ -540,26 +540,26 @@
               class="elevation-4"
               item-key="id"
             >
-            <template v-slot:item.is_active="{ item }">
-              <v-icon
-                small
-                class="mdi mdi-check-circle"
-                color="green"
-                title="Enable Organization"
-                v-if="item.is_active == true"
-                @click="isAdmin() == 'true'?disableOrg(item):''"
-              >
-              </v-icon>
-              <v-icon
-                small
-                class="mdi mdi-checkbox-blank-circle"
-                color="red"
-                title="Disable Organization"
-                v-if="item.is_active == false"
-                @click="isAdmin() == 'true'?enableOrg(item):''"
-              >
-              </v-icon>
-            </template>
+              <template v-slot:item.is_active="{ item }">
+                <v-icon
+                  small
+                  class="mdi mdi-check-circle"
+                  color="green"
+                  title="Enable Organization"
+                  v-if="item.is_active == true"
+                  @click="isAdmin() == 'true'?disableOrg(item):''"
+                >
+                </v-icon>
+                <v-icon
+                  small
+                  class="mdi mdi-checkbox-blank-circle"
+                  color="red"
+                  title="Disable Organization"
+                  v-if="item.is_active == false"
+                  @click="isAdmin() == 'true'?enableOrg(item):''"
+                >
+                </v-icon>
+              </template>
 
               <template v-slot:item.action="{ item }">
                 <v-icon
@@ -1454,3 +1454,9 @@ export default {
   }
 };
 </script>
+
+<style>
+.v-btn--fab.v-size--small.v-btn--absolute.v-btn--top {
+  top: 0px;
+}
+</style>

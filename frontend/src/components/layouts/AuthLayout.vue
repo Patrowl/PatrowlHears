@@ -59,11 +59,11 @@
                 /> -->
 
               </v-container>
-              <v-btn class="deep-orange white--text" :disabled="!valid" @click="login">Login</v-btn>
+              <v-btn class="deep-orange white--text" :disabled="!valid" @click="login" block>Login</v-btn>
             </v-form>
           </v-card-text>
         </v-card>
-        <br/>
+        <!-- <br/>
         <v-card class="saas-card" color="deep-orange" center="center">
           <v-card-actions>
               <v-btn text block href="https://patrowl.io/login">
@@ -71,21 +71,20 @@
               </v-btn>
             </v-card-actions>
         </v-card>
-          <br/>
+        <br/>
         <v-card class="saas-card" color="deep-orange" center="center">
           <v-card-actions>
               <v-btn text block href="https://patrowl.io/login">
                 Get Pro Edition
               </v-btn>
             </v-card-actions>
-        </v-card>
+        </v-card> -->
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
-// import axios from 'axios';
 import swal from 'sweetalert2';
 
 export default {
