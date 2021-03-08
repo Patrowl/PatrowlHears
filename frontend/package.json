@@ -12,7 +12,7 @@
     "core-js": "^3.8.2",
     "json-data-convert-file": "^1.0.1",
     "jwt-decode": "^2.2.0",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "sweetalert2": "^9.17.1",
     "typeface-roboto": "^1.1.13",
     "vue": "^2.6.10",
