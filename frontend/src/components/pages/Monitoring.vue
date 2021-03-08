@@ -886,3 +886,9 @@ export default {
   }
 };
 </script>
+
+<style>
+button.v-btn--fab {
+  margin-bottom: 40px;
+}
+</style>
