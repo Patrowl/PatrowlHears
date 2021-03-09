@@ -1,5 +1,5 @@
 #!/bin/bash
-export APP_HOST=${APP_HOST:-0.0.0.0}
+export APP_HOST=${APP_HOST:-127.0.0.1}
 export APP_PORT=${APP_PORT:-8303}
 export WEB_PORT=${WEB_PORT:-8383}
 export WEB_BASE_DOMAIN=${WEB_BASE_DOMAIN:-hears.patrowl.io}
@@ -118,7 +118,7 @@ python3 -mplatform | grep -qi macOS && {
 python3 -mplatform | grep -qiE 'centos|Ubuntu|Linux' && {
   sudo cp var/etc/nginx.conf.tpl /etc/nginx/sites-enabled/patrowlhears.conf
   sudo sed -i "s|__PH_INSTALL_DIR__|`pwd`|g" /etc/nginx/sites-enabled/patrowlhears.conf
-  sudo sed -i "s|__PH_BASE_DOMAIN__|$WEB_BASE_DOMAIN|g" /usr/local/etc/nginx/sites-enabled/patrowlhears.conf
+  sudo sed -i "s|__PH_BASE_DOMAIN__|$WEB_BASE_DOMAIN|g" /etc/nginx/sites-enabled/patrowlhears.conf
 }
 sudo nginx -s reload
 
