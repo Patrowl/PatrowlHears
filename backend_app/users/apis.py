@@ -166,7 +166,7 @@ def activate_user(self, token):
             personal_org_user = OrganizationUser.objects.create(
                 user=user,
                 organization=personal_org,
-                is_admin=False)
+                is_admin=True)
             personal_org_user.save()
 
             personal_org_owner = OrganizationOwner.objects.create(
@@ -589,7 +589,7 @@ def update_org_settings(self):
         'enable_misp_update_vuln': org.org_settings.alerts_misp['update_vuln'],
         'alerts_misp_url': org.org_settings.alerts_misp['url'],
         'alerts_misp_apikey': org.org_settings.alerts_misp['apikey'],
-        }, safe=False)
+    }, safe=False)
 
 
 @api_view(['GET'])

@@ -15,7 +15,6 @@ RUN apt-get update -yq \
 		python3-psycopg2 \
 		python3-dev \
 		libpq-dev \
-		libpq-dev \
 		gcc \
 		git \
 		wget \
