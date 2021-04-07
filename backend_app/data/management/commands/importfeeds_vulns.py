@@ -103,7 +103,7 @@ class Command(BaseCommand):
                                     feed_files_sig.append(import_feedvuln_task.s(file_data, filename, get_hash(feed_checksums, filename)).set(queue='data'))
 
                     except Exception as e:
-                        print(e)
+                        print(file, e)
 
                 pbar = tqdm(total=len(feed_files_sig), desc="{}-run".format(feed_dirname))
                 for chunk in chunks(feed_files_sig, CHUNK_SIZE):

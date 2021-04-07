@@ -22,7 +22,7 @@ supervisorctl -s http://localhost:9002 restart all
 supervisord -c var/etc/supervisord.conf
 sleep 3
 supervisorctl -s http://localhost:9002 status
-gunicorn -b 0.0.0.0:8083 backend_app.wsgi:application --timeout 300
+gunicorn -b 127.0.0.1:8083 backend_app.wsgi:application --timeout 300
 sudo nginx -s reload
 deactivate
 ```
