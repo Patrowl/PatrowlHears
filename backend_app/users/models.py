@@ -1,5 +1,4 @@
-# from django.contrib.auth.models import AbstractUser
-from django.contrib.postgres.fields import JSONField, ArrayField
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.utils import timezone
 from simple_history.models import HistoricalRecords
@@ -7,10 +6,6 @@ from organizations.models import Organization
 from vulns.models import Vuln
 from cves.models import Vendor, Product, ProductVersion, Package
 from annoying.fields import AutoOneToOneField
-
-#
-# class User(AbstractUser):
-#     pass
 
 
 class OrgMonitoringList(models.Model):
@@ -81,13 +76,13 @@ class OrgSettings(models.Model):
     enable_instant_email_report_score_value = models.FloatField(default=80, blank=False, null=True)
 
     alerts_slack_enabled = models.BooleanField(default=False)
-    alerts_slack = JSONField(default=slack_dict)
+    alerts_slack = models.JSONField(default=slack_dict)
 
     alerts_thehive_enabled = models.BooleanField(default=False)
-    alerts_thehive = JSONField(default=thehive_dict)
+    alerts_thehive = models.JSONField(default=thehive_dict)
 
     alerts_misp_enabled = models.BooleanField(default=False)
-    alerts_misp = JSONField(default=misp_dict)
+    alerts_misp = models.JSONField(default=misp_dict)
 
     updated_at = models.DateTimeField(default=timezone.now, null=True)
     history = HistoricalRecords(
