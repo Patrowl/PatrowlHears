@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.postgres.fields import JSONField, ArrayField
+from django.contrib.postgres.fields import ArrayField
 from simple_history.models import HistoricalRecords
 
 
@@ -251,7 +251,7 @@ class CWE(models.Model):
     cwe_id = models.CharField(max_length=20, null=True)
     name = models.CharField(max_length=250, null=True)
     description = models.TextField(default="")
-    refs = JSONField(default=dict)
+    refs = models.JSONField(default=dict)
     created_at = models.DateTimeField(default=timezone.now, null=True)
     updated_at = models.DateTimeField(default=timezone.now, null=True)
 
@@ -291,7 +291,7 @@ class Bulletin(models.Model):
     impact = models.CharField(max_length=250, default="", null=True)
     published = models.DateTimeField(blank=True, null=True)
     modified = models.DateTimeField(blank=True, null=True)
-    # raw = JSONField(default=dict, blank=True, null=True)
+    # raw = models.JSONField(default=dict, blank=True, null=True)
     monitored = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now, null=True)
     updated_at = models.DateTimeField(default=timezone.now, null=True)
@@ -341,18 +341,18 @@ class CVE(models.Model):
     cvss_time = models.DateTimeField(null=True)
     cvss_vector = models.CharField(max_length=250, blank=True, null=True)
     cvss_version = models.CharField(max_length=5, blank=True, null=True)
-    cvss_metrics = JSONField(default=dict)
+    cvss_metrics = models.JSONField(default=dict)
     cvss3 = models.FloatField(default=0.0, null=True)
     cvss3_vector = models.CharField(max_length=250, blank=True, null=True)
     cvss3_version = models.CharField(max_length=5, blank=True, null=True)
-    cvss3_metrics = JSONField(default=dict)
+    cvss3_metrics = models.JSONField(default=dict)
     cwe = models.ForeignKey(CWE, on_delete=models.CASCADE, blank=True, null=True)
-    access = JSONField(default=access_default_dict)
-    impact = JSONField(default=impact_default_dict)
+    access = models.JSONField(default=access_default_dict)
+    impact = models.JSONField(default=impact_default_dict)
     vulnerable_products = ArrayField(
         models.CharField(max_length=250, blank=True), blank=True, null=True)
     bulletins = models.ManyToManyField(Bulletin, blank=True)
-    references = JSONField(default=dict)
+    references = models.JSONField(default=dict)
     monitored = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now, null=True)
     updated_at = models.DateTimeField(default=timezone.now, null=True)

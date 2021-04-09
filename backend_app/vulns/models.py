@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.postgres.fields import JSONField, ArrayField
+from django.contrib.postgres.fields import ArrayField
 from simple_history.models import HistoricalRecords
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -52,24 +52,24 @@ class VulnBase(models.Model):
     cwe = models.ForeignKey(CWE, on_delete=models.CASCADE, blank=True, null=True)
 
     packages = models.ManyToManyField(Package, related_name='vulns')
-    vulnerable_packages_versions = JSONField(default=dict)
+    vulnerable_packages_versions = models.JSONField(default=dict)
     products = models.ManyToManyField(Product, related_name='vulns')
     productversions = models.ManyToManyField(ProductVersion, related_name='vulns')
     vulnerable_products = ArrayField(
         models.CharField(max_length=250, blank=True), blank=True, null=True)  # CPE list
-    vulnerable_product_versions = JSONField(default=dict)
+    vulnerable_product_versions = models.JSONField(default=dict)
 
     cvss = models.FloatField(default=0.0, null=True)  # CVSSv2
     cvss_time = models.DateTimeField(null=True)
     cvss_version = models.CharField(max_length=5, blank=True, null=True)
     cvss_vector = models.CharField(max_length=250, blank=True, null=True)
-    cvss_metrics = JSONField(default=dict)
-    access = JSONField(default=access_default_dict)
-    impact = JSONField(default=impact_default_dict)
+    cvss_metrics = models.JSONField(default=dict)
+    access = models.JSONField(default=access_default_dict)
+    impact = models.JSONField(default=impact_default_dict)
     cvss3 = models.FloatField(default=0.0, null=True)
     cvss3_vector = models.CharField(max_length=250, blank=True, null=True)
     cvss3_version = models.CharField(max_length=5, blank=True, null=True)
-    cvss3_metrics = JSONField(default=dict)
+    cvss3_metrics = models.JSONField(default=dict)
 
     score = models.IntegerField(default=0)
 
@@ -77,8 +77,8 @@ class VulnBase(models.Model):
     is_confirmed = models.BooleanField(default=False)
     is_in_the_news = models.BooleanField(default=False)
     is_in_the_wild = models.BooleanField(default=False)
-    reflinks = JSONField(default=dict, blank=True)
-    reflinkids = JSONField(default=dict, blank=True)
+    reflinks = models.JSONField(default=dict, blank=True)
+    reflinkids = models.JSONField(default=dict, blank=True)
 
     created_at = models.DateTimeField(default=timezone.now, null=True)
     updated_at = models.DateTimeField(default=timezone.now, null=True)
@@ -279,7 +279,7 @@ class ExploitMetadataBase(models.Model):
         max_length=20, choices=EXPLOIT_TYPES, default='unknown')
     maturity = models.CharField(
         max_length=20, choices=EXPLOIT_MATURITY_LEVELS, default='unknown')
-    raw = JSONField(default=dict)
+    raw = models.JSONField(default=dict)
     published = models.DateTimeField(default=timezone.now, blank=True, null=True)
     modified = models.DateTimeField(default=timezone.now, blank=True, null=True)
     hash = models.BigIntegerField(default=0)
@@ -383,7 +383,7 @@ class ThreatMetadataBase(models.Model):
     source = models.CharField(max_length=250, null=True)
     is_in_the_wild = models.BooleanField(default=False)
     is_in_the_news = models.BooleanField(default=False)
-    raw = JSONField(default=dict)
+    raw = models.JSONField(default=dict)
     published = models.DateTimeField(blank=True, null=True)
     modified = models.DateTimeField(blank=True, null=True)
 

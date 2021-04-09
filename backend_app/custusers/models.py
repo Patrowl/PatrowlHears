@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
-from django.contrib.postgres.fields import JSONField
 from simple_history.models import HistoricalRecords
 from common.utils import _json_serial
 import json
@@ -30,7 +29,7 @@ def user_profile_dict():
 
 
 class User(AbstractUser):
-    profile = JSONField(default=user_profile_dict, null=True)
+    profile = models.JSONField(default=user_profile_dict, null=True)
     type = models.CharField(max_length=10, choices=USER_TYPES, default='DEFAULT')
     created_at = models.DateTimeField(default=timezone.now, null=True)
     updated_at = models.DateTimeField(default=timezone.now, null=True)

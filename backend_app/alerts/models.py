@@ -1,8 +1,6 @@
 from django.db import models
 from django.utils import timezone
-# from django.conf import settings
-# from django.core.mail import send_mail
-from django.contrib.postgres.fields import JSONField, ArrayField
+from django.contrib.postgres.fields import ArrayField
 from common.utils.constants import EXPLOIT_AVAILABILITY, TRUST_LEVELS, TLP_LEVELS, EXPLOIT_MATURITY_LEVELS
 # from django_celery_beat.models import PeriodicTask
 from .tasks import send_email_message_task
@@ -101,7 +99,7 @@ class AlertingRule(models.Model):
     title = models.CharField(max_length=256, default='New alerting rule')
     target = models.CharField(choices=RULE_TARGETS, default='add_vuln', max_length=32)
     action = models.CharField(choices=RULE_ACTIONS, default='debug', max_length=10)
-    conditions = JSONField(default=dict, null=True, blank=True)
+    conditions = models.JSONField(default=dict, null=True, blank=True)
     check_fields = ArrayField(
         models.CharField(default='', max_length=64), null=True, blank=True
     )

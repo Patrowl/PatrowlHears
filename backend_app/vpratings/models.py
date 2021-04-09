@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.postgres.fields import JSONField
 from simple_history.models import HistoricalRecords
 from vulns.models import Vuln
 from datetime import datetime
@@ -164,7 +163,7 @@ def get_default_scores():
 # class VPRatingPolicy(models.Model):
 #     name = models.CharField(max_length=255, default="")
 #     comments = models.TextField(default="")
-#     rules = JSONField(default=dict)
+#     rules = models.JSONField(default=dict)
 #     created_at = models.DateTimeField(default=timezone.now, null=True)
 #     updated_at = models.DateTimeField(default=timezone.now, null=True)
 #     history = HistoricalRecords()
@@ -188,9 +187,9 @@ def get_default_scores():
 class VPRating(models.Model):
     vector = models.CharField(max_length=255, default="")
     score = models.IntegerField(default=0)
-    score_details = JSONField(default=get_default_scores)
+    score_details = models.JSONField(default=get_default_scores)
     cvssv2adj = models.FloatField(default=0.0)
-    data = JSONField(default=dict)
+    data = models.JSONField(default=dict)
     vuln = models.ForeignKey(Vuln, on_delete=models.CASCADE)
     # policy = models.ForeignKey(VPRatingPolicy, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now, null=True)
@@ -248,7 +247,7 @@ class VPRating(models.Model):
             vpr_vuln_score += (self.data['vulnerability']['cvss'] * 80/100/2)
         else:
             vpr_vuln_score += VPR_METRICS['vulnerability']['cvss']['default']
-    
+
         if 'cvss3' in self.data['vulnerability'].keys() and self.data['vulnerability']['cvss3'] is not None:
             # vpr_vuln_score += (self.data['vulnerability']['cvss'] * 70/100/2)
             vpr_vuln_score += (self.data['vulnerability']['cvss3'] * 80/100/2)
