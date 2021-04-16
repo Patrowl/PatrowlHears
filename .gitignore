@@ -23,7 +23,9 @@ backend_app/var/tmp/*.json
 backend_app/var/db/patrowlhears_db_dump*
 backend_app/media/data/export/*.json
 backend_app/media/data/import/*.json
+backend_app/pro
 scripts
+
 
 # Frontend_app
 package-lock.json

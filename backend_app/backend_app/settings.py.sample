@@ -11,6 +11,7 @@ CSRF_COOKIE_SECURE = True
 CSRF_USE_SESSIONS = True
 #SESSION_COOKIE_SECURE = True # Only if HTTPS is enabled
 SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_NAME = 'patrowl-hears'
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_HSTS_PRELOAD = True
@@ -449,3 +450,18 @@ HEARS_DATASYNC_BASEDATE = os.environ.get('HEARS_DATASYNC_BASEDATE', '2020-01-01'
 HEARS_DATASYNC_SSLVERIFY = os.environ.get('HEARS_DATASYNC_SSLVERIFY', 'false').lower() in ['true', '1', 'yes', 'on', 'y']
 HEARS_DATASYNC_TIMEOUT = os.environ.get('HEARS_DATASYNC_TIMEOUT', None)
 HEARS_DATASYNC_CHUNKSIZE = int(os.environ.get('HEARS_DATASYNC_CHUNKSIZE', 100))
+
+## Pro edition - Load extra settings
+PRO_EDITION = os.environ.get('PRO_EDITION', '').lower() in ['true', '1', 'yes', 'y', 'on']
+if PRO_EDITION is True and os.path.isdir('pro'):
+    try:
+        from pro.settings import *
+        INSTALLED_APPS += PRO_INSTALLED_APPS
+        MIDDLEWARE += PRO_MIDDLEWARE
+        AUTHENTICATION_BACKENDS += PRO_AUTHENTICATION_BACKENDS
+        L_LRUE = list(LOGIN_REQUIRED_URLS_EXCEPTIONS)
+        L_LRUE.append(PRO_LOGIN_REQUIRED_URLS_EXCEPTIONS)
+        LOGIN_REQUIRED_URLS_EXCEPTIONS = tuple(L_LRUE)
+
+    except ImportError:
+        print("ERROR: Unable to load PRO modules")

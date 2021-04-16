@@ -13,11 +13,6 @@ module.exports = {
       'Access-Control-Allow-Origin': '*',
     },
     proxy: 'http://127.0.0.1:3333'
-    // proxy: {
-    //   '^/api/': {
-    //     target: 'http://127.0.0.1:3333/api/',
-    //   }
-    // }
   },
   lintOnSave: false,
   outputDir: './dist/',
