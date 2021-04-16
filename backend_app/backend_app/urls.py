@@ -93,3 +93,11 @@ if settings.DEBUG is True:
     ] + urlpatterns
 
 urlpatterns += staticfiles_urlpatterns()
+
+# Add PRO edition urls
+if settings.PRO_EDITION:
+    try:
+        from pro.urls import pro_urlpatterns
+        urlpatterns += pro_urlpatterns
+    except ImportError as e:
+        print(e)
