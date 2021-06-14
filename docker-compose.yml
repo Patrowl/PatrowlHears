@@ -30,10 +30,10 @@ services:
     image: patrowl/patrowl-hears-community-edition:${PATROWL_HEARS_VERSION}
     environment:
       - DEBUG=False
-      - DB_PORT_5432_TCP_HOST=db
-      - DB_ENV_POSTGRES_USER=patrowlhears
-      - DB_ENV_POSTGRES_PASSWORD=patrowlhears_pw
-      - RABBIT_PORT_5672_TCP=rabbitmq:5672
+      - POSTGRES_HOST=db
+      - POSTGRES_USER=patrowlhears
+      - POSTGRES_PASSWORD=patrowlhears_pw
+      - RABBITMQ_HOSTNAME=rabbitmq:5672
       # - EMAIL_HOST=auth.smtp.1and1.fr
       # - EMAIL_HOST_USER=alerts@xx_patrowl_xx.fr
       # - EMAIL_HOST_PASSWORD=xx_patrowl_xx

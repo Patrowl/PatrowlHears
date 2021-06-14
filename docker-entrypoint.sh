@@ -1,8 +1,8 @@
 #!/bin/bash
 export APP_HOST=${APP_HOST:-0.0.0.0}
 export APP_PORT=${APP_PORT:-8303}
-export DB_HOST=${DB_PORT_5432_TCP_HOST:-db}
-export DB_PORT=${DB_PORT_5432_TCP_PORT:-5432}
+export POSTGRES_HOST=${POSTGRES_HOST:-db}
+export POSTGRES_PORT=${POSTGRES_PORT:-5432}
 export RABBITMQ_HOST=${RABBITMQ_HOST:-rabbitmq}
 export RABBITMQ_PORT=${RABBITMQ_PORT:-5672}
 export SUPER_USERNAME=${SUPER_USERNAME:-admin}
@@ -11,7 +11,7 @@ export SUPER_EMAIL=${SUPER_EMAIL:-admin@hears.patrowl.io}
 export SUPER_ORGNAME=${SUPER_ORGNAME:-Private}
 
 echo "[+] Wait for DB availability"
-while !</dev/tcp/$DB_HOST/$DB_PORT; do sleep 1; done
+while !</dev/tcp/$POSTGRES_HOST/$POSTGRES_PORT; do sleep 1; done
 
 echo "[+] Wait for RabbitMQ availability"
 while !</dev/tcp/$RABBITMQ_HOST/$RABBITMQ_PORT; do sleep 1; done
