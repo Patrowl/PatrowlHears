@@ -179,12 +179,18 @@ WSGI_APPLICATION = 'backend_app.wsgi.application'
 
 DATABASES = {
     'default': {
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': os.environ.get('DB_ENV_DB', 'patrowlhears_db'),
+        # 'USER': os.environ.get('DB_ENV_POSTGRES_USER', 'patrowlhears'),
+        # 'PASSWORD': os.environ.get('DB_ENV_POSTGRES_PASSWORD', ''),
+        # 'HOST': os.environ.get('DB_PORT_5432_TCP_HOST', 'localhost'),
+        # 'PORT': os.environ.get('DB_PORT_5432_TCP_PORT', ''),
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_ENV_DB', 'patrowlhears_db'),
-        'USER': os.environ.get('DB_ENV_POSTGRES_USER', 'patrowlhears'),
-        'PASSWORD': os.environ.get('DB_ENV_POSTGRES_PASSWORD', 'patrowlhears'),
-        'HOST': os.environ.get('DB_PORT_5432_TCP_HOST', 'localhost'),
-        'PORT': os.environ.get('DB_PORT_5432_TCP_PORT', ''),
+        'NAME': os.environ.get('POSTGRES_DBNAME', 'patrowlhears_db'),
+        'USER': os.environ.get('POSTGRES_USER', 'patrowlhears'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', ''),
+        'HOST': os.environ.get('POSTGRES_HOST', 'localhost'),
+        'PORT': os.environ.get('POSTGRES_PORT', ''),
     },
     'mongodb': {
         'HOST': os.environ.get('CVESEARCH_MONGODB_HOST', 'localhost'),
@@ -317,7 +323,7 @@ LOGIN_REQUIRED_URLS_EXCEPTIONS = (
 )
 
 
-RABBIT_HOSTNAME = os.environ.get('RABBIT_PORT_5672_TCP', 'localhost:5672')
+RABBIT_HOSTNAME = os.environ.get('RABBITMQ_HOSTNAME', 'localhost:5672')
 
 if RABBIT_HOSTNAME.startswith('tcp://'):
     RABBIT_HOSTNAME = RABBIT_HOSTNAME.split('//')[1]
