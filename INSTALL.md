@@ -34,8 +34,12 @@ cd PatrowlHears
 ./install.sh
 ```
 - Open your browser on http://localhost:8383
-  * default username: admin
-  * default password: Bonjour1!
+  * default username: `admin`
+  * default password: `Bonjour1!`
+- Load initial data:
+```
+cd backend_app && ./load_init_data.sh
+```
 - Regularly update DB with command:
 ```
 cd backend_app && ./import_data_updates.sh
