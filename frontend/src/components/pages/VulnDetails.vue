@@ -13,7 +13,7 @@
       <v-badge color="deep-orange"  v-if="this.threats.length > 0" :content="this.threats.length">Threat activities</v-badge>
       <v-badge color="grey"  v-if="this.threats.length == 0" :content="'0'">Threat activities</v-badge>
     </v-tab>
-    <v-tab>Timeline</v-tab>
+    <!-- <v-tab>Timeline</v-tab> -->
 
     <!-- Summary -->
     <v-tab-item>
@@ -634,7 +634,7 @@
     </v-tab-item>
 
     <!-- Timeline -->
-    <v-tab-item>
+    <!-- <v-tab-item>
       <v-card v-if="this.history" color="grey lighten-5">
         <v-timeline v-if="this.history.length > 0" clipped dense>
           <v-timeline-item
@@ -652,7 +652,7 @@
           </v-timeline-item>
         </v-timeline>
       </v-card>
-    </v-tab-item>
+    </v-tab-item> -->
   </v-tabs>
 
 </template>
@@ -836,7 +836,8 @@ export default {
     getDataFromApi(vuln_id) {
       return new Promise((resolve, reject) => {
         let vuln = this.getVulnDetails(vuln_id);
-        let history = this.getHistory(vuln_id);
+        // let history = this.getHistory(vuln_id);
+        let history = [];
         let ratings = this.getRatings(vuln_id);
         let exploits = this.getExploits(vuln_id);
         let threats = this.getThreats(vuln_id);
