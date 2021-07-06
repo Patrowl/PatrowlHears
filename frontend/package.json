@@ -15,7 +15,7 @@
     "lodash": "^4.17.21",
     "sweetalert2": "^10.15.6",
     "typeface-roboto": "^1.1.13",
-    "vue": "^2.6.12",
+    "vue": "^2.6.14",
     "vue-axios": "^3.2.4",
     "vue-clamp": "^0.3.2",
     "vue-moment": "^4.1.0",
