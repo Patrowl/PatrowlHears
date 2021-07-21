@@ -75,7 +75,7 @@ class OrgSettings(models.Model):
     enable_instant_email_report_score = models.BooleanField(default=False)
     enable_instant_email_report_score_value = models.FloatField(default=80, blank=False, null=True)
 
-    alerts_slack_enabled = models.BooleanField(default=False)
+    alerts_slack_enabled = models.BooleanField(default=True)
     alerts_slack = models.JSONField(default=slack_dict)
 
     alerts_thehive_enabled = models.BooleanField(default=False)
