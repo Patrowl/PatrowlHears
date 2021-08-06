@@ -16,6 +16,9 @@ while !</dev/tcp/$POSTGRES_HOST/$POSTGRES_PORT; do sleep 1; done
 echo "[+] Wait for RabbitMQ availability"
 while !</dev/tcp/$RABBITMQ_HOST/$RABBITMQ_PORT; do sleep 1; done
 
+echo "[+] VERSION"
+cat VERSION
+
 echo "[+] Activate python virtualenv"
 cd backend_app
 source env/bin/activate
