@@ -62,7 +62,7 @@ s3transfer==0.3.3
 simplejson==3.17.0
 six==1.13.0
 slackclient==2.5.0
-sqlparse==0.3.0
+sqlparse==0.4.2
 supervisor==4.1.0
 tqdm==4.56.0
 typing-extensions==3.7.4.3
