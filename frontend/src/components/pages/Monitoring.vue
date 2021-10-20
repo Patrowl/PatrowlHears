@@ -1,6 +1,97 @@
 <template>
   <div>
+    <v-container fluid grid-list-md>
+    <v-layout row wrap>
+      <v-flex md4>
+        <v-card color="deep-orange">
+          <v-card-title>Vulnerabilities</v-card-title>
+          <v-card-subtitle primary>CVE, 0days, ...</v-card-subtitle>
+          <v-card-text class="display-2 text-center">
+            {{stats.vulns.count}}
+          </v-card-text>
+        </v-card>
+        <v-card class="mt-1" elevation="0">
+          <v-card-text class="display-1 text-center">
+            <v-chip class="mx-1" color="deep-orange" text-color="white">
+              Exploitable
+              <v-avatar right class="white black--text font-weight-bold">
+                {{stats.vulns.exploitable}}
+              </v-avatar>
+            </v-chip>
+            <v-chip class="mx-1" color="deep-orange" text-color="white">
+              Remote
+              <v-avatar right class="white black--text font-weight-bold">
+                {{stats.vulns.remote}}
+              </v-avatar>
+            </v-chip>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+      <v-flex md4>
+        <v-card color="lime">
+          <v-card-title primary>Metadata</v-card-title>
+          <v-card-subtitle primary>Exploits, Threats activities, News, Blog posts</v-card-subtitle>
+          <v-card-text class="display-2 text-center">
+            {{stats.metadata.count}}
+          </v-card-text>
+        </v-card>
+        <v-card class="mt-1" elevation="0">
+          <v-card-text class="display-1 text-center">
+            <v-chip class="mx-1" color="lime" text-color="black">
+              Exploits
+              <v-avatar right class="white black--text font-weight-bold">
+                {{stats.metadata.exploits}}
+              </v-avatar>
+            </v-chip>
+            <v-chip class="mx-1" color="lime" text-color="black">
+              Threat
+              <v-avatar right class="white black--text font-weight-bold">
+                {{stats.metadata.threats}}
+              </v-avatar>
+            </v-chip>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+      <v-flex md4>
+        <v-card color="teal">
+          <v-card-title primary>Monitored items</v-card-title>
+          <v-card-subtitle primary>Vendors, Products, Vulnerabilites, Bulletins</v-card-subtitle>
+          <v-card-text class="display-2 text-center">
+            {{stats.monitored.count}}
+          </v-card-text>
+        </v-card>
+        <v-card class="mt-1" elevation="0">
+          <v-card-text class="display-1 text-center">
+            <v-chip class="mx-1" color="teal" text-color="black">
+              Vendors
+              <v-avatar right class="white black--text font-weight-bold">
+                {{stats.monitored.vendors}}
+              </v-avatar>
+            </v-chip>
+            <v-chip class="mx-1" color="teal" text-color="black">
+              Products
+              <v-avatar right class="white black--text font-weight-bold">
+                {{stats.monitored.products}}
+              </v-avatar>
+            </v-chip>
+            <v-chip class="mx-1" color="teal" text-color="black">
+              Packages
+              <v-avatar right class="white black--text font-weight-bold">
+                {{stats.monitored.packages}}
+              </v-avatar>
+            </v-chip>
+            <v-chip class="mx-1" color="teal" text-color="black">
+              Vulnerabilities
+              <v-avatar right class="white black--text font-weight-bold">
+                {{stats.monitored.vulnerabilities}}
+              </v-avatar>
+            </v-chip>
 
+          </v-card-text>
+        </v-card>
+      </v-flex>
+    </v-layout>
+    </v-container>
     <!-- Monitored assets
     <v-divider></v-divider> -->
     <v-tabs
@@ -550,6 +641,18 @@ export default {
   name: "Monitoring",
   mixins: [Colors, Download],
   data: () => ({
+    stats: {
+      'vulns': {
+        'count': '', 'exploitable': '', 'remote': '',
+      },
+      'metadata': {
+        'exploits': '', 'threats': '',
+      },
+      'monitored': {
+        'vendors': '', 'products': '', 'packages': '', 'vulnerabilities': '',
+      },
+    },
+    loading_stats: true,
     vendors: [],
     products: [],
     packages: [],
@@ -596,6 +699,7 @@ export default {
     snackTimeout: 3000,
   }),
   mounted() {
+    this.getMonitedStats()
   },
   watch: {
     search_vendors: _.debounce(function (filter) {
@@ -881,6 +985,18 @@ export default {
         this.snack = true;
         this.snackColor = 'error';
         this.snackText = 'Unable to import monitored assets';
+      });
+    },
+    async getMonitedStats() {
+      await this.$api.get('/api/vulns/stats/monitored').then(res => {
+        if (res && res.status === 200) {
+          this.stats = res.data;
+          this.loading_stats = false;
+        }
+      }).catch(e => {
+        this.snack = true;
+        this.snackColor = 'error';
+        this.snackText = 'Unable to get stats.';
       });
     },
   }

@@ -105,7 +105,7 @@
 
    <v-footer>
      <v-spacer></v-spacer>
-    <div class="caption">&copy; {{ new Date().getFullYear() }} - PatrowlHears - {{app_version.version}} - {{app_version.edition|capitalize}} Edition {{app_version.build}}</div>
+    <div class="caption">&copy; 2020-{{ new Date().getFullYear() }} - <v-chip color="deep-orange" label>Visit patrowl.io</v-chip> - {{app_version.version}} - {{app_version.edition|capitalize}} Edition {{app_version.build}}</div>
    </v-footer>
   </v-app>
 </template>

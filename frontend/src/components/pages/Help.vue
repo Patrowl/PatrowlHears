@@ -49,7 +49,7 @@
 
       <p class="title">Copyright</p>
       <p class="body-2">
-        Copyright (C) 2021 Nicolas MATTIOCCO (@MaKyOtOx - nicolas@patrowl.io)
+        Copyright (C) 2020-{{ new Date().getFullYear() }} Patrowl SAS
       </p>
 
       <p class="title">Version</p>
