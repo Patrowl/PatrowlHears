@@ -199,12 +199,21 @@
               <span>{{moment(item.updated_at).format('YYYY-MM-DD')}}</span>
             </template>
 
+            <!-- Actions -->
             <template v-slot:item.action="{ item }">
               <v-icon
-                small
                 class="mdi mdi-eye"
                 color="blue"
                 @click="viewVendor(item.id)"
+                title="View details"
+              >
+              </v-icon>
+
+              <v-icon
+                class="mdi mdi-delete"
+                color="red"
+                @click="removeVendor(item)"
+                title="Remove from monitoring"
               >
               </v-icon>
             </template>
@@ -313,12 +322,20 @@
               <span>{{moment(item.updated_at).format('YYYY-MM-DD')}}</span>
             </template>
 
+            <!-- Actions -->
             <template v-slot:item.action="{ item }">
               <v-icon
-                small
                 class="mdi mdi-eye"
                 color="blue"
                 @click="viewProduct(item.id)"
+              >
+              </v-icon>
+
+              <v-icon
+                class="mdi mdi-delete"
+                color="red"
+                @click="removeProduct(item)"
+                title="Remove from monitoring"
               >
               </v-icon>
             </template>
@@ -427,12 +444,20 @@
               <span>{{moment(item.updated_at).format('YYYY-MM-DD')}}</span>
             </template>
 
+            <!-- Actions -->
             <template v-slot:item.action="{ item }">
               <v-icon
-                small
                 class="mdi mdi-eye"
                 color="blue"
                 @click="viewPackage(item.id)"
+              >
+              </v-icon>
+
+              <v-icon
+                class="mdi mdi-delete"
+                color="red"
+                @click="removePackage(item)"
+                title="Remove from monitoring"
               >
               </v-icon>
             </template>
@@ -556,6 +581,11 @@
                   color="deep-orange"
                   icon small
                   ><v-icon title="View details" @click="viewVuln(item.id)">mdi-arrow-right-bold-circle-outline</v-icon>
+                </v-btn>
+                <v-btn
+                  color="deep-orange"
+                  icon small
+                  ><v-icon title="Remove from monitoring details" @click="removeVuln(item)">mdi-delete</v-icon>
                 </v-btn>
               </div>
               <div>
@@ -699,7 +729,7 @@ export default {
     snackTimeout: 3000,
   }),
   mounted() {
-    this.getMonitedStats()
+    this.getMonitoredStats()
   },
   watch: {
     search_vendors: _.debounce(function (filter) {
@@ -939,14 +969,151 @@ export default {
     viewVendor(vendor_id) {
       this.$router.push({ 'path': '/vendor/'+vendor_id });
     },
+    removeVendor(item) {
+      // save in backend
+      let data = {
+        'vendor_name': item.name,
+        'monitored': false,
+        'organization_id': localStorage.getItem('org_id')
+      };
+      this.$api.post('/api/monitor/vendor/toggle', data).then(res => {
+        this.loading = false;
+        if (res){
+          item.monitored = !item.monitored;
+          // Snack notifications
+          this.snack = true;
+          this.snackColor = 'success';
+          this.snackText = 'Monitoring status successfuly updated.';
+          this.options_vendors.page = 1;  // reset page count
+          this.getDataVendors();
+          this.getMonitoredStats();
+        } else {
+          this.snack = true;
+          this.snackColor = 'error';
+          this.snackText = 'Unable to change the monitoring status';
+        }
+      }).catch(e => {
+        this.loading = false;
+        swal.fire({
+          title: 'Error',
+          text: 'Unable to change the monitoring status',
+          showConfirmButton: false,
+          showCloseButton: false,
+          timer: 2000
+        });
+        return;
+      });
+    },
     viewProduct(product_id) {
       this.$router.push({ 'path': '/product/'+product_id });
+    },
+    removeProduct(item) {
+      // save in backend
+      let data = {
+        'vendor_name': item.vendor,
+        'product_name': item.name,
+        'monitored': false,
+        'organization_id': localStorage.getItem('org_id')
+      };
+      this.$api.post('/api/monitor/product/toggle', data).then(res => {
+        this.loading = false;
+        if (res){
+          item.monitored = !item.monitored;
+          // Snack notifications
+          this.snack = true;
+          this.snackColor = 'success';
+          this.snackText = 'Monitoring status successfuly updated.';
+          this.getDataProducts();
+          this.getMonitoredStats();
+        } else {
+          this.snack = true;
+          this.snackColor = 'error';
+          this.snackText = 'Unable to change the monitoring status';
+        }
+      }).catch(e => {
+        this.loading = false;
+        swal.fire({
+          title: 'Error',
+          text: 'Unable to change the monitoring status',
+          showConfirmButton: false,
+          showCloseButton: false,
+          timer: 2000
+        });
+        return;
+      });
     },
     viewPackage(package_id) {
       this.$router.push({ 'path': '/packages/'+package_id });
     },
+    removePackage(item) {
+      let data = {
+        'package_id': item.id,
+        'monitored': false,
+        'organization_id': localStorage.getItem('org_id')
+      };
+      this.$api.post('/api/monitor/package/toggle', data).then(res => {
+        this.loading = false;
+        if (res){
+          item.monitored = !item.monitored;
+          // Snack notifications
+          this.snack = true;
+          this.snackColor = 'success';
+          this.snackText = 'Monitoring status successfuly updated.';
+          this.getDataPackages();
+          this.getMonitoredStats();
+        } else {
+          this.snack = true;
+          this.snackColor = 'error';
+          this.snackText = 'Unable to change the monitoring status';
+        }
+      }).catch(e => {
+        this.loading = false;
+        swal.fire({
+          title: 'Error',
+          text: 'Unable to change the monitoring status',
+          showConfirmButton: false,
+          showCloseButton: false,
+          timer: 2000
+        });
+        return;
+      });
+    },
     viewVuln(vuln_id) {
       this.$router.push({ 'path': '/vulns/'+vuln_id });
+    },
+    removeVuln(item) {
+      // save in backend
+      let data = {
+        'monitored': false,
+        'vuln_id': item.id,
+        'organization_id': localStorage.getItem('org_id')
+      };
+
+      this.$api.put('/api/vulns/'+item.id+'/toggle', data).then(res => {
+        if (res){
+          item.monitored = !item.monitored;
+          // Snack notifications
+          this.snack = true;
+          this.snackColor = 'success';
+          this.snackText = 'Vulnerability monitoring successfuly updated.';
+          this.getDataVulns();
+          this.getMonitoredStats();
+        } else {
+          this.snack = true;
+          this.snackColor = 'error';
+          this.snackText = 'Unable to change the vulnerability monitoring status';
+        }
+      }).catch(e => {
+        this.loading = false;
+        swal.fire({
+          title: 'Error',
+          text: 'Unable to change the vulnerability monitoring status',
+          showConfirmButton: false,
+          showCloseButton: false,
+          timer: 3000
+        });
+        return;
+      });
     },
     goToPage(page) {
       this.$router.push({ 'path': page });
@@ -987,7 +1154,7 @@ export default {
         this.snackText = 'Unable to import monitored assets';
       });
     },
-    async getMonitedStats() {
+    async getMonitoredStats() {
       await this.$api.get('/api/vulns/stats/monitored').then(res => {
         if (res && res.status === 200) {
           this.stats = res.data;

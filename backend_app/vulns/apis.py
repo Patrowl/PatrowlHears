@@ -756,7 +756,7 @@ def get_monitored_vuln_stats(self):
 
     monitored_vendors = Vendor.objects.filter(id__in=org.org_monitoring_list.vendors.all())
     monitored_products = Product.objects.filter(id__in=org.org_monitoring_list.products.all())
-    monitored_packages = Package.objects.filter(id__in=org.org_monitoring_list.products.all())
+    monitored_packages = Package.objects.filter(id__in=org.org_monitoring_list.packages.all())
     monitored_vulns = Vuln.objects.filter(id__in=org.org_monitoring_list.vulns.all())
     monitored_exploits = ExploitMetadata.objects.filter(id__in=org.org_monitoring_list.vulns.all())
     monitored_threats = ThreatMetadata.objects.filter(id__in=org.org_monitoring_list.vulns.all())
