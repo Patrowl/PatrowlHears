@@ -754,18 +754,24 @@ def get_monitored_vuln_stats(self):
     org_id = self.session.get('org_id', None)
     org = organization.get_current_organization(user=self.user, org_id=org_id)
 
-    monitored_vendors = Vendor.objects.filter(id__in=org.org_monitoring_list.vendors.all())
-    monitored_products = Product.objects.filter(id__in=org.org_monitoring_list.products.all())
-    monitored_packages = Package.objects.filter(id__in=org.org_monitoring_list.products.all())
-    monitored_vulns = Vuln.objects.filter(id__in=org.org_monitoring_list.vulns.all())
+    monitored_vendors = Vendor.objects.filter(id__in=org.org_monitoring_list.vendors.all()).only('id')
+    monitored_products = Product.objects.filter(id__in=org.org_monitoring_list.products.all()).only('id')
+    monitored_packages = Package.objects.filter(id__in=org.org_monitoring_list.packages.all()).only('id')
+    monitored_vulns = Vuln.objects.filter(id__in=org.org_monitoring_list.vulns.all()).only('id')
     monitored_exploits = ExploitMetadata.objects.filter(id__in=org.org_monitoring_list.vulns.all())
     monitored_threats = ThreatMetadata.objects.filter(id__in=org.org_monitoring_list.vulns.all())
 
+    monitored_packages_vulns = Vuln.objects.prefetch_related('packages').filter(packages__in=monitored_packages).only('id')
+    monitored_products_vulns = Vuln.objects.prefetch_related('products').filter(products__in=monitored_products).only('id')
+    monitored_vendors_vulns = Vuln.objects.prefetch_related('products', 'products__vendor').filter(products__vendor__in=monitored_vendors).only('id')
+
+    all_monitored_vulns = (monitored_vulns | monitored_packages_vulns | monitored_products_vulns | monitored_vendors_vulns).distinct()
+
     res = {
         'vulns':  {
-            'count': monitored_vulns.count(),
-            'exploitable': monitored_vulns.filter(is_exploitable=True).count(),
-            'remote': monitored_vulns.filter(access__vector='NETWORK').count(),
+            'count': all_monitored_vulns.count(),
+            'exploitable': all_monitored_vulns.filter(is_exploitable=True).count(),
+            'remote': all_monitored_vulns.filter(access__vector='NETWORK').count(),
         },
         'metadata': {
             'count': monitored_exploits.count() + monitored_threats.count(),

@@ -4,8 +4,6 @@ Front-end
   - [ ] Settings/Sync: show data sync menu if started in slave mode only
   - [ ] Vuln details: Support edition
   - [ ] Dashboards on monitored items:
-    - NB vulnerabilities with exploits + network
-    - NB vulnerabilities with exploits + local
     - Publication (90j, 90-30j, 30-7j, <7j)/Vuln severities {l/m/h/c}/
 
 Back-end

@@ -168,3 +168,18 @@ def send_vuln_update_slack(self, vuln_id):
     from backend_app import slack
     slack.send_slack_message("test", settings.ALERTING_SLACK_APITOKEN, "hears-admin-test")
     return JsonResponse("enqueued.", safe=False)
+
+
+@api_view(['GET'])
+def send_test_email(self):
+    org_id = self.session.get('org_id', None)
+    org = organization.get_current_organization(user=self.user, org_id=org_id)
+    if org is None or org.org_settings.alerts_emails is None or len(org.org_settings.alerts_emails) == 0:
+        return JsonResponse({"status": "error", "reason": "no saved emails"}, safe=False)
+
+    send_email_message_task.apply_async(
+        args=["PatrowlHears - Test Email", {}, 'test_email', org.org_settings.alerts_emails],
+        queue='default',
+        retry=False
+    )
+    return JsonResponse({"status": "success",}, safe=False)
