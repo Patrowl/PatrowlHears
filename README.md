@@ -49,7 +49,7 @@ A commercial Pro Edition is available and officially supported by the PatrOwl co
 **PatrowlHears** is available on the official PatrOwl SaaS platform or on-premise.
 See: https://patrowl.io/products/hears
 
-# Commercial Services
+# Commercial Support and Services
 Looking for advanced support, training, integration, custom developments, dual-licensing ? Contact us at getsupport@patrowl.io
 
 # Security contact
