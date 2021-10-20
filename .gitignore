@@ -25,6 +25,7 @@ backend_app/media/data/export/*.json
 backend_app/media/data/import/*.json
 backend_app/pro
 scripts
+pg_data
 
 
 # Frontend_app

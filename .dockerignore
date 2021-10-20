@@ -15,5 +15,6 @@ __pycache__
 backend_app/env
 backend_app/env3
 feeds
+pg_data
 
 *.swp

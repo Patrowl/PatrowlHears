@@ -10,7 +10,7 @@ from django_filters import rest_framework as filters
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from users.permissions import AllowManageMetadata
-from cves.models import Product, Vendor, ProductVersion, CVE, CWE, CPE
+from cves.models import Product, Vendor, ProductVersion, Package, CVE, CWE, CPE
 from alerts.tasks import slack_alert_vuln_task, send_email_message_task
 from .models import (
     Vuln, ExploitMetadata, ThreatMetadata,
@@ -744,6 +744,42 @@ def get_vuln_stats(self):
         'monitored_vendors': monitored_vendors.count(),
         'monitored_products': monitored_products.count(),
         'monitored_vulns': monitored_vulns.count(),
+    }
+    return JsonResponse(res, safe=False)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_monitored_vuln_stats(self):
+    org_id = self.session.get('org_id', None)
+    org = organization.get_current_organization(user=self.user, org_id=org_id)
+
+    monitored_vendors = Vendor.objects.filter(id__in=org.org_monitoring_list.vendors.all())
+    monitored_products = Product.objects.filter(id__in=org.org_monitoring_list.products.all())
+    monitored_packages = Package.objects.filter(id__in=org.org_monitoring_list.products.all())
+    monitored_vulns = Vuln.objects.filter(id__in=org.org_monitoring_list.vulns.all())
+    monitored_exploits = ExploitMetadata.objects.filter(id__in=org.org_monitoring_list.vulns.all())
+    monitored_threats = ThreatMetadata.objects.filter(id__in=org.org_monitoring_list.vulns.all())
+
+    res = {
+        'vulns':  {
+            'count': monitored_vulns.count(),
+            'exploitable': monitored_vulns.filter(is_exploitable=True).count(),
+            'remote': monitored_vulns.filter(access__vector='NETWORK').count(),
+        },
+        'metadata': {
+            'count': monitored_exploits.count() + monitored_threats.count(),
+            'exploits': monitored_exploits.count(),
+            'threats': monitored_threats.count(),
+        },
+        'monitored': {
+            'count': monitored_products.count() + monitored_vulns.count(),
+            'vendors': monitored_vendors.count(),
+            'products': monitored_products.count(),
+            'packages': monitored_packages.count(),
+            'vulnerabilities': monitored_vulns.count(),
+        },
+
     }
     return JsonResponse(res, safe=False)
 

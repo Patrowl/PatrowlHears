@@ -22,6 +22,7 @@ urlpatterns = [
     path('add', apis.add_vuln, name='add_vuln'),
     path('edit', apis.edit_vuln, name='edit_vuln'),
     path('stats', apis.get_vuln_stats, name='get_vuln_stats'),
+    path('stats/monitored', apis.get_monitored_vuln_stats, name='get_monitored_vuln_stats'),
     path('latest', apis.get_latest_vulns, name='get_latest_vulns'),
     path('admin/email-report/daily', apis.email_daily_report, name='email_daily_report'),
     path('admin/email-report/weekly', apis.email_weekly_report, name='email_weekly_report'),
