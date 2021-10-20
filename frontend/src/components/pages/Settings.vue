@@ -251,6 +251,14 @@
                       <v-icon left dark>mdi-check</v-icon>
                       Save Changes
                   </v-btn>
+                  <v-btn
+                    color="deep-orange"
+                    :loading="loading"
+                    @click.native="sendTestEmail"
+                    >
+                      <v-icon left dark>mdi-cog</v-icon>
+                      Send test email
+                  </v-btn>
                 </v-card-actions>
               </v-card>
             </v-col>
@@ -1120,6 +1128,24 @@ export default {
         this.snack = true;
         this.snackColor = 'error';
         this.snackText = 'Unable to update user profile :/';
+      });
+    },
+    sendTestEmail() {
+      this.$api.get('/api/alerts/email/test').then(res => {
+        if (res && res.status === 200 && res.data.status == "success") {
+          // Snack notifications
+          this.snack = true;
+          this.snackColor = 'success';
+          this.snackText = 'Test sent. Check your mailbox !';
+        } else {
+          this.snack = true;
+          this.snackColor = 'error';
+          this.snackText = 'Unable to send test email: ' + res.data.reason;
+        }
+      }).catch(e => {
+        this.snack = true;
+        this.snackColor = 'error';
+        this.snackText = 'Unable to send test email';
       });
     },
     updateUserToken() {
