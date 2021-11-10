@@ -1,6 +1,6 @@
 server {
     listen 8383;
-    autoindex on;
+    autoindex off;
     server_name myhears.patrowl.io localhost;
 
     root .;
