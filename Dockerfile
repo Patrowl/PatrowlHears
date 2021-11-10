@@ -1,6 +1,6 @@
 FROM python:3.7-slim
 MAINTAINER Patrowl.io "getsupport@patrowl.io"
-LABEL Name="PatrowlHears" Version="1.0.13"
+LABEL Name="PatrowlHears" Version="1.0.14"
 
 ENV PYTHONUNBUFFERED 1
 RUN mkdir -p /opt/patrowl-hears/
