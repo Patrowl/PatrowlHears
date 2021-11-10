@@ -1,6 +1,6 @@
 server {
     listen 8383;
-    autoindex on;
+    autoindex off;
     server_name localhost patrowl-hears-{{ patrowlhears_env }} {{patrowlhears_base_domain}};
 
     access_log /var/log/nginx.patrowlhears-access.log;
