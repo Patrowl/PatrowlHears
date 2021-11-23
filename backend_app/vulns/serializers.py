@@ -266,6 +266,7 @@ class VulnFilter(FilterSet):
             'summary': ['exact', 'contains', 'icontains', 'startswith', 'istartswith', 'endswith', 'iendswith'],
             # 'search': ['exact', 'contains', 'icontains'],
             'score': ['exact', 'gt', 'gte', 'lt', 'lte'],
+            'published': ['exact', 'gt', 'gte', 'lt', 'lte'],
             'updated_at': ['exact', 'gt', 'gte', 'lt', 'lte'],
             # 'monitored': ['exact'],
             'cveid': ['exact', 'contains', 'icontains'],
