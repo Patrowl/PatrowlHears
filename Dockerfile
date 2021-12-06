@@ -1,6 +1,6 @@
 FROM python:3.7-slim
 MAINTAINER Patrowl.io "getsupport@patrowl.io"
-LABEL Name="PatrowlHears" Version="1.0.14"
+LABEL Name="PatrowlHears" Version="1.0.15"
 
 ENV PYTHONUNBUFFERED 1
 RUN mkdir -p /opt/patrowl-hears/
@@ -9,7 +9,7 @@ WORKDIR /opt/patrowl-hears/
 RUN apt-get update -yq \
 	&& apt-get install -yq --no-install-recommends \
 		apt-utils \
-		python3  \
+		python3 \
 		python3-pip \
 		libmagic-dev \
 		python3-psycopg2 \
