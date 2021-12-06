@@ -62,9 +62,19 @@
                   <v-list subheader color="grey lighten-5">
                     <v-list-item>
                       <v-list-item-content>
-                        <v-list-item-subtitle>CVE</v-list-item-subtitle>
+                        <v-list-item-subtitle>
+                          CVE
+                          <v-chip
+                            class="mx-2"
+                            label link x-small
+                            :href="'https://nvd.nist.gov/vuln/detail/'+this.vuln.cveid" target="_blank">NVD</v-chip>
+                          <v-chip
+                            label link x-small
+                            :href="'https://cve.mitre.org/cgi-bin/cvename.cgi?name='+this.vuln.cveid" target="_blank">MITRE</v-chip>
+                        </v-list-item-subtitle>
                         {{this.vuln.cveid}}
                       </v-list-item-content>
+
                     </v-list-item>
 
                     <v-list-item>

@@ -479,10 +479,10 @@ def alerts_vulnerability_save(sender, **kwargs):
         changes = kwargs['instance'].get_changes()
 
         if len(changes) > 0:
-            print(kwargs['instance'].__original_is_exploitable, "->", kwargs['instance'].is_exploitable)
+            # print(kwargs['instance'].__original_is_exploitable, "->", kwargs['instance'].is_exploitable)
             if 'is_exploitable' in changes and kwargs['instance'].is_exploitable is True:
                 email_instant_report_exploitable_task.apply_async(args=[kwargs['instance'].id], queue='alerts', retry=False)
-            print('cvss changes', kwargs['instance'].__original_cvss, "->", kwargs['instance'].cvss)
+            # print('cvss changes', kwargs['instance'].__original_cvss, "->", kwargs['instance'].cvss)
             if 'cvss' in changes and kwargs['instance'].cvss not in [None, 0.0]:
                 email_instant_report_cvss_change_task.apply_async(args=[kwargs['instance'].id], queue='alerts', retry=False)
             if 'cvss3' in changes and kwargs['instance'].cvss3 not in [None, 0.0]:
