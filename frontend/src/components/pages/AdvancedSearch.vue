@@ -1,8 +1,8 @@
 <template>
   <div>
-    <v-row class="py-0">
+    <v-row class="py-0 mt-1">
       <v-col cols="12" class="py-0">
-        <span class="subtitle-1">Add a new filter:</span>
+        <span class="subtitle-1">Add a new filter</span>
       </v-col>
     </v-row>
     <v-row>
