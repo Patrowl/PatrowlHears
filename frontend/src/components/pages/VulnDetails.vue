@@ -67,16 +67,16 @@
                           <v-chip
                             class="mx-2"
                             label link x-small
-                            :href="'https://nvd.nist.gov/vuln/detail/'+this.vuln.cveid" target="_blank">NVD</v-chip>
+                            v-if="is_valid_CVEID()"
+                            :href="'https://nvd.nist.gov/vuln/detail/'+escape(this.vuln.cveid)" target="_blank">NVD</v-chip>
                           <v-chip
                             label link x-small
-                            :href="'https://cve.mitre.org/cgi-bin/cvename.cgi?name='+this.vuln.cveid" target="_blank">MITRE</v-chip>
+                            v-if="is_valid_CVEID()"
+                            :href="'https://cve.mitre.org/cgi-bin/cvename.cgi?name='+escape(this.vuln.cveid)" target="_blank">MITRE</v-chip>
                         </v-list-item-subtitle>
-                        {{this.vuln.cveid}}
+                        {{escape(this.vuln.cveid)}}
                       </v-list-item-content>
-
                     </v-list-item>
-
                     <v-list-item>
                       <v-list-item-content class="d-inline" >
                         <v-list-item-subtitle>CVSSv2</v-list-item-subtitle>
@@ -779,6 +779,10 @@ export default {
     formThreatTitle() {
       return this.editedIndex === -1 ? 'New threat activity' : 'Edit threat activity'
     },
+    is_valid_CVEID(){
+      var regex_cve = new RegExp('CVE-[0-9]{4}-[0-9]{1,}')
+      return regex_cve.test(this.vuln.cveid)
+    },
     is_exploitable(){
       return this.vuln.is_exploitable;
     },
@@ -840,7 +844,7 @@ export default {
       this.is_in_the_wild ? vector += "/W:Y":null;
 
       return vector;
-    }
+    },
   },
   methods: {
     getDataFromApi(vuln_id) {
@@ -1289,7 +1293,7 @@ export default {
       } else {
         return true;
       }
-    }
+    },
   }
 }
 </script>
