@@ -688,9 +688,6 @@ export default {
   components: {
     VulnAddEdit
   },
-  components: {
-    sanitizeUrl: require("@braintree/sanitize-url").sanitizeUrl,
-  },
   data: () => ({
     expanded: [],
     vuln_id: "",
