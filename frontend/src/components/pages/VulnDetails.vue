@@ -67,14 +67,20 @@
                           <v-chip
                             class="mx-2"
                             label link x-small
-                            v-if="is_valid_CVEID()"
-                            :href="'https://nvd.nist.gov/vuln/detail/'+escape(this.vuln.cveid)" target="_blank">NVD</v-chip>
+                            v-if="this.is_valid_CVEID"
+                            :href="this.sanitizeCVE('https://nvd.nist.gov/vuln/detail/')"
+                            target="_blank">
+                              NVD
+                          </v-chip>
                           <v-chip
                             label link x-small
-                            v-if="is_valid_CVEID()"
-                            :href="'https://cve.mitre.org/cgi-bin/cvename.cgi?name='+escape(this.vuln.cveid)" target="_blank">MITRE</v-chip>
+                            v-if="this.is_valid_CVEID"
+                            :href= "this.sanitizeCVE('https://cve.mitre.org/cgi-bin/cvename.cgi?name=')"
+                            target="_blank">
+                              MITRE
+                          </v-chip>
                         </v-list-item-subtitle>
-                        {{escape(this.vuln.cveid)}}
+                        {{this.vuln.cveid}}
                       </v-list-item-content>
                     </v-list-item>
                     <v-list-item>
@@ -682,6 +688,9 @@ export default {
   components: {
     VulnAddEdit
   },
+  components: {
+    sanitizeUrl: require("@braintree/sanitize-url").sanitizeUrl,
+  },
   data: () => ({
     expanded: [],
     vuln_id: "",
@@ -779,10 +788,6 @@ export default {
     formThreatTitle() {
       return this.editedIndex === -1 ? 'New threat activity' : 'Edit threat activity'
     },
-    is_valid_CVEID(){
-      var regex_cve = new RegExp('CVE-[0-9]{4}-[0-9]{1,}')
-      return regex_cve.test(this.vuln.cveid)
-    },
     is_exploitable(){
       return this.vuln.is_exploitable;
     },
@@ -847,6 +852,11 @@ export default {
     },
   },
   methods: {
+    sanitizeCVE (base_url) { 
+      var sanitizeUrl = require("@braintree/sanitize-url").sanitizeUrl;
+      var url = base_url + this.vuln.cveid
+      return sanitizeUrl(url)
+    },
     getDataFromApi(vuln_id) {
       return new Promise((resolve, reject) => {
         let vuln = this.getVulnDetails(vuln_id);
@@ -861,6 +871,10 @@ export default {
           resolve({ vuln, history, ratings, exploits, threats });
         }, 300);
       });
+    },
+    is_valid_CVEID(){
+      var regex_cve = new RegExp('CVE-\d{4}-\d+')
+      return regex_cve.test(this.vuln.cveid)
     },
     getVulnDetails(vuln_id) {
       this.loading = true;
