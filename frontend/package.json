@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@braintree/sanitize-url": "^5.0.2",
     "axios": "^0.24.0",
     "core-js": "^3.19.3",
     "json-data-convert-file": "^1.0.1",
