@@ -55,6 +55,21 @@
                           small label outlined color="grey"
                           @click="toggleMonitored"
                           v-if="!this.vuln.monitored">Not monitored</v-chip>
+                        
+                      </v-col>
+                      <v-col 
+                        class="pa-2"
+                        md="auto"
+                        v-if="this.vuln.monitored"
+                      >
+                        <v-select
+                          :items="vuln_status"  
+                          label="Status"
+                          dense
+                          solo
+                          @change="editStatusVunerability()"
+                        >
+                        </v-select>
                       </v-col>
                     </v-row>
                   </v-container>
@@ -788,6 +803,9 @@ export default {
     snack: false,
     snackColor: '',
     snackText: '',
+    vuln_status: [
+      "Fixed", "Not Interesting", "In Progress"
+    ]
   }),
   beforeRouteUpdate(to) {
     this.vuln_id = to.params.vuln_id;
@@ -1321,6 +1339,9 @@ export default {
     },
     editComment(vuln_id) {
       console.log("Pass in the edit comment, id : " + vuln_id)
+    },
+    editStatusVunerability(vuln_id) {
+      console.log("Pass in the edit status vulnerability, id : " + vuln_id)
     }
   }
 }
