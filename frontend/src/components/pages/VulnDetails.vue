@@ -13,6 +13,7 @@
       <v-badge color="deep-orange"  v-if="this.threats.length > 0" :content="this.threats.length">Threat activities</v-badge>
       <v-badge color="grey"  v-if="this.threats.length == 0" :content="'0'">Threat activities</v-badge>
     </v-tab>
+    <v-tab>Comment</v-tab>
     <!-- <v-tab>Timeline</v-tab> -->
 
     <!-- Summary -->
@@ -643,6 +644,30 @@
       </v-snackbar>
     </v-tab-item>
 
+    <!-- Comment --> 
+    <v-tab-item>
+      <v-container fluid>
+        <v-col>
+          <v-textarea
+            outlined
+            name="input-comment"
+            label="Comment"
+            value=""
+            hint="Put comment on this vulnerability"
+          >
+          </v-textarea>
+           <v-btn
+            @click="editComment()"
+            tile
+            color="success"
+          >
+            <v-icon left>mdi-pencil</v-icon>
+            Save
+          </v-btn>
+        </v-col>
+      </v-container>
+    </v-tab-item>
+
     <!-- Timeline -->
     <!-- <v-tab-item>
       <v-card v-if="this.history" color="grey lighten-5">
@@ -851,6 +876,7 @@ export default {
         let ratings = this.getRatings(vuln_id);
         let exploits = this.getExploits(vuln_id);
         let threats = this.getThreats(vuln_id);
+        let comment = this.getComment(vuln_id);
 
         setTimeout(() => {
           this.loading = false;
@@ -1289,6 +1315,12 @@ export default {
       } else {
         return true;
       }
+    },
+    getComment(vuln_id) {
+      console.log('Pass in the get comment, id : ' + vuln_id)
+    },
+    editComment(vuln_id) {
+      console.log("Pass in the edit comment, id : " + vuln_id)
     }
   }
 }
