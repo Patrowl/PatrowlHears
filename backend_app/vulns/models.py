@@ -257,9 +257,17 @@ class OrgVulnMetadata(models.Model):
     Args:
         VulnBase (class): The class of vulnerability
     """
+    STATUS_CHOICES = [
+        ('undefined', 'Undefined'),
+        ('fixed', 'Fixed'),
+        ('not_interesting', 'Not Interesting'),
+        ("in_progress", "In Progress")
+    ]
+
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE, related_name='org_vulns_metadata')
     vuln = models.ForeignKey(Vuln, on_delete=models.CASCADE, related_name='org_vulns_metadata')
     comment = models.TextField(default="", blank=False)
+    status = models.CharField(default="undefined", blank=False, choices=STATUS_CHOICES, max_length=20)
     history = HistoricalRecords(excluded_fields=['updated_at'], cascade_delete_history=True)
 
     class Meta:
