@@ -877,6 +877,7 @@ def edit_status(self, vuln_id):
 
     return JsonResponse("error: invalid data", safe=False, status=500)
 
+
 @api_view(['GET'])
 @permission_classes([IsAdminUser])
 def refresh_vuln_score(self, vuln_id):
