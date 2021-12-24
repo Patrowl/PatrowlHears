@@ -52,6 +52,7 @@ def _get_cpe_products(data):
 
     return products
 
+
 def _create_vuln(data, packages, cveid=""):
     vuln_data = {
         'cveid': cveid,
