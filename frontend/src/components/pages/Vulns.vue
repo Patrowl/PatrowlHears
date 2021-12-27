@@ -5,7 +5,7 @@
         <!-- Vulnerabilities -->
         <v-container>
           <v-row>
-            <v-col class="pa-2" md="auto" >
+            <v-col class="pa-2" md="4" >
                 Vulnerabilities<br/>
             <!-- </v-col>
             <v-col class="pa-2"> -->
@@ -19,7 +19,7 @@
                 small label outlined :color="getBoolColor(this.show_last_week)"
                 @click="toggleShowLastWeek()">Last Week</v-chip>
             </v-col>
-            <v-col class="pa-2" md="6">
+            <v-col class="pa-2" md="4">
               <v-text-field
                 class="pt-0"
                 v-model="search"
@@ -29,7 +29,9 @@
                 hide-details
               ></v-text-field>
             </v-col>
-            <v-col class="pa-2" md="2">
+          </v-row>
+          <v-row>
+            <v-col class="pa-2" md="4">
               <v-slider
                 v-model="search_slider_min"
                 label="Min Score"
@@ -51,6 +53,14 @@
                 thumb-label
                 hide-details
               ></v-slider>
+            </v-col>
+            <v-col class="pa-2" md="4">
+              <v-switch
+                v-model="show_monitored"
+                label="Monitored"
+                color="deep-orange"
+              >
+              </v-switch>
             </v-col>
           </v-row>
           <v-row v-if="showAdvancedFilters">
@@ -204,7 +214,7 @@
 <script>
 import Colors from "../../common/colors";
 import Users from "../../common/users";
-import FirstSteps from '@/components/pages/FirstSteps.vue';
+// import FirstSteps from '@/components/pages/FirstSteps.vue';
 import VulnAddEdit from '@/components/pages/VulnAddEdit.vue';
 import AdvancedSearch from '@/components/pages/AdvancedSearch.vue';
 import _ from 'lodash';
@@ -227,6 +237,7 @@ export default {
     show_all: true,
     show_last_day: false,
     show_last_week: false,
+    show_monitored: false, 
     options: {},
     headers: [
       { text: 'Score', value: 'score', align: 'center', width: "10%" },
@@ -277,6 +288,12 @@ export default {
       },
       deep: true
     },
+    show_monitored: {
+      handler() {
+        this.getDataFromApi();
+      }, 
+      deep: true
+    }
   },
   methods: {
     getDataFromApi(extra_filters, page_id) {
@@ -308,6 +325,7 @@ export default {
     },
     updateAdvancedSearchFilters(filters){
       this.getDataFromApi(filters, 1);
+      console.log(filters)
     },
     getVulns(page, itemsPerPage, sortBy, sortDesc, extra_filters) {
       let sorted_by = '';
@@ -330,7 +348,13 @@ export default {
         extra_filters = "&score__gte="+this.search_slider_min+"&score__lte="+this.search_slider_max
       }
 
-      this.$api.get('/api/vulns/?limit='+itemsPerPage+'&page='+page+'&search='+this.search+'&'+sorted_by+filter_by_date+extra_filters).then(res => {
+      let url = '/api/vulns/?limit='+itemsPerPage+'&page='+page+'&search='+this.search+'&'+sorted_by+filter_by_date+extra_filters
+
+      if (this.show_monitored === true) {
+        url = url + "&monitored=true"
+      }
+
+      this.$api.get(url).then(res => {
         this.vulns = res.data;
         this.loading = false;
         return this.vulns;
