@@ -55,7 +55,6 @@
                           small label outlined color="grey"
                           @click="toggleMonitored"
                           v-if="!this.vuln.monitored">Not monitored</v-chip>
-                        
                       </v-col>
                       <v-col 
                         class="pa-2"
@@ -63,7 +62,8 @@
                         v-if="this.vuln.monitored"
                       >
                         <v-select
-                          :items="vuln_status"  
+                          :items="defaultMetadata.vuln_status"
+                          v-model="org_vuln_metadata.status"
                           label="Status"
                           dense
                           solo
@@ -181,7 +181,6 @@
                                   class="package-chip"
                                   label small
                                 >{{ key }}:{{ subkey }} </v-chip> affected: {{ subsubvalue.affected_versions}}, patched: {{ subsubvalue.patched_versions}}
-
                               </li>
                             </template>
                           </template>
@@ -665,9 +664,9 @@
         <v-col>
           <v-textarea
             outlined
-            name="input-comment"
+            name="comment"
             label="Comment"
-            value=""
+            v-model="org_vuln_metadata.comment"
             hint="Put comment on this vulnerability"
           >
           </v-textarea>
@@ -681,6 +680,10 @@
           </v-btn>
         </v-col>
       </v-container>
+      <v-snackbar v-model="snack" :timeout="3000" :color="snackColor">
+        {{ snackText }}
+        <v-btn text @click="snack = false">Close</v-btn>
+      </v-snackbar>
     </v-tab-item>
 
     <!-- Timeline -->
@@ -722,91 +725,95 @@ export default {
   components: {
     VulnAddEdit
   },
-  data: () => ({
-    expanded: [],
-    vuln_id: "",
-    vuln: {
-      cwe_id: 'UNKWNOWN',
-      cwe_refs: {},
-      impact: {confidentiality: '', integrity: '', availability: ''},
-      access: {authentication: '', complexity: '', vector: ''},
-      reflinks: [],
-      vulnerable_products: [],
-    },
-    ratings: {
-      score: 0,
-      cvssv2adj: 0
-    },
-    history: [],
-    threats: [],
-    threat_headers: [
-      { text: 'Scope', value: 'scope' },
-      { text: 'Link', value: 'link' },
-      { text: 'Trust level', value: 'trust_level' },
-      { text: 'TLP', value: 'tlp_level', align: 'center' },
-      { text: 'Source', value: 'source', align: 'center' },
-      { text: 'In the Wild ?', value: 'is_in_the_wild', align: 'center' },
-      { text: 'In the News ?', value: 'is_in_the_news', align: 'center' },
-      { text: 'Last update', value: 'modified', align: 'center' },
-      { text: 'Actions', value: 'action', sortable: false },
-      // { text: '', value: 'data-table-expand' },
-    ],
-    exploits: [],
-    exploit_headers: [
-      { text: 'Scope', value: 'scope' },
-      { text: 'Link', value: 'link' },
-      { text: 'TLP', value: 'tlp_level', align: 'center' },
-      { text: 'Relevancy', value: 'relevancy_level' },
-      { text: 'Trust', value: 'trust_level' },
-      { text: 'Source', value: 'source', align: 'center' },
-      // { text: 'Availability', value: 'availability', align: 'center' },
-      // { text: 'Maturity', value: 'maturity', align: 'center' },
-      { text: 'Last update', value: 'modified', align: 'center' },
-      { text: 'Actions', value: 'action', sortable: false },
-      { text: '', value: 'data-table-expand' },
-    ],
-    editedIndex: -1,
-    defaultMetadata: {
-      id: '',
-      link: 'https://',
-      notes: '',
-      trust_level: 'high',
-      trust_level_items: ['unknown', 'low', 'medium', 'high'],
-      tlp_level: 'white',
-      tlp_level_items: ['white', 'green', 'amber', 'red', 'black'],
-      source: 'manual',
-      availability: 'public',
-      availability_items: ['unknown', 'private', 'public'],
-      maturity: 'unknown',
-      maturity_items: ['unknown', 'unproven', 'poc', 'functional'],
-      modified: '',
-      is_in_the_wild: 0,
-      is_in_the_wild_items: [
-        { text: 'Yes', value: 1},
-        { text: 'No', value: 0},
+  data() {
+    return {
+      expanded: [],
+      vuln_id: "",
+      vuln: {
+        cwe_id: 'UNKWNOWN',
+        cwe_refs: {},
+        impact: {confidentiality: '', integrity: '', availability: ''},
+        access: {authentication: '', complexity: '', vector: ''},
+        reflinks: [],
+        vulnerable_products: [],
+      },
+      ratings: {
+        score: 0,
+        cvssv2adj: 0
+      },
+      history: [],
+      threats: [],
+      threat_headers: [
+        { text: 'Scope', value: 'scope' },
+        { text: 'Link', value: 'link' },
+        { text: 'Trust level', value: 'trust_level' },
+        { text: 'TLP', value: 'tlp_level', align: 'center' },
+        { text: 'Source', value: 'source', align: 'center' },
+        { text: 'In the Wild ?', value: 'is_in_the_wild', align: 'center' },
+        { text: 'In the News ?', value: 'is_in_the_news', align: 'center' },
+        { text: 'Last update', value: 'modified', align: 'center' },
+        { text: 'Actions', value: 'action', sortable: false },
+        // { text: '', value: 'data-table-expand' },
       ],
-      is_in_the_news: 0,
-      is_in_the_news_items: [
-        { text: 'Yes', value: 1},
-        { text: 'No', value: 0},
+      exploits: [],
+      exploit_headers: [
+        { text: 'Scope', value: 'scope' },
+        { text: 'Link', value: 'link' },
+        { text: 'TLP', value: 'tlp_level', align: 'center' },
+        { text: 'Relevancy', value: 'relevancy_level' },
+        { text: 'Trust', value: 'trust_level' },
+        { text: 'Source', value: 'source', align: 'center' },
+        // { text: 'Availability', value: 'availability', align: 'center' },
+        // { text: 'Maturity', value: 'maturity', align: 'center' },
+        { text: 'Last update', value: 'modified', align: 'center' },
+        { text: 'Actions', value: 'action', sortable: false },
+        { text: '', value: 'data-table-expand' },
       ],
-      published: ''
-    },
-    editedItem: {},
-    dialog_exploit: false,
-    dialog_threat: false,
-    dialog_editvuln: false,
-    dialog_sendmail: false,
-    notification_data: {
-      'emails': ''
-    },
-    snack: false,
-    snackColor: '',
-    snackText: '',
-    vuln_status: [
-      "Fixed", "Not Interesting", "In Progress"
-    ]
-  }),
+      editedIndex: -1,
+      defaultMetadata: {
+        id: '',
+        link: 'https://',
+        notes: '',
+        trust_level: 'high',
+        trust_level_items: ['unknown', 'low', 'medium', 'high'],
+        tlp_level: 'white',
+        tlp_level_items: ['white', 'green', 'amber', 'red', 'black'],
+        source: 'manual',
+        availability: 'public',
+        availability_items: ['unknown', 'private', 'public'],
+        maturity: 'unknown',
+        maturity_items: ['unknown', 'unproven', 'poc', 'functional'],
+        modified: '',
+        is_in_the_wild: 0,
+        is_in_the_wild_items: [
+          { text: 'Yes', value: 1},
+          { text: 'No', value: 0},
+        ],
+        is_in_the_news: 0,
+        is_in_the_news_items: [
+          { text: 'Yes', value: 1},
+          { text: 'No', value: 0},
+        ],
+        published: '',
+        vuln_status: ["Fixed", "Not Interesting", "In Progress"]
+      },
+      editedItem: {},
+      dialog_exploit: false,
+      dialog_threat: false,
+      dialog_editvuln: false,
+      dialog_sendmail: false,
+      notification_data: {
+        'emails': ''
+      },
+      snack: false,
+      snackColor: '',
+      snackText: '',
+      org_vuln_metadata: {
+        comment: '',
+        status: 'undefined'
+      },
+    } 
+  },
   beforeRouteUpdate(to) {
     this.vuln_id = to.params.vuln_id;
   },
@@ -894,11 +901,11 @@ export default {
         let ratings = this.getRatings(vuln_id);
         let exploits = this.getExploits(vuln_id);
         let threats = this.getThreats(vuln_id);
-        let comment = this.getComment(vuln_id);
+        let org_vuln_metadata = this.getOrgVulnMetadata(vuln_id);
 
         setTimeout(() => {
           this.loading = false;
-          resolve({ vuln, history, ratings, exploits, threats });
+          resolve({ vuln, history, ratings, exploits, threats, org_vuln_metadata});
         }, 300);
       });
     },
@@ -1334,14 +1341,56 @@ export default {
         return true;
       }
     },
-    getComment(vuln_id) {
-      console.log('Pass in the get comment, id : ' + vuln_id)
+    getOrgVulnMetadata(vuln_id){
+      this.loading = true;
+      this.$api.get('/api/vulns/'+vuln_id+'/orgvulnmetadata').then(res => {
+        if (res && res.status === 200) {
+          this.org_vuln_metadata = res.data;
+        }
+        return this.org_vuln_metadata;
+      }).catch(e => {
+        this.org_vuln_metadata = {
+          status: 'undefined',
+          comment: ''
+        };
+        this.loading = false;
+        swal.fire({
+          title: 'Error',
+          text: 'unable to get organization data',
+          showConfirmButton: false,
+          showCloseButton: false,
+          timer: 3000
+        });
+      });
+      this.loading = false;
     },
-    editComment(vuln_id) {
-      console.log("Pass in the edit comment, id : " + vuln_id)
-    },
-    editStatusVunerability(vuln_id) {
-      console.log("Pass in the edit status vulnerability, id : " + vuln_id)
+    editComment() {
+      // Edit the commment 
+      this.$api.post('/api/vulns/'+this.vuln_id+'/comment/edit', this.org_vuln_metadata).then(res => {
+        if (res && res.status === 200) {
+          this.snack = true;
+          this.snackColor = 'success';
+          this.snackText = 'Comment successfuly modified.';
+        } else {
+          this.snack = true;
+          this.snackColor = 'error';
+          this.snackText = 'Unable to modify the comment.';
+        }
+
+      }).catch(e => {
+        this.loading = false;
+        swal.fire({
+          title: 'Error',
+          text: 'Unable to modify the comment.',
+          showConfirmButton: false,
+          showCloseButton: false,
+          timer: 3000
+        });
+        return;
+      });   
+    }, 
+    editStatusVunerability() {
+      console.log("Pass in the edit status vulnerability, id : " + this.vuln_id)
     }
   }
 }
