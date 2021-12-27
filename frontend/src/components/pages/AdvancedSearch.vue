@@ -181,7 +181,7 @@ export default {
         { name: 'CVSSv3', attribute: 'cvss3', criteria: 'numeric'},
         { name: 'CVSSv3 Vector', attribute: 'cvss3_vector', criteria: 'text'},
         // { name: 'Exploit count', attribute: 'exploit_count', criteria: 'numeric'},
-        { name: 'Is monitored ?', attribute: 'monitored', criteria: 'bool'},
+        // { name: 'Is monitored ?', attribute: 'monitored', criteria: 'bool'},
         { name: 'Is exploitable ?', attribute: 'is_exploitable', criteria: 'bool'},
         { name: 'Is confirmed ?', attribute: 'is_confirmed', criteria: 'bool'},
         { name: 'Is in the News ?', attribute: 'is_in_the_news', criteria: 'bool'},
