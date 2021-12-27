@@ -1279,6 +1279,7 @@ export default {
         'vuln_id': this.vuln.id,
         'organization_id': localStorage.getItem('org_id')
       };
+      this.org_vuln_metadata.status = { label: 'Undefined', value: "undefined" }
 
       this.$api.put('/api/vulns/'+this.vuln_id+'/toggle', data).then(res => {
         if (res){

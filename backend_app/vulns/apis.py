@@ -859,6 +859,15 @@ def edit_status(self, vuln_id):
 
     # Verify status in self.data. Create new OrgVulnData or Modify it.
     if 'status' in self.data and self.data['status'] in STATUS_CHOICES:
+
+        # Check if the vulnerability is monitored
+        if vuln not in org.org_monitoring_list.vulns.all():
+            return JsonResponse(
+                "error: you can't modify status for a unmonitoring vulnerability",
+                safe=False,
+                status=500
+            )
+
         status = self.data['status']
         try:
             org_vuln_metadata = OrgVulnMetadata.objects.get(vuln=vuln_id, organization=org.id)
@@ -916,8 +925,15 @@ def toggle_monitor_vuln(self, vuln_id):
 
         if self.data['monitored'] is True and vuln not in org.org_monitoring_list.vulns.all():
             org.org_monitoring_list.vulns.add(vuln)
+
         if self.data['monitored'] is False and vuln in org.org_monitoring_list.vulns.all():
             org.org_monitoring_list.vulns.remove(vuln)
+            try:
+                org_vuln_metadata = OrgVulnMetadata.objects.get(vuln=vuln_id, organization=org.id)
+                org_vuln_metadata.status = 'undefined'
+                org_vuln_metadata.save()
+            except ObjectDoesNotExist:
+                pass
 
     vuln.save()
     return JsonResponse("toggled.", safe=False)
