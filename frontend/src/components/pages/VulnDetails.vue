@@ -63,8 +63,10 @@
                       >
                         <v-select
                           :items="defaultMetadata.vuln_status"
-                          v-model="org_vuln_metadata.status"
+                          item-text="label"
+                          item-value="value"
                           label="Status"
+                          v-model="org_vuln_metadata.status"
                           dense
                           solo
                           @change="editStatusVunerability()"
@@ -795,7 +797,12 @@ export default {
           { text: 'No', value: 0},
         ],
         published: '',
-        vuln_status: ["Fixed", "Not Interesting", "In Progress"]
+        vuln_status: [
+          { label: 'Undefined', value: "undefined" },
+          { label: 'Fixed', value: "fixed" },
+          { label: 'Not Interesting', value: "not_interesting" },
+          { label: 'In Progress', value: "in_progress" },
+        ]
       },
       editedItem: {},
       dialog_exploit: false,
@@ -810,7 +817,7 @@ export default {
       snackText: '',
       org_vuln_metadata: {
         comment: '',
-        status: 'undefined'
+        status: { label: 'Undefined', value: "undefined" },
       },
     } 
   },
@@ -1390,7 +1397,29 @@ export default {
       });   
     }, 
     editStatusVunerability() {
-      console.log("Pass in the edit status vulnerability, id : " + this.vuln_id)
+      // Edit the the status 
+      this.$api.post('/api/vulns/'+this.vuln_id+'/status/edit', this.org_vuln_metadata).then(res => {
+        if (res && res.status === 200) {
+          this.snack = true;
+          this.snackColor = 'success';
+          this.snackText = 'Status successfuly modified.';
+        } else {
+          this.snack = true;
+          this.snackColor = 'error';
+          this.snackText = 'Unable to modify the status.';
+        }
+
+      }).catch(e => {
+        this.loading = false;
+        swal.fire({
+          title: 'Error',
+          text: 'Unable to modify the status.',
+          showConfirmButton: false,
+          showCloseButton: false,
+          timer: 3000
+        });
+        return;
+      });
     }
   }
 }
