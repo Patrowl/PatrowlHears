@@ -398,13 +398,13 @@ import router from '../../router';
 import Users from "../../common/users";
 import Colors from "../../common/colors";
 import Download from "../../common/download";
-import VulnAddEdit from '@/components/pages/VulnAddEdit.vue';
+import DialogVulnAddEdit from '@/components/vulnerability/vulnerabilityDetails/dialog/DialogVulnAddEdit.vue';
 
 export default {
   name: 'VulnDetailsPublic',
   mixins: [Users, Colors, Download],
   components: {
-    VulnAddEdit
+    DialogVulnAddEdit
   },
   data: () => ({
     expanded: [],

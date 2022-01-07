@@ -190,7 +190,7 @@
           </v-btn>
         </template>
 
-        <vuln-add-edit></vuln-add-edit>
+        <DialogVulnAddEdit />
 
       </v-dialog>
       <v-snackbar v-model="snack" :timeout="3000" :color="snackColor" dense>
@@ -205,7 +205,7 @@
 import Colors from "../../common/colors";
 import Users from "../../common/users";
 import FirstSteps from '@/components/pages/FirstSteps.vue';
-import VulnAddEdit from '@/components/pages/VulnAddEdit.vue';
+import DialogVulnAddEdit from '@/components/vulnerability/vulnerabilityDetails/dialog/DialogVulnAddEdit.vue';
 import AdvancedSearch from '@/components/pages/AdvancedSearch.vue';
 import _ from 'lodash';
 import moment from 'moment';
@@ -214,7 +214,7 @@ export default {
   name: "vulns",
   mixins: [Colors, Users],
   components: {
-    VulnAddEdit, AdvancedSearch
+    DialogVulnAddEdit, AdvancedSearch
   },
   data: () => ({
     vulns: [],
@@ -343,7 +343,7 @@ export default {
       });
     },
     viewVuln(vuln_id) {
-      this.$router.push({ 'name': 'VulnDetails', 'params': { 'vuln_id': vuln_id } });
+      this.$router.push({ 'name': 'Vuln', 'params': { 'vuln_id': vuln_id } });
     },
     editVuln(vuln_id) {
       // Todo
