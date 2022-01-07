@@ -6,6 +6,7 @@ urlpatterns = [
     path('<vuln_id>/refresh_score', apis.refresh_vuln_score, name='refresh_vuln_score'),
     path('<vuln_id>/history', apis.get_vuln_history, name='get_vuln_history'),
     path('<vuln_id>/cpes', apis.get_vuln_cpes, name='get_vuln_cpes'),
+    path('<vuln_id>/counter', apis.get_number_exploits_threats, name='get_number_exploits_threats'),
     path('<vuln_id>/exploits', apis.get_exploits, name='get_exploits'),
     path('<vuln_id>/exploits/add', apis.add_exploit, name='add_exploit'),
     path('<vuln_id>/exploits/edit', apis.edit_exploit, name='edit_exploit'),

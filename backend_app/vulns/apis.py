@@ -472,6 +472,40 @@ def export_vuln_sendmail(self, vuln_id):
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
+def get_number_exploits_threats(self, vuln_id):
+    vuln = get_object_or_404(Vuln, id=vuln_id)
+    try:
+        org_id = self.session.get('org_id', None)
+        org = organization.get_current_organization(user=self.user, org_id=org_id)
+    except Exception:
+        return JsonResponse({
+            "status": "error",
+            "reason": "Unable to get the organization"}, safe=False, status=500) 
+
+    # Get exploits
+    len_exploits = len(vuln.exploitmetadata_set.all())
+    # Get org exploits
+    len_org_exploits = len(vuln.orgexploitmetadata_set.filter(organization=org))
+    # Count exploits
+    exploit_count = len_exploits + len_org_exploits
+    
+    # Get public threats
+    len_threats = len(vuln.threatmetadata_set.all())
+    # Get org threats
+    len_org_threats = len(vuln.orgthreatmetadata_set.filter(organization=org))
+    # Count threats 
+    threat_count = len_org_threats + len_threats
+    
+    res = {
+        "count_threat": threat_count,
+        "count_exploit": exploit_count
+    }
+        
+    return JsonResponse(res, safe=False)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def get_exploits(self, vuln_id):
     vuln = get_object_or_404(Vuln, id=vuln_id)
     try:
@@ -599,6 +633,7 @@ def get_threats(self, vuln_id):
         t = model_to_dict(threat)
         t['scope'] = 'private'
         res.append(t)
+
     return JsonResponse(res, safe=False)
 
 
