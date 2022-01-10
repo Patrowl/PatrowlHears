@@ -24,6 +24,7 @@
                     Threat activities
                 </v-badge>
             </v-tab>
+            <v-tab>Comment</v-tab>
             
 
             <!-- Information Vulnerability --> 
@@ -52,6 +53,14 @@
                 />
             </v-tab-item>
 
+            <!-- Comment --> 
+            <v-tab-item>
+                <VulnerabilityComment
+                    :vuln_id = this.vuln_id
+                    @OpenSnackBar = this.modifySnackBar
+                />
+            </v-tab-item>
+
             
         </v-tabs>
         <SnackBar 
@@ -64,8 +73,11 @@
 import VulnDetails from "@/components/vulnerability/vulnerabilityDetails/VulnDetails.vue";
 import VulnerabilityExploit from "@/components/vulnerability/exploit/VulnerabilityExploit.vue";
 import VulnerabilityThreat from "@/components/vulnerability/threat/VulnerabilityThreat.vue";
+import VulnerabilityComment from "@/components/vulnerability/comment/VulnerabilityComment.vue";
 import Colors from "@/common/colors";
-import SnackBar from "@/components/vulnerability/snackBar/SnackBar.vue"
+import SnackBar from "@/components/vulnerability/snackBar/SnackBar.vue";
+import swal from 'sweetalert2';
+
 
 export default {
     mixins: [
@@ -75,6 +87,7 @@ export default {
         VulnDetails,
         VulnerabilityExploit,
         VulnerabilityThreat,
+        VulnerabilityComment,
         SnackBar
     },
     data: () => ({
