@@ -5,7 +5,7 @@
         <!-- Vulnerabilities -->
         <v-container>
           <v-row>
-            <v-col class="pa-2" md="4" >
+            <v-col class="pa-2" md="auto" >
                 Vulnerabilities<br/>
             <!-- </v-col>
             <v-col class="pa-2"> -->
@@ -237,7 +237,7 @@ export default {
     show_all: true,
     show_last_day: false,
     show_last_week: false,
-    show_monitored: false, 
+    show_monitored: false,
     options: {},
     headers: [
       { text: 'Score', value: 'score', align: 'center', width: "10%" },
@@ -291,7 +291,7 @@ export default {
     show_monitored: {
       handler() {
         this.getDataFromApi();
-      }, 
+      },
       deep: true
     }
   },
