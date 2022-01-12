@@ -124,6 +124,8 @@ LOGGING = {
     },
 }
 
+DEFAULT_AUTO_FIELD='django.db.models.AutoField' 
+
 # APPEND_SLASH = False
 
 AUTH_USER_MODEL = 'custusers.User'
