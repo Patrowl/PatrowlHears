@@ -16,7 +16,7 @@ from common.utils.constants import (
     TRUST_LEVELS, TLP_LEVELS,
     EXPLOIT_RELEVANCY_RATES
 )
-from common.utils import _json_serial, organization
+from common.utils import _json_serial
 
 from cpe import CPE as _CPE
 import json
@@ -252,18 +252,15 @@ class Vuln(VulnBase):
 
 
 class OrgVulnMetadata(models.Model):
-    """Models for data about one vulnerability linked to an organisation. The class inherit from vulnerabiltiy class. 
-    Args:
-        VulnBase (class): The class of vulnerability 
-    """
-    
+    """Model for vulnerability context data linked to an organization."""
+
     STATUS_CHOICES = [
         ('undefined', 'Undefined'),
         ('fixed', 'Fixed'),
         ('not_interesting', 'Not Interesting'),
         ("in_progress", "In Progress")
     ]
-    
+
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE, related_name='org_vulns_metadata')
     vuln = models.ForeignKey(Vuln, on_delete=models.CASCADE, related_name='org_vulns_metadata')
     comment = models.TextField(default="", blank=False)
