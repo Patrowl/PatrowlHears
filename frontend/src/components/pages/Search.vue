@@ -465,7 +465,7 @@ export default {
       });
     },
     viewVuln(vuln_id) {
-      this.$router.push({ 'name': 'VulnDetails', 'params': { 'vuln_id': vuln_id } });
+      this.$router.push({ 'name': 'Vuln', 'params': { 'vuln_id': vuln_id } });
     },
     downloadVuln(vuln_id, format='json') {
       this.$api.get('/api/vulns/'+vuln_id+'/export/'+format, {responseType: 'arraybuffer'}).then(res => {

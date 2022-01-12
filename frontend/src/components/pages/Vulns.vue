@@ -7,8 +7,6 @@
           <v-row>
             <v-col class="pa-2" md="auto" >
                 Vulnerabilities<br/>
-            <!-- </v-col>
-            <v-col class="pa-2"> -->
               <v-chip
                 small label outlined :color="getBoolColor(this.show_all)"
                 @click="toggleShowAll()">All</v-chip>&nbsp;
@@ -17,9 +15,12 @@
                 @click="toggleShowLastDay()">Last 24h</v-chip>&nbsp;
               <v-chip
                 small label outlined :color="getBoolColor(this.show_last_week)"
-                @click="toggleShowLastWeek()">Last Week</v-chip>
+                @click="toggleShowLastWeek()">Last Week</v-chip>&nbsp;
+              <v-chip
+                small label outlined :color="this.show_monitored?'deep-orange':'grey'"
+                @click="toggleMonitored()">Monitored</v-chip>
             </v-col>
-            <v-col class="pa-2" md="6">
+            <v-col class="pa-2" md="4">
               <v-text-field
                 class="pt-0"
                 v-model="search"
@@ -29,7 +30,7 @@
                 hide-details
               ></v-text-field>
             </v-col>
-            <v-col class="pa-2" md="2">
+            <v-col class="pa-2" md="3">
               <v-slider
                 v-model="search_slider_min"
                 label="Min Score"
@@ -190,7 +191,7 @@
           </v-btn>
         </template>
 
-        <vuln-add-edit></vuln-add-edit>
+        <DialogVulnAddEdit />
 
       </v-dialog>
       <v-snackbar v-model="snack" :timeout="3000" :color="snackColor" dense>
@@ -205,7 +206,7 @@
 import Colors from "../../common/colors";
 import Users from "../../common/users";
 import FirstSteps from '@/components/pages/FirstSteps.vue';
-import VulnAddEdit from '@/components/pages/VulnAddEdit.vue';
+import DialogVulnAddEdit from '@/components/vulnerability/vulnerabilityDetails/dialog/DialogVulnAddEdit.vue';
 import AdvancedSearch from '@/components/pages/AdvancedSearch.vue';
 import _ from 'lodash';
 import moment from 'moment';
@@ -214,7 +215,7 @@ export default {
   name: "vulns",
   mixins: [Colors, Users],
   components: {
-    VulnAddEdit, AdvancedSearch
+    DialogVulnAddEdit, AdvancedSearch
   },
   data: () => ({
     vulns: [],
@@ -227,6 +228,7 @@ export default {
     show_all: true,
     show_last_day: false,
     show_last_week: false,
+    show_monitored: false,
     options: {},
     headers: [
       { text: 'Score', value: 'score', align: 'center', width: "10%" },
@@ -277,6 +279,12 @@ export default {
       },
       deep: true
     },
+    show_monitored: {
+      handler() {
+        this.getDataFromApi();
+      },
+      deep: true
+    }
   },
   methods: {
     getDataFromApi(extra_filters, page_id) {
@@ -308,6 +316,7 @@ export default {
     },
     updateAdvancedSearchFilters(filters){
       this.getDataFromApi(filters, 1);
+      console.log(filters)
     },
     getVulns(page, itemsPerPage, sortBy, sortDesc, extra_filters) {
       let sorted_by = '';
@@ -330,7 +339,13 @@ export default {
         extra_filters = "&score__gte="+this.search_slider_min+"&score__lte="+this.search_slider_max
       }
 
-      this.$api.get('/api/vulns/?limit='+itemsPerPage+'&page='+page+'&search='+this.search+'&'+sorted_by+filter_by_date+extra_filters).then(res => {
+      let url = '/api/vulns/?limit='+itemsPerPage+'&page='+page+'&search='+this.search+'&'+sorted_by+filter_by_date+extra_filters
+
+      if (this.show_monitored === true) {
+        url = url + "&monitored=true"
+      }
+
+      this.$api.get(url).then(res => {
         this.vulns = res.data;
         this.loading = false;
         return this.vulns;
@@ -343,7 +358,7 @@ export default {
       });
     },
     viewVuln(vuln_id) {
-      this.$router.push({ 'name': 'VulnDetails', 'params': { 'vuln_id': vuln_id } });
+      this.$router.push({ 'name': 'Vuln', 'params': { 'vuln_id': vuln_id } });
     },
     editVuln(vuln_id) {
       // Todo
@@ -393,6 +408,9 @@ export default {
         this.show_all = false;
         this.show_last_day = false;
       }
+    },
+    toggleMonitored() {
+      this.show_monitored = !this.show_monitored;
     },
     showManageMetadataButtons(){
       let p = JSON.parse(this.getUserProfile());
