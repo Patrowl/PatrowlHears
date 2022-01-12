@@ -7,8 +7,6 @@
           <v-row>
             <v-col class="pa-2" md="auto" >
                 Vulnerabilities<br/>
-            <!-- </v-col>
-            <v-col class="pa-2"> -->
               <v-chip
                 small label outlined :color="getBoolColor(this.show_all)"
                 @click="toggleShowAll()">All</v-chip>&nbsp;
@@ -17,7 +15,10 @@
                 @click="toggleShowLastDay()">Last 24h</v-chip>&nbsp;
               <v-chip
                 small label outlined :color="getBoolColor(this.show_last_week)"
-                @click="toggleShowLastWeek()">Last Week</v-chip>
+                @click="toggleShowLastWeek()">Last Week</v-chip>&nbsp;
+              <v-chip
+                small label outlined :color="this.show_monitored?'deep-orange':'grey'"
+                @click="toggleMonitored()">Monitored</v-chip>
             </v-col>
             <v-col class="pa-2" md="4">
               <v-text-field
@@ -29,9 +30,7 @@
                 hide-details
               ></v-text-field>
             </v-col>
-          </v-row>
-          <v-row>
-            <v-col class="pa-2" md="4">
+            <v-col class="pa-2" md="3">
               <v-slider
                 v-model="search_slider_min"
                 label="Min Score"
@@ -53,14 +52,6 @@
                 thumb-label
                 hide-details
               ></v-slider>
-            </v-col>
-            <v-col class="pa-2" md="4">
-              <v-switch
-                v-model="show_monitored"
-                label="Monitored"
-                color="deep-orange"
-              >
-              </v-switch>
             </v-col>
           </v-row>
           <v-row v-if="showAdvancedFilters">
@@ -417,6 +408,9 @@ export default {
         this.show_all = false;
         this.show_last_day = false;
       }
+    },
+    toggleMonitored() {
+      this.show_monitored = !this.show_monitored;
     },
     showManageMetadataButtons(){
       let p = JSON.parse(this.getUserProfile());
