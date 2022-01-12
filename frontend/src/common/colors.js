@@ -28,6 +28,13 @@ export default {
       } else {
         return 'grey';
       }
+    },
+    getNumberColor(number) {
+      if ( number > 0 ){
+        return "deep-orange";
+      } else {
+        return "grey"
+      }
     }
   },
   mounted() {
