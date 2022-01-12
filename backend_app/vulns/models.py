@@ -249,16 +249,28 @@ class Vuln(VulnBase):
             models.Index(fields=['cveid']),
             models.Index(fields=['feedid']),
         ]
-#
-#
-# class OrgVulnChange(VulnBase):
-#     organization = AutoOneToOneField(Organization, on_delete=models.CASCADE, related_name='org_vulns')
-#     products = models.ManyToManyField(Product, related_name='org_vulns')
-#     productversions = models.ManyToManyField(ProductVersion, related_name='org_vulns')
-#     history = HistoricalRecords(excluded_fields=['updated_at'], cascade_delete_history=True)
-#
-#     class Meta:
-#         db_table = "org_vuln_changes"
+
+
+class OrgVulnMetadata(models.Model):
+    """Model for vulnerability context data linked to an organization."""
+
+    STATUS_CHOICES = [
+        ('undefined', 'Undefined'),
+        ('fixed', 'Fixed'),
+        ('not_interesting', 'Not Interesting'),
+        ("in_progress", "In Progress")
+    ]
+
+    organization = models.ForeignKey(Organization, on_delete=models.CASCADE, related_name='org_vulns_metadata')
+    vuln = models.ForeignKey(Vuln, on_delete=models.CASCADE, related_name='org_vulns_metadata')
+    comment = models.TextField(default="", blank=False)
+    status = models.CharField(default="undefined", blank=False, choices=STATUS_CHOICES, max_length=20)
+    history = HistoricalRecords(excluded_fields=['updated_at'], cascade_delete_history=True)
+
+    class Meta:
+        db_table = 'org_vulns_metadata'
+        verbose_name = 'Organization Vulnerability Metadata'
+        verbose_name_plural = 'Organization Vulnerabilities Metadata'
 
 
 class ExploitMetadataBase(models.Model):

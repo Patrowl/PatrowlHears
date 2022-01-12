@@ -15,7 +15,7 @@ import Search from '@/components/pages/Search'
 import SearchPublic from '@/components/pages/SearchPublic'
 import Vulns from '@/components/pages/Vulns'
 import VulnsPublic from '@/components/pages/VulnsPublic'
-import VulnDetails from '@/components/pages/VulnDetails'
+import Vuln from '@/components/pages/Vuln'
 import VulnDetailsPublic from '@/components/pages/VulnDetailsPublic'
 import Exploits from '@/components/pages/Exploits'
 import KBVendors from '@/components/pages/KB/Vendors'
@@ -33,7 +33,6 @@ import KBBulletins from '@/components/pages/KB/Bulletins'
 import AdvancedSearch from '@/components/pages/AdvancedSearch.vue'
 
 import FirstSteps from '@/components/pages/FirstSteps.vue'
-import VulnAddEdit from '@/components/pages/VulnAddEdit.vue'
 import UserEdit from '@/components/pages/UserEdit.vue'
 import Help from '@/components/pages/Help.vue'
 import NotFound from '@/components/general/NotFound.vue'
@@ -77,7 +76,7 @@ const routes = [
       { path: '/kb/cves', name: 'KBCVE', component: KBCVE },
       { path: '/kb/bulletins', name: 'KBBulletins', component: KBBulletins },
       { path: '/vulns', name: 'Vulns', component: Vulns },
-      { path: '/vulns/:vuln_id', name: 'VulnDetails', component: VulnDetails },
+      { path: '/vulns/:vuln_id', name: 'Vuln', component: Vuln },
       { path: '/exploits', name: 'Exploits', component: Exploits },
 
       { path: '/test-as', name: 'AdvancedSearch', component: AdvancedSearch },

@@ -303,7 +303,7 @@ export default {
 
     },
     viewVuln(item) {
-      this.$router.push({ 'name': 'VulnDetails', 'params': { 'vuln_id': item.id } });
+      this.$router.push({ 'name': 'Vuln', 'params': { 'vuln_id': item.id } });
     },
     viewVulns() {
       this.$router.push({ 'name': 'Vulns' });

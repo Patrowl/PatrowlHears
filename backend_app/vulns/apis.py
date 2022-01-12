@@ -1,4 +1,5 @@
 from django.http import JsonResponse, HttpResponse
+from django.core.exceptions import ObjectDoesNotExist
 from django.forms.models import model_to_dict
 from django.shortcuts import get_object_or_404
 from django.db.models import F, Value, Case, BooleanField, When, CharField
@@ -14,7 +15,7 @@ from cves.models import Product, Vendor, ProductVersion, Package, CVE, CWE, CPE
 from alerts.tasks import slack_alert_vuln_task, send_email_message_task
 from .models import (
     Vuln, ExploitMetadata, ThreatMetadata,
-    OrgExploitMetadata, OrgThreatMetadata
+    OrgExploitMetadata, OrgThreatMetadata, OrgVulnMetadata
 )
 from .serializers import (
     VulnSerializer, VulnFilter,
@@ -53,8 +54,9 @@ class VulnSet(viewsets.ModelViewSet):
         if org is not None:
             monitored_vulns = list(org.org_monitoring_list.vulns.all().values_list('id', flat=True))
 
+        # default value: will be adjusted by the VulnSerializer
         qs = Vuln.objects.all().prefetch_related('exploitmetadata_set', 'orgexploitmetadata_set', 'products', 'products__vendor', 'cwe').annotate(
-                exploit_count=F('id'), # default value: will be adjusted by the VulnSerializer
+                exploit_count=F('id'),
                 monitored=Case(
                     When(id__in=monitored_vulns, then=True),
                     default=False,
@@ -472,6 +474,40 @@ def export_vuln_sendmail(self, vuln_id):
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
+def get_number_exploits_threats(self, vuln_id):
+    vuln = get_object_or_404(Vuln, id=vuln_id)
+    try:
+        org_id = self.session.get('org_id', None)
+        org = organization.get_current_organization(user=self.user, org_id=org_id)
+    except Exception:
+        return JsonResponse({
+            "status": "error",
+            "reason": "Unable to get the organization"}, safe=False, status=500)
+
+    # Get exploits
+    len_exploits = len(vuln.exploitmetadata_set.all())
+    # Get org exploits
+    len_org_exploits = len(vuln.orgexploitmetadata_set.filter(organization=org))
+    # Count exploits
+    exploit_count = len_exploits + len_org_exploits
+
+    # Get public threats
+    len_threats = len(vuln.threatmetadata_set.all())
+    # Get org threats
+    len_org_threats = len(vuln.orgthreatmetadata_set.filter(organization=org))
+    # Count threats
+    threat_count = len_org_threats + len_threats
+
+    res = {
+        "count_threat": threat_count,
+        "count_exploit": exploit_count
+    }
+
+    return JsonResponse(res, safe=False)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def get_exploits(self, vuln_id):
     vuln = get_object_or_404(Vuln, id=vuln_id)
     try:
@@ -599,6 +635,7 @@ def get_threats(self, vuln_id):
         t = model_to_dict(threat)
         t['scope'] = 'private'
         res.append(t)
+
     return JsonResponse(res, safe=False)
 
 
@@ -681,6 +718,196 @@ def del_threat(self, vuln_id, threat_id):
 
 
 @api_view(['GET'])
+@permission_classes([AllowManageMetadata])
+def get_org_vuln_metadata(self, vuln_id):
+    """Return dict with all org vuln metadata
+    Args:
+        vuln_id (str): The vuln id
+    Returns:
+        [dict]:
+            - comment : str or '' if doesn't exist
+            - status: undefined/fixed/not_interesting/in_progress or undefined if doesn't exist
+    """
+    # Check if the vulnerability exist
+    vuln = get_object_or_404(Vuln, id=vuln_id)
+
+    # Get the org object
+    try:
+        org_id = self.session.get('org_id', None)
+        org = organization.get_current_organization(user=self.user, org_id=org_id)
+    except Exception:
+        return JsonResponse("error: unable to get the organization", safe=False, status=500)
+
+    # Find OrgVulnMetadata object with vuln and org. If doesn't exist return ""
+    try:
+        org_vuln_metadata = OrgVulnMetadata.objects.get(vuln=vuln, organization=org)
+        return JsonResponse(
+            {
+                'comment': org_vuln_metadata.comment,
+                'status': org_vuln_metadata.status
+            }, safe=False)
+    except ObjectDoesNotExist:
+        pass
+
+    return JsonResponse({'comment': "", 'status': 'undefined'}, safe=False)
+
+
+@api_view(['GET'])
+@permission_classes([AllowManageMetadata])
+def get_org_vuln_comment(self, vuln_id):
+    """Return comments linked to a vulnerability and an organization.
+
+    Args:
+        vuln_id (str): The vuln id
+    Returns:
+        [str]: The comment or "" if doesn't exist
+    """
+    # Check if the vulnerability exist
+    vuln = get_object_or_404(Vuln, id=vuln_id)
+
+    # Get the org object
+    try:
+        org_id = self.session.get('org_id', None)
+        org = organization.get_current_organization(user=self.user, org_id=org_id)
+    except Exception:
+        return JsonResponse("error: unable to get the organization", safe=False, status=500)
+
+    # Find OrgVulnMetadata object with vuln and org. If doesn't exist return ""
+    try:
+        org_vuln_metadata = OrgVulnMetadata.objects.get(vuln=vuln, organization=org)
+        return JsonResponse(org_vuln_metadata.comment, safe=False)
+    except ObjectDoesNotExist:
+        pass
+
+    return JsonResponse("", safe=False)
+
+
+@api_view(['POST'])
+@permission_classes([AllowManageMetadata])
+def edit_org_vuln_comment(self, vuln_id):
+    """Update the comments linked to a vulnerability and an organization.
+
+    Args:
+        vuln_id (str): The vuln id
+    Returns:
+        [str]: the comment or an error
+    """
+    # Get the vulnerability object
+    vuln = get_object_or_404(Vuln, id=vuln_id)
+
+    # Get the organization return error if not found
+    try:
+        org_id = self.session.get('org_id', None)
+        org = organization.get_current_organization(user=self.user, org_id=org_id)
+    except Exception:
+        return JsonResponse("error: unable to get the organization", safe=False, status=500)
+
+    # Verify comment in self.data. Create new OrgVulnData or Modify it.
+    if 'comment' in self.data:
+        comment = self.data['comment']
+        try:
+            org_vuln_metadata = OrgVulnMetadata.objects.get(vuln=vuln_id, organization=org.id)
+            org_vuln_metadata.comment = self.data['comment']
+            org_vuln_metadata.save()
+        except ObjectDoesNotExist:
+            # create a new OrgVulnMetadata object
+            OrgVulnMetadata.objects.create(
+                organization=org,
+                vuln=vuln,
+                comment=self.data['comment']
+            )
+
+        # return the comment
+        return JsonResponse(comment, safe=False)
+
+    return JsonResponse("error: invalid data", safe=False, status=500)
+
+
+@api_view(['GET'])
+@permission_classes([AllowManageMetadata])
+def get_org_vuln_status(self, vuln_id):
+    """Return a dict with the status
+    Args:
+        vuln_id (str): The vuln id
+    Returns:
+        [str]:
+            - status: undefined/fixed/not_interesting/in_progress or undefined if doesn't exist
+    """
+    # Check if the vulnerability exist
+    vuln = get_object_or_404(Vuln, id=vuln_id)
+
+    # Get the org object
+    try:
+        org_id = self.session.get('org_id', None)
+        org = organization.get_current_organization(user=self.user, org_id=org_id)
+    except Exception:
+        return JsonResponse("error: unable to get the organization", safe=False, status=500)
+
+    # Find OrgVulnMetadata object with vuln and org. If doesn't exist return "undefined"
+    try:
+        org_vuln_metadata = OrgVulnMetadata.objects.get(vuln=vuln, organization=org)
+        return JsonResponse(org_vuln_metadata.status, safe=False)
+    except ObjectDoesNotExist:
+        pass
+
+    return JsonResponse("undefined", safe=False)
+
+
+@api_view(['POST'])
+@permission_classes([AllowManageMetadata])
+def edit_org_vuln_status(self, vuln_id):
+    """ Modify the status linked to a vulnerability and an organization
+    Args:
+        vuln_id (str): The vuln id
+    Returns:
+        [str]: status undefined/fixed/not_interesting/in_progress or an error
+    """
+
+    STATUS_CHOICES = [
+        'undefined', 'fixed',
+        'not_interesting', "in_progress"
+    ]
+
+    # Get the vulnerability object
+    vuln = get_object_or_404(Vuln, id=vuln_id)
+
+    # Get the organization return error if not found
+    try:
+        org_id = self.session.get('org_id', None)
+        org = organization.get_current_organization(user=self.user, org_id=org_id)
+    except Exception:
+        return JsonResponse("error: unable to get the organization", safe=False, status=500)
+
+    # Verify status in self.data. Create new OrgVulnData or Modify it.
+    if 'status' in self.data and self.data['status'] in STATUS_CHOICES:
+        # Check if the vulnerability is monitored
+        if vuln not in org.org_monitoring_list.vulns.all():
+            return JsonResponse(
+                "error: you can't modify status for a unmonitoring vulnerability",
+                safe=False,
+                status=500
+            )
+
+        status = self.data['status']
+        try:
+            org_vuln_metadata = OrgVulnMetadata.objects.get(vuln=vuln_id, organization=org.id)
+            org_vuln_metadata.status = status
+            org_vuln_metadata.save()
+        except ObjectDoesNotExist:
+            # create a new OrgVulnMetadata object
+            OrgVulnMetadata.objects.create(
+                organization=org,
+                vuln=vuln,
+                status=status
+            )
+
+        # return the comment
+        return JsonResponse(status, safe=False)
+
+    return JsonResponse("error: invalid data", safe=False, status=500)
+
+
+@api_view(['GET'])
 @permission_classes([IsAdminUser])
 def refresh_vuln_score(self, vuln_id):
     vuln = get_object_or_404(Vuln, id=vuln_id)
@@ -718,8 +945,16 @@ def toggle_monitor_vuln(self, vuln_id):
 
         if self.data['monitored'] is True and vuln not in org.org_monitoring_list.vulns.all():
             org.org_monitoring_list.vulns.add(vuln)
+
         if self.data['monitored'] is False and vuln in org.org_monitoring_list.vulns.all():
             org.org_monitoring_list.vulns.remove(vuln)
+
+            try:
+                org_vuln_metadata = OrgVulnMetadata.objects.get(vuln=vuln_id, organization=org.id)
+                org_vuln_metadata.status = 'undefined'
+                org_vuln_metadata.save()
+            except ObjectDoesNotExist:
+                pass
 
     vuln.save()
     return JsonResponse("toggled.", safe=False)

@@ -352,6 +352,7 @@
 import Colors from "../../common/colors";
 import Scores from "../../common/scores";
 import moment from 'moment';
+
 export default {
   name: "Ratings",
   mixins: [Colors, Scores],
