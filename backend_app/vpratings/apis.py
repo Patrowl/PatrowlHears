@@ -27,29 +27,28 @@ def get_vprating_metrics(self):
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def get_vuln_vector(self, vuln_id): 
-    
+def get_vuln_vector(self, vuln_id):
+
     vuln = get_object_or_404(Vuln, id=vuln_id)
     try:
         org_id = self.session.get('org_id', None)
         org = organization.get_current_organization(user=self.user, org_id=org_id)
     except Exception:
         return JsonResponse("error: unable to get the organization", safe=False, status=500)
-    
-    vector = ""
+
     today_date = date.today()
 
-    # Vulnerability 
-    vector = vector + vuln.cvss_vector
-    
+    # Vulnerability
+    vector = "" + vuln.cvss_vector
+
     if vuln.is_confirmed is True:
         vector += "/CL:Y"
-        
-    if type(vuln.published) is datetime: 
+
+    if type(vuln.published) is datetime:
         published_date = vuln.published.date()
         delta = today_date - published_date
         vector += "/VX:" + str(delta.days)
-            
+
     ea_metrics = ['unknown', 'private', 'public']
     em_metrics = ['unknown', 'unproven', 'poc', 'functional']
     et_metrics = ['unknown', 'low', 'medium', 'high', 'trusted']
@@ -57,7 +56,7 @@ def get_vuln_vector(self, vuln_id):
     em_idx = em_max_idx = 0
     et_idx = et_max_idx = 0
     ex_max_days = 0
-    
+
     exploits = list(
         chain(
             vuln.exploitmetadata_set.all(),
@@ -67,40 +66,40 @@ def get_vuln_vector(self, vuln_id):
 
     for exploit in exploits:
         e = model_to_dict(exploit)
-        
+
         ea_idx = ea_metrics.index(e['availability'])
         if ea_idx > ea_max_idx:
             ea_max_idx = ea_idx
-        
+
         em_idx = em_metrics.index(e['maturity'])
         if em_idx > em_max_idx:
             em_max_idx = em_idx
-        
+
         et_idx = et_metrics.index(e['trust_level'])
         if et_idx > et_max_idx:
             et_max_idx = et_idx
-        
+
         if type(e['published']) is datetime:
             published_date = e['published'].date()
             delta_published_date = today_date - published_date
-            if delta_published_date.days > ex_max_days: 
+            if delta_published_date.days > ex_max_days:
                 ex_max_days = delta_published_date.days
 
     ea_vectors = ['X', 'R', 'U']
     em_vectors = ['X', 'U', 'P', 'F']
     et_vectors = ['X', 'L', 'M', 'H', 'H']
-    
+
     vector += "/EA:" + str(ea_vectors[ea_max_idx])
     vector += "/EM:" + str(em_vectors[em_max_idx])
     vector += "/ET:" + str(et_vectors[et_max_idx])
     vector += "/EX:" + str(ex_max_days)
-    
-    if vuln.is_in_the_news: 
+
+    if vuln.is_in_the_news:
         vector += "/N:Y"
-        
-    if vuln.is_in_the_wild: 
+
+    if vuln.is_in_the_wild:
         vector += "/W:Y"
-    
+
     return JsonResponse(vector, safe=False)
 
 

@@ -10,7 +10,7 @@
             <v-tab>Summary</v-tab>
             <v-tab>
                 <v-badge
-                    :color = getNumberColor(this.counter.count_exploit)
+                    :color='getNumberColor(this.counter.count_exploit)'
                     :content='this.count_exploit'
                 >
                     Exploits
@@ -18,53 +18,52 @@
             </v-tab>
             <v-tab>
                 <v-badge
-                    :color = getNumberColor(this.counter.count_threat)
+                    :color='getNumberColor(this.counter.count_threat)'
                     :content='this.count_threat'
                 >
                     Threat activities
                 </v-badge>
             </v-tab>
-            <v-tab>Comment</v-tab>
-            
+            <v-tab>Comments</v-tab>
 
-            <!-- Information Vulnerability --> 
-        <v-tab-item>
+
+            <!-- Information Vulnerability -->
+            <v-tab-item>
                 <VulnDetails
-                    :vuln_id = this.vuln_id
-                    @OpenSnackBar = this.modifySnackBar
+                    :vuln_id='this.vuln_id'
+                    @OpenSnackBar='this.modifySnackBar'
                 />
             </v-tab-item>
 
-            <!-- Exploits --> 
+            <!-- Exploits -->
             <v-tab-item>
-                <VulnerabilityExploit 
-                    :vuln_id = this.vuln_id
-                    @OpenSnackBar = this.modifySnackBar
-                    @UpdateCounter = this.getCountThreatsExploits
+                <VulnerabilityExploit
+                    :vuln_id='this.vuln_id'
+                    @OpenSnackBar='this.modifySnackBar'
+                    @UpdateCounter='this.getCountThreatsExploits'
                 />
             </v-tab-item>
 
-            <!-- Threat --> 
+            <!-- Threat -->
             <v-tab-item>
-                <VulnerabilityThreat 
-                    :vuln_id = this.vuln_id
-                    @OpenSnackBar = this.modifySnackBar
-                    @UpdateCounter = this.getCountThreatsExploits
+                <VulnerabilityThreat
+                    :vuln_id='this.vuln_id'
+                    @OpenSnackBar='this.modifySnackBar'
+                    @UpdateCounter='this.getCountThreatsExploits'
                 />
             </v-tab-item>
 
-            <!-- Comment --> 
+            <!-- Comment -->
             <v-tab-item>
                 <VulnerabilityComment
-                    :vuln_id = this.vuln_id
-                    @OpenSnackBar = this.modifySnackBar
+                    :vuln_id='this.vuln_id'
+                    @OpenSnackBar='this.modifySnackBar'
                 />
             </v-tab-item>
-
             
         </v-tabs>
-        <SnackBar 
-            :snack = snack
+        <SnackBar
+            :snack='snack'
         />
     </div>
 </template>
@@ -155,7 +154,7 @@ export default {
             this.loading = false;
         }
     }
-    
+
 }
 </script>
 

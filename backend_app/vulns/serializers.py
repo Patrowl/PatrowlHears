@@ -135,23 +135,23 @@ class VulnFilter(FilterSet):
     impact_availability = CharFilter(method='filter_impact_availability', field_name='impact_availability')
     impact_confidentiality = CharFilter(method='filter_impact_confidentiality', field_name='impact_confidentiality')
 
-    def filter_exploit_count__gt(self,  queryset, name, value):
+    def filter_exploit_count__gt(self, queryset, name, value):
         queryset = queryset.annotate(exploit_count=Count('exploitmetadata')).filter(exploit_count__gte=value)
 
-    def filter_exploit_count__gte(self,  queryset, name, value):
+    def filter_exploit_count__gte(self, queryset, name, value):
         queryset = queryset.annotate(exploit_count=Count('exploitmetadata'))
         return queryset.filter(exploit_count__gt=value)
 
-    def filter_exploit_count__lt(self,  queryset, name, value):
+    def filter_exploit_count__lt(self, queryset, name, value):
         queryset = queryset.annotate(exploit_count=Count('exploitmetadata')).filter(exploit_count__lt=value)
 
-    def filter_exploit_count__lte(self,  queryset, name, value):
+    def filter_exploit_count__lte(self, queryset, name, value):
         return queryset.annotate(exploit_count=Count('exploitmetadata')).filter(exploit_count__lte=value)
 
-    def filter_cwe_id(self,  queryset, name, value):
+    def filter_cwe_id(self, queryset, name, value):
         return queryset.filter(cwe__cwe_id__icontains=value)
 
-    def filter_cpe(self,  queryset, name, value):
+    def filter_cpe(self, queryset, name, value):
         try:
             c = value.split(':')
             vendor = c[3]
@@ -167,7 +167,7 @@ class VulnFilter(FilterSet):
             pass
         return queryset.filter(vulnerable_products__icontains=value)
 
-    def filter_search(self,  queryset, name, value):
+    def filter_search(self, queryset, name, value):
         if type(value) == str:
             value = value.lower()
 
@@ -180,23 +180,23 @@ class VulnFilter(FilterSet):
             Q(products__name__contains=value)
         ).distinct()
 
-    def filter_vendor(self,  queryset, name, value):
+    def filter_vendor(self, queryset, name, value):
         return queryset.filter(products__vendor__in=[value])
 
-    def filter_vendor_name(self,  queryset, name, value):
+    def filter_vendor_name(self, queryset, name, value):
         if type(value) == str:
             value = value.lower().replace(" ", "_")
         return queryset.filter(products__vendor__name__contains=value)
 
-    def filter_product(self,  queryset, name, value):
+    def filter_product(self, queryset, name, value):
         return queryset.filter(products__in=[value])
 
-    def filter_product_name(self,  queryset, name, value):
+    def filter_product_name(self, queryset, name, value):
         if type(value) == str:
             value = value.lower().replace(" ", "_")
         return queryset.filter(products__name__contains=value)
 
-    def filter_product_version(self,  queryset, name, value):
+    def filter_product_version(self, queryset, name, value):
         if type(value) == str:
             value = value.lower()
         # print(value)
@@ -209,35 +209,35 @@ class VulnFilter(FilterSet):
 
         return queryset.filter(vulnerable_product_versions__all__contains=value).distinct()
 
-    def filter_package(self,  queryset, name, value):
+    def filter_package(self, queryset, name, value):
         return queryset.filter(packages__in=[value])
 
-    def filter_package_name(self,  queryset, name, value):
+    def filter_package_name(self, queryset, name, value):
         if type(value) == str:
             value = value.lower().replace(" ", "_")
         return queryset.filter(packages__name__contains=value)
 
-    def filter_monitored(self,  queryset, name, value):
+    def filter_monitored(self, queryset, name, value):
         return queryset.filter(monitored=value)
 
     # Access
-    def filter_access_vector(self,  queryset, name, value):
+    def filter_access_vector(self, queryset, name, value):
         return queryset.filter(access__vector=value)
 
-    def filter_access_complexity(self,  queryset, name, value):
+    def filter_access_complexity(self, queryset, name, value):
         return queryset.filter(access__complexity=value)
 
-    def filter_access_authentication(self,  queryset, name, value):
+    def filter_access_authentication(self, queryset, name, value):
         return queryset.filter(access__authentication=value)
 
     # Impact
-    def filter_impact_integrity(self,  queryset, name, value):
+    def filter_impact_integrity(self, queryset, name, value):
         return queryset.filter(impact__integrity=value)
 
-    def filter_impact_availability(self,  queryset, name, value):
+    def filter_impact_availability(self, queryset, name, value):
         return queryset.filter(impact__availability=value)
 
-    def filter_impact_confidentiality(self,  queryset, name, value):
+    def filter_impact_confidentiality(self, queryset, name, value):
         return queryset.filter(impact__confidentiality=value)
 
 
@@ -330,14 +330,14 @@ class ExploitMetadataFilter(FilterSet):
     search = CharFilter(method='filter_search', field_name='search')
     cveid = CharFilter(method='filter_cveid', field_name='cveid')
 
-    def filter_search(self,  queryset, name, value):
+    def filter_search(self, queryset, name, value):
         return queryset.filter(
             Q(link__icontains=value) |
             Q(notes__icontains=value) |
             Q(vuln__cveid__icontains=value)
         )
 
-    def filter_cveid(self,  queryset, name, value):
+    def filter_cveid(self, queryset, name, value):
         return queryset.filter(vuln__cveid=value)
 
     sorted_by = OrderingFilter(
@@ -439,14 +439,14 @@ class ThreatMetadataFilter(FilterSet):
     search = CharFilter(method='filter_search', field_name='search')
     cveid = CharFilter(method='filter_cveid', field_name='cveid')
 
-    def filter_search(self,  queryset, name, value):
+    def filter_search(self, queryset, name, value):
         return queryset.filter(
             Q(link__icontains=value) |
             Q(notes__icontains=value) |
             Q(vuln__cveid__icontains=value)
         )
 
-    def filter_cveid(self,  queryset, name, value):
+    def filter_cveid(self, queryset, name, value):
         return queryset.filter(vuln__cveid=value)
 
     sorted_by = OrderingFilter(

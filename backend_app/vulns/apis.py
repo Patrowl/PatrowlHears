@@ -755,7 +755,8 @@ def get_org_vuln_metadata(self, vuln_id):
 @api_view(['GET'])
 @permission_classes([AllowManageMetadata])
 def get_org_vuln_comment(self, vuln_id):
-    """Return comment linked to a vulnerability and an organization
+    """Return comments linked to a vulnerability and an organization.
+
     Args:
         vuln_id (str): The vuln id
     Returns:
@@ -784,7 +785,8 @@ def get_org_vuln_comment(self, vuln_id):
 @api_view(['POST'])
 @permission_classes([AllowManageMetadata])
 def edit_org_vuln_comment(self, vuln_id):
-    """ Modify the comment linked to a vulnerability and an organization
+    """Update the comments linked to a vulnerability and an organization.
+
     Args:
         vuln_id (str): The vuln id
     Returns:
