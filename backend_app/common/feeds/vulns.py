@@ -1,4 +1,4 @@
-from django.db.models import Q
+# from django.db.models import Q
 from cves.models import CWE, CPE, CVE, Vendor, Product, Package, PackageType
 from vulns.models import Vuln, ExploitMetadata, ThreatMetadata
 from data.models import DataFeedImport
@@ -51,6 +51,7 @@ def _get_cpe_products(data):
             products.append(product)
 
     return products
+
 
 def _create_vuln(data, packages, cveid=""):
     vuln_data = {
@@ -214,7 +215,9 @@ def _update_vuln(vuln, data, packages, cveid=""):
         }
 
     # vulnerable_products
-    if 'vulnerable_products' in data.keys() and data['vulnerable_products'] is not None and len(data['vulnerable_products']) > 0:
+    if 'vulnerable_products' in data.keys() and \
+            data['vulnerable_products'] is not None and \
+            len(data['vulnerable_products']) > 0:
 
         if vuln.vulnerable_products is not None and len(vuln.vulnerable_products) > 0:
             vvp = vuln.vulnerable_products.extend(data['vulnerable_products'])
@@ -260,13 +263,12 @@ def import_feedvuln(data, filename, filename_hash):
                 package_name, pns = Package.objects.get_or_create(type=package_type, name=dpn)
                 packages.append(package_name)
 
-
     if len(data['CVE']) == 0:
         # No CVE is set. Check if a related FeedID is already known, create a new vuln otherwise
         try:
             vuln = Vuln.objects.filter(feedid=data['id']).first()
             if vuln is None:
-                # print('NOCVE: New vulnerability ? check DataFeedImport/object_id. Otherwise, create a new one yeeehaaaa')
+                # print('NOCVE: New vulnerability ? check DataFeedImport/object_id. Otherwise, create a new one yeeehaaa')
                 vuln = _create_vuln(data, packages)
 
             else:
@@ -472,8 +474,8 @@ def import_cve(data, last_update=None):
     # Create / update Exploits
     # Create / update Threats
 
-    # Prepare it
     try:
+        # Create the dict
         new_cve = {
             'cve_id': data['cve']['CVE_data_meta']['ID'],
             'summary': data['cve']['description']['description_data'][0]['value'],
@@ -495,7 +497,7 @@ def import_cve(data, last_update=None):
             },
         }
 
-        # CVSS v2 and v3
+        # CVSS v2
         if 'baseMetricV2' in data['impact'].keys():
             new_cve.update({
                 'cvss': data['impact']['baseMetricV2']['cvssV2']['baseScore'],
@@ -514,6 +516,8 @@ def import_cve(data, last_update=None):
                     'availability': data['impact']['baseMetricV2']['cvssV2']['availabilityImpact'],
                 },
             })
+
+        # CVSS v3
         if 'baseMetricV3' in data['impact'].keys():
             c = data['impact']['baseMetricV3']
             new_cve.update({
@@ -541,22 +545,23 @@ def import_cve(data, last_update=None):
                         if cwe is not None:
                             new_cve.update({'cwe': cwe})
 
+        list_vulnerable_products = []
+
         # Set vulnerable products (CPE vectors)
         for node in data['configurations']['nodes']:
-            if 'children' in node.keys():
-                # print(node['children'])
+            if 'children' in node.keys() and type(node['children']) is list and len(node['children']) > 0:
                 for child in node['children']:
-                    if 'cpe_match' in child.keys():
+                    if 'cpe_match' in child.keys() and type(child['cpe_match']) is list and len(child['cpe_match']) > 0:
                         for cpe_match in child['cpe_match']:
-                            new_cve['vulnerable_products'].append(cpe_match['cpe23Uri'])
-                            # if 'vulnerable' in cpe_match.keys() and cpe_match['vulnerable'] is True:
-                            #     new_cve['vulnerable_products'].append(cpe_match['cpe23Uri'])
+                            list_vulnerable_products.append(cpe_match['cpe23Uri'])
 
-            else:
+            if "cpe_match" in node.keys() and type(node['cpe_match']) is list and len(node['cpe_match']) > 0:
                 for cpe_match in node['cpe_match']:
-                    new_cve['vulnerable_products'].append(cpe_match['cpe23Uri'])
-                    # if 'vulnerable' in cpe_match.keys() and cpe_match['vulnerable'] is True:
-                    #     new_cve['vulnerable_products'].append(cpe_match['cpe23Uri'])
+                    list_vulnerable_products.append(cpe_match['cpe23Uri'])
+
+        # Remove duplicate elements
+        list_vulnerable_products = list(dict.fromkeys(list_vulnerable_products))
+        new_cve['vulnerable_products'] = list_vulnerable_products
 
     except Exception as e:
         print(e)
@@ -609,6 +614,7 @@ def import_cve(data, last_update=None):
                 product, inp = Product.objects.get_or_create(name=cpe_product, vendor=vendor)
                 if product.id not in cur_cve.products.all().only('id').values_list('id', flat=True):
                     cur_cve.products.add(product)
+
     except Exception as e:
         # print(e)
         logger.error(e)
@@ -626,7 +632,7 @@ def import_vias(data, last_update=None):
         try:
             if isinstance(data[cve_id], dict):
                 sync_exploits_fromvia(cve_id, data[cve_id])
-        except Exception as e:
+        except Exception:
             logger.error("'{}': refs: {}".format(cve_id, data[cve_id]))
 
     return
@@ -650,10 +656,10 @@ def sync_exploits_fromvia(cve_id, refs):
     if vuln.cve is not None and vuln.cve.references is not None:
         try:
             refs.update(vuln.cve.references)
-        except Exception as e:
+        except Exception:
             logger.error("'{}/{}': refs: {}".format(vuln, cve_id, refs))
 
-    ## Exploit-DB
+    # Exploit-DB
     if 'exploit-db' in refs.keys():
         vuln.is_exploitable = True
         vuln.is_confirmed = True
@@ -706,7 +712,7 @@ def sync_exploits_fromvia(cve_id, refs):
                 reflinkids.update({'edb': exploitdb_id})
                 exploit_links.append(_new_exploit['link'])
 
-    ## Metasploit
+    # Metasploit
     if 'metasploit' in refs.keys():
         vuln.is_exploitable = True
         vuln.is_confirmed = True
@@ -743,7 +749,7 @@ def sync_exploits_fromvia(cve_id, refs):
                 reflinks.extend(e.get('references', []))
                 exploit_links.append(_new_exploit['link'])
 
-    ## PacketStorm
+    # PacketStorm
     if 'packetstorm' in refs.keys():
         vuln.is_exploitable = True
         vuln.is_confirmed = True
@@ -781,7 +787,7 @@ def sync_exploits_fromvia(cve_id, refs):
                 reflinks.append(e.get('data source', None))
                 exploit_links.append(_new_exploit['link'])
 
-    ## Vulnerability-lab
+    # Vulnerability-lab
     if 'vulner lab' in refs.keys():
         vuln.is_exploitable = True
         vuln.is_confirmed = True
@@ -817,7 +823,7 @@ def sync_exploits_fromvia(cve_id, refs):
                 reflinks.append(e.get('source', None))
                 exploit_links.append(_new_exploit['link'])
 
-    ## Seebug
+    # Seebug
     if 'Seebug' in refs.keys():
         for e in refs['Seebug']:
             if e['bulletinFamily'] == 'exploit':
@@ -863,7 +869,7 @@ def sync_exploits_fromvia(cve_id, refs):
                     reflinks.append(link)
                     exploit_links.append(_new_exploit['link'])
 
-    ## Talos
+    # Talos
     if 'talos' in refs.keys():
         vuln.is_exploitable = True
         vuln.is_confirmed = True
@@ -898,7 +904,7 @@ def sync_exploits_fromvia(cve_id, refs):
                 reflinks.append(e.get('source', None))
                 exploit_links.append(_new_exploit['link'])
 
-    ## Nessus DB
+    # Nessus DB
     if 'nessus' in refs.keys():
         vuln.is_confirmed = True
         for e in refs['nessus']:
@@ -969,7 +975,7 @@ def sync_exploits_fromvia(cve_id, refs):
                     reflinks.append(e.get('source', None))
                     exploit_links.append(_new_exploit['link'])
 
-    ## THN
+    # THN
     if 'the hacker news' in refs.keys():
         vuln.is_in_the_news = True
         for t in refs['the hacker news']:
@@ -994,7 +1000,7 @@ def sync_exploits_fromvia(cve_id, refs):
                 reflinks.append(t.get('source', None))
                 exploit_links.append(_new_exploit['link'])
 
-    ## REFMAP
+    # REFMAP
     if 'refmap' in refs.keys() and type(refs['refmap']) == dict:
         reflinkids.update(refs['refmap'])
 
