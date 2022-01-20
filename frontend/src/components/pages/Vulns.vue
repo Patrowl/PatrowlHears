@@ -43,7 +43,7 @@
                 hide-details
               />
             </v-col>
-            <v-col class="pa-2" md="3">
+            <v-col class="pa-2 mt-4" md="3">
               <v-range-slider
                 v-model="search_slider"
                 label="Score"
