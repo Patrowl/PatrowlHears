@@ -249,7 +249,7 @@ export default {
     search_slider_min: 0,
     search_slider_max: 100,
     showAdvancedFilters: false,
-    advancedSearchFilter: null
+    advancedSearchFilter: null,
     show_all: true,
     show_last_day: false,
     show_last_week: false,
@@ -331,7 +331,7 @@ export default {
         let search = this.search.trim().toLowerCase();
 
         this.limit = itemsPerPage;
-        let items = this.getVulns(page, this.limit, sortBy, sortDesc, this.advancedSearchFilter);
+        let items = this.getVulns(page, this.limit, sortBy, sortDesc);
 
         setTimeout(() => {
           resolve({
@@ -346,7 +346,7 @@ export default {
       this.advancedSearchFilter = filters
       this.getDataFromApi();
     },
-    getVulns(page, itemsPerPage, sortBy, sortDesc, extra_filters) {
+    getVulns(page, itemsPerPage, sortBy, sortDesc) {
       let sorted_by = '';
       if (sortBy.length > 0) {
         if (sortDesc[0] === true) {
@@ -363,8 +363,9 @@ export default {
         filter_by_date = "&updated_at__gte=" + moment(new Date()).subtract(7 , 'day').format('YYYY-MM-DD');
       }
 
-      if (extra_filters == null || extra_filters == '') {
-        extra_filters = "&score__gte="+this.search_slider_min+"&score__lte="+this.search_slider_max
+      extra_filters = "&score__gte="+this.search_slider_min+"&score__lte="+this.search_slider_max
+      if (this.advancedSearchFilter != null || this.advancedSearchFilter != '') {
+        extra_filters += this.advancedSearchFilter
       }
 
       let url = '/api/vulns/?limit='+itemsPerPage+'&page='+page+'&search='+this.search+'&'+sorted_by+filter_by_date+extra_filters
