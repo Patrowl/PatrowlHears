@@ -44,27 +44,16 @@
               />
             </v-col>
             <v-col class="pa-2" md="3">
-              <v-slider
-                v-model="search_slider_min"
-                label="Min Score"
-                min="0"
+              <v-range-slider
+                v-model="search_slider"
+                label="Score"
                 max="100"
-                color="deep-orange"
-                track-color="grey"
+                min="0"
                 thumb-label
-                hide-details
-              />
-              <v-slider
-                v-model="search_slider_max"
-                label="Max Score"
-                min="0"
-                max="100"
-                color="grey"
                 thumb-color="deep-orange"
-                track-color="deep-orange"
-                thumb-label
-                hide-details
-              />
+                track-color="grey"
+                color="deep-orange"
+              ></v-range-slider>
             </v-col>
           </v-row>
           <v-row v-if="showAdvancedFilters">
@@ -246,14 +235,13 @@ export default {
     loading: true,
     limit: 10,
     search: '',
-    search_slider_min: 0,
-    search_slider_max: 100,
     showAdvancedFilters: false,
     advancedSearchFilter: null,
     show_all: true,
     show_last_day: false,
     show_last_week: false,
     show_monitored: false,
+    search_slider: [20,40],
     options: {},
     headers: [
       { text: 'Score', value: 'score', align: 'center', width: "10%" },
@@ -282,10 +270,7 @@ export default {
       },
       deep: true
     },
-    search_slider_min: _.debounce(function () {
-      this.getDataFromApi();
-    }, 500),
-    search_slider_max: _.debounce(function () {
+    search_slider: _.debounce(function () {
       this.getDataFromApi();
     }, 500),
     show_all: {
@@ -342,7 +327,6 @@ export default {
       this.loading = false;
     },
     updateAdvancedSearchFilters(filters){
-      // HERE
       this.advancedSearchFilter = filters
       this.getDataFromApi();
     },
@@ -363,7 +347,7 @@ export default {
         filter_by_date = "&updated_at__gte=" + moment(new Date()).subtract(7 , 'day').format('YYYY-MM-DD');
       }
 
-      let extra_filters = "&score__gte="+this.search_slider_min+"&score__lte="+this.search_slider_max
+      let extra_filters = "&score__gte="+this.search_slider[0]+"&score__lte="+this.search_slider[1]
       if (this.advancedSearchFilter != null) {
         extra_filters += this.advancedSearchFilter
       }
