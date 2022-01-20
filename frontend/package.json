@@ -13,7 +13,7 @@
     "json-data-convert-file": "^1.0.1",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
-    "sweetalert2": "^11.3.0",
+    "sweetalert2": "^11.3.2",
     "typeface-roboto": "^1.1.13",
     "vue": "^2.6.14",
     "vue-axios": "^3.4.0",
