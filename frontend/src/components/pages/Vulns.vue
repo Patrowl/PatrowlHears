@@ -363,8 +363,8 @@ export default {
         filter_by_date = "&updated_at__gte=" + moment(new Date()).subtract(7 , 'day').format('YYYY-MM-DD');
       }
 
-      extra_filters = "&score__gte="+this.search_slider_min+"&score__lte="+this.search_slider_max
-      if (this.advancedSearchFilter != null || this.advancedSearchFilter != '') {
+      let extra_filters = "&score__gte="+this.search_slider_min+"&score__lte="+this.search_slider_max
+      if (this.advancedSearchFilter != null) {
         extra_filters += this.advancedSearchFilter
       }
 
