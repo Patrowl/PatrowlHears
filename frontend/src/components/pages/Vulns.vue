@@ -249,6 +249,7 @@ export default {
     search_slider_min: 0,
     search_slider_max: 100,
     showAdvancedFilters: false,
+    advancedSearchFilter: null
     show_all: true,
     show_last_day: false,
     show_last_week: false,
@@ -313,7 +314,7 @@ export default {
     }
   },
   methods: {
-    getDataFromApi(extra_filters, page_id) {
+    getDataFromApi(page_id) {
       this.loading = true;
       // console.log(page_id)
 
@@ -330,7 +331,7 @@ export default {
         let search = this.search.trim().toLowerCase();
 
         this.limit = itemsPerPage;
-        let items = this.getVulns(page, this.limit, sortBy, sortDesc, extra_filters);
+        let items = this.getVulns(page, this.limit, sortBy, sortDesc, this.advancedSearchFilter);
 
         setTimeout(() => {
           resolve({
@@ -341,7 +342,9 @@ export default {
       this.loading = false;
     },
     updateAdvancedSearchFilters(filters){
-      this.getDataFromApi(filters, 1);
+      // HERE
+      this.advancedSearchFilter = filters
+      this.getDataFromApi();
     },
     getVulns(page, itemsPerPage, sortBy, sortDesc, extra_filters) {
       let sorted_by = '';
