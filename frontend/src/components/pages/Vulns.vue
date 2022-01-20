@@ -241,7 +241,7 @@ export default {
     show_last_day: false,
     show_last_week: false,
     show_monitored: false,
-    search_slider: [20,40],
+    search_slider: [0,100],
     options: {},
     headers: [
       { text: 'Score', value: 'score', align: 'center', width: "10%" },
