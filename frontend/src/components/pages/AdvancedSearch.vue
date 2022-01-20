@@ -236,9 +236,11 @@ export default {
     addFilter(){
       this.filters.push(this.new_filter);
       this.new_filter = { filter: '', criteria: null, value: '' }
+      this.applySearchFilters()
     },
     removeFilter(idx){
-      this.filters.splice(idx);
+      this.filters.splice(idx, 1);
+      this.applySearchFilters()
     },
     applySearchFilters(){
       // Format the filters
