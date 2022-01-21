@@ -104,7 +104,7 @@
 
    <v-footer>
      <v-spacer></v-spacer>
-    <div class="caption"><v-chip color="deep-orange" href="https://patrowl.io/?ref=hears" small label>Visit patrowl.io</v-chip> &copy; 2020-{{ new Date().getFullYear() }} // version {{app_version.version}} // {{app_version.edition|capitalize}} Edition {{app_version.build}}</div>
+    <div class="caption"><v-chip color="deep-orange" href="https://patrowl.io/products/hears" small label>Visit patrowl.io - SaaS & Pro Edition</v-chip> &copy; 2020-{{ new Date().getFullYear() }} // version {{app_version.version}} // {{app_version.edition|capitalize}} Edition {{app_version.build}}</div>
    </v-footer>
   </v-app>
 </template>
