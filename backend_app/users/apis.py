@@ -15,7 +15,8 @@ from rest_framework.permissions import AllowAny, IsAdminUser
 
 from django_filters import rest_framework as filters
 from organizations.models import Organization, OrganizationUser, OrganizationOwner
-from organizations.backends.tokens import RegistrationTokenGenerator
+# from organizations.backends.tokens import RegistrationTokenGenerator
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from common.utils import get_api_default_permissions
 from common.utils.pagination import StandardResultsSetPagination
 from common.utils.password import get_random_alphanumeric_string, get_random_int_string
@@ -128,7 +129,8 @@ def activate_user(self, token):
         user = get_user_model().objects.get(id=user_id, is_active=False)
     except get_user_model().DoesNotExist:
         raise Http404(_("Your URL may have expired."))
-    if not RegistrationTokenGenerator().check_token(user, user_token):
+    # if not RegistrationTokenGenerator().check_token(user, user_token):
+    if not PasswordResetTokenGenerator().check_token(user, user_token):
         raise Http404(_("Your URL may have expired."))
 
     # Collect data from form
