@@ -1,5 +1,4 @@
 from django.core.management.base import BaseCommand
-from common.feeds.vulns import import_cve
 from data.tasks import import_cve_task
 from common.utils import chunks
 from celery import group
@@ -65,6 +64,7 @@ class Command(BaseCommand):
                 pbar.update()
 
         pbar = tqdm(total=len(files_sig), desc="CVES-run")
+
         for chunk in chunks(files_sig, CHUNK_SIZE):
             res = group(chunk)()
             res.get()
