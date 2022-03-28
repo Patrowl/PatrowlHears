@@ -1,4 +1,5 @@
 """backend_app URL Configuration."""
+from .adfs import custom_adfs_connection
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include, re_path
@@ -64,7 +65,7 @@ urlpatterns = [
     path('', index, name='index'),
     path('accounts/', include('organizations.urls')),
     path('invitations/', include(invitation_backend().get_urls())),
-    path('auth-jwt/obtain_jwt_token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('auth-jwt/obtain_jwt_token/', custom_adfs_connection, name='token_obtain_pair'),
     path('auth-jwt/refresh_jwt_token/', TokenRefreshView.as_view(), name='token_refresh'),
     path('auth-jwt/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path('admin/', admin.site.urls),
@@ -83,6 +84,7 @@ urlpatterns = [
     path('api/docs/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('', include(router.urls)),
     path('favicon.ico', RedirectView.as_view(url='/static/favicon.ico')),
+    path('oauth2', include('django_auth_adfs.drf_urls')),
 
 ]
 
