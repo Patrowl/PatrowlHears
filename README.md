@@ -8,7 +8,7 @@
 
 
 # **PatrowlHears**
-[PatrOwl](https://www.patrowl.io/) provides scalable, free and open-source solutions for orchestrating Security Operations and providing Threat Intelligence feeds. **PatrowlHears** is an advanced and real-time Vulnerability Intelligence platform, including CVE, exploits and threats news.
+[PatrOwl](https://www.patrowlhears.io/) provides scalable, free and open-source solutions for orchestrating Security Operations and providing Threat Intelligence feeds. **PatrowlHears** is an advanced and real-time Vulnerability Intelligence platform, including CVE, exploits and threats news.
 
 # Try it now!
 To try PatrowlHears, install it by reading the [Installation Guide](https://github.com/Patrowl/PatrowlHears/blob/master/INSTALL.md).
@@ -46,17 +46,17 @@ A commercial Pro Edition is available and officially supported by the PatrOwl co
   - [ ] 3rd party authentication: Azure Active Directory, ADFS (Windows 2012 and 2016), LDAP (WIP)
   - [ ] Ticketing system integration, including JIRA, ServiceNow, ZenDesk and GLPI (WIP)
 
-**PatrowlHears** is available on the official PatrOwl SaaS platform or on-premise.
-See: https://patrowl.io/products/hears
+**PatrowlHears** is available on the official PatrOwl SaaS platform.
+See: https://patrowlhears.io
 
 # Commercial Support and Services
-Looking for advanced support, training, integration, custom developments, dual-licensing ? Contact us at getsupport@patrowl.io
+Looking for advanced support, training, integration, custom developments, dual-licensing ? Contact us at sales@patrowl.io
 
 # Security contact
 Please disclose any security-related issues or vulnerabilities by emailing security@patrowl.io, instead of using the public issue tracker.
 
 # Copyright
-Copyright (C) 2020-2021 Nicolas MATTIOCCO ([@MaKyOtOx](https://twitter.com/MaKyOtOx) - nicolas@patrowl.io)
+Copyright (C) 2020-2022 Nicolas MATTIOCCO ([@MaKyOtOx](https://twitter.com/MaKyOtOx) - nicolas@patrowl.io)
 
 # Travis build status
 | Branch  | Status  |

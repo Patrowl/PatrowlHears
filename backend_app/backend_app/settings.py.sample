@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'django_celery_results',
     'organizations',
     'annoying',
+    'cachalot',
 
     'users',
     'custusers',
@@ -124,7 +125,7 @@ LOGGING = {
     },
 }
 
-DEFAULT_AUTO_FIELD='django.db.models.AutoField' 
+DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 
 # APPEND_SLASH = False
 
@@ -184,14 +185,10 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('POSTGRES_DBNAME', 'patrowlhears_db'),
         'USER': os.environ.get('POSTGRES_USER', 'patrowlhears'),
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', ''),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'patrowlhears'),
         'HOST': os.environ.get('POSTGRES_HOST', 'localhost'),
-        'PORT': os.environ.get('POSTGRES_PORT', ''),
+        'PORT': os.environ.get('POSTGRES_PORT', '5432'),
     },
-    'mongodb': {
-        'HOST': os.environ.get('CVESEARCH_MONGODB_HOST', 'localhost'),
-        'PORT': os.environ.get('CVESEARCH_MONGODB_PORT', 27017),
-    }
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -255,11 +252,16 @@ SWAGGER_SETTINGS = {
     'JSON_EDITOR': True,
 }
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-    }
-}
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+#     }
+# }
+
+MEMCACHED_HOST = os.environ.get('MEMCACHED_HOST', '127.0.0.1')
+CACHALOT_ENABLED = True
+CACHALOT_CACHE = 'default'
+CACHALOT_TIMEOUT = 60*60
 
 CORS_ORIGIN_ALLOW_ALL = True
 # CORS_ORIGIN_WHITELIST = (
@@ -429,16 +431,7 @@ HEARS_DATASYNC_TIMEOUT = os.environ.get('HEARS_DATASYNC_TIMEOUT', None)
 HEARS_DATASYNC_CHUNKSIZE = int(os.environ.get('HEARS_DATASYNC_CHUNKSIZE', 100))
 
 ## Pro edition - Load extra settings
+PRO_FEEDS_ENDPOINT_URL = os.environ.get('PRO_FEEDS_ENDPOINT_URL', 'https://s3.eu-west-3.amazonaws.com')
+PRO_FEEDS_ACCESS_KEY = os.environ.get('PRO_FEEDS_ACCESS_KEY', '')
+PRO_FEEDS_SECRET_KEY = os.environ.get('PRO_FEEDS_SECRET_KEY', '')
 PRO_EDITION = os.environ.get('PRO_EDITION', '').lower() in ['true', '1', 'yes', 'y', 'on']
-if PRO_EDITION is True and os.path.isdir('pro'):
-    try:
-        from pro.settings import *
-        INSTALLED_APPS += PRO_INSTALLED_APPS
-        MIDDLEWARE += PRO_MIDDLEWARE
-        AUTHENTICATION_BACKENDS += PRO_AUTHENTICATION_BACKENDS
-        L_LRUE = list(LOGIN_REQUIRED_URLS_EXCEPTIONS)
-        L_LRUE.append(PRO_LOGIN_REQUIRED_URLS_EXCEPTIONS)
-        LOGIN_REQUIRED_URLS_EXCEPTIONS = tuple(L_LRUE)
-
-    except ImportError:
-        print("ERROR: Unable to load PRO modules")

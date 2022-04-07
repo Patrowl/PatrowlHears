@@ -15,7 +15,7 @@ CHECKSUMS_FILENAME = 'checksums.md5'
 
 
 class Command(BaseCommand):
-    help = 'Import exploits from Feeds JSON files'
+    help = 'Import vulnerabilities from Feeds JSON files'
 
     def add_arguments(self, parser):
         parser.add_argument('-d', '--input-dir', type=str, help='Input directory', )

@@ -68,6 +68,7 @@ The following software are required to download and run PatrowlHears:
 - [Python virtualenv](https://virtualenv.pypa.io/en/stable/installation/)
 - [RabbitMQ](https://www.rabbitmq.com)
 - [Nginx](http://nginx.org/en/docs/)
+- [Memcached](https://memcached.org/)
 
 We strongly recommend to use the system packages.
 To install the requirements and run PatrowlHears from sources, please follow the instructions below depending on your operating system.
