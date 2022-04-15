@@ -7,18 +7,22 @@ export DB_PORT_5432_TCP_HOST=${DB_PORT_5432_TCP_HOST:-localhost}
 export DB_PORT=${DB_PORT:-5432}
 export RABBITMQ_HOST=${RABBITMQ_HOST:-localhost}
 export RABBITMQ_PORT=${RABBITMQ_PORT:-5672}
+export MEMCACHED_HOST=${MEMCACHED_HOST:-memcached}
+export MEMCACHED_PORT=${MEMCACHED_PORT:-11211}
 export SUPER_USERNAME=${SUPER_USERNAME:-admin}
 export SUPER_PASSWORD=${SUPER_PASSWORD:-Bonjour1!}
-export SUPER_EMAIL=${SUPER_EMAIL:-admin@hears.patrowl.io}
+export SUPER_EMAIL=${SUPER_EMAIL:-admin@mockpatrowlhears.io}
 export SUPER_ORGNAME=${SUPER_ORGNAME:-Private}
 
 python3 -mplatform | grep -qiE 'Ubuntu|Linux' && {
   sudo apt update
   sudo apt upgrade -y
-  sudo apt install -y -f build-essential python3 python3-dev git curl rabbitmq-server postgresql postgresql-client nodejs libpq-dev nginx
+  sudo apt install -y -f build-essential python3 python3-dev git curl rabbitmq-server postgresql postgresql-client nodejs libpq-dev nginx memcached libmemcached-tools
   sudo systemctl restart nginx
   sudo systemctl start postgresql.service
   sudo systemctl enable postgresql.service
+  sudo systemctl restart memcached
+  sudo systemctl enable memcached
   curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
   sudo python3 get-pip.py
   rm get-pip.py
@@ -26,15 +30,18 @@ python3 -mplatform | grep -qiE 'Ubuntu|Linux' && {
 }
 python3 -mplatform | grep -qi centos && {
   sudo yum upgrade
-  sudo yum install -y git python3 python3-pip python3-virtualenv rabbitmq-server postgresql postgresql-client nodejs postgresql-devel nginx
+  sudo yum install -y git python3 python3-pip python3-virtualenv rabbitmq-server postgresql postgresql-client nodejs postgresql-devel nginx memcached libmemcached
   sudo systemctl start nginx
+  sudo systemctl start memcached
+  sudo systemctl enable memcached
 }
 python3 -mplatform | grep -qi macOS && {
   brew update
-  brew install postgres python3 rabbitmq nginx
+  brew install postgres python3 rabbitmq nginx memcached
   brew services start postgres
   brew services start rabbitmq
   brew services start nginx
+  brew services start memcached
   python -m ensurepip
   pip install virtualenv
 }
@@ -44,6 +51,9 @@ while !</dev/tcp/$DB_PORT_5432_TCP_HOST/$DB_PORT; do sleep 1; done
 
 echo "[+] Wait for RabbitMQ availability"
 while !</dev/tcp/$RABBITMQ_HOST/$RABBITMQ_PORT; do sleep 1; done
+
+echo "[+] Wait for Memcached availability"
+while !</dev/tcp/$MEMCACHED_HOST/$MEMCACHED_PORT; do sleep 1; done
 
 echo "[+] Go to backend dir"
 cd backend_app
@@ -129,5 +139,5 @@ echo "[+] Fetch and load latest DB updates from public repos"
 ./import_data_updates.sh
 
 echo "[+] Installation finished."
-echo "[!] Visit https://patrowl.io"
+echo "[!] Visit https://patrowlhears.io"
 echo "[?] Contact us at getsupport@patrowl.io, or chat with us on Gitter: https://gitter.im/PatrowlHears/Support"

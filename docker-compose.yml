@@ -16,7 +16,7 @@ services:
     environment:
       - POSTGRES_DB=patrowlhears_db
       - POSTGRES_USER=patrowlhears
-      - POSTGRES_PASSWORD=patrowlhears_pw
+      - POSTGRES_PASSWORD=patrowlhears
     expose:
       - '5432'
     volumes:
@@ -32,8 +32,21 @@ services:
       - DEBUG=False
       - POSTGRES_HOST=db
       - POSTGRES_USER=patrowlhears
-      - POSTGRES_PASSWORD=patrowlhears_pw
+      - POSTGRES_PASSWORD=patrowlhears
       - RABBITMQ_HOSTNAME=rabbitmq:5672
+      - MEMCACHED_HOST=memcached
+      ## Private Feeds Credentials
+      - PRO_FEEDS_ACCESS_KEY=AKIAXQII7DGLSDVATJPV
+      - PRO_FEEDS_SECRET_KEY=AefA4ox7MLSNfihM21FjSA58psmjeccRfT8XT9t/
+      ## ADFS / SSO configuration
+      - AUTH_ADFS_ENABLED=true
+      - AUTH_ADFS_SERVER=adfs.example.com
+      - AUTH_ADFS_CLIENT_ID=08b57015-444f-44b0-a495-6cfe2335a9fa
+      - AUTH_ADFS_RELYING_PARTY_ID=08b57015-444f-44b0-a495-6cfe2335a9fa
+      - AUTH_ADFS_AUDIENCE=microsoft:identityserver:08b57015-444f-44b0-a495-6cfe2335a9fa
+      - AUTH_ADFS_USERNAME_CLAIM=email
+      - AUTH_ADFS_CREATE_NEW_USERS=true
+      ## Email Configuration
       # - EMAIL_HOST=auth.smtp.1and1.fr
       # - EMAIL_HOST_USER=alerts@xx_patrowl_xx.fr
       # - EMAIL_HOST_PASSWORD=xx_patrowl_xx
@@ -43,6 +56,7 @@ services:
     depends_on:
       - db
       - rabbitmq
+      - memcached
     expose:
       - "8303"
     volumes:
@@ -51,6 +65,13 @@ services:
     links:
       - db
       - rabbitmq
+      - memcached
+
+  memcached:
+    container_name: patrowlhears-memcached
+    image: memcached:latest
+    expose:
+      - '11211'
 
   nginx:
     image: nginx:latest

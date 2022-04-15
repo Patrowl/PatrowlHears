@@ -25,16 +25,16 @@ from users import apis as users_apis
 from .views import index
 
 schema_view = get_schema_view(
-   openapi.Info(
-      title="Patrowl Hears REST-API",
-      default_version='v1',
-      description="Patrowl Hears REST-API",
-      terms_of_service="https://www.google.com/policies/terms/",
-      contact=openapi.Contact(email="getsupport@patrowl.io"),
-      license=openapi.License(name="AGPLv3 License"),
-   ),
-   public=True,
-   permission_classes=(permissions.AllowAny,),
+    openapi.Info(
+        title="Patrowl Hears REST-API",
+        default_version='v1',
+        description="Patrowl Hears REST-API",
+        terms_of_service="https://www.google.com/policies/terms/",
+        contact=openapi.Contact(email="getsupport@patrowl.io"),
+        license=openapi.License(name="AGPLv3 License"),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
 )
 
 router = routers.DefaultRouter()
@@ -84,9 +84,12 @@ urlpatterns = [
     path('api/docs/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('', include(router.urls)),
     path('favicon.ico', RedirectView.as_view(url='/static/favicon.ico')),
-    path('oauth2', include('django_auth_adfs.drf_urls')),
-
 ]
+
+if settings.ENABLE_AUTH_ADFS is True:
+    urlpatterns = [
+        path('oauth2/', include('django_auth_adfs.urls')),
+    ] + urlpatterns
 
 if settings.DEBUG is True:
     import debug_toolbar
@@ -95,11 +98,3 @@ if settings.DEBUG is True:
     ] + urlpatterns
 
 urlpatterns += staticfiles_urlpatterns()
-
-# Add PRO edition urls
-if settings.PRO_EDITION:
-    try:
-        from pro.urls import pro_urlpatterns
-        urlpatterns += pro_urlpatterns
-    except ImportError as e:
-        print(e)
