@@ -1,15 +1,27 @@
 # Installation notes for **PatrowlHears**
 
 ## Hardware Pre-requisites
-PatrowlHears uses PosgreSQL to store data and RabbitMQ to process queues. We recommend using a virtual machine with at least 2vCPU, 8 GB of RAM and 50 GB of storage disk. You can also use a physical machine with similar specifications.
+PatrowlHears uses PosgreSQL to store data and RabbitMQ to process queues and asynchronous tasks. We recommend using a virtual machine with at least 2vCPU, 8 GB of RAM and 100 GB of storage disk. You can also use a physical machine with similar specifications.
 
 ## Installation steps
 ### The very easy way: Use Docker
 - Install Docker and Docker-compose
-- Run the docker stack:
+- Build the docker stack:
 ```
 git clone https://github.com/Patrowl/PatrowlHears
 cd PatrowlHears
+docker-compose build
+```
+- [Optional] Build and store Docker images as tar file (.img)
+```
+docker save -o patrowlhears-docker-images.img $(docker-compose config | awk '{if ($1 == "image:") print $2;}' ORS=" ")
+```
+- [Optional] Load
+```
+docker load < patrowlhears-docker-images.img
+```
+- Run the docker stack:
+```
 docker-compose up
 ```
 - Open your browser on http://localhost:8383
@@ -20,10 +32,18 @@ docker-compose up
 docker-compose exec patrowlhears bash -c 'cd backend_app && ./load_init_data.sh'
 docker-compose exec patrowlhears bash -c 'cd backend_app && ./import_data_updates.sh'
 ```
-- Regularly update DB with command:
+- Regularly update DB from public repository with command:
 ```
 docker-compose exec patrowlhears bash -c 'cd backend_app && ./import_data_updates.sh'
 ```
+- [PRO] Regularly update DB from private repository with command:
+> Ensure env variables `PRO_FEEDS_ACCESS_KEY` and `PRO_FEEDS_SECRET_KEY` are set
+```
+docker-compose exec patrowlhears bash -c 'cd backend_app && env/bin/python manage.py downloadfeeds -o /tmp'
+docker-compose exec patrowlhears bash -c 'cd backend_app && env/bin/python manage.py importfeeds_vulns -d /tmp/PatrowlHearsFeeds/feeds/'
+docker-compose exec patrowlhears bash -c 'cd backend_app && env/bin/python manage.py importfeeds_exploits -d /tmp/PatrowlHearsFeeds/feeds/'
+```
+
 
 ### The easy way: Use installation script
 - Install Python3 on your server
@@ -68,6 +88,7 @@ The following software are required to download and run PatrowlHears:
 - [Python virtualenv](https://virtualenv.pypa.io/en/stable/installation/)
 - [RabbitMQ](https://www.rabbitmq.com)
 - [Nginx](http://nginx.org/en/docs/)
+- [Memcached](https://memcached.org/)
 
 We strongly recommend to use the system packages.
 To install the requirements and run PatrowlHears from sources, please follow the instructions below depending on your operating system.
@@ -75,7 +96,7 @@ To install the requirements and run PatrowlHears from sources, please follow the
 ###### 1.1. MacOS/X with Brew
 ```
 brew update
-brew install postgres python3 rabbitmq npm
+brew install postgres python3 rabbitmq npm memcached
 python -m ensurepip
 pip install virtualenv
 ```

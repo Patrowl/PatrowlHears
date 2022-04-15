@@ -22,7 +22,7 @@ DB_NAME=${DB_NAME:-patrowlhears_db}
 DB_HOST=${DB_HOST:-localhost}
 DB_PORT=${DB_PORT:-5432}
 DB_USERNAME=${DB_USERNAME:-patrowlhears}
-DB_PASSWORD=${DB_PASSWORD:-}
+DB_PASSWORD=${DB_PASSWORD:-patrowlhears}
 
 echo "[+] Create DB schema"
 

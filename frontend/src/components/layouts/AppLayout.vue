@@ -141,7 +141,11 @@ export default {
     ],
     username: '',
     user_organization: '',
-    orgs: []
+    orgs: [],
+    snack: false,
+    snackColor: '',
+    snackText: '',
+    snackTimeout: 3000,
   }),
 
   mounted() {
