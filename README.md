@@ -1,4 +1,4 @@
-![](https://github.com/Patrowl/PatrowlDocs/blob/master/images/logos/logo-patrowl-light.png)
+![](https://github.com/Patrowl/PatrowlDocs/blob/master/images/logos/patrowlhears-logo-orange.png)
 
 [![Join the chat at https://gitter.im/Patrowl/Support](https://badges.gitter.im/Patrowl/Support.png)](https://gitter.im/Patrowl/Support)
 [![Known Vulnerabilities](https://snyk.io/test/github/Patrowl/PatrowlHears/badge.svg)](https://snyk.io/test/github/Patrowl/PatrowlHears)
@@ -8,7 +8,7 @@
 
 
 # **PatrowlHears**
-[PatrOwl](https://www.patrowlhears.io/) provides scalable, free and open-source solutions for orchestrating Security Operations and providing Threat Intelligence feeds. **PatrowlHears** is an advanced and real-time Vulnerability Intelligence platform, including CVE, exploits and threats news.
+[PatrOwl](https://patrowl.io/) provides scalable, free and open-source solutions for orchestrating Security Operations and providing Threat Intelligence feeds. **PatrowlHears** is an advanced and real-time Vulnerability Intelligence platform, including CVE, exploits and threats news.
 
 # Try it now!
 To try PatrowlHears, install it by reading the [Installation Guide](https://github.com/Patrowl/PatrowlHears/blob/master/INSTALL.md).
@@ -43,10 +43,8 @@ A commercial Pro Edition is available and officially supported by the PatrOwl co
   - [x] PatrOwl CSIRT feeds, managed by qualified Cyber-Threat Intelligence analysts
   - [x] Terraform+Ansible deployment scripts
   - [x] Official Pro Support
-  - [ ] 3rd party authentication: Azure Active Directory, ADFS (Windows 2012 and 2016), LDAP (WIP)
-  - [ ] Ticketing system integration, including JIRA, ServiceNow, ZenDesk and GLPI (WIP)
 
-**PatrowlHears** is available on the official PatrOwl SaaS platform.
+**PatrowlHears** is available on the official SaaS platform.
 See: https://patrowlhears.io
 
 # Commercial Support and Services
