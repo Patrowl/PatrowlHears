@@ -258,7 +258,14 @@ SWAGGER_SETTINGS = {
 #     }
 # }
 
-MEMCACHED_HOST = os.environ.get('MEMCACHED_HOST', '127.0.0.1')
+
+MEMCACHED_HOST = str(os.environ.get('MEMCACHED_HOST', '127.0.0.1'))
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': MEMCACHED_HOST+':11211',
+    }
+}
 CACHALOT_ENABLED = True
 CACHALOT_CACHE = 'default'
 CACHALOT_TIMEOUT = 60*60
@@ -435,3 +442,23 @@ PRO_FEEDS_ENDPOINT_URL = os.environ.get('PRO_FEEDS_ENDPOINT_URL', 'https://s3.eu
 PRO_FEEDS_ACCESS_KEY = os.environ.get('PRO_FEEDS_ACCESS_KEY', '')
 PRO_FEEDS_SECRET_KEY = os.environ.get('PRO_FEEDS_SECRET_KEY', '')
 PRO_EDITION = os.environ.get('PRO_EDITION', '').lower() in ['true', '1', 'yes', 'y', 'on']
+
+ENABLE_AUTH_ADFS = os.environ.get('AUTH_ADFS_ENABLED', '').lower() in ['true', '1', 'yes', 'y', 'on']
+if ENABLE_AUTH_ADFS is True:
+    INSTALLED_APPS.append('django_auth_adfs')
+    AUTHENTICATION_BACKENDS.append('django_auth_adfs.backend.AdfsAuthCodeBackend')
+    MIDDLEWARE.append('django_auth_adfs.middleware.LoginRequiredMiddleware')
+    AUTH_ADFS = {
+        "SERVER": os.environ.get('AUTH_ADFS_SERVER', "adfs.example.com"),
+        "CLIENT_ID": os.environ.get('AUTH_ADFS_CLIENT_ID', "487d8ff7-80a8-4f62-b926-c2852ab06e94"),
+        "RELYING_PARTY_ID": os.environ.get('AUTH_ADFS_RELYING_PARTY_ID', "487d8ff7-80a8-4f62-b926-c2852ab06e94"),
+        "CA_BUNDLE": os.environ.get('AUTH_ADFS_CA_BUNDLE', False),  ## /path/to/ca.pem
+        "AUDIENCE": os.environ.get('AUTH_ADFS_AUDIENCE', "microsoft:identityserver:487d8ff7-80a8-4f62-b926-c2852ab06e94"),
+        "CLAIM_MAPPING": {
+            "first_name": "given_name",
+            "last_name": "family_name",
+            "email": "email"
+        },
+        "USERNAME_CLAIM": os.environ.get('AUTH_ADFS_USERNAME_CLAIM', "email"), ## or 'winaccountname'
+        "CREATE_NEW_USERS": os.environ.get('AUTH_ADFS_CREATE_NEW_USERS', 'false').lower() in ['yes', '1', 'true', 'y', 'o', 'on', 'oui']
+    }

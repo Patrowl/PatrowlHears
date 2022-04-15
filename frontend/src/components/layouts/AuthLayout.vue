@@ -63,24 +63,20 @@
             </v-form>
           </v-card-text>
         </v-card>
-        <!-- <br/>
-        <v-card class="saas-card" color="deep-orange" center="center">
-          <v-card-actions>
-              <v-btn text block href="https://patrowl.io/login">
-                Login/Register online
-              </v-btn>
-            </v-card-actions>
-        </v-card>
         <br/>
         <v-card class="saas-card" color="deep-orange" center="center">
           <v-card-actions>
-              <v-btn text block href="https://patrowl.io/login">
-                Get Pro Edition
+              <v-btn text block href="/oauth2/login">
+                SSO Authentication
               </v-btn>
             </v-card-actions>
-        </v-card> -->
+        </v-card>
       </v-flex>
     </v-layout>
+    <v-snackbar v-model="snack" :timeout="snackTimeout" :color="snackColor">
+      {{ snackText }}
+      <v-btn text @click="snack = false">Close</v-btn>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -108,7 +104,11 @@ export default {
           v => !!v || "Password is required",
           v => (v && v.length > 7) || "The password must be longer than 7 characters"
         ]
-      }
+      },
+      snack: false,
+      snackColor: '',
+      snackText: '',
+      snackTimeout: 3000,
   }),
 
   methods: {
@@ -153,10 +153,13 @@ export default {
               });
             } else {
               console.log("ERROR: Unable to set organization");
+              this.logout();
+              this.loading = false;
+              this.snack = true;
+              this.snackColor = 'error';
+              this.snackText = 'Unable to set organization';
             }
           });
-
-
         }).catch(e => {
           this.$store.commit("removeToken");
           this.loading = false;
@@ -169,7 +172,18 @@ export default {
           });
         });
       }
-    }
+    },
+    logout() {
+      this.$store.commit("removeToken");
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('username');
+      localStorage.removeItem('is_admin');
+      localStorage.removeItem('is_org_admin');
+      localStorage.removeItem('orgs');
+      localStorage.removeItem('org_id');
+      localStorage.removeItem('org_name');
+      this.$session.destroy();
+    },
   }
 }
 </script>
