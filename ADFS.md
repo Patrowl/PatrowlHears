@@ -2,7 +2,7 @@
 
 ## Configure your ADFS for PatrowlHears
 
-A very good step by step guide can be found [on this website](https://django-auth-adfs.readthedocs.io/en/latest/adfs_4.0_config_guide.html).
+A very good step by step guide can be found [on this website](https://django-auth-adfs.readthedocs.io/en/latest/config_guides.html).
 At the end of the guide it also shows how you can retrieve the variables you will use in the next section to configure the Django App that will use your ADFS.
 
 ## Variables you need to set on PatrowlHears
