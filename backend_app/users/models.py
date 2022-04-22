@@ -72,6 +72,8 @@ class OrgSettings(models.Model):
     enable_instant_email_report_exploitable = models.BooleanField(default=False)
     enable_instant_email_report_cvss = models.BooleanField(default=False)
     enable_instant_email_report_cvss_value = models.FloatField(default=8.0, blank=False, null=True)
+    enable_instant_email_report_cvss3 = models.BooleanField(default=False)
+    enable_instant_email_report_cvss3_value = models.FloatField(default=8.0, blank=False, null=True)
     enable_instant_email_report_score = models.BooleanField(default=False)
     enable_instant_email_report_score_value = models.FloatField(default=80, blank=False, null=True)
 

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import AuthLayout from '@/components/layouts/AuthLayout.vue'
+import AuthSSOLayout from '@/components/layouts/AuthSSOLayout.vue'
 import AppPublicLayout from '@/components/layouts/AppPublicLayout.vue'
 import UserRegistrationLayout from '@/components/layouts/UserRegistrationLayout.vue'
 // import UserAuth from '@/components/pages/UserAuth'
@@ -44,6 +45,11 @@ const routes = [
     path: '/auth',
     name: 'AuthLayout',
     component: AuthLayout
+  },
+  {
+    path: '/auth-sso',
+    name: 'AuthSSOLayout',
+    component: AuthSSOLayout
   },
   {
     path: '/registration',
@@ -118,6 +124,7 @@ router.beforeEach((to, from, next) => {
 
   if (localStorage.getItem('authToken') !== null
     || to.path === '/auth'
+    || to.path === '/auth-sso'
     || to.path === '/registration'
     || to.path === '/help'
     || to.path === '/public'

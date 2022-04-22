@@ -504,10 +504,14 @@ def update_org_settings(self):
     enable_instant_email_report_cvss3 = self.data.get('enable_instant_email_report_cvss3', None)
     if enable_instant_email_report_cvss3 is not None and enable_instant_email_report_cvss3 in ["true", "false"]:
         org.org_settings.enable_instant_email_report_cvss3 = enable_instant_email_report_cvss3 == "true"
+    else:
+        org.org_settings.enable_instant_email_report_cvss3 = False
 
     enable_instant_email_report_cvss3_value = self.data.get('enable_instant_email_report_cvss3_value', None)
     if enable_instant_email_report_cvss3_value is not None and check_float_in_range(float(enable_instant_email_report_cvss3_value), 0.0, 10):
         org.org_settings.enable_instant_email_report_cvss3_value = float(enable_instant_email_report_cvss3_value)
+    else:
+        org.org_settings.enable_instant_email_report_cvss3_value = 10
 
     enable_instant_email_report_score = self.data.get('enable_instant_email_report_score', None)
     if enable_instant_email_report_score is not None and enable_instant_email_report_score in ["true", "false"]:
@@ -675,7 +679,9 @@ def set_org(self, org_id):
         'status': 'set',
         'org_id': org.id,
         'org_name': org.name
-        }, safe=False)
+        },
+        safe=False
+    )
 
 
 @api_view(['GET'])
@@ -685,13 +691,15 @@ def set_default_org(self):
         user = OrganizationUser.objects.all().first()
     else:
         user = OrganizationUser.objects.filter(user_id=self.user.id, organization__is_active=True).first()
+        
     self.session['org_id'] = user.organization.id
     self.session['org_name'] = user.organization.name
     return JsonResponse({
         'status': 'set',
         'org_id': user.organization.id,
         'org_name': user.organization.name
-        }, safe=False)
+        }, safe=False
+    )
 
 
 @api_view(['GET'])

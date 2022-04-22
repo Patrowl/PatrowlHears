@@ -12,7 +12,8 @@ module.exports = {
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
-    proxy: 'http://127.0.0.1:3333'
+    proxy: 'http://127.0.0.1:3333',
+    disableHostCheck: true
   },
   lintOnSave: false,
   outputDir: './dist/',
