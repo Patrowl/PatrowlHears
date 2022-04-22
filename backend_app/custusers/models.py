@@ -31,6 +31,8 @@ def user_profile_dict():
 class User(AbstractUser):
     profile = models.JSONField(default=user_profile_dict, null=True)
     type = models.CharField(max_length=10, choices=USER_TYPES, default='DEFAULT')
+    mfa_enabled = models.BooleanField(default=False)
+    changed_first_password = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now, null=True)
     updated_at = models.DateTimeField(default=timezone.now, null=True)
     history = HistoricalRecords(excluded_fields=['updated_at'], cascade_delete_history=True)
@@ -49,6 +51,8 @@ class User(AbstractUser):
             'first_name': self.first_name,
             'last_name': self.last_name,
             'type': self.type,
+            'mfa_enabled': self.mfa_enabled,
+            'changed_first_password': self.changed_first_password,
             'profile': self.profile,
             'created_at': self.created_at,
             'updated_at': self.updated_at

@@ -64,13 +64,13 @@
           </v-card-text>
         </v-card>
         <br/>
-        <v-card class="saas-card" color="deep-orange" center="center">
+        <!-- <v-card class="saas-card" color="deep-orange" center="center">
           <v-card-actions>
-              <v-btn text block href="/oauth2/login">
-                SSO Authentication
+              <v-btn text block @click="loginsso">
+                SSO + 2FA Authentication
               </v-btn>
             </v-card-actions>
-        </v-card>
+        </v-card> -->
       </v-flex>
     </v-layout>
     <v-snackbar v-model="snack" :timeout="snackTimeout" :color="snackColor">
@@ -102,7 +102,7 @@ export default {
         ],
         password: [
           v => !!v || "Password is required",
-          v => (v && v.length > 7) || "The password must be longer than 7 characters"
+          v => (v && v.length < 256) || "The password must be lesser than 256 characters"
         ]
       },
       snack: false,
@@ -119,6 +119,7 @@ export default {
         this.$store.commit("removeToken");
         this.$api.post(this.$store.state.endpoints.obtainJWT, this.credentials).then(res => {
           this.$store.commit('updateToken', res.data.access);
+          // console.log(this.$store.state)
 
           // set default organization
           let org_name = "";
@@ -152,7 +153,6 @@ export default {
                 }
               });
             } else {
-              console.log("ERROR: Unable to set organization");
               this.logout();
               this.loading = false;
               this.snack = true;
@@ -172,6 +172,9 @@ export default {
           });
         });
       }
+    },
+    loginsso() {
+      this.$router.push({name: 'AuthSSOLayout'});
     },
     logout() {
       this.$store.commit("removeToken");

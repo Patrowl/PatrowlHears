@@ -2,20 +2,6 @@ from datetime import timedelta
 from celery.schedules import crontab
 import os
 
-# adfs section
-AUTH_ADFS = {
-    "SERVER": "adfs.example.com",
-    "CLIENT_ID": "487d8ff7-80a8-4f62-b926-c2852ab06e94",
-    "RELYING_PARTY_ID": "web.example.com",
-    "AUDIENCE": "microsoft:identityserver:web.example.com",
-    "CA_BUNDLE" : False,
-    "CLAIM_MAPPING": {"first_name": "given_name",
-                      "last_name": "family_name",
-                      "email": "email"},
-    "USERNAME_CLAIM": "winaccountname",
-    "GROUPS_CLAIM": "group"
-}
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -81,7 +67,6 @@ INSTALLED_APPS = [
     'alerts',
     'search',
     'data',
-    'django_auth_adfs',
 ]
 
 MIDDLEWARE = [
@@ -149,12 +134,13 @@ INVITATION_BACKEND = 'users.backends.CustomInvitations'
 REGISTRATION_BACKEND = 'users.backends.CustomRegistrations'
 
 AUTHENTICATION_BACKENDS = [
-    'django_auth_adfs.backend.AdfsAccessTokenBackend',
+    # 'django_auth_adfs.backend.AdfsAccessTokenBackend',
     'users.backends.EmailOrUsernameModelBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-LOGIN_URL = '/admin/login/'
+#LOGIN_URL = '/admin/login/'
+LOGIN_URL = '/'
 
 ROOT_URLCONF = 'backend_app.urls'
 
@@ -231,7 +217,7 @@ USE_TZ = False
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-	'django_auth_adfs.rest_framework.AdfsAccessTokenAuthentication',
+	      #'django_auth_adfs.rest_framework.AdfsAccessTokenAuthentication',
         #'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
@@ -438,6 +424,8 @@ ENABLE_AUTH_ADFS = os.environ.get('AUTH_ADFS_ENABLED', '').lower() in ['true', '
 if ENABLE_AUTH_ADFS is True:
     INSTALLED_APPS.append('django_auth_adfs')
     AUTHENTICATION_BACKENDS.append('django_auth_adfs.backend.AdfsAuthCodeBackend')
+    AUTHENTICATION_BACKENDS.append('django_auth_adfs.backend.AdfsAccessTokenBackend')
+    REST_FRAMEWORK['DEFAULT_AUTHENTICATION_CLASSES'] = REST_FRAMEWORK['DEFAULT_AUTHENTICATION_CLASSES'] + ('django_auth_adfs.rest_framework.AdfsAccessTokenAuthentication',)
     MIDDLEWARE.append('django_auth_adfs.middleware.LoginRequiredMiddleware')
     AUTH_ADFS = {
         "SERVER": os.environ.get('AUTH_ADFS_SERVER', "adfs.example.com"),
@@ -450,6 +438,7 @@ if ENABLE_AUTH_ADFS is True:
             "last_name": "family_name",
             "email": "email"
         },
-        "USERNAME_CLAIM": os.environ.get('AUTH_ADFS_USERNAME_CLAIM', "email"), ## or 'winaccountname'
+        #"GROUPS_CLAIM": os.environ.get('AUTH_ADFS_GROUPS_CLAIM', "group"),
+        #"USERNAME_CLAIM": os.environ.get('AUTH_ADFS_USERNAME_CLAIM', "winaccountname"), ## or 'email'
         "CREATE_NEW_USERS": os.environ.get('AUTH_ADFS_CREATE_NEW_USERS', 'false').lower() in ['yes', '1', 'true', 'y', 'o', 'on', 'oui']
     }

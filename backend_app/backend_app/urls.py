@@ -1,5 +1,4 @@
 """backend_app URL Configuration."""
-from .adfs import custom_adfs_connection
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include, re_path
@@ -22,6 +21,7 @@ from vulns import apis_public as vulns_apis_public
 from vpratings import apis as vpr_apis
 from cves import apis as cves_apis
 from users import apis as users_apis
+from .adfs import custom_sso_connection, custom_sso_callback, get_sso_login_page
 from .views import index
 
 schema_view = get_schema_view(
@@ -65,7 +65,7 @@ urlpatterns = [
     path('', index, name='index'),
     path('accounts/', include('organizations.urls')),
     path('invitations/', include(invitation_backend().get_urls())),
-    path('auth-jwt/obtain_jwt_token/', custom_adfs_connection, name='token_obtain_pair'),
+    path('auth-jwt/obtain_jwt_token/', custom_sso_connection, name='token_obtain_pair'),
     path('auth-jwt/refresh_jwt_token/', TokenRefreshView.as_view(), name='token_refresh'),
     path('auth-jwt/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path('admin/', admin.site.urls),
@@ -88,7 +88,9 @@ urlpatterns = [
 
 if settings.ENABLE_AUTH_ADFS is True:
     urlpatterns = [
+        path('oauth2/callback', custom_sso_callback, name='custom_sso_callback'),
         path('oauth2/', include('django_auth_adfs.urls')),
+        path('adfs/login-page', get_sso_login_page, name='get_sso_login_page'),
     ] + urlpatterns
 
 if settings.DEBUG is True:

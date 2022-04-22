@@ -39,13 +39,12 @@ services:
       - PRO_FEEDS_ACCESS_KEY=AKIAXQII7DGLSDVATJPV
       - PRO_FEEDS_SECRET_KEY=AefA4ox7MLSNfihM21FjSA58psmjeccRfT8XT9t/
       ## ADFS / SSO configuration
-      - AUTH_ADFS_ENABLED=true
-      - AUTH_ADFS_SERVER=adfs.example.com
-      - AUTH_ADFS_CLIENT_ID=08b57015-444f-44b0-a495-6cfe2335a9fa
-      - AUTH_ADFS_RELYING_PARTY_ID=08b57015-444f-44b0-a495-6cfe2335a9fa
-      - AUTH_ADFS_AUDIENCE=microsoft:identityserver:08b57015-444f-44b0-a495-6cfe2335a9fa
-      - AUTH_ADFS_USERNAME_CLAIM=email
-      - AUTH_ADFS_CREATE_NEW_USERS=true
+      # - AUTH_ADFS_ENABLED=true
+      # - AUTH_ADFS_SERVER=adfs.example.com
+      # - AUTH_ADFS_CLIENT_ID=42d4943a-4d7d-4b55-924f-b6838affb2df
+      # - AUTH_ADFS_RELYING_PARTY_ID=08b57015-444f-44b0-a495-6cfe2335a9fa
+      # - AUTH_ADFS_AUDIENCE=microsoft:identityserver:42d4943a-4d7d-4b55-924f-b6838affb2df
+      # - AUTH_ADFS_USERNAME_CLAIM=email
       ## Email Configuration
       # - EMAIL_HOST=auth.smtp.1and1.fr
       # - EMAIL_HOST_USER=alerts@xx_patrowl_xx.fr

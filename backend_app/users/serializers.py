@@ -44,10 +44,12 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ('id', 'username', 'first_name', 'last_name', 'email',
+        fields = (
+            'id', 'username', 'first_name', 'last_name', 'email',
             'last_login', 'is_superuser', 'is_staff', 'is_active',
             'orgs', 'current_org', 'is_org_admin',
-            'auth_token', 'profile')
+            'auth_token', 'profile'
+        )
         extra_kwargs = {
             'password': {'write_only': True},
         }
