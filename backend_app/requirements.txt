@@ -16,7 +16,7 @@ deepdiff==4.2.0
 Django==3.1.14
 django-annoying==0.10.6
 django-celery-beat==2.0.0
-django-celery-results==2.0.0
+django-celery-results==2.4.0
 django-cors-headers==3.5.0
 django-debug-toolbar==2.2.1
 django-extensions==2.2.8
