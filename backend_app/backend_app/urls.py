@@ -10,7 +10,7 @@ from rest_framework import routers, permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
+    # TokenObtainPairView,
     TokenRefreshView,
     TokenVerifyView,
 )
@@ -26,7 +26,7 @@ from .views import index
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Patrowl Hears REST-API",
+        title="PatrowlHears REST-API",
         default_version='v1',
         description="Patrowl Hears REST-API",
         terms_of_service="https://www.google.com/policies/terms/",

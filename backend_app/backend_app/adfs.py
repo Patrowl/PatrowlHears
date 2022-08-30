@@ -1,18 +1,14 @@
 from django.conf import settings
 from django.contrib.auth import authenticate, get_user_model
 from django.http import JsonResponse, HttpResponseRedirect
-
-# from django.shortcuts import redirect
-# from django.utils.http import url_has_allowed_host_and_scheme
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from organizations.models import Organization, OrganizationUser, OrganizationOwner
 import requests
-# import base64
 
-if hasattr(settings, 'AUTH_ADFS'):
+if settings.ENABLE_AUTH_ADFS is True and hasattr(settings, 'AUTH_ADFS'):
     from django_auth_adfs.config import provider_config
 
 
@@ -23,68 +19,68 @@ def custom_sso_connection(request):
     username = request.data["username"]
     password = request.data["password"]
 
-    # payload for adfs
-    payload = {
-        "grant_type": "password",
-        "resource": settings.AUTH_ADFS["RELYING_PARTY_ID"],
-        "client_id": settings.AUTH_ADFS["CLIENT_ID"],
-        "username": username,
-        "password": password,
-    }
-
-    adfs_res = requests.post(
-        "https://" + settings.AUTH_ADFS["SERVER"] + "/adfs/oauth2/token",
-        data=payload,
-        verify=False
-    )
-
-    if adfs_res.status_code == 200:
-        # Create utser if not exists
-        user = get_user_model().objects.filter(username=username, is_active=True).first()
-        if user is None:
-            user = get_user_model().objects.create(username=username, email=username)
-
-        # Create a personal organization, organization user & owner if not exists
-        if user.organizations_organization.count() == 0:
-            personal_org = Organization.objects.create(
-                is_active=True,
-                name="Private"
-            )
-            personal_org.save()
-            personal_org.slug = "{}-{}".format(personal_org.slug, user.email)
-            personal_org.save()
-
-            personal_org_user = OrganizationUser.objects.create(
-                user=user,
-                organization=personal_org,
-                is_admin=True)
-            personal_org_user.save()
-
-            personal_org_owner = OrganizationOwner.objects.create(
-                organization=personal_org,
-                organization_user=personal_org_user
-            )
-            personal_org_owner.save()
-
-        refresh = RefreshToken.for_user(user)
-        token_pair = {
-            'refresh': str(refresh),
-            'access': str(refresh.access_token),
+    if settings.ENABLE_AUTH_ADFS is True and hasattr(settings, 'AUTH_ADFS'):
+        # payload for adfs
+        payload = {
+            "grant_type": "password",
+            "resource": settings.AUTH_ADFS["RELYING_PARTY_ID"],
+            "client_id": settings.AUTH_ADFS["CLIENT_ID"],
+            "username": username,
+            "password": password,
         }
 
-        return JsonResponse(token_pair, status=200)
+        adfs_res = requests.post(
+            "https://" + settings.AUTH_ADFS["SERVER"] + "/adfs/oauth2/token",
+            data=payload,
+            verify=False
+        )
 
-    # testing with django's users
+        if adfs_res.status_code == 200:
+            # Create utser if not exists
+            user = get_user_model().objects.filter(username=username, is_active=True).first()
+            if user is None:
+                user = get_user_model().objects.create(username=username, email=username)
+
+            # Create a personal organization, organization user & owner if not exists
+            if user.organizations_organization.count() == 0:
+                personal_org = Organization.objects.create(
+                    is_active=True,
+                    name="Private"
+                )
+                personal_org.save()
+                personal_org.slug = "{}-{}".format(personal_org.slug, user.email)
+                personal_org.save()
+
+                personal_org_user = OrganizationUser.objects.create(
+                    user=user,
+                    organization=personal_org,
+                    is_admin=True)
+                personal_org_user.save()
+
+                personal_org_owner = OrganizationOwner.objects.create(
+                    organization=personal_org,
+                    organization_user=personal_org_user
+                )
+                personal_org_owner.save()
+
+            refresh = RefreshToken.for_user(user)
+            token_pair = {
+                'refresh': str(refresh),
+                'access': str(refresh.access_token),
+            }
+
+            return JsonResponse(token_pair, status=200)
+
+    # testing with django's users instead
     user = authenticate(username=username, password=password)
 
     if user is None:
         return Response("Invalid credentials", status=401)
-
     else:
         refresh = RefreshToken.for_user(user)
         token_pair = {
             'refresh': str(refresh),
-            'access': str(refresh.access_token),
+            'access': str(refresh.access_token)
         }
 
         return JsonResponse(token_pair, status=200)
