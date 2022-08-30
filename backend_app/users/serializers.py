@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db.models import F
 from rest_framework import serializers, views, response
+from rest_framework.authtoken.models import Token
 from django_filters import FilterSet, OrderingFilter, CharFilter
 from django.utils.translation import gettext_lazy as _
 from organizations.models import OrganizationUser, Organization
@@ -10,10 +11,15 @@ from .models import OrgSettings
 
 
 class UserSerializer(serializers.ModelSerializer):
+    auth_token = serializers.SerializerMethodField()
     orgs = serializers.SerializerMethodField()
     current_org = serializers.SerializerMethodField()
     is_org_admin = serializers.SerializerMethodField()
-
+   
+    def get_auth_token(self, instance):
+        token, created = Token.objects.get_or_create(user=instance)
+        return str(token)
+   
     def get_orgs(self, instance):
         if instance.is_superuser:
             return Organization.objects.all().values('id', 'name', 'slug')

@@ -27,7 +27,7 @@ class Command(BaseCommand):
             print("Unable to locate file. Abort captain.")
             return
 
-        #Todo: check extension (tgz || tar.gz)
+        # Todo: check extension (tgz || tar.gz)
         with tempfile.TemporaryDirectory() as tmpdirname:
             print("temp folder:", tmpdirname)
 
