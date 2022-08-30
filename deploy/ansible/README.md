@@ -23,7 +23,7 @@ A commercial Pro Edition is available and officially supported by the PatrOwl co
 - [x] Auto-Updated feeds (no need to install and maintain extra tools like CVE-SEARCH)
 - [x] PatrOwl CSIRT feeds, managed by qualified Cyber-Threat Intelligence analysts
 - [x] Official Pro Support
-- [ ] 3rd party authentication: Azure Active Directory, ADFS (Windows 2012 and 2016), LDAP (WIP)
+- [x] 3rd party authentication: Azure Active Directory, ADFS (Windows 2012 and 2016), LDAP (WIP)
 - [ ] Ticketing system integration, including JIRA, ServiceNow, ZenDesk and GLPI (WIP)
 
 **PatrowlHears** is available on the official PatrOwl SaaS platform or on-premise.
@@ -33,7 +33,7 @@ See: https://patrowl.io/get-started
 Looking for advanced support, training, integration, custom developments, dual-licensing ? Contact us at getsupport@patrowl.io
 
 # Copyright
-Copyright (C) 2021 Nicolas MATTIOCCO ([@MaKyOtOx](https://twitter.com/MaKyOtOx) - nicolas@patrowl.io)
+Copyright (C) 2022 Nicolas MATTIOCCO ([@MaKyOtOx](https://twitter.com/MaKyOtOx) - nicolas@patrowl.io)
 
 # Travis build status
 | Branch  | Status  |
