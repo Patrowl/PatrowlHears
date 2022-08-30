@@ -5,8 +5,8 @@ export POSTGRES_HOST=${POSTGRES_HOST:-db}
 export POSTGRES_PORT=${POSTGRES_PORT:-5432}
 export RABBITMQ_HOST=${RABBITMQ_HOST:-rabbitmq}
 export RABBITMQ_PORT=${RABBITMQ_PORT:-5672}
-export MEMCACHED_HOST=${MEMCACHED_HOST:-memcached}
-export MEMCACHED_PORT=${MEMCACHED_PORT:-11211}
+# export MEMCACHED_HOST=${MEMCACHED_HOST:-memcached}
+# export MEMCACHED_PORT=${MEMCACHED_PORT:-11211}
 export SUPER_USERNAME=${SUPER_USERNAME:-admin}
 export SUPER_PASSWORD=${SUPER_PASSWORD:-Bonjour1!}
 export SUPER_EMAIL=${SUPER_EMAIL:-admin@hears.patrowl.io}
@@ -18,8 +18,8 @@ while !</dev/tcp/$POSTGRES_HOST/$POSTGRES_PORT; do sleep 1; done
 echo "[+] Wait for RabbitMQ availability"
 while !</dev/tcp/$RABBITMQ_HOST/$RABBITMQ_PORT; do sleep 1; done
 
-echo "[+] Wait for Memcached availability"
-while !</dev/tcp/$MEMCACHED_HOST/$MEMCACHED_PORT; do sleep 1; done
+# echo "[+] Wait for Memcached availability"
+# while !</dev/tcp/$MEMCACHED_HOST/$MEMCACHED_PORT; do sleep 1; done
 
 
 echo "[+] VERSION"

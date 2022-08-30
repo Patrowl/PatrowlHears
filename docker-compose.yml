@@ -34,7 +34,7 @@ services:
       - POSTGRES_USER=patrowlhears
       - POSTGRES_PASSWORD=patrowlhears
       - RABBITMQ_HOSTNAME=rabbitmq:5672
-      - MEMCACHED_HOST=memcached
+      # - MEMCACHED_HOST=memcached
       ## Private Feeds Credentials
       - PRO_FEEDS_ACCESS_KEY=AKIAXQII7DGLSDVATJPV
       - PRO_FEEDS_SECRET_KEY=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
@@ -55,7 +55,7 @@ services:
     depends_on:
       - db
       - rabbitmq
-      - memcached
+      # - memcached
     expose:
       - "8303"
     volumes:
@@ -64,13 +64,13 @@ services:
     links:
       - db
       - rabbitmq
-      - memcached
+      # - memcached
 
-  memcached:
-    container_name: patrowlhears-memcached
-    image: memcached:latest
-    expose:
-      - '11211'
+  # memcached:
+  #   container_name: patrowlhears-memcached
+  #   image: memcached:latest
+  #   expose:
+  #     - '11211'
 
   nginx:
     image: nginx:latest
