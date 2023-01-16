@@ -148,14 +148,19 @@ def activate_user(self, token):
         data=data or None,
         # files=self.FILES or None,
         instance=user)
+
     if form.is_valid():
         try:
             form.instance.is_active = True
             user = form.save()
             user.set_password(form.cleaned_data['password'])
+            if 'first_name' in form.data.keys():
+                user.first_name = form.data['first_name']
+            if 'last_name' in form.data.keys():
+                user.last_name = form.data['last_name']
             user.save()
             InvitationBackend().activate_organizations(user)
-
+            
             # Create a personal organization, organization user & owner
             personal_org = Organization.objects.create(
                 is_active=True,
@@ -176,7 +181,7 @@ def activate_user(self, token):
                 organization_user=personal_org_user
             )
             personal_org_owner.save()
-
+            
             return JsonResponse({'status': 'success'}, safe=False)
         except Exception as e:
             return JsonResponse({'status': 'error', 'reason': str(e)}, safe=False)
@@ -301,7 +306,7 @@ def invite_user(self, organization_id):
     emails = self.data.getlist('emails', '')[0]
     for email in " ".join(emails.split()).replace(';', ',').replace(' ', ',').split(',')[:50]:
         if email not in [None, '']:
-            print(email)
+            # print(email)
             try:
                 try:
                     user = get_user_model().objects.get(email__iexact=email)

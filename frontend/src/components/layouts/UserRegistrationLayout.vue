@@ -50,8 +50,9 @@
                   type="password"
                   v-model="registration.password"
                   :rules="rules.password"
+                  :counter="30"
                   label="Password"
-                  maxlength="256"
+                  maxlength="30"
                   required
                   autocomplete="new-password"
                 />
@@ -60,7 +61,9 @@
                   type="password"
                   v-model="registration.password_confirm"
                   :rules="rules.password"
+                  :counter="30"
                   label="Password (again)"
+                  maxlength="30"
                   required
                   autocomplete="new-password"
                 />
