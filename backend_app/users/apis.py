@@ -461,12 +461,18 @@ def update_org_settings(self):
     if alert_emails is not None:
         emails = []
         for e in alert_emails.split(','):
-            try:
-                validate_email(e)
-            except ValidationError:
-                pass
-            else:
+            if settings.HEARS_VALIDATE_EMAIL is False:
                 emails.append(e)
+                continue
+            else:
+                is_email_valid = False
+                try:
+                    if validate_email(e):
+                        is_email_valid = True
+                except ValidationError:
+                    pass
+                if is_email_valid:
+                    emails.append(e)
         org.org_settings.alerts_emails = emails
 
     enable_email_alert_new_vuln = self.data.get('enable_email_alert_new_vuln', None)

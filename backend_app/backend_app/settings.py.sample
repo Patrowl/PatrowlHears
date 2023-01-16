@@ -441,6 +441,9 @@ HEARS_DATASYNC_SSLVERIFY = os.environ.get('HEARS_DATASYNC_SSLVERIFY', 'false').l
 HEARS_DATASYNC_TIMEOUT = os.environ.get('HEARS_DATASYNC_TIMEOUT', None)
 HEARS_DATASYNC_CHUNKSIZE = int(os.environ.get('HEARS_DATASYNC_CHUNKSIZE', 100))
 
+# Email validation
+HEARS_VALIDATE_EMAIL = os.environ.get('HEARS_VALIDATE_EMAIL', 'true').lower() in ['true', '1', 'yes', 'on', 'y']
+
 ## Pro edition - Load extra settings
 PRO_FEEDS_ENDPOINT_URL = os.environ.get('PRO_FEEDS_ENDPOINT_URL', 'https://s3.eu-west-3.amazonaws.com')
 PRO_FEEDS_ACCESS_KEY = os.environ.get('PRO_FEEDS_ACCESS_KEY', '')
