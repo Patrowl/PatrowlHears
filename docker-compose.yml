@@ -52,6 +52,7 @@ services:
       # - EMAIL_PORT=587
       # - EMAIL_RCPT_USER=myemail@corp.com
       # - DEFAULT_FROM_EMAIL=patrowlhears.notifications@corp.com
+      - BASE_URL=http://localhost:8080
       - HEARS_VALIDATE_EMAIL=true
     depends_on:
       - db
