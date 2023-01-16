@@ -47,9 +47,23 @@ const instance_axios = axios.create({
 
 // Axios
 instance_axios.interceptors.response.use(
-  response => response,
-  error => {
-    const status = error.response;
+  // response => response,
+  // error => {
+  //   const status = error.response;
+  // }
+  (res) => {
+    return res;
+  },
+  async (error) => {
+    const originalRequest = error.config;
+
+    // Logout if 401 - Unauthorized
+    if (error.response.status === 401 && error.response.data.code === "token_not_valid") {
+      store.commit('resetState');
+      router.push('/auth');
+      return
+    }
+    return Promise.reject(error);
   }
 );
 

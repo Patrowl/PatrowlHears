@@ -11,6 +11,21 @@ import jwt_decode from 'jwt-decode'
 Vue.use(Vuex);
 Vue.use(VueAxios, axios);
 
+const getDefaultState = () => {
+  return {
+    authUser: {},
+    // status: '',
+    isAuthenticated: false,
+    jwt_auth_token: localStorage.getItem('authToken'),
+    jwt_refresh_token: localStorage.getItem('refreshToken'),
+    endpoints: {
+      obtainJWT: '/auth-jwt/obtain_jwt_token/',
+      refreshJWT: '/auth-jwt/refresh_jwt_token/'
+    }
+  }
+}
+
+
 export default new Vuex.Store({
   state: {
     authUser: {},
@@ -45,7 +60,11 @@ export default new Vuex.Store({
     removeToken(state){
       localStorage.removeItem('authToken');
       state.jwt_auth_token = null;
-    }
+    },
+    resetState (state) {
+      Object.assign(state, getDefaultState())
+      localStorage.clear()
+    },
   },
   actions: {
     obtainToken(username, password){
