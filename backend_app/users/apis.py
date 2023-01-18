@@ -15,7 +15,6 @@ from rest_framework.permissions import AllowAny, IsAdminUser
 
 from django_filters import rest_framework as filters
 from organizations.models import Organization, OrganizationUser, OrganizationOwner
-# from organizations.backends.tokens import RegistrationTokenGenerator
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from common.utils import get_api_default_permissions
 from common.utils.pagination import StandardResultsSetPagination
@@ -26,6 +25,8 @@ from .serializers import UserSerializer
 from .backends import InvitationBackend, CustomInvitations
 
 import json
+import logging
+logger = logging.getLogger(__name__)
 
 
 class UserSet(viewsets.ModelViewSet):
@@ -80,7 +81,7 @@ class OrganizationUserSet(viewsets.ModelViewSet):
                 if org.is_owner(current_user) or org.is_admin(current_user):
                     org_admins.append(org)
             except Exception as e:
-                print(e)
+                logger.exception(e)
                 pass
         return OrganizationUser.objects.filter(organization__in=org_admins).order_by('id')
 
@@ -129,7 +130,7 @@ def activate_user(self, token):
         user = get_user_model().objects.get(id=user_id, is_active=False)
     except get_user_model().DoesNotExist:
         raise Http404(_("Your URL may have expired."))
-    # if not RegistrationTokenGenerator().check_token(user, user_token):
+
     if not PasswordResetTokenGenerator().check_token(user, user_token):
         raise Http404(_("Your URL may have expired."))
 
@@ -184,6 +185,7 @@ def activate_user(self, token):
             
             return JsonResponse({'status': 'success'}, safe=False)
         except Exception as e:
+            logger.exception(e)
             return JsonResponse({'status': 'error', 'reason': str(e)}, safe=False)
     return JsonResponse({'status': 'valid', 'email': user.email}, safe=False)
 
@@ -268,7 +270,8 @@ def add_user(self):
         return JsonResponse({'status': 'success', 'user': user_dict}, safe=False)
     except Exception as e:
         print(e)
-        return JsonResponse({'status': 'error', 'reason': 'no'}, safe=False)
+        logger.exception(e)
+        return JsonResponse({'status': 'error', 'reason': str(e)}, safe=False)
 
 
 @api_view(['GET', 'DELETE'])
@@ -284,7 +287,8 @@ def delete_user(self, user_id):
         return JsonResponse({'status': 'success'}, safe=False)
     except Exception as e:
         print(e)
-        return JsonResponse({'status': 'error', 'reason': 'no'}, safe=False)
+        logger.exception(e)
+        return JsonResponse({'status': 'error', 'reason': str(e)}, safe=False)
 
 
 @api_view(['POST'])
@@ -334,7 +338,8 @@ def invite_user(self, organization_id):
                     organization=org
                 )
                 org_user.save()
-            except Exception:
+            except Exception as e:
+                logger.exception(e)
                 pass
 
     return JsonResponse({'status': 'success'}, safe=False)
@@ -357,8 +362,9 @@ def update_user_profile(self):
     try:
         self.user.save()
         return JsonResponse({'status': 'success'}, safe=False)
-    except Exception:
-        return JsonResponse({'status': 'error'}, status=500, safe=False)
+    except Exception as e:
+        logger.exception(e)
+        return JsonResponse({'status': 'error', 'reason': str(e)}, status=500, safe=False)
 
 
 @api_view(['POST'])
@@ -380,8 +386,12 @@ def update_user_profile_admin(self, user_id):
     try:
         user.save()
         return JsonResponse({'status': 'success'}, safe=False)
-    except Exception:
-        return JsonResponse({'status': 'error'}, status=500, safe=False)
+    except Exception as e:
+        logger.exception(e)
+        return JsonResponse(
+            {'status': 'error', 'reason': str(e)}, 
+            status=500, safe=False
+        )
 
 
 @api_view(['POST'])
@@ -401,7 +411,7 @@ def create_organization(self):
         raise PermissionDenied(_("Sorry, (org) admins only"))
 
     if set(['name', 'is_active', 'email']).issubset(self.data.keys()) is False:
-        return JsonResponse("error.", safe=False, status=500)
+        return JsonResponse({"status": "error", "reason": "required values: 'name', 'is_active', 'email'"}, safe=False, status=500)
     org_name = self.data.get('name')
     is_active = self.data.get('is_active', None) == "true"
     owner_email = self.data.get('email')
@@ -410,8 +420,9 @@ def create_organization(self):
     try:
         org = Organization.objects.create(name=org_name, is_active=is_active)
         org.save()
-    except Exception:
-        return JsonResponse("error.", safe=False, status=400)
+    except Exception as e:
+        logger.exception(e)
+        return JsonResponse({"status": "error", "reason": str(e)}, safe=False, status=400)
 
         # Create or activate owner
     try:
@@ -687,9 +698,9 @@ def set_org(self, org_id):
     self.session['org_id'] = org.id
     self.session['org_name'] = org.name
     return JsonResponse({
-        'status': 'set',
-        'org_id': org.id,
-        'org_name': org.name
+            'status': 'set',
+            'org_id': org.id,
+            'org_name': org.name
         },
         safe=False
     )
@@ -706,9 +717,9 @@ def set_default_org(self):
     self.session['org_id'] = user.organization.id
     self.session['org_name'] = user.organization.name
     return JsonResponse({
-        'status': 'set',
-        'org_id': user.organization.id,
-        'org_name': user.organization.name
+            'status': 'set',
+            'org_id': user.organization.id,
+            'org_name': user.organization.name
         }, safe=False
     )
 
@@ -753,7 +764,8 @@ def get_curruser_authtoken(request):
     try:
         token = Token.objects.filter(user=request.user).first()
         return JsonResponse({"status": "success", "token": token.key})
-    except Exception:
+    except Exception as e:
+        logger.exception(e)
         pass
     return JsonResponse({
         "status": "error",
@@ -766,7 +778,8 @@ def get_user_authtoken(request, user_id):
         uid = get_object_or_404(get_user_model(), id=user_id)
         token = Token.objects.filter(user=uid).first()
         return JsonResponse({"status": "success", "token": token.key})
-    except Exception:
+    except Exception as e:
+        logger.exception(e)
         pass
     return JsonResponse({
         "status": "error",
@@ -779,7 +792,8 @@ def delete_curruser_authtoken(request):
         for token in Token.objects.filter(user=request.user):
             token.delete()
         return JsonResponse({"status": "success"})
-    except Exception:
+    except Exception as e:
+        logger.exception(e)
         pass
     return JsonResponse({
         "status": "error",
@@ -793,7 +807,8 @@ def delete_user_authtoken(request, user_id):
         for token in Token.objects.filter(user=uid):
             token.delete()
         return JsonResponse({"status": "success"})
-    except Exception:
+    except Exception as e:
+        logger.exception(e)
         pass
     return JsonResponse({
         "status": "error",
@@ -807,7 +822,8 @@ def renew_curruser_authtoken(request):
             token.delete()
         token = Token.objects.get_or_create(user=request.user)[0]
         return JsonResponse({"status": "success", "token": token.key})
-    except Exception:
+    except Exception as e:
+        logger.exception(e)
         pass
     return JsonResponse({
         "status": "error",
@@ -822,7 +838,8 @@ def renew_user_authtoken(request, user_id):
             token.delete()
         token = Token.objects.get_or_create(user=uid)[0]
         return JsonResponse({"status": "success", "token": token.key})
-    except Exception:
+    except Exception as e:
+        logger.exception(e)
         pass
     return JsonResponse({
         "status": "error",
@@ -841,7 +858,8 @@ def renew_user_password(request, user_id):
         user.set_password(new_password)
         user.save()
         return JsonResponse({"status": "success", "password": new_password})
-    except Exception:
+    except Exception as e:
+        logger.exception(e)
         pass
     return JsonResponse({
         "status": "error",

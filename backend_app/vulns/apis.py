@@ -2,8 +2,7 @@ from django.http import JsonResponse, HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
 from django.forms.models import model_to_dict
 from django.shortcuts import get_object_or_404
-from django.db.models import F, Value, Case, BooleanField, When, CharField
-from django.db.models.functions import Concat
+from django.db.models import F, Value, Case, BooleanField, When, CharField, Count, Q
 from common.utils.pagination import StandardResultsSetPagination
 from common.utils import organization, get_api_default_permissions, _json_serial
 from rest_framework import viewsets
@@ -52,18 +51,21 @@ class VulnSet(viewsets.ModelViewSet):
         org = organization.get_current_organization(user=self.request.user, org_id=org_id)
         monitored_vulns = []
         if org is not None:
-            monitored_vulns = list(org.org_monitoring_list.vulns.all().values_list('id', flat=True))
+            monitored_vulns = list(org.org_monitoring_list.vulns.all().only('id').values_list('id', flat=True))
 
         # default value: will be adjusted by the VulnSerializer
-        qs = Vuln.objects.all().prefetch_related('exploitmetadata_set', 'orgexploitmetadata_set', 'products', 'products__vendor', 'cwe').annotate(
-                exploit_count=F('id'),
-                monitored=Case(
-                    When(id__in=monitored_vulns, then=True),
-                    default=False,
-                    output_field=BooleanField()
-                ),
-                org=Value(org_id, output_field=CharField())
-            ).order_by('-updated_at').distinct()
+        qs = Vuln.objects.all().prefetch_related(
+            'exploitmetadata_set', 'orgexploitmetadata_set',
+            'products', 'products__vendor', 'cwe'
+        ).annotate(
+            exploit_count=F('id'),
+            monitored=Case(
+                When(id__in=monitored_vulns, then=True),
+                default=False,
+                output_field=BooleanField()
+            ),
+            org=Value(org_id, output_field=CharField())
+        ).order_by('-updated_at')#.distinct()
 
         # if self.request.method == 'GET' and 'fields' in self.request.GET:
         #     for f in self.request.GET.get('fields').split(','):
@@ -74,7 +76,11 @@ class VulnSet(viewsets.ModelViewSet):
 class ExploitMetadataSet(viewsets.ModelViewSet):
     """API endpoint that allows exploit metadata to be viewed or edited."""
 
-    queryset = ExploitMetadata.objects.prefetch_related('vuln').annotate(
+    queryset = ExploitMetadata.objects.prefetch_related(
+        'vuln__products', 'vuln__products__vendor'
+    ).select_related(
+        'vuln'
+    ).annotate(
         vp=F('vuln__vulnerable_products')
     ).order_by('-updated_at')
     serializer_class = ExploitMetadataSerializer
@@ -989,19 +995,33 @@ def get_monitored_vuln_stats(self):
     org_id = self.session.get('org_id', None)
     org = organization.get_current_organization(user=self.user, org_id=org_id)
 
-    monitored_vendors = Vendor.objects.filter(id__in=org.org_monitoring_list.vendors.all()).only('id')
-    monitored_products = Product.objects.filter(id__in=org.org_monitoring_list.products.all()).only('id')
-    monitored_packages = Package.objects.filter(id__in=org.org_monitoring_list.packages.all()).only('id')
-    monitored_vulns = Vuln.objects.filter(id__in=org.org_monitoring_list.vulns.all()).only('id')
-    monitored_exploits = ExploitMetadata.objects.filter(id__in=org.org_monitoring_list.vulns.all())
-    monitored_threats = ThreatMetadata.objects.filter(id__in=org.org_monitoring_list.vulns.all())
+    # monitored_vendors = Vendor.objects.filter(id__in=org.org_monitoring_list.vendors.all()).only('id')
+    # monitored_products = Product.objects.filter(id__in=org.org_monitoring_list.products.all()).only('id')
+    # monitored_packages = Package.objects.filter(id__in=org.org_monitoring_list.packages.all()).only('id')
+    # monitored_vulns = Vuln.objects.filter(id__in=org.org_monitoring_list.vulns.all()).only('id')
+    # monitored_exploits = ExploitMetadata.objects.filter(id__in=org.org_monitoring_list.vulns.all())
+    # monitored_threats = ThreatMetadata.objects.filter(id__in=org.org_monitoring_list.vulns.all())
 
-    monitored_packages_vulns = Vuln.objects.prefetch_related('packages').filter(packages__in=monitored_packages).only('id')
-    monitored_products_vulns = Vuln.objects.prefetch_related('products').filter(products__in=monitored_products).only('id')
-    monitored_vendors_vulns = Vuln.objects.prefetch_related('products', 'products__vendor').filter(products__vendor__in=monitored_vendors).only('id')
+    # monitored_packages_vulns = Vuln.objects.prefetch_related('packages').filter(packages__in=monitored_packages).only('id')
+    # monitored_products_vulns = Vuln.objects.prefetch_related('products').filter(products__in=monitored_products).only('id')
+    # monitored_vendors_vulns = Vuln.objects.prefetch_related('products', 'products__vendor').filter(products__vendor__in=monitored_vendors).only('id')
 
-    all_monitored_vulns = (monitored_vulns | monitored_packages_vulns | monitored_products_vulns | monitored_vendors_vulns).distinct()
+    # all_monitored_vulns = (monitored_vulns | monitored_packages_vulns | monitored_products_vulns | monitored_vendors_vulns).distinct()
 
+    monitored_vendors = Vendor.objects.filter(id__in=org.org_monitoring_list.vendors.all().only('id')).only('id')
+    monitored_products = Product.objects.filter(id__in=org.org_monitoring_list.products.all().only('id')).only('id')
+    monitored_packages = Package.objects.filter(id__in=org.org_monitoring_list.packages.all().only('id')).only('id')
+    monitored_vulns = Vuln.objects.filter(id__in=org.org_monitoring_list.vulns.all().only('id')).only('id', 'is_exploitable')
+    monitored_exploits = ExploitMetadata.objects.filter(id__in=org.org_monitoring_list.vulns.all().only('id')).only('id')
+    monitored_threats = ThreatMetadata.objects.filter(id__in=org.org_monitoring_list.vulns.all().only('id')).only('id')
+
+    all_monitored_vulns = Vuln.objects.prefetch_related('packages', 'products', 'products__vendor').filter(
+        Q(id__in=org.org_monitoring_list.vulns.all().only('id')) |
+        Q(packages__in=monitored_packages) |
+        Q(products__in=monitored_products) |
+        Q(products__vendor__in=monitored_vendors)
+    ).only('id', 'is_exploitable', 'access').distinct()
+    
     res = {
         'vulns':  {
             'count': all_monitored_vulns.count(),
@@ -1052,15 +1072,19 @@ def get_latest_vulns(self):
     org_id = self.session.get('org_id', None)
     org = organization.get_current_organization(user=self.user, org_id=org_id)
     monitored_products = org.org_monitoring_list.products.all().prefetch_related('vendor')
-    monitored_vulns = org.org_monitoring_list.vulns.all().prefetch_related('exploitmetadata_set', 'orgexploitmetadata_set', 'orgexploitmetadata_set__organization', 'products', 'products__vendor', 'cwe')
-
-    mp = monitored_products.annotate(
-        vendorproduct=Concat(
-            Value(':'), F('vendor__name'), Value(':'), F('name'), Value(':'))
-        ).values_list('vendorproduct', flat=True)
-
+    monitored_vulns = org.org_monitoring_list.vulns.all().prefetch_related(
+        'exploitmetadata_set', 'orgexploitmetadata_set', 
+        'orgexploitmetadata_set__organization', 
+        'products', 'products__vendor', 'cwe'
+    ).annotate(
+        oem_count=Count('orgexploitmetadata')
+    )
+    
     monitored_vulns_list = list()
     for mv in monitored_vulns:
+        mv_products = [{'id': p.id, 'name': p.name, 'vendor': p.vendor.name} for p in mv.products.all()]
+        mv_exploitcount = mv.exploitmetadata_set.count()
+        mv_orgexploitcount = mv.oem_count
         monitored_vulns_list.append({
             'id': mv.id,
             'cveid': mv.cveid,
@@ -1070,33 +1094,46 @@ def get_latest_vulns(self):
             'score': mv.score,
             'cvss': mv.cvss,
             'cvss3': mv.cvss3,
-            'products': [{'id': p.id, 'name': p.name, 'vendor': p.vendor.name} for p in mv.products.all()],
+            'products': mv_products,
             'updated_at': mv.updated_at,
             'is_confirmed': mv.is_confirmed,
-            'exploit_count': mv.exploitmetadata_set.count()+mv.orgexploitmetadata_set.filter(organization=org).count(),
+            'exploit_count': mv_exploitcount+mv_orgexploitcount
         })
 
-    for lv in Vuln.objects.prefetch_related('products', 'products__vendor').exclude(id__in=[o['id'] for o in monitored_vulns_list]).filter(modified__gte=datetime.now() - timedelta(days=MAX_TIMEDELTA_DAYS)).prefetch_related('exploitmetadata_set', 'orgexploitmetadata_set').order_by('-updated_at').distinct()[:1000]:
+    monitored_vulns_list_ids = [o['id'] for o in monitored_vulns_list]
+    monitored_vulns_list_update = datetime.now() - timedelta(days=MAX_TIMEDELTA_DAYS)
+    latest_vulns = Vuln.objects.exclude(
+        id__in=monitored_vulns_list_ids
+    ).filter(
+        modified__gte=monitored_vulns_list_update,
+        vulnerable_products__isnull=False,
+        products__in=monitored_products
+    ).prefetch_related(
+        'exploitmetadata_set', 
+        'orgexploitmetadata_set', 'orgexploitmetadata_set__organization',
+        'products', 'products__vendor'
+    ).annotate(
+        oem_count=Count('orgexploitmetadata')
+    ).order_by('-updated_at').distinct()
+    
+    for lv in latest_vulns:
         # Check if vulnerable products are monitored
-        if lv.vulnerable_products is not None and len(lv.vulnerable_products) > 0:
-            for lvvp in lv.vulnerable_products:
-                res = [ele for ele in mp if(ele in lvvp)]
-                if bool(res):
-                    monitored_vulns_list.append(dict({
-                        'id': lv.id,
-                        'cveid': lv.cveid,
-                        'summary': lv.summary,
-                        'access': lv.access,
-                        'impact': lv.impact,
-                        'score': lv.score,
-                        'cvss': lv.cvss,
-                        'cvss3': lv.cvss3,
-                        'products': [{'id': p.id, 'name': p.name, 'vendor': p.vendor.name} for p in lv.products.all()],
-                        'exploit_count': lv.exploitmetadata_set.count()+lv.orgexploitmetadata_set.filter(organization=org).count(),
-                        'is_confirmed': lv.is_confirmed,
-                        'updated_at': lv.updated_at
-                    }))
-                    break
+        lv_exploitcount = lv.exploitmetadata_set.count()
+        lv_orgexploitcount = lv.oem_count
+        monitored_vulns_list.append(dict({
+            'id': lv.id,
+            'cveid': lv.cveid,
+            'summary': lv.summary,
+            'access': lv.access,
+            'impact': lv.impact,
+            'score': lv.score,
+            'cvss': lv.cvss,
+            'cvss3': lv.cvss3,
+            'products': [{'id': p.id, 'name': p.name, 'vendor': p.vendor.name} for p in lv.products.all()],
+            'exploit_count': lv_exploitcount+lv_orgexploitcount,
+            'is_confirmed': lv.is_confirmed,
+            'updated_at': lv.updated_at
+        }))
 
     res = {
         'vulns': vulns,

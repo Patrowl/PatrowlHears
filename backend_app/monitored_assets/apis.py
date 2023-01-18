@@ -31,7 +31,7 @@ def toggle_monitor_product(self):
         if self.data['monitored'] is False and product in org.org_monitoring_list.products.all():
             org.org_monitoring_list.products.remove(product)
 
-    product.save()
+    # product.save()
     return JsonResponse("toggled.", safe=False)
 
 
@@ -40,7 +40,7 @@ def toggle_monitor_vendor(self):
     if set(['vendor_name', 'monitored', 'organization_id']).issubset(self.data.keys()) is False:
         return JsonResponse("error.", safe=False, status=500)
 
-    vendor = Vendor.objects.filter(name=self.data['vendor_name']).first()
+    vendor = Vendor.objects.filter(name=self.data['vendor_name']).prefetch_related('product_set').first()
     if vendor is None:
         return JsonResponse("error.", safe=False, status=500)
     else:
@@ -49,16 +49,17 @@ def toggle_monitor_vendor(self):
 
         if self.data['monitored'] is True and vendor not in org.org_monitoring_list.vendors.all():
             org.org_monitoring_list.vendors.add(vendor)
-            for product in vendor.product_set.all():
-                if self.data['monitored'] is True and product not in org.org_monitoring_list.products.all():
-                    org.org_monitoring_list.products.add(product)
+            for product in vendor.product_set.exclude(id__in=org.org_monitoring_list.products.all()):
+                org.org_monitoring_list.products.add(product)
         if self.data['monitored'] is False and vendor in org.org_monitoring_list.vendors.all():
             org.org_monitoring_list.vendors.remove(vendor)
-            for product in vendor.product_set.all():
-                if self.data['monitored'] is False and product in org.org_monitoring_list.products.all():
-                    org.org_monitoring_list.products.remove(product)
+            # for product in vendor.product_set.all():
+            #     if product in org.org_monitoring_list.products.all():
+            #         org.org_monitoring_list.products.remove(product)
+            for product in vendor.product_set.filter(id__in=org.org_monitoring_list.products.all()):
+                org.org_monitoring_list.products.remove(product)
 
-    vendor.save()
+    # vendor.save()
     return JsonResponse("toggled.", safe=False)
 
 
@@ -79,7 +80,7 @@ def toggle_monitor_package(self):
         if self.data['monitored'] is False and package in org.org_monitoring_list.packages.all():
             org.org_monitoring_list.packages.remove(package)
 
-    package.save()
+    # package.save()
     return JsonResponse("toggled.", safe=False)
 
 
