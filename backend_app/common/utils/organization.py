@@ -8,7 +8,7 @@ def get_current_organization(user, org_id=None):
         if org_id is None:
             org = Organization.objects.first()
         else:
-            org = Organization.objects.get(id=org_id)
+            org = Organization.objects.select_related('org_monitoring_list').get(id=org_id)
     else:
         # standard user
         _org = OrganizationUser.objects.filter(user_id=user.id, organization_id=org_id).first()

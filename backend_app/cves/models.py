@@ -28,6 +28,9 @@ class Vendor(models.Model):
 
     class Meta:
         db_table = "kb_vendor"
+        indexes = [
+            models.Index(fields=['name'])
+        ]
 
     def __unicode__(self):
         return self.name
@@ -66,6 +69,9 @@ class Product(models.Model):
     class Meta:
         db_table = "kb_product"
         unique_together = (('name', 'vendor'),)
+        indexes = [
+            models.Index(fields=['name'])
+        ]
 
     def __unicode__(self):
         return self.name

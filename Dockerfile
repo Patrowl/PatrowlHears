@@ -1,5 +1,5 @@
 FROM python:3.7-slim
-LABEL Name="PatrowlHears" Version="1.3.2"
+LABEL Name="PatrowlHears" Version="1.3.3"
 
 ENV PYTHONUNBUFFERED 1
 RUN mkdir -p /opt/patrowl-hears/

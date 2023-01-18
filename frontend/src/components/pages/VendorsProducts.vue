@@ -366,6 +366,9 @@ export default {
         'monitored': !item.monitored,
         'organization_id': localStorage.getItem('org_id')
       };
+      this.snack = true;
+      this.snackColor = 'secondary';
+      this.snackText = 'Monitoring status update in progress...';
       this.$api.post('/api/monitor/vendor/toggle', data).then(res => {
         this.loading = false;
         if (res){
@@ -399,6 +402,9 @@ export default {
         'monitored': !item.monitored,
         'organization_id': localStorage.getItem('org_id')
       };
+      this.snack = true;
+      this.snackColor = 'secondary';
+      this.snackText = 'Monitoring status update in progress...';
       this.$api.post('/api/monitor/product/toggle', data).then(res => {
         this.loading = false;
         if (res){
