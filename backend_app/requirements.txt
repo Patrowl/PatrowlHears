@@ -5,7 +5,7 @@ async-timeout==4.0.1
 attrs==19.3.0
 billiard==3.6.1.0
 celery==4.4.0
-certifi==2019.11.28
+certifi==2022.12.7
 chardet==3.0.4
 coreapi==2.3.3
 coreschema==0.0.4
