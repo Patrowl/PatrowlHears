@@ -18,10 +18,10 @@
           tile
         >
           <v-card-title>
-            Welcome in PatrowlHears !
+            Welcome in CanPatch !
           </v-card-title>
           <v-card-text>
-            <strong>PatrowlHears</strong> is an advanced platform offering a continuous watch on vulnerabilities found on your IT assets, enriched by cyber-threat Intelligence data.<br/><br/>
+            <strong>CanPatch</strong> is an advanced platform offering a continuous watch on vulnerabilities found on your IT assets, enriched by cyber-threat Intelligence data.<br/><br/>
             Let's get started. Click 'Next' button to continue.
           </v-card-text>
         </v-card>

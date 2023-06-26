@@ -3,7 +3,7 @@
       <p class="title">Usage</p>
       <p class="subtitle-1">General information</p>
       <p class="body-2">
-        PatrowlHears is an open-source platform supporting a vulnerability watch process for IT assets (OS, middleware, application, Web CMS, Java/.Net/Node library, network devices, IoT, ...). Vulnerabilities, exploits and threats information are collected from various OSINT feeds.
+        CanPatch is an open-source platform supporting a vulnerability watch process for IT assets (OS, middleware, application, Web CMS, Java/.Net/Node library, network devices, IoT, ...). Vulnerabilities, exploits and threats information are collected from various OSINT feeds.
       </p>
       <p class="subtitle-1">Monitoring</p>
       <p class="body-2">
@@ -31,20 +31,20 @@
 
       <p class="title">Updates</p>
       <p class="body-2">
-        Information, news and updates are regularly posted on Patrowl.io <a href="https://twitter.com/patrowl_io" target="_blank">Twitter</a> account. <!-- and on the <a href="https://blog.patrowl.io" target="_blank">Blog</a>. -->
+        Information, news and updates are regularly posted on Canaris.in <a href="https://twitter.com/canaris_india" target="_blank">Twitter</a> account. <!-- and on the <a href="https://blog.patrowl.io" target="_blank">Blog</a>. -->
       </p>
 
       <p class="title">Contributing</p>
       <p class="body-2">
-        PatrowlHears is an open-source project. All users and contributors are part of the Patrowl's community. We welcome your contributions. Please feel free to fork the code, play with it, make some patches and send us pull requests via issues.
+        CanPatch is an open-source project. All users and contributors are part of the Patrowl's community. We welcome your contributions. Please feel free to fork the code, play with it, make some patches and send us pull requests via issues.
       </p>
 
       <p class="title">More questions ?</p>
       <p class="body-2">
         Feel free to reach us in your prefered manner:<br/>
-        - Send an email at <a href="mailto:getsupport@patrowl.io">getsupport@patrowl.io</a><br/>
-        - Fill an issue on <a href="https://github.com/Patrowl/PatrowlHears/issues" target="_blank">GitHub</a><br/>
-        - Chat on <a href="https://gitter.im/PatrowlHears/Support" target="_blank">Gitter PatrowlHears/Support</a>
+        - Send an email at <a href="mailto:getsupport@canaris.in">getsupport@canaris.in</a><br/>
+        - Fill an issue on <a href="https://github.com/canaris-in/CanPatch/issues" target="_blank">GitHub</a><br/>
+        - Chat on <a href="https://gitter.im/CanPatch/Support" target="_blank">Gitter CanPatch/Support</a>
       </p>
 
       <p class="title">Copyright</p>

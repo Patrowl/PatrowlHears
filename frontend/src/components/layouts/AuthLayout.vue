@@ -5,7 +5,7 @@
       <v-flex xs12 sm8 lg4 md5>
         <v-card class="login-card">
           <v-card-title>
-            <span class="headline">Login to PatrowlHears</span>
+            <span class="headline">Login to CanPatch</span>
           </v-card-title>
 
           <v-spacer/>

@@ -56,7 +56,10 @@
     >
       <!-- -->
       <v-app-bar-nav-icon @click="drawer = !drawer" />
-      <span class="title ml-3 mr-5 deep-orange--text"><span class="font-weight-light deep">Patrowl</span>Hears</span>
+      <span class="title ml-3 mr-5 deep-orange--text">
+        <!-- <span class="font-weight-light deep">Canpatch</span> -->
+        <img width="180px" src="../../assets/logo.png">
+      </span>
       <v-text-field
         v-model="appsearch"
         solo-inverted
@@ -104,14 +107,15 @@
 
    <v-footer>
      <v-spacer></v-spacer>
-    <div class="caption"><v-chip color="deep-orange" href="https://patrowl.io/products/hears" small label>Visit patrowl.io - SaaS & Pro Edition</v-chip> &copy; 2020-{{ new Date().getFullYear() }} // version {{app_version.version}} // {{app_version.edition|capitalize}} Edition {{app_version.build}}</div>
+    <!-- <div class="caption"><v-chip color="deep-orange" href="https://patrowl.io/products/hears" small label>Visit patrowl.io - SaaS & Pro Edition</v-chip> &copy; 2020-{{ new Date().getFullYear() }} // version {{app_version.version}} // {{app_version.edition|capitalize}} Edition {{app_version.build}}</div> -->
+    <div class="caption"><v-chip color="deep-orange" href="https://canaris.in" small label>Visit Canaris</v-chip> &copy; 2020-{{ new Date().getFullYear() }} // version {{app_version.version}} // {{app_version.edition|capitalize}} Edition {{app_version.build}}</div>
    </v-footer>
   </v-app>
 </template>
 
 <script>
-
 import AppVersion from '../../../VERSION.json';
+
 export default {
   name: 'AppLayout',
 

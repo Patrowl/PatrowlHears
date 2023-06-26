@@ -56,7 +56,7 @@
     >
       <!-- -->
       <v-app-bar-nav-icon @click="drawer = !drawer" />
-      <span class="title ml-3 mr-5 deep-orange--text"><span class="font-weight-light deep">Patrowl</span>Hears</span>
+      <img width="180px" src="../../assets/logo.png">
       <v-text-field
         v-model="appsearch"
         solo-inverted
@@ -105,7 +105,8 @@
 
    <v-footer>
      <v-spacer></v-spacer>
-    <div class="caption">&copy; 2020-{{ new Date().getFullYear() }} - <v-chip color="deep-orange" label>Visit patrowl.io</v-chip> - {{app_version.version}} - {{app_version.edition|capitalize}} Edition {{app_version.build}}</div>
+    <!-- <div class="caption">&copy; 2020-{{ new Date().getFullYear() }} - <v-chip color="deep-orange" label>Visit patrowl.io</v-chip> - {{app_version.version}} - {{app_version.edition|capitalize}} Edition {{app_version.build}}</div> -->
+    <div class="caption"><v-chip color="deep-orange" href="https://canaris.in" small label>Visit Canaris</v-chip> - version {{app_version.version}} - {{app_version.edition|capitalize}} Edition {{app_version.build}}</div>
    </v-footer>
   </v-app>
 </template>

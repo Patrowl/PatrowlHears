@@ -13,7 +13,7 @@ export default {
     }
   },
   created () {
-    document.title = "PatrowlHears";
+    document.title = "CanPatch";
   },
   methods: {
     logout() {

@@ -4,7 +4,7 @@
       <v-flex xs12 sm8 lg4 md5>
         <v-card class="registration-card">
           <v-card-title>
-            <span class="headline">Register to PatrowlHears</span>
+            <span class="headline">Register to CanPatch</span>
           </v-card-title>
 
           <v-spacer/>
