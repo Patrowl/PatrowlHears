@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.forms.models import model_to_dict
-from django.db.models import Case, BooleanField, When, Count
+from django.db.models import Case, BooleanField, When, Count, Q
 from django_filters import rest_framework as filters
 from rest_framework import viewsets
 from rest_framework.decorators import api_view, permission_classes
@@ -73,22 +73,15 @@ class VendorSet(viewsets.ModelViewSet):
         current_user = self.request.user
         org_id = self.request.session.get('org_id', None)
         org = organization.get_current_organization(user=current_user, org_id=org_id)
-        monitored_vendors = org.org_monitoring_list.vendors.all().only('id').values_list('id', flat=True)
-        return Vendor.objects.all().prefetch_related(
-            'org_monitoring_list', 'product_set'
-            ).annotate(
-                monitored=Case(
-                    When(id__in=monitored_vendors, then=True),
-                    default=False,
-                    output_field=BooleanField()
-                ),
+        monitored_vendors = org.org_monitoring_list.vendors.all().only('id')
+        return Vendor.objects.all().prefetch_related('product_set').annotate(
+                monitored=Count("id", filter=Q(id__in=monitored_vendors)),
                 products_count=Count('product')
-            ).order_by('-name').distinct()
+            ).order_by('-name')
 
 
 class ProductSet(viewsets.ModelViewSet):
     """API endpoint that allows Products to be viewed or edited."""
-
     serializer_class = ProductSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_fields = ('name')
@@ -102,18 +95,10 @@ class ProductSet(viewsets.ModelViewSet):
         current_user = self.request.user
         org_id = self.request.session.get('org_id', None)
         org = organization.get_current_organization(user=current_user, org_id=org_id)
-        monitored_products = list(org.org_monitoring_list.products.only('id').values_list('id', flat=True))
-        return Product.objects.all().prefetch_related(
-            'vendor', 'org_monitoring_list__products', 'org_monitoring_list',
-            # 'vulns'
-            ).annotate(
-                monitored=Case(
-                    When(id__in=monitored_products, then=True),
-                    default=False,
-                    output_field=BooleanField()
-                ),
-                # vulns_count=Count('vulns')
-            ).order_by('-name').distinct()
+        monitored_products = org.org_monitoring_list.products.only('id')
+        return Product.objects.all().select_related('vendor').annotate(
+                monitored=Count("id", filter=Q(id__in=monitored_products)),
+            ).only('id', 'name', 'vendor').order_by('-name')
 
 
 class ProductDetailSet(viewsets.ModelViewSet):
@@ -134,16 +119,11 @@ class ProductDetailSet(viewsets.ModelViewSet):
         org = organization.get_current_organization(user=current_user, org_id=org_id)
 
         monitored_products = org.org_monitoring_list.products.all()
-        return Product.objects.all().prefetch_related(
-            'vendor', 'org_monitoring_list__products', 'org_monitoring_list',
-            'productversion_set'
+        return Product.objects.all().select_related('vendor').prefetch_related(
+            'versions'
             ).annotate(
-                monitored=Case(
-                    When(id__in=monitored_products, then=True),
-                    default=False,
-                    output_field=BooleanField()
-                )
-            ).order_by('-name').distinct()
+                monitored=Count("id", filter=Q(id__in=monitored_products))
+            ).order_by('-name')
 
 
 class CWESet(viewsets.ModelViewSet):

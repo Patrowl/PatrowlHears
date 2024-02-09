@@ -291,7 +291,7 @@ export default {
       // this.loading = false;
     },
     viewVuln(vuln_id) {
-      this.$router.push({ 'name': 'VulnDetails', 'params': { 'vuln_id': vuln_id } });
+      this.$router.push({ 'name': 'Vuln', 'params': { 'vuln_id': vuln_id } });
     },
     viewProduct(product_id) {
       const path = '/product/'+product_id;
