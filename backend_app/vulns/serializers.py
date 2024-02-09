@@ -8,6 +8,7 @@ from .models import (
     Vuln, ExploitMetadata, ThreatMetadata,
     OrgExploitMetadata, OrgThreatMetadata
 )
+from cves.serializers import ProducVersionSerializer
 from cpe import CPE as _CPE
 
 
@@ -18,36 +19,31 @@ class VulnSerializer(DynamicFieldsModelSerializer, serializers.HyperlinkedModelS
     cwe_name = serializers.SerializerMethodField()
     cwe_refs = serializers.SerializerMethodField()
     products = serializers.SerializerMethodField()
+    productversions = ProducVersionSerializer(many=True)
 
     def get_exploit_count(self, instance):
         # return instance.exploitmetadata_set.count() + instance.orgexploitmetadata_set.filter(organization_id=instance.org).count()
         return instance.exploitmetadata_set.count()
 
     def get_monitored(self, instance):
-        # print(instance)
-        # print(dir(instance))
-        if hasattr(instance, 'monitored'):
-            return instance.monitored
-        else:
-            return False
+        if isinstance(instance.monitored, int) and instance.monitored > 0:
+            return True
+        return False
 
     def get_cwe_id(self, instance):
         if instance.cwe is not None:
             return instance.cwe.cwe_id
-        else:
-            return ""
+        return ""
 
     def get_cwe_name(self, instance):
         if instance.cwe is not None:
             return instance.cwe.name
-        else:
-            return ""
+        return ""
 
     def get_cwe_refs(self, instance):
         if instance.cwe is not None:
             return instance.cwe.refs
-        else:
-            return ""
+        return ""
 
     def get_products(self, instance):
         return [{'id': p.id, 'name': p.name, 'vendor': p.vendor.name} for p in instance.products.all()]
@@ -78,21 +74,9 @@ class VulnSerializer(DynamicFieldsModelSerializer, serializers.HyperlinkedModelS
             'reflinks',
             'reflinkids',
             'created_at',
-            'updated_at'
+            'updated_at',
+            'productversions'
         ]
-    #
-    # def __init__(self, *args, **kwargs):
-    #     # Instantiate the superclass normally
-    #     super(VulnSerializer, self).__init__(*args, **kwargs)
-    #
-    #     fields = self.context['request'].query_params.get('fields')
-    #     if fields:
-    #         fields = fields.split(',')
-    #         # Drop any fields that are not specified in the `fields` argument.
-    #         allowed = set(fields)
-    #         existing = set(self.fields.keys())
-    #         for field_name in existing - allowed:
-    #             self.fields.pop(field_name)
 
 
 class ExploitCountOrderingFilter(OrderingFilter):
@@ -158,8 +142,11 @@ class VulnFilter(FilterSet):
             product = c[4]
             version = c[5]
             f = {
-                "products__vendor__name__contains": vendor,
-                "products__name__contains": product,
+                # "products__vendor__name__contains": vendor,
+                # "products__name__contains": product,
+                # "vulnerable_product_versions__{}__{}__contains".format(vendor, product): version
+                "products__vendor__name": vendor,
+                "products__name": product,
                 "vulnerable_product_versions__{}__{}__contains".format(vendor, product): version
             }
             return queryset.prefetch_related('products', 'products__vendor').filter(**f).distinct()
@@ -199,7 +186,7 @@ class VulnFilter(FilterSet):
     def filter_product_version(self, queryset, name, value):
         if type(value) == str:
             value = value.lower()
-        # print(value)
+        print(self.data['vendor_name'], self.data['product_name'], value)
 
         if 'product_name' in self.data.keys() and 'vendor_name' in self.data.keys():
             f = {"vulnerable_product_versions__{}__{}__contains".format(

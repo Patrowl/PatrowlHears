@@ -2,7 +2,7 @@ from django.db.models import Q
 from django_filters import FilterSet, OrderingFilter, CharFilter, BooleanFilter, NumberFilter
 from rest_framework import serializers
 from django.utils.translation import gettext_lazy as _
-from .models import CVE, CPE, CWE, Bulletin, Vendor, Product, Package
+from .models import CVE, CPE, CWE, Bulletin, Vendor, Product, Package, ProductVersion
 
 
 class CVESerializer(serializers.HyperlinkedModelSerializer):
@@ -106,7 +106,9 @@ class VendorSerializer(serializers.HyperlinkedModelSerializer):
     products_count = serializers.SerializerMethodField()
 
     def get_monitored(self, instance):
-        return instance.monitored
+        if isinstance(instance.monitored, int) and instance.monitored > 0:
+            return True
+        return False
 
     def get_products_count(self, instance):
         return instance.products_count
@@ -126,7 +128,9 @@ class VendorFilter(FilterSet):
         )
 
     def filter_monitored(self,  queryset, name, value):
-        return queryset.filter(monitored=value)
+        if value is True:
+            return queryset.filter(monitored__gt=0)
+        return queryset.filter(monitored=0)
 
     sorted_by = OrderingFilter(
         # tuple-mapping retains order
@@ -202,7 +206,9 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
         return instance.vendor.name
 
     def get_monitored(self, instance):
-        return instance.monitored
+        if isinstance(instance.monitored, int) and instance.monitored > 0:
+            return True
+        return False
 
     # def get_vulns_count(self, instance):
     #     return instance.vulns_count
@@ -247,11 +253,20 @@ class ProductDetailFilter(FilterSet):
         }
 
 
-class ProductDetailSerializer(serializers.HyperlinkedModelSerializer):
+class ProducVersionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductVersion
+        fields = [
+            'id', 'version'
+        ]
+        
+
+class ProductDetailSerializer(serializers.ModelSerializer):
     vendor = serializers.SerializerMethodField()
     vendor_id = serializers.SerializerMethodField()
-    versions = serializers.SerializerMethodField()
+    # versions = serializers.SerializerMethodField()
     monitored = serializers.SerializerMethodField()
+    versions = ProducVersionSerializer(many=True)
 
     def get_vendor(self, instance):
         return instance.vendor.name
@@ -259,18 +274,18 @@ class ProductDetailSerializer(serializers.HyperlinkedModelSerializer):
     def get_vendor_id(self, instance):
         return instance.vendor.id
 
-    def get_versions(self, instance):
-        versions = []
-        for v in instance.productversion_set.all().order_by('-version').distinct('version'):
-            versions.append(v.to_dict())
-        return versions
+    # def get_versions(self, instance):
+    #     return instance.productversion_set.all().only("id", "version").values("id", "version").order_by('-version').distinct()
 
     def get_monitored(self, instance):
-        return instance.monitored
+        if isinstance(instance.monitored, int) and instance.monitored > 0:
+            return True
+        return False
 
     class Meta:
         model = Product
-        fields = ['id', 'name', 'vendor', 'vendor_id', 'monitored', 'versions', 'monitored']
+        # fields = ['id', 'name', 'vendor', 'vendor_id', 'monitored', 'versions', 'vv']
+        fields = ['id', 'name', 'vendor', 'vendor_id', 'monitored', 'versions']
 
 
 class CWESerializer(serializers.HyperlinkedModelSerializer):

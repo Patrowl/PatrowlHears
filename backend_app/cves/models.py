@@ -21,7 +21,7 @@ def impact_default_dict():
 
 
 class Vendor(models.Model):
-    name = models.TextField(max_length=250, default="-", unique=True)
+    name = models.TextField(max_length=250, default="-", unique=True, db_index=True)
     created_at = models.DateTimeField(default=timezone.now, null=True)
     updated_at = models.DateTimeField(default=timezone.now, null=True)
     history = HistoricalRecords()
@@ -58,10 +58,8 @@ class Vendor(models.Model):
 
 
 class Product(models.Model):
-    name = models.TextField(max_length=250, default="-")
+    name = models.TextField(max_length=250, default="-", db_index=True)
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
-    versions = ArrayField(
-        models.CharField(max_length=250, blank=True), null=True)
     created_at = models.DateTimeField(default=timezone.now, null=True)
     updated_at = models.DateTimeField(default=timezone.now, null=True)
     history = HistoricalRecords()
@@ -83,7 +81,6 @@ class Product(models.Model):
         return {
             'id': self.id,
             'name': self.name,
-            'versions': self.versions,
             'vendor_id': self.vendor.id,
             'vendor': self.vendor.name,
             'created_at': self.created_at,
@@ -103,7 +100,7 @@ class Product(models.Model):
 
 class ProductVersion(models.Model):
     version = models.TextField(max_length=250, default="*")
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="versions")
     vector = models.CharField(max_length=250, default="", null=True)
     created_at = models.DateTimeField(default=timezone.now, null=True)
     updated_at = models.DateTimeField(default=timezone.now, null=True)

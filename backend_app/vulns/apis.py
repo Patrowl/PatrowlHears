@@ -51,25 +51,16 @@ class VulnSet(viewsets.ModelViewSet):
         org = organization.get_current_organization(user=self.request.user, org_id=org_id)
         monitored_vulns = []
         if org is not None:
-            monitored_vulns = list(org.org_monitoring_list.vulns.all().only('id').values_list('id', flat=True))
-
-        # default value: will be adjusted by the VulnSerializer
-        qs = Vuln.objects.all().prefetch_related(
+            monitored_vulns = org.org_monitoring_list.vulns.all().only('id')
+        qs = Vuln.objects.all().select_related('cwe').prefetch_related(
             'exploitmetadata_set', 'orgexploitmetadata_set',
-            'products', 'products__vendor', 'cwe'
+            'products', 'products__vendor', 'productversions'
         ).annotate(
             exploit_count=F('id'),
-            monitored=Case(
-                When(id__in=monitored_vulns, then=True),
-                default=False,
-                output_field=BooleanField()
-            ),
+            monitored=Count("id", filter=Q(id__in=monitored_vulns)),
             org=Value(org_id, output_field=CharField())
-        ).order_by('-updated_at')#.distinct()
+        ).order_by('-updated_at')
 
-        # if self.request.method == 'GET' and 'fields' in self.request.GET:
-        #     for f in self.request.GET.get('fields').split(','):
-        #         qs = qs.only(f)
         return qs
 
 
