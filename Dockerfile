@@ -1,5 +1,5 @@
 FROM python:3.7-slim
-LABEL Name="PatrowlHears" Version="1.3.4"
+LABEL Name="PatrowlHears" Version="1.3.5"
 
 ENV PYTHONUNBUFFERED 1
 RUN mkdir -p /opt/patrowl-hears/
@@ -7,16 +7,16 @@ WORKDIR /opt/patrowl-hears/
 
 RUN apt-get update -yq \
 	&& apt-get install -yq --no-install-recommends \
-		apt-utils \
-		python3 \
-		python3-pip \
-		libmagic-dev \
-		python3-psycopg2 \
-		python3-dev \
-		libpq-dev \
-		gcc \
-		git \
-		wget \
+	apt-utils \
+	python3 \
+	python3-pip \
+	libmagic-dev \
+	python3-psycopg2 \
+	python3-dev \
+	libpq-dev \
+	gcc \
+	git \
+	wget \
 	&& apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -28,7 +28,7 @@ RUN rm -rf env \
 	&& python --version \
 	&& pip3 install virtualenv \
 	&& virtualenv env \
-  && /opt/patrowl-hears/backend_app/env/bin/pip3 install -r /opt/patrowl-hears/backend_app/requirements.txt
+	&& /opt/patrowl-hears/backend_app/env/bin/pip3 install -r /opt/patrowl-hears/backend_app/requirements.txt
 
 WORKDIR /opt/patrowl-hears/
 
