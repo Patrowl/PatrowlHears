@@ -14,7 +14,7 @@ cpe==1.2.1
 cvsslib==0.6.0
 deepdiff==4.2.0
 #Django==3.2.11
-Django==3.1.14
+Django==4.2.16
 django-annoying==0.10.6
 django-celery-beat==2.0.0
 django-celery-results==2.0.0
@@ -98,7 +98,7 @@ django-auth-adfs==1.9.5
 # cvsslib==0.6.0
 # deepdiff==4.2.0
 # #Django==3.2.11
-# Django==3.1.14
+# Django==4.2.16
 # django-annoying==0.10.6
 # django-celery-beat==2.0.0
 # django-celery-results==2.0.0
