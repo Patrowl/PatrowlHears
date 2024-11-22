@@ -1,4 +1,4 @@
-FROM python:3.7-slim
+FROM python:3.14.0a2-slim
 LABEL Name="PatrowlHears" Version="1.3.5"
 
 ENV PYTHONUNBUFFERED 1
