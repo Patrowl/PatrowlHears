@@ -63,7 +63,7 @@ services:
     volumes:
       - ./backend_app/staticfiles:/opt/patrowl-hears/backend_app/staticfiles
       - ./docker-entrypoint.sh:/opt/patrowl-hears/docker-entrypoint.sh
-      - ${HOME}/.ssh:/root/.ssh  # This mounts the .ssh folder to the container's root user .ssh directory
+      - ${HOME}/.ssh:/root/.ssh  # This mounts the .ssh folder to the container's root user .ssh directory 
     command: /bin/bash -c "chmod 700 /root/.ssh && chmod 600 /root/.ssh/* && chown -R root:root /root/.ssh"
     links:
       - db
