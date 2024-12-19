@@ -2,7 +2,17 @@ from django.http import JsonResponse, HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
 from django.forms.models import model_to_dict
 from django.shortcuts import get_object_or_404
-from django.db.models import F, Value, Case, BooleanField, When, CharField, Count, Q
+from django.db.models import (
+    F,
+    Value,
+    Case,
+    BooleanField,
+    When,
+    CharField,
+    Count,
+    Q,
+    Prefetch,
+)
 from common.utils.pagination import StandardResultsSetPagination
 from common.utils import organization, get_api_default_permissions, _json_serial
 from rest_framework import viewsets
@@ -75,9 +85,15 @@ class VulnSet(viewsets.ModelViewSet):
             .prefetch_related(
                 "exploitmetadata_set",
                 # "orgexploitmetadata_set",
-                "products",
-                "products__vendor",
+                # "products",
+                # "products__vendor",
                 # "productversions",
+                Prefetch(
+                    "products",
+                    queryset=Product.objects.all()
+                    .select_related("vendor")
+                    .only("id", "name", "vendor_id", "vendor__name"),
+                ),
             )
             .select_related("cwe")
             .annotate(
@@ -91,7 +107,7 @@ class VulnSet(viewsets.ModelViewSet):
                 org=Value(org_id, output_field=CharField()),
             )
             # .order_by("-updated_at")
-            .order_by("-cveid")
+            # .order_by("-cveid")
         )
 
         return qs
