@@ -19,7 +19,8 @@ tar -xzvf $DUMPDIR/data.tgz -C $tmp_dir
 # ls  $tmp_dir
 [ -f $tmp_dir/CWE.json ] && env/bin/python manage.py loaddata $tmp_dir/CWE.json -v 3
 [ -f $tmp_dir/Vendor.json ] && env/bin/python manage.py loaddata $tmp_dir/Vendor.json -v 3
-[ -f $tmp_dir/Product.json ] && env/bin/python manage.py loaddata $tmp_dir/Product.json -v 3
+[ -f $tmp_dir/Product.json ] && cat $tmp_dir/Product.json | jq 'del(.[]|.fields.versions)' > $tmp_dir/Product_clean.json
+[ -f $tmp_dir/Product.json ] && env/bin/python manage.py loaddata $tmp_dir/Product_clean.json -v 3
 [ -f $tmp_dir/PackageType.json ] && env/bin/python manage.py loaddata $tmp_dir/PackageType.json -v 3
 [ -f $tmp_dir/Package.json ] && env/bin/python manage.py loaddata $tmp_dir/Package.json -v 3
 [ -f $tmp_dir/CPE.json ] && env/bin/python manage.py loaddata $tmp_dir/CPE.json -v 3

@@ -254,7 +254,8 @@ class VulnFilter(FilterSet):
     def filter_vendor_name(self, queryset, name, value):
         if type(value) == str:
             value = value.lower().replace(" ", "_")
-        # return queryset.filter(products__vendor__name__contains=value)
+        if "product_name" in self.data.keys():
+            return queryset
         return queryset.filter(products__vendor__name=value)
 
     def filter_product(self, queryset, name, value):
@@ -263,7 +264,15 @@ class VulnFilter(FilterSet):
     def filter_product_name(self, queryset, name, value):
         if type(value) == str:
             value = value.lower().replace(" ", "_")
-        # return queryset.filter(products__name__contains=value)
+
+        if "vendor_name" in self.data.keys():
+            f = {
+                "products__name": value,
+                "products__vendor__name": self.data["vendor_name"]
+                .lower()
+                .replace(" ", "_"),
+            }
+            return queryset.filter(**f).distinct()
         return queryset.filter(products__name=value)
 
     def filter_product_version(self, queryset, name, value):
