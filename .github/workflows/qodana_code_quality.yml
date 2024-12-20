@@ -22,7 +22,7 @@ jobs:
       - name: 'Qodana Scan'
         uses: JetBrains/qodana-action@v2024.2
         with:
-          pr-mode: false
+          pr-mode: true
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_500553042 }}
           QODANA_ENDPOINT: 'https://qodana.cloud'
