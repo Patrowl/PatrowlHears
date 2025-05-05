@@ -5,19 +5,11 @@ from simple_history.models import HistoricalRecords
 
 
 def access_default_dict():
-    return {
-        'authentication': None,
-        'complexity': None,
-        'vector': None
-    }
+    return {"authentication": None, "complexity": None, "vector": None}
 
 
 def impact_default_dict():
-    return {
-        'availability': None,
-        'confidentiality': None,
-        'integrity': None
-    }
+    return {"availability": None, "confidentiality": None, "integrity": None}
 
 
 class Vendor(models.Model):
@@ -28,9 +20,7 @@ class Vendor(models.Model):
 
     class Meta:
         db_table = "kb_vendor"
-        indexes = [
-            models.Index(fields=['name'])
-        ]
+        indexes = [models.Index(fields=["name"])]
 
     def __unicode__(self):
         return self.name
@@ -43,10 +33,10 @@ class Vendor(models.Model):
 
     def to_dict(self):
         return {
-            'id': self.id,
-            'name': self.name,
-            'created_at': self.created_at,
-            'updated_at': self.updated_at
+            "id": self.id,
+            "name": self.name,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at,
         }
 
     def save(self, touch=True, *args, **kwargs):
@@ -66,10 +56,8 @@ class Product(models.Model):
 
     class Meta:
         db_table = "kb_product"
-        unique_together = (('name', 'vendor'),)
-        indexes = [
-            models.Index(fields=['name'])
-        ]
+        unique_together = (("name", "vendor"),)
+        indexes = [models.Index(fields=["name"])]
 
     def __unicode__(self):
         return self.name
@@ -79,12 +67,12 @@ class Product(models.Model):
 
     def to_dict(self):
         return {
-            'id': self.id,
-            'name': self.name,
-            'vendor_id': self.vendor.id,
-            'vendor': self.vendor.name,
-            'created_at': self.created_at,
-            'updated_at': self.updated_at
+            "id": self.id,
+            "name": self.name,
+            "vendor_id": self.vendor.id,
+            "vendor": self.vendor.name,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at,
         }
 
     def is_monitored(self, org):
@@ -100,7 +88,9 @@ class Product(models.Model):
 
 class ProductVersion(models.Model):
     version = models.TextField(max_length=250, default="*")
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="versions")
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name="versions"
+    )
     vector = models.CharField(max_length=250, default="", null=True)
     created_at = models.DateTimeField(default=timezone.now, null=True)
     updated_at = models.DateTimeField(default=timezone.now, null=True)
@@ -108,7 +98,7 @@ class ProductVersion(models.Model):
 
     class Meta:
         db_table = "kb_product_version"
-        unique_together = (('version', 'vector', 'product'),)
+        unique_together = (("version", "vector", "product"),)
 
     def __unicode__(self):
         return "{} - {}".format(self.product.name, self.version)
@@ -118,15 +108,15 @@ class ProductVersion(models.Model):
 
     def to_dict(self):
         return {
-            'id': self.id,
-            'version': self.version,
-            'product_id': self.product.id,
-            'product': self.product.name,
-            'vendor_id': self.product.vendor.id,
-            'vendor': self.product.vendor.name,
-            'vector': self.vector,
-            'created_at': self.created_at,
-            'updated_at': self.updated_at
+            "id": self.id,
+            "version": self.version,
+            "product_id": self.product.id,
+            "product": self.product.name,
+            "vendor_id": self.product.vendor.id,
+            "vendor": self.product.vendor.name,
+            "vector": self.vector,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at,
         }
 
     def save(self, touch=True, *args, **kwargs):
@@ -154,11 +144,12 @@ class PackageType(models.Model):
 
     def to_dict(self):
         return {
-            'id': self.id,
-            'name': self.name,
-            'created_at': self.created_at,
-            'updated_at': self.updated_at
+            "id": self.id,
+            "name": self.name,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at,
         }
+
     #
     # def is_monitored(self, org):
     #     return self in org.org_monitoring_list.products.all()
@@ -180,7 +171,7 @@ class Package(models.Model):
 
     class Meta:
         db_table = "kb_package"
-        unique_together = (('name', 'type'),)
+        unique_together = (("name", "type"),)
 
     def __unicode__(self):
         return "{}/{}".format(self.type.name, self.name)
@@ -190,12 +181,13 @@ class Package(models.Model):
 
     def to_dict(self):
         return {
-            'id': self.id,
-            'name': self.name,
-            'type': self.type.name,
-            'created_at': self.created_at,
-            'updated_at': self.updated_at
+            "id": self.id,
+            "name": self.name,
+            "type": self.type.name,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at,
         }
+
     #
     # def is_monitored(self, org):
     #     return self in org.org_monitoring_list.products.all()
@@ -214,10 +206,13 @@ class CPE(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
     vector = models.CharField(max_length=250, default="", null=True)
     vulnerable_products = ArrayField(
-        models.CharField(max_length=250, blank=True), null=True)
+        models.CharField(max_length=250, blank=True), null=True
+    )
     created_at = models.DateTimeField(default=timezone.now, null=True)
     updated_at = models.DateTimeField(default=timezone.now, null=True)
-    history = HistoricalRecords(excluded_fields=['updated_at'], cascade_delete_history=True)
+    history = HistoricalRecords(
+        excluded_fields=["updated_at"], cascade_delete_history=True
+    )
 
     class Meta:
         db_table = "kb_cpe"
@@ -230,16 +225,16 @@ class CPE(models.Model):
 
     def to_dict(self):
         return {
-            'id': self.id,
-            'title': self.title,
-            'vendor_id': self.product.vendor.id,
-            'vendor': self.product.vendor.name,
-            'product_id': self.product.id,
-            'product': self.product.name,
-            'vector': self.vector,
-            'vulnerable_products': self.vulnerable_products,
-            'created_at': self.created_at,
-            'updated_at': self.updated_at
+            "id": self.id,
+            "title": self.title,
+            "vendor_id": self.product.vendor.id,
+            "vendor": self.product.vendor.name,
+            "product_id": self.product.id,
+            "product": self.product.name,
+            "vector": self.vector,
+            "vulnerable_products": self.vulnerable_products,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at,
         }
 
     def save(self, touch=True, *args, **kwargs):
@@ -269,13 +264,13 @@ class CWE(models.Model):
 
     def to_dict(self):
         return {
-            'id': self.id,
-            'cwe_id': self.cwe_id,
-            'name': self.name,
-            'refs': self.refs,
-            'description': self.description,
-            'created_at': self.created_at,
-            'updated_at': self.updated_at
+            "id": self.id,
+            "cwe_id": self.cwe_id,
+            "name": self.name,
+            "refs": self.refs,
+            "description": self.description,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at,
         }
 
     def save(self, touch=True, *args, **kwargs):
@@ -311,16 +306,16 @@ class Bulletin(models.Model):
 
     def to_dict(self):
         return {
-            'id': self.id,
-            'publicid': self.publicid,
-            'vendor': self.vendor,
-            'title': self.title,
-            'severity': self.severity,
-            'impact': self.impact,
-            'published': self.published,
-            'modified': self.modified,
-            'created_at': self.created_at,
-            'updated_at': self.updated_at
+            "id": self.id,
+            "publicid": self.publicid,
+            "vendor": self.vendor,
+            "title": self.title,
+            "severity": self.severity,
+            "impact": self.impact,
+            "published": self.published,
+            "modified": self.modified,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at,
         }
 
     def save(self, touch=True, *args, **kwargs):
@@ -335,8 +330,8 @@ class Bulletin(models.Model):
 class CVE(models.Model):
     cve_id = models.CharField(max_length=20, null=True, unique=True)
     summary = models.TextField(default="", blank=True)
-    products = models.ManyToManyField(Product, related_name='cves')
-    productversions = models.ManyToManyField(ProductVersion, related_name='cves')
+    products = models.ManyToManyField(Product, related_name="cves")
+    productversions = models.ManyToManyField(ProductVersion, related_name="cves")
     published = models.DateTimeField(null=True)
     modified = models.DateTimeField(null=True)
     assigner = models.CharField(max_length=50, null=True)
@@ -353,7 +348,8 @@ class CVE(models.Model):
     access = models.JSONField(default=access_default_dict)
     impact = models.JSONField(default=impact_default_dict)
     vulnerable_products = ArrayField(
-        models.CharField(max_length=250, blank=True), blank=True, null=True)
+        models.CharField(max_length=250, blank=True), blank=True, null=True
+    )
     bulletins = models.ManyToManyField(Bulletin, blank=True)
     references = models.JSONField(default=dict)
     monitored = models.BooleanField(default=False)
@@ -375,31 +371,31 @@ class CVE(models.Model):
         if self.cwe:
             cwe_id = self.cwe.id
         return {
-            'id': self.id,
-            'cve_id': self.cve_id,
-            'summary': self.summary,
-            'products': [p.id for p in self.products.all()],
-            'productversions': [p.id for p in self.productversions.all()],
-            'published': self.published,
-            'modified': self.modified,
-            'assigner': self.assigner,
-            'cvss': self.cvss,
-            'cvss_time': self.cvss_time,
-            'cvss_vector': self.cvss_vector,
-            'cvss_version': self.cvss3_version,
-            'cvss_metrics': self.cvss_metrics,
-            'cvss3': self.cvss3,
-            'cvss3_vector': self.cvss3_vector,
-            'cvss3_version': self.cvss3_version,
-            'cvss3_metrics': self.cvss3_metrics,
-            'cwe': cwe_id,
-            'access': self.access,
-            'impact': self.impact,
-            'vulnerable_products': self.vulnerable_products,
-            'bulletins': [b.id for b in self.bulletins.all()],
-            'references': self.references,
-            'created_at': self.created_at,
-            'updated_at': self.updated_at
+            "id": self.id,
+            "cve_id": self.cve_id,
+            "summary": self.summary,
+            "products": [p.id for p in self.products.all()],
+            "productversions": [p.id for p in self.productversions.all()],
+            "published": self.published,
+            "modified": self.modified,
+            "assigner": self.assigner,
+            "cvss": self.cvss,
+            "cvss_time": self.cvss_time,
+            "cvss_vector": self.cvss_vector,
+            "cvss_version": self.cvss3_version,
+            "cvss_metrics": self.cvss_metrics,
+            "cvss3": self.cvss3,
+            "cvss3_vector": self.cvss3_vector,
+            "cvss3_version": self.cvss3_version,
+            "cvss3_metrics": self.cvss3_metrics,
+            "cwe": cwe_id,
+            "access": self.access,
+            "impact": self.impact,
+            "vulnerable_products": self.vulnerable_products,
+            "bulletins": [b.id for b in self.bulletins.all()],
+            "references": self.references,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at,
         }
 
     def save(self, touch=True, *args, **kwargs):

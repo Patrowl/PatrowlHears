@@ -1,5 +1,5 @@
 FROM python:3.7-slim
-LABEL Name="PatrowlHears" Version="1.3.5"
+LABEL Name="PatrowlHears" Version="1.3.6"
 
 ENV PYTHONUNBUFFERED 1
 RUN mkdir -p /opt/patrowl-hears/
@@ -17,6 +17,7 @@ RUN apt-get update -yq \
 	gcc \
 	git \
 	wget \
+	jq \
 	&& apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
