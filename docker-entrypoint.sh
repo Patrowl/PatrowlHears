@@ -80,7 +80,7 @@ CPU_CORES=$(nproc)
 WORKERS=$((CPU_CORES * 2 + 1))
 THREADS=2
 
-# Run Gunicorn with dynamic values
+# Start backend server
 echo "[+] Starting server"
 gunicorn -b $APP_HOST:$APP_PORT backend_app.wsgi:application \
   --timeout 300 \
