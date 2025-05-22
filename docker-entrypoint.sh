@@ -73,6 +73,16 @@ if admin_user.organizations_organization.count() == 0:\r\
 echo "[+] Start Supervisord (Celery workers)"
 supervisord -c var/etc/supervisord.conf
 
-# Start server
+# Get number of CPU cores
+CPU_CORES=$(nproc)
+
+# Set a sensible default or scaling factor
+WORKERS=$((CPU_CORES * 2 + 1))
+THREADS=2
+
+# Start server (Run Gunicorn with dynamic values)
 echo "[+] Starting server"
-gunicorn -b $APP_HOST:$APP_PORT backend_app.wsgi:application --timeout 300
+gunicorn -b $APP_HOST:$APP_PORT backend_app.wsgi:application \
+  --timeout 300 \
+  --workers $WORKERS \
+  --threads $THREADS
