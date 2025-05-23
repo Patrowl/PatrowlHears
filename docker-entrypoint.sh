@@ -73,8 +73,14 @@ if admin_user.organizations_organization.count() == 0:\r\
 echo "[+] Start Supervisord (Celery workers)"
 supervisord -c var/etc/supervisord.conf
 
-# Get number of CPU cores
-CPU_CORES=$(nproc)
+# Detect number of available CPU cores (supports Linux and macOS)
+if command -v nproc >/dev/null; then
+  # Linux and WSL
+  CPU_CORES=$(nproc)
+else
+  # macOS
+  CPU_CORES=$(sysctl -n hw.ncpu)
+fi
 
 # Set a sensible default or scaling factor
 WORKERS=$((CPU_CORES * 2 + 1))

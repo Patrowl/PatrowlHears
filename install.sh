@@ -114,8 +114,14 @@ supervisord -c var/etc/supervisord.conf
 sleep 3
 supervisorctl -s http://127.0.0.1:9002 status all
 
-# Get number of CPU cores
-CPU_CORES=$(nproc)
+# Detect number of available CPU cores (supports Linux and macOS)
+if command -v nproc >/dev/null; then
+  # Linux and WSL
+  CPU_CORES=$(nproc)
+else
+  # macOS
+  CPU_CORES=$(sysctl -n hw.ncpu)
+fi
 
 # Set a sensible default or scaling factor
 WORKERS=$((CPU_CORES * 2 + 1))
