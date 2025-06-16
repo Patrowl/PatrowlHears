@@ -114,9 +114,25 @@ supervisord -c var/etc/supervisord.conf
 sleep 3
 supervisorctl -s http://127.0.0.1:9002 status all
 
+# Detect number of available CPU cores (supports Linux and macOS)
+if command -v nproc >/dev/null; then
+  # Linux and WSL
+  CPU_CORES=$(nproc)
+else
+  # macOS
+  CPU_CORES=$(sysctl -n hw.ncpu)
+fi
+
+# Set a sensible default or scaling factor
+WORKERS=$((CPU_CORES * 2 + 1))
+THREADS=2
+
 # Start backend server
 echo "[+] Starting backend server (Gunicorn) on $APP_HOST:$APP_PORT"
-gunicorn -b $APP_HOST:$APP_PORT backend_app.wsgi:application --timeout 300 --workers 2 --daemon
+gunicorn -b $APP_HOST:$APP_PORT backend_app.wsgi:application \
+  --timeout 300 \
+  --workers $WORKERS \
+  --threads $THREADS
 
 # Start WEB server
 echo "[+] Starting WEB server (nginx) on $APP_HOST:$WEB_PORT"
