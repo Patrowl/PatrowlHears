@@ -14,7 +14,7 @@ cpe==1.2.1
 cvsslib==0.6.0
 deepdiff==4.2.0
 #Django==3.2.11
-Django==3.1.14
+Django==4.2.27
 django-annoying==0.10.6
 django-celery-beat==2.0.0
 django-celery-results==2.0.0
@@ -62,7 +62,7 @@ s3transfer==0.3.3
 simplejson==3.17.0
 six==1.13.0
 slackclient==2.5.0
-sqlparse==0.4.2
+sqlparse==0.5.4
 supervisor==4.1.0
 tqdm==4.56.0
 typing-extensions==3.7.4.3
