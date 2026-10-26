@@ -162,3 +162,4 @@ django-auth-adfs==1.9.5
 # django-cachalot==2.5.1
 # python-memcached==1.59
 # django-auth-adfs==1.9.5
+cryptography>=46.0.5 # not directly required, pinned by Snyk to avoid a vulnerability
