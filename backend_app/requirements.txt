@@ -13,7 +13,7 @@ cpe==1.2.1
 cvsslib==0.6.0
 deepdiff==4.2.0
 Django==3.1.14
-django-annoying==0.10.6
+django-annoying==0.10.8
 django-celery-beat==2.0.0
 django-celery-results==2.0.0
 django-cors-headers==3.5.0
